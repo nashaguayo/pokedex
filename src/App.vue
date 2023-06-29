@@ -29,17 +29,22 @@ export default {
   margin: 0 !important;
 }
 
+:root {
+  --main-background-color: black;
+  --main-text-color: white;
+}
+
 #app {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: black;
+  background-color: var(--main-background-color);
   height: 100vh;
 
   h1 {
-    color: white;
+    color: var(--main-text-color);
   }
 
   span {
-    color: white;
+    color: var(--main-text-color);
   }
 }
 </style>
