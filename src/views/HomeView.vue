@@ -2,17 +2,23 @@
   <div class="home">
     <div class="logo">
       <img :src="require('@assets/home-view/pokedex-logo.png')" />
-      <h2>Learn all about pokemons, fight battles, and more!</h2>
+      <h2>Learn all about pokemons!</h2>
     </div>
     <div class="content">
-      <img :src="require('@assets/home-view/pokemons.jpg')" />
+      <img src="@assets/home-view/pokemons.jpg" class="banner" />
+      <RandomPokemon />
     </div>
   </div>
 </template>
 
 <script>
+import RandomPokemon from '@components/home/RandomPokemon.vue';
+
 export default {
   name: 'HomeView',
+  components: {
+    RandomPokemon,
+  },
 };
 </script>
 
@@ -26,7 +32,11 @@ export default {
   }
 
   .content {
-    img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .banner {
       width: 100%;
     }
   }

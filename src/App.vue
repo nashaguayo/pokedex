@@ -37,13 +37,15 @@ export default {
     url(@assets/fonts/pokemon-hollow.ttf) format('truetype');
 }
 
-* {
-  margin: 0 !important;
+@font-face {
+  font-family: 'Upheaval';
+  src: local('Upheaval'), url(@assets/fonts/upheaval.ttf) format('truetype');
 }
 
 :root {
   --main-background-color: white;
   --main-text-color: black;
+  --main-border-color: black;
 }
 
 #app {
@@ -57,6 +59,7 @@ export default {
   }
 
   h1 {
+    font-size: 3rem;
     font-family: 'Pokemon Solid';
   }
 
