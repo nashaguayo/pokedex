@@ -16,7 +16,7 @@ export default {
   async created() {
     const response = await axios.get('pokemon/1');
     if (response.status === 200) {
-      console.log('Ok');
+      console.log('Axios connection OK');
     } else {
       console.error('Something went wrong. Unable to connect to axios!');
     }
@@ -24,7 +24,22 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+* {
+  margin: 0 !important;
+}
+
 #app {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: black;
+  height: 100vh;
+
+  h1 {
+    color: white;
+  }
+
+  span {
+    color: white;
+  }
 }
 </style>
