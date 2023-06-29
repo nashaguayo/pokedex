@@ -15,6 +15,11 @@ const routes = [
     name: 'pokemons',
     component: () => import('@views/PokemonsView.vue'),
   },
+  {
+    path: '*',
+    name: 'pageNotFound',
+    component: () => import('@views/PageNotFoundView.vue'),
+  },
 ];
 
 const router = new VueRouter({
