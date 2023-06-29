@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/home',
+    redirect: '/',
+  },
+  {
     path: '/',
     name: 'home',
     component: HomeView,
@@ -16,9 +20,13 @@ const routes = [
     component: () => import('@views/PokemonsView.vue'),
   },
   {
-    path: '*',
+    path: '/404',
     name: 'pageNotFound',
     component: () => import('@views/PageNotFoundView.vue'),
+  },
+  {
+    path: '*',
+    redirect: '/404',
   },
 ];
 
