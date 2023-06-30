@@ -24,24 +24,33 @@ export default {
 
 <style lang="scss" scoped>
 @import '@css/colors.scss';
+@import '@css/media-queries.scss';
 
 .base-page {
-  background-image: url('@assets/ui/background.jpg');
-  background-size: contain;
   overflow-y: scroll;
   height: 100vh;
 
   .white-background {
     background-color: $main-background-color;
-    width: 75vw;
-    box-shadow: 0 0 0.5rem 0.3rem $main-shadow-color;
+    width: 100vw;
+    box-shadow: none;
     height: 100vh;
     padding: 0 3rem;
     overflow-y: scroll;
+
+    @media (min-width: $min-width-second-break) {
+      box-shadow: 0 0 0.5rem 0.3rem $main-shadow-color;
+      width: 75vw;
+    }
   }
 
   .white-background::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    background-image: url('@assets/ui/background.jpg');
+    background-size: contain;
   }
 }
 </style>
