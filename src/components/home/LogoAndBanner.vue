@@ -22,11 +22,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
 .logo-image {
-  width: 40rem;
+  width: 80%;
+
+  @media (min-width: $min-width-first-break) {
+    width: 20rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    width: 25rem;
+  }
 }
 
 .banner {
-  width: 80%;
+  display: none;
+
+  @media (min-width: $min-width-second-break) {
+    display: block;
+    width: 100%;
+  }
 }
 </style>
