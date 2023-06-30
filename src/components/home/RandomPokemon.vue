@@ -1,7 +1,7 @@
 <template>
   <!-- TO-DO: Create slot for this class, display flex, flex direction, align items. -->
   <div class="random-pokemon">
-    <h1>Random Pokemon</h1>
+    <h2>Random Pokemon</h2>
     <div class="pokedex">
       <div class="buttons">
         <div class="big-button">

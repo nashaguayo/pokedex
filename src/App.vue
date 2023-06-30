@@ -66,6 +66,7 @@ export default {
   }
 
   h2 {
+    font-size: 2.5rem;
     font-family: 'Pokemon Hollow';
   }
 }
