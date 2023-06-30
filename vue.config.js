@@ -4,6 +4,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
+        '@css': path.resolve(__dirname, 'src/css'),
         '@config': path.resolve(__dirname, 'src/config'),
         '@components': path.resolve(__dirname, 'src/components'),
         '@views': path.resolve(__dirname, 'src/views'),

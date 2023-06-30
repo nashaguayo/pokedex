@@ -25,6 +25,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@css/colors.scss';
+
 @font-face {
   font-family: 'Pokemon Solid';
   src: local('Pokemon Solid'),
@@ -42,27 +44,18 @@ export default {
   src: local('Upheaval'), url(@assets/fonts/upheaval.ttf) format('truetype');
 }
 
-:root {
-  --main-background-color: white;
-  --main-text-color: black;
-  --main-border-color: black;
-  --main-shadow-color: black;
-
-  --secondary-background-color: #ff007b;
-}
-
 body {
   margin: 0;
 }
 
 #app {
-  background-color: var(--main-background-color);
   height: 100vh;
 
   h1,
+  h2,
   span,
   p {
-    color: var(--main-text-color);
+    color: $main-text-color;
   }
 
   h1 {

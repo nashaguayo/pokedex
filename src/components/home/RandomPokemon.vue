@@ -22,24 +22,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/colors.scss';
+
 .pokedex {
   margin: 1rem 0;
-  border: 0.5rem solid var(--main-border-color);
+  border: 0.5rem solid $main-border-color;
   border-radius: 10px;
-  box-shadow: 0.5rem 0.5rem var(--main-shadow-color);
+  box-shadow: 0.5rem 0.5rem $main-shadow-color;
   height: 40rem;
   width: 20rem;
-  background-color: var(--secondary-background-color);
+  background-color: $secondary-background-color;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .big-button {
-    border: 0.2rem solid var(--main-border-color);
+    border: 0.2rem solid $main-border-color;
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
-    box-shadow: 0.2rem 0.2rem var(--main-shadow-color);
+    box-shadow: 0.2rem 0.2rem $main-shadow-color;
     background-color: #03fcf8;
     margin: 1rem 0;
   }
@@ -58,8 +60,8 @@ export default {
     border-radius: 1rem;
     width: 15rem;
     height: 15rem;
-    border: 0.2rem solid var(--main-border-color);
-    background-color: var(--main-background-color);
+    border: 0.2rem solid $main-border-color;
+    background-color: $main-background-color;
   }
 }
 </style>
