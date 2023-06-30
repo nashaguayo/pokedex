@@ -46,6 +46,8 @@ export default {
   --main-background-color: white;
   --main-text-color: black;
   --main-border-color: black;
+  --main-shadow-color: grey;
+  --secondary-background-color: #ff007b;
 }
 
 #app {
