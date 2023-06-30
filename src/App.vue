@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import pokemonApi from './config/pokemonApi';
+import pokemonApi from '@config/pokemonApi';
 
 export default {
   name: 'App',
@@ -46,7 +46,8 @@ export default {
   --main-background-color: white;
   --main-text-color: black;
   --main-border-color: black;
-  --main-shadow-color: grey;
+  --main-shadow-color: black;
+
   --secondary-background-color: #ff007b;
 }
 
@@ -65,12 +66,10 @@ body {
   }
 
   h1 {
-    font-size: 3rem;
     font-family: 'Pokemon Solid';
   }
 
   h2 {
-    font-size: 2.5rem;
     font-family: 'Pokemon Hollow';
   }
 

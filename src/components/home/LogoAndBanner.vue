@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 .logo-image {
-  width: 40rem;
+  width: 80%;
 }
 
 .banner {

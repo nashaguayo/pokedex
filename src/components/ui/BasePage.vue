@@ -30,7 +30,7 @@ export default {
   height: 100vh;
 
   .white-background {
-    background-color: white;
+    background-color: var(--main-background-color);
     width: 75vw;
     box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
     height: 100vh;
