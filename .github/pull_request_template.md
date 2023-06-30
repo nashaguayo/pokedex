@@ -1,4 +1,0 @@
-**Ticket**</br>
-PD-
-
-**Tasks**
