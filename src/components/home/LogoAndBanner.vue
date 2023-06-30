@@ -1,14 +1,17 @@
 <template>
-  <div class="logo-and-banner">
+  <CenteredColumn>
     <img class="logo-image" src="@assets/home-view/pokedex-logo.png" />
     <h1 v-if="subtitle">{{ subtitle }}</h1>
     <img class="banner" src="@assets/home-view/pokemons.jpg" />
-  </div>
+  </CenteredColumn>
 </template>
 
 <script>
+import CenteredColumn from '@components/ui/CenteredColumn';
+
 export default {
   name: 'LogoAndBanner',
+  components: { CenteredColumn },
   props: {
     subtitle: {
       type: String,
@@ -19,18 +22,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.logo-and-banner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+.logo-image {
+  width: 40rem;
+}
 
-  .logo-image {
-    width: 40rem;
-  }
-
-  .banner {
-    width: 80%;
-  }
+.banner {
+  width: 80%;
 }
 </style>
