@@ -50,6 +50,10 @@ export default {
   --secondary-background-color: #ff007b;
 }
 
+body {
+  margin: 0;
+}
+
 #app {
   background-color: var(--main-background-color);
   height: 100vh;
@@ -68,6 +72,11 @@ export default {
   h2 {
     font-size: 2.5rem;
     font-family: 'Pokemon Hollow';
+  }
+
+  h1,
+  h2 {
+    text-shadow: #fc0 1px 0 10px;
   }
 }
 </style>
