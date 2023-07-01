@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/colors.scss';
 @import '@css/media-queries.scss';
 
 .logo-image {
@@ -38,6 +39,7 @@ export default {
 
 .banner {
   display: none;
+  box-shadow: $main-box-shadow;
 
   @media (min-width: $min-width-second-break) {
     display: block;
