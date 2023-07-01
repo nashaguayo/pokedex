@@ -1,22 +1,23 @@
 <template>
   <div class="base-footer">
     <div id="disclaimer">
-      <span>This is a project built with love, for learning.</span><br />
-      <span>Please checkout the github repo and send your thoughts.</span>
+      <span>This is a project built for learning.</span>
     </div>
-    <CenteredColumn id="fueled-by">
-      <span>Fueled by</span>
-      <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
-        <img src="@assets/ui/pokeapi.png" alt="pokapi logo" />
+    <div class="logos">
+      <CenteredColumn id="fueled-by">
+        <span>Fueled by</span>
+        <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
+          <img src="@assets/ui/pokeapi.png" alt="pokapi logo" />
+        </a>
+      </CenteredColumn>
+      <a :href="githubRepoUrl" target="_blank" ref="noreferrer">
+        <img
+          src="@assets/ui/github-logo.jpeg"
+          id="github-logo"
+          alt="github logo"
+        />
       </a>
-    </CenteredColumn>
-    <a :href="githubRepoUrl" target="_blank" ref="noreferrer">
-      <img
-        src="@assets/ui/github-logo.jpeg"
-        class="github-logo"
-        alt="github logo"
-      />
-    </a>
+    </div>
   </div>
 </template>
 
@@ -61,21 +62,25 @@ export default {
     }
   }
 
-  #fueled-by {
-    justify-content: center;
+  .logos {
+    display: flex;
 
-    span {
-      color: $variant-text-color;
+    #fueled-by {
+      justify-content: center;
+
+      span {
+        color: $variant-text-color;
+      }
+
+      img {
+        width: 10rem;
+      }
     }
 
-    img {
-      width: 10rem;
+    #github-logo {
+      width: 4.2rem;
+      margin: 1rem;
     }
-  }
-
-  .github-logo {
-    width: 4.2rem;
-    margin: 1rem;
   }
 }
 </style>
