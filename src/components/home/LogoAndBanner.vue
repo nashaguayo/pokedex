@@ -1,8 +1,8 @@
 <template>
   <CenteredColumn>
-    <img class="logo-image" src="@assets/home-view/pokedex-logo.png" />
+    <img class="logo-image" src="@assets/home/pokedex-logo.png" />
     <h1 v-if="subtitle">{{ subtitle }}</h1>
-    <img class="banner" src="@assets/home-view/pokemons.jpg" />
+    <img class="banner" src="@assets/home/pokemons.jpg" />
   </CenteredColumn>
 </template>
 
