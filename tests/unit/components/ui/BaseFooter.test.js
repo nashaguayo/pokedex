@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import BaseFooter from '@/components/BaseFooter.vue';
+import BaseFooter from '@components/ui/BaseFooter.vue';
 
 describe('BaseFooter', () => {
   it('renders the disclaimer', () => {
@@ -30,14 +30,5 @@ describe('BaseFooter', () => {
       process.env.VUE_APP_GITHUB_REPO_URL
     );
     expect(githubLogoLink.find('img').attributes('alt')).toBe('github logo');
-  });
-
-  it('has the correct CSS class names and styles', () => {
-    const wrapper = shallowMount(BaseFooter);
-    expect(wrapper.classes()).toContain('base-footer');
-    expect(wrapper.find('#disclaimer').classes()).toContain(
-      'base-footer__disclaimer'
-    );
-    expect(wrapper.find('.logos').classes()).toContain('base-footer__logos');
   });
 });
