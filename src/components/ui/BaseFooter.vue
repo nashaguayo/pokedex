@@ -1,5 +1,5 @@
 <template>
-  <div class="base-footer">
+  <CenteredColumn class="base-footer">
     <div id="disclaimer">
       <span>This is a project built for learning.</span>
     </div>
@@ -18,7 +18,7 @@
         />
       </a>
     </div>
-  </div>
+  </CenteredColumn>
 </template>
 
 <script>
@@ -46,9 +46,6 @@ export default {
   width: 100%;
   bottom: 0;
   margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   @media (min-width: $min-width-first-break) {
     flex-direction: row;
