@@ -12,7 +12,21 @@
         <h2 class="pokemons-link">Pokemons</h2>
       </router-link>
     </div>
-    <button @click="toggleTheme">Click me</button>
+    <template v-if="isDarkModeEnabled">
+      <FontAwesomeIcon
+        @click="toggleTheme"
+        icon="fa-solid fa-toggle-off"
+        size="3x"
+        color="white"
+      />
+    </template>
+    <template v-else>
+      <FontAwesomeIcon
+        @click="toggleTheme"
+        icon="fa-solid fa-toggle-on"
+        size="3x"
+      />
+    </template>
   </div>
 </template>
 
