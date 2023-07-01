@@ -14,7 +14,6 @@ describe('BasePage', () => {
 
   it('renders the BaseFooter component in the footer slot', () => {
     const wrapper = shallowMount(BasePage);
-    console.log('aaaa', wrapper.html());
     expect(wrapper.find('basefooter-stub').exists()).toBe(true);
   });
 
