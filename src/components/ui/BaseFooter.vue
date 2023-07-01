@@ -37,17 +37,24 @@ export default {
 
 <style lang="scss" scoped>
 @import '@css/colors.scss';
+@import '@css/media-queries.scss';
 
 .base-footer {
   position: relative;
   background-color: $variant-background-color;
   box-shadow: $main-box-shadow;
   width: 100%;
-  height: 7rem;
   bottom: 0;
   margin-top: auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: $min-width-first-break) {
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+  }
 
   #disclaimer {
     margin: 0 1rem;
@@ -55,10 +62,20 @@ export default {
     flex-direction: column;
     height: 100%;
     justify-content: center;
+    margin-top: 1rem;
+
+    @media (min-width: $min-width-first-break) {
+      margin-top: 0;
+    }
 
     span {
       color: $variant-text-color;
       font-size: 1rem;
+      text-align: center;
+
+      @media (min-width: $min-width-first-break) {
+        text-align: left;
+      }
     }
   }
 
