@@ -10,7 +10,7 @@
           <img src="@assets/ui/pokeapi.png" alt="pokapi logo" />
         </a>
       </CenteredColumn>
-      <a :href="githubRepoUrl" target="_blank" ref="noreferrer">
+      <a :href="githubRepoUrl" id="repository" target="_blank" ref="noreferrer">
         <img
           src="@assets/ui/github-logo.jpeg"
           id="github-logo"
