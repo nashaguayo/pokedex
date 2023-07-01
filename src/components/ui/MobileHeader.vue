@@ -24,6 +24,7 @@ export default {
 
   .menu-icon {
     height: 4rem;
+    margin-left: 1.5rem;
   }
 }
 </style>
