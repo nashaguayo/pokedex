@@ -2,6 +2,7 @@
   <CenteredColumn class="base-page">
     <CenteredColumn class="white-background">
       <slot name="header">
+        <MobileHeader />
         <h1 v-if="title">{{ title }}</h1>
       </slot>
       <slot name="content"></slot>
@@ -14,11 +15,12 @@
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import MobileHeader from '@components/ui/MobileHeader.vue';
 import BaseFooter from '@components/ui/BaseFooter.vue';
 
 export default {
   name: 'BasePage',
-  components: { CenteredColumn, BaseFooter },
+  components: { CenteredColumn, MobileHeader, BaseFooter },
   props: {
     title: {
       type: String,
