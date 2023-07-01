@@ -1,17 +1,13 @@
 <template>
   <CenteredColumn class="base-page">
-    <div class="white-background">
+    <CenteredColumn class="white-background">
       <slot name="header">
-        <CenteredColumn>
-          <img class="logo" src="@assets/ui/logo.png" />
-          <h1 v-if="title">{{ title }}</h1>
-        </CenteredColumn>
+        <img class="logo" src="@assets/ui/logo.png" />
+        <h1 v-if="title">{{ title }}</h1>
       </slot>
-      <CenteredColumn>
-        <slot name="content"></slot>
-      </CenteredColumn>
+      <slot name="content"></slot>
       <slot name="footer"></slot>
-    </div>
+    </CenteredColumn>
   </CenteredColumn>
 </template>
 

@@ -102,7 +102,6 @@ body {
   h1,
   h2 {
     text-shadow: #fc0 1px 0 10px;
-    text-align: center;
   }
 }
 </style>
