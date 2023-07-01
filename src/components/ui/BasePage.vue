@@ -1,15 +1,16 @@
 <template>
   <CenteredColumn class="base-page">
     <div class="white-background">
-      <div class="header">
-        <slot name="header"></slot>
-      </div>
-      <div class="content">
+      <slot name="header">
+        <CenteredColumn>
+          <img class="logo" src="@assets/ui/logo.png" />
+          <h1 v-if="title">{{ title }}</h1>
+        </CenteredColumn>
+      </slot>
+      <CenteredColumn>
         <slot name="content"></slot>
-      </div>
-      <div class="footer">
-        <slot name="footer"></slot>
-      </div>
+      </CenteredColumn>
+      <slot name="footer"></slot>
     </div>
   </CenteredColumn>
 </template>
@@ -19,6 +20,12 @@ import CenteredColumn from '@components/ui/CenteredColumn.vue';
 export default {
   name: 'BasePage',
   components: { CenteredColumn },
+  props: {
+    title: {
+      type: String,
+      default: 'Pokemon',
+    },
+  },
 };
 </script>
 
@@ -51,6 +58,18 @@ export default {
   @media (min-width: $min-width-second-break) {
     background-image: url('@assets/ui/background.jpg');
     background-size: contain;
+  }
+
+  .logo {
+    width: 18rem;
+
+    @media (min-width: $min-width-first-break) {
+      width: 21rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      width: 27rem;
+    }
   }
 }
 </style>

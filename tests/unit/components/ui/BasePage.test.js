@@ -2,45 +2,51 @@ import { shallowMount } from '@vue/test-utils';
 import BasePage from '@components/ui/BasePage.vue';
 
 describe('BasePage', () => {
-  it('renders the component', () => {
+  it('renders the default title when no title prop is provided', () => {
     const wrapper = shallowMount(BasePage);
-    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.find('h1').text()).toBe('Pokemon');
   });
 
-  it('renders the CenteredColumn component', () => {
-    const wrapper = shallowMount(BasePage);
-    expect(wrapper.findComponent({ name: 'CenteredColumn' }).exists()).toBe(
-      true
-    );
+  it('renders the provided title when title prop is provided', () => {
+    const title = 'Custom Title';
+    const wrapper = shallowMount(BasePage, {
+      propsData: {
+        title,
+      },
+    });
+    expect(wrapper.find('h1').text()).toBe(title);
   });
 
   it('renders the header slot content', () => {
-    const headerContent = '<h1>Header Slot Content</h1>';
+    const slotContent = '<div class="custom-header">Header Content</div>';
     const wrapper = shallowMount(BasePage, {
       slots: {
-        header: headerContent,
+        header: slotContent,
       },
     });
-    expect(wrapper.find('.header').html()).toContain(headerContent);
+    expect(wrapper.find('.custom-header').exists()).toBe(true);
+    expect(wrapper.find('.custom-header').text()).toBe('Header Content');
   });
 
   it('renders the content slot content', () => {
-    const contentContent = '<p>Content Slot Content</p>';
+    const slotContent = '<div class="custom-content">Content</div>';
     const wrapper = shallowMount(BasePage, {
       slots: {
-        content: contentContent,
+        content: slotContent,
       },
     });
-    expect(wrapper.find('.content').html()).toContain(contentContent);
+    expect(wrapper.find('.custom-content').exists()).toBe(true);
+    expect(wrapper.find('.custom-content').text()).toBe('Content');
   });
 
   it('renders the footer slot content', () => {
-    const footerContent = '<p>Footer Slot Content</p>';
+    const slotContent = '<div class="custom-footer">Footer Content</div>';
     const wrapper = shallowMount(BasePage, {
       slots: {
-        footer: footerContent,
+        footer: slotContent,
       },
     });
-    expect(wrapper.find('.footer').html()).toContain(footerContent);
+    expect(wrapper.find('.custom-footer').exists()).toBe(true);
+    expect(wrapper.find('.custom-footer').text()).toBe('Footer Content');
   });
 });
