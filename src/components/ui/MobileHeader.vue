@@ -1,6 +1,8 @@
 <template>
   <div class="mobile-header">
-    <img src="@assets/ui/pokeball.svg.png" alt="menu" class="menu-icon" />
+    <router-link to="/">
+      <img src="@assets/ui/pokeball.svg.png" alt="menu" class="menu-icon" />
+    </router-link>
   </div>
 </template>
 
