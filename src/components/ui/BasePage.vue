@@ -44,6 +44,7 @@ export default {
     box-shadow: none;
     min-height: 100vh;
     overflow-y: scroll;
+    padding-top: 7rem;
 
     @media (min-width: $min-width-second-break) {
       box-shadow: 0 0 0.5rem 0.3rem $main-shadow-color;
