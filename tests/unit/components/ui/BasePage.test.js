@@ -1,10 +1,21 @@
 import { shallowMount } from '@vue/test-utils';
 import BasePage from '@components/ui/BasePage.vue';
 
+jest.mock('@components/ui/BaseFooter.vue', () => ({
+  name: 'BaseFooter',
+  template: '<div class="mocked-footer"></div>',
+}));
+
 describe('BasePage', () => {
   it('renders the default title when no title prop is provided', () => {
     const wrapper = shallowMount(BasePage);
     expect(wrapper.find('h1').text()).toBe('Pokemon');
+  });
+
+  it('renders the BaseFooter component in the footer slot', () => {
+    const wrapper = shallowMount(BasePage);
+    console.log('aaaa', wrapper.html());
+    expect(wrapper.find('basefooter-stub').exists()).toBe(true);
   });
 
   it('renders the provided title when title prop is provided', () => {

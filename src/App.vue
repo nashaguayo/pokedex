@@ -63,6 +63,7 @@ body {
   p {
     font-family: 'Upheaval';
     font-size: 1rem;
+    color: $main-text-color;
 
     @media (min-width: $min-width-first-break) {
       font-size: 1.2rem;

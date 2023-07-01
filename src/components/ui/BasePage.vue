@@ -6,16 +6,20 @@
         <h1 v-if="title">{{ title }}</h1>
       </slot>
       <slot name="content"></slot>
-      <slot name="footer"></slot>
+      <slot name="footer">
+        <BaseFooter />
+      </slot>
     </CenteredColumn>
   </CenteredColumn>
 </template>
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import BaseFooter from '@components/ui/BaseFooter.vue';
+
 export default {
   name: 'BasePage',
-  components: { CenteredColumn },
+  components: { CenteredColumn, BaseFooter },
   props: {
     title: {
       type: String,
@@ -37,8 +41,7 @@ export default {
     background-color: $main-background-color;
     width: 100vw;
     box-shadow: none;
-    height: 100vh;
-    padding: 0 3rem;
+    min-height: 100vh;
     overflow-y: scroll;
 
     @media (min-width: $min-width-second-break) {
