@@ -8,6 +8,7 @@ module.exports = {
   moduleNameMapper: {
     '^@src/(.*)': '<rootDir>/src/$1',
     '^@components/(.*)': '<rootDir>/src/components/$1',
+    '^@views/(.*)': '<rootDir>/src/views/$1',
   },
   testEnvironment: 'jsdom',
 };
