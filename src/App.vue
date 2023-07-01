@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <!-- <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/pokemons">Pokemons</router-link>
-    </nav> -->
     <router-view />
   </div>
 </template>
@@ -47,6 +43,22 @@ export default {
 
 body {
   margin: 0;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
 }
 
 #app {
@@ -102,7 +114,7 @@ body {
 
   h1,
   h2 {
-    text-shadow: #fc0 1px 0 10px;
+    text-shadow: $secondary-background-color 0.1rem 0 1rem;
     letter-spacing: 0.25rem;
     text-align: center;
   }
