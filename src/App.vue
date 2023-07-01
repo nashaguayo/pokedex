@@ -98,7 +98,7 @@ body {
 
   h1,
   h2 {
-    text-shadow: #fc0 1px 0 10px;
+    text-shadow: $secondary-background-color 0.1rem 0 1rem;
     letter-spacing: 0.25rem;
     text-align: center;
   }
