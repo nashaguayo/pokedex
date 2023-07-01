@@ -12,21 +12,23 @@
         <h2 class="pokemons-link">Pokemons</h2>
       </router-link>
     </div>
-    <template v-if="isDarkModeEnabled">
-      <FontAwesomeIcon
-        @click="toggleTheme"
-        icon="fa-solid fa-toggle-off"
-        size="3x"
-        color="white"
-      />
-    </template>
-    <template v-else>
-      <FontAwesomeIcon
-        @click="toggleTheme"
-        icon="fa-solid fa-toggle-on"
-        size="3x"
-      />
-    </template>
+    <div class="darkmode">
+      <template v-if="isDarkModeEnabled">
+        <FontAwesomeIcon
+          @click="toggleTheme"
+          icon="fa-solid fa-toggle-off"
+          size="3x"
+          color="white"
+        />
+      </template>
+      <template v-else>
+        <FontAwesomeIcon
+          @click="toggleTheme"
+          icon="fa-solid fa-toggle-on"
+          size="3x"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -68,6 +70,7 @@ export default {
   top: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   @media (min-width: $min-width-second-break) {
     width: 75vw;
@@ -85,6 +88,10 @@ export default {
 
   .pokemons-link {
     margin-left: 1rem;
+  }
+
+  .darkmode {
+    margin-right: 2rem;
   }
 }
 </style>
