@@ -17,9 +17,3 @@ export default {
   name: 'PageNotFoundView',
 };
 </script>
-
-<style lang="scss" scoped>
-.page-not-found-text {
-  text-align: center;
-}
-</style>
