@@ -5,17 +5,24 @@
       <span>Please checkout the github repo and send your thoughts.</span><br />
       <span>Thank you for sharing!</span>
     </div>
-    <img
-      src="@assets/ui/github-logo.jpeg"
-      class="github-logo"
-      alt="github logo"
-    />
+    <a :href="githubRepoUrl" target="_blank" ref="noreferrer">
+      <img
+        src="@assets/ui/github-logo.jpeg"
+        class="github-logo"
+        alt="github logo"
+      />
+    </a>
   </div>
 </template>
 
 <script>
 export default {
   name: 'BaseFooter',
+  data() {
+    return {
+      githubRepoUrl: process.env.VUE_APP_GITHUB_REPO_URL,
+    };
+  },
 };
 </script>
 
@@ -25,6 +32,7 @@ export default {
 .base-footer {
   position: relative;
   background-color: $variant-background-color;
+  box-shadow: $main-box-shadow;
   width: 100%;
   height: 7rem;
   bottom: 0;
