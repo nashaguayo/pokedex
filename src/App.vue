@@ -59,6 +59,20 @@ body {
     color: $main-text-color;
   }
 
+  span,
+  p {
+    font-family: 'Upheaval';
+    font-size: 1rem;
+
+    @media (min-width: $min-width-first-break) {
+      font-size: 1.2rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      font-size: 1.5rem;
+    }
+  }
+
   h1 {
     font-family: 'Pokemon Solid';
     font-size: 1.5rem;
@@ -88,7 +102,6 @@ body {
   h1,
   h2 {
     text-shadow: #fc0 1px 0 10px;
-    text-align: center;
   }
 }
 </style>

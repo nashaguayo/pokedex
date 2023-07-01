@@ -11,7 +11,7 @@
 
 <script>
 import BasePage from '@components/ui/BasePage.vue';
-import LogoAndBanner from '@/components/home/LogoAndBanner.vue';
+import LogoAndBanner from '@components/home/LogoAndBanner.vue';
 import RandomPokemon from '@components/home/RandomPokemon.vue';
 
 export default {
