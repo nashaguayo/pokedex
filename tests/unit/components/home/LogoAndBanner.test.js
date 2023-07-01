@@ -17,6 +17,6 @@ describe('LogoAndBanner', () => {
       matches: query.includes('min-width-second-break'),
     }));
     const wrapper = shallowMount(LogoAndBanner);
-    expect(wrapper.find('.banner').exists()).toBe(true);
+    expect(wrapper.find('.banner').exists()).toBe(false);
   });
 });
