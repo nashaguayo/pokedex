@@ -42,7 +42,7 @@ export default {
     background-color: $main-background-color;
     width: 100vw;
     box-shadow: none;
-    min-height: 100vh;
+    min-height: calc(100vh - 5rem);
     overflow-y: scroll;
     padding-top: 7rem;
 
