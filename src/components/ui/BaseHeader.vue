@@ -1,27 +1,43 @@
 <template>
   <div class="base-header">
-    <router-link to="/">
-      <img
-        src="@assets/ui/pokeball.svg.png"
-        alt="menu"
-        class="home-icon-link"
-      />
-    </router-link>
-    <router-link to="/pokemons">
-      <h2 class="pokemons-link">Pokemons</h2>
-    </router-link>
+    <div class="navigation">
+      <router-link to="/">
+        <img
+          src="@assets/ui/pokeball.svg.png"
+          alt="menu"
+          class="home-icon-link"
+        />
+      </router-link>
+      <router-link to="/pokemons">
+        <h2 class="pokemons-link">Pokemons</h2>
+      </router-link>
+    </div>
+    <button @click="toggleTheme">Click me</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'BaseHeader',
+  data() {
+    return {
+      isDarkModeEnabled: false,
+    };
+  },
   created() {
-    this.toggleTheme();
+    document.documentElement.setAttribute('data-theme', 'light');
+  },
+  watch: {
+    isDarkModeEnabled(newValue) {
+      document.documentElement.setAttribute(
+        'data-theme',
+        newValue ? 'dark' : 'light'
+      );
+    },
   },
   methods: {
     toggleTheme() {
-      document.documentElement.setAttribute('data-theme', 'light');
+      this.isDarkModeEnabled = !this.isDarkModeEnabled;
     },
   },
 };
@@ -32,17 +48,20 @@ export default {
 
 .base-header {
   background-color: var(--secondary-background-color);
-  height: 5rem;
   width: 100%;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
   box-shadow: var(--main-box-shadow);
   position: fixed;
   top: 0;
+  display: flex;
+  justify-content: space-between;
 
   @media (min-width: $min-width-second-break) {
     width: 75vw;
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
   }
 
   .home-icon-link {
