@@ -2,7 +2,6 @@
   <CenteredColumn class="base-page">
     <CenteredColumn class="white-background">
       <slot name="header">
-        <img class="logo" src="@assets/ui/logo.png" />
         <h1 v-if="title">{{ title }}</h1>
       </slot>
       <slot name="content"></slot>
