@@ -1,0 +1,20 @@
+# Pokedex Release Notes
+
+---
+
+## Unreleased
+
+##### Added
+
+- Home Page
+- 404 Not Found Page
+- Header Page
+- Footer Page
+
+---
+
+## [V0.1.0](https://github.com/nashaguayo/pokedex/releases/tag/V0.1.0)
+
+##### Added
+
+- Just a title and description.
