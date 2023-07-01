@@ -36,13 +36,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/colors.scss';
 @import '@css/media-queries.scss';
 
 .base-footer {
   position: relative;
-  background-color: $variant-background-color;
-  box-shadow: $main-box-shadow;
+  background-color: var(--variant-background-color);
+  box-shadow: var(--main-box-shadow);
   width: 100%;
   bottom: 0;
   margin-top: auto;
@@ -66,7 +65,7 @@ export default {
     }
 
     span {
-      color: $variant-text-color;
+      color: var(--variant-text-color);
       font-size: 1rem;
       text-align: center;
 
@@ -83,7 +82,7 @@ export default {
       justify-content: center;
 
       span {
-        color: $variant-text-color;
+        color: var(--variant-text-color);
       }
 
       img {

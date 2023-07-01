@@ -16,21 +16,28 @@
 <script>
 export default {
   name: 'BaseHeader',
+  created() {
+    this.toggleTheme();
+  },
+  methods: {
+    toggleTheme() {
+      document.documentElement.setAttribute('data-theme', 'light');
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@css/colors.scss';
 @import '@css/media-queries.scss';
 
 .base-header {
-  background-color: $secondary-background-color;
+  background-color: var(--secondary-background-color);
   height: 5rem;
   width: 100%;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
-  box-shadow: $main-box-shadow;
+  box-shadow: var(--main-box-shadow);
   position: fixed;
   top: 0;
 

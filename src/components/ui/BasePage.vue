@@ -31,7 +31,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/colors.scss';
 @import '@css/media-queries.scss';
 
 .base-page {
@@ -39,7 +38,7 @@ export default {
   height: 100vh;
 
   .white-background {
-    background-color: $main-background-color;
+    background-color: var(--main-background-color);
     width: 100vw;
     box-shadow: none;
     min-height: calc(100vh - 5rem);
@@ -47,7 +46,7 @@ export default {
     padding-top: 7rem;
 
     @media (min-width: $min-width-second-break) {
-      box-shadow: 0 0 0.5rem 0.3rem $main-shadow-color;
+      box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
       width: 75vw;
     }
   }
