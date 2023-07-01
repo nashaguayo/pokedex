@@ -21,6 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@css/colors.scss';
+@import '@css/media-queries.scss';
 
 .base-header {
   background-color: $secondary-background-color;
@@ -30,6 +31,12 @@ export default {
   display: flex;
   align-items: center;
   box-shadow: $main-box-shadow;
+  position: fixed;
+  top: 0;
+
+  @media (min-width: $min-width-second-break) {
+    width: 75vw;
+  }
 
   .home-icon-link {
     height: 4rem;
