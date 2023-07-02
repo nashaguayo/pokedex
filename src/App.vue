@@ -5,18 +5,8 @@
 </template>
 
 <script>
-import pokemonApi from '@config/pokemonApi';
-
 export default {
   name: 'App',
-  async created() {
-    const response = await pokemonApi.get('pokemon/1');
-    if (response.status === 200) {
-      console.log('Axios connection OK');
-    } else {
-      console.error('Something went wrong. Unable to connect to axios!');
-    }
-  },
 };
 </script>
 

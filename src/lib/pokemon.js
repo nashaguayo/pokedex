@@ -18,3 +18,12 @@ export async function getAmountOfPokemons() {
     logError(this.function.name, e);
   }
 }
+
+export async function getPokemon(id) {
+  try {
+    const response = await pokemonApi.get(`pokemon/${id}`);
+    return response.data;
+  } catch (e) {
+    logError(this.function.name, e);
+  }
+}

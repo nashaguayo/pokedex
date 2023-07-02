@@ -3,7 +3,7 @@
     <PokemonListCard
       v-for="(pokemon, id) in pokemons"
       :key="id"
-      :pokemon="pokemon"
+      :pokemonName="pokemon.name"
     />
   </div>
 </template>
