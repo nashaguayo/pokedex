@@ -71,6 +71,7 @@ export default {
   position: fixed;
   justify-self: end;
   bottom: 0;
+  transition: margin-bottom 0.5s;
 }
 
 .bounce-animation {
