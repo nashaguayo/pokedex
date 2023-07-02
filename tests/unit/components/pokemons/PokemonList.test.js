@@ -21,7 +21,7 @@ jest.mock('@components/pokemons/PokemonListCard.vue', () => ({
 describe('PokemonList', () => {
   let wrapper;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     wrapper = shallowMount(PokemonList);
   });
 
