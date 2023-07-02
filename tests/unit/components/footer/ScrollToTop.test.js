@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import ScrollToTop from '@components/ui/ScrollToTop.vue';
+import ScrollToTop from '@components/footer/ScrollToTop.vue';
 
 describe('ScrollToTop', () => {
   let wrapper;

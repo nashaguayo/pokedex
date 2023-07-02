@@ -7,7 +7,6 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <ScrollToTop />
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -17,7 +16,6 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import BaseHeader from '@components/ui/BaseHeader.vue';
-import ScrollToTop from '@components/ui/ScrollToTop.vue';
 import BaseFooter from '@components/ui/BaseFooter.vue';
 
 export default {
@@ -26,12 +24,11 @@ export default {
     CenteredColumn,
     BaseHeader,
     BaseFooter,
-    ScrollToTop,
   },
   props: {
     title: {
       type: String,
-      default: 'Pokemon',
+      default: '',
     },
   },
 };
