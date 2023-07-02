@@ -23,7 +23,6 @@ describe('PokemonList', () => {
 
   beforeEach(async () => {
     wrapper = shallowMount(PokemonList);
-    await wrapper.vm.$nextTick();
   });
 
   afterEach(() => {
