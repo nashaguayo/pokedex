@@ -33,7 +33,7 @@ export default {
 
 .pokemon-list {
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
   grid-row-gap: 1rem;
   grid-column-gap: 3rem;
   margin-bottom: 5rem;
