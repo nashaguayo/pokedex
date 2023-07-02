@@ -13,21 +13,19 @@
       </router-link>
     </div>
     <div class="darkmode">
-      <template v-if="isDarkModeEnabled">
-        <FontAwesomeIcon
-          @click="toggleTheme"
-          icon="fa-solid fa-toggle-on"
-          size="3x"
-          color="white"
-        />
-      </template>
-      <template v-else>
-        <FontAwesomeIcon
-          @click="toggleTheme"
-          icon="fa-solid fa-toggle-off"
-          size="3x"
-        />
-      </template>
+      <FontAwesomeIcon
+        v-if="isDarkModeEnabled"
+        @click="toggleTheme"
+        icon="fa-solid fa-toggle-on"
+        size="3x"
+        color="white"
+      />
+      <FontAwesomeIcon
+        v-else
+        @click="toggleTheme"
+        icon="fa-solid fa-toggle-off"
+        size="3x"
+      />
     </div>
   </div>
 </template>
