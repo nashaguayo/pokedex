@@ -35,7 +35,7 @@ export default {
   display: grid;
   grid-template-rows: 1fr;
   grid-row-gap: 1rem;
-  grid-column-gap: 1rem;
+  grid-column-gap: 3rem;
 
   @media (min-width: $min-width-first-break) {
     grid-template-columns: 1fr 1fr;
