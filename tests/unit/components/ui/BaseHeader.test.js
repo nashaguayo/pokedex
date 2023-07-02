@@ -5,7 +5,9 @@ describe('BaseHeader', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(BaseHeader);
+    wrapper = shallowMount(BaseHeader, {
+      stubs: ['router-link', 'FontAwesomeIcon'],
+    });
   });
 
   afterEach(() => {

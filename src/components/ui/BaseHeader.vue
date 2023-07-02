@@ -16,7 +16,7 @@
       <template v-if="isDarkModeEnabled">
         <FontAwesomeIcon
           @click="toggleTheme"
-          icon="fa-solid fa-toggle-off"
+          icon="fa-solid fa-toggle-on"
           size="3x"
           color="white"
         />
@@ -24,7 +24,7 @@
       <template v-else>
         <FontAwesomeIcon
           @click="toggleTheme"
-          icon="fa-solid fa-toggle-on"
+          icon="fa-solid fa-toggle-off"
           size="3x"
         />
       </template>
