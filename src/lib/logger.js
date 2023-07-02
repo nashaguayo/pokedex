@@ -1,3 +1,3 @@
-export function logError(message, error) {
-  console.error(message, error);
+export function logError(functionName, message, error) {
+  console.error(`[Error at ${functionName}()] ${message}`, error);
 }

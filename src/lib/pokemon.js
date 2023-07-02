@@ -6,7 +6,7 @@ export async function getPokemons() {
     const response = await pokemonApi.get('pokemon');
     return response.data;
   } catch (e) {
-    logError(this.function.name, e);
+    logError(this.function.name, 'Unable to retrieve Pokemons', e);
   }
 }
 
@@ -15,15 +15,16 @@ export async function getAmountOfPokemons() {
     const response = await pokemonApi.get('pokemon');
     return response.data.count;
   } catch (e) {
-    logError(this.function.name, e);
+    logError(this.function.name, 'Unable to retrieve Pokemon count', e);
   }
 }
 
 export async function getPokemon(id) {
   try {
     const response = await pokemonApi.get(`pokemon/${id}`);
+    // throw Error('probando error rrandom');
     return response.data;
   } catch (e) {
-    logError(this.function.name, e);
+    logError(this.function.name, 'Unable to retrieve Pokemon', e);
   }
 }
