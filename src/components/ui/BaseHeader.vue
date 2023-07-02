@@ -5,11 +5,11 @@
         <img
           src="@assets/ui/pokeball.svg.png"
           alt="menu"
-          class="home-icon-link"
+          class="url home-icon-link"
         />
       </router-link>
       <router-link to="/pokemons">
-        <h2 class="pokemons-link">Pokemons</h2>
+        <h2 class="url pokemons-link">Pokemons</h2>
       </router-link>
     </div>
     <div class="darkmode">
@@ -21,6 +21,7 @@
           icon="fa-solid fa-toggle-on"
           size="3x"
           color="white"
+          class="icon"
         />
         <FontAwesomeIcon
           key="off"
@@ -28,6 +29,7 @@
           @click="toggleTheme"
           icon="fa-solid fa-toggle-off"
           size="3x"
+          class="icon"
         />
       </transition>
     </div>
@@ -81,6 +83,10 @@ export default {
   .navigation {
     display: flex;
     align-items: center;
+
+    .url {
+      cursor: pointer;
+    }
   }
 
   .home-icon-link {
@@ -94,6 +100,10 @@ export default {
 
   .darkmode {
     margin-right: 2rem;
+  }
+
+  .icon {
+    cursor: pointer;
   }
 
   .flip-enter-active,

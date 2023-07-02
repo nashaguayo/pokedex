@@ -2,7 +2,7 @@
   <transition name="slide-in-and-out">
     <div
       :class="{ 'bounce-animation': wasClicked }"
-      :style="{ 'margin-bottom': `${marginBottom}px` }"
+      :style="{ 'margin-bottom': `${marginBottom * 0.063}rem` }"
       class="scroll-to-top"
       @click="scrollToTop"
       @animationend="wasClicked = false"
@@ -71,6 +71,7 @@ export default {
   position: fixed;
   align-self: end;
   bottom: 0;
+  cursor: pointer;
 }
 
 .bounce-animation {
