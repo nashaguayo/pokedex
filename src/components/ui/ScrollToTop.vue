@@ -1,8 +1,10 @@
 <template>
   <transition name="slide-in-and-out">
     <div
+      :class="{ 'bounce-animation': wasClicked }"
       class="scroll-to-top"
       @click="scrollToTop"
+      @animationend="wasClicked = false"
       v-if="showScrollToTopButton"
     >
       <FontAwesomeIcon icon="fa-solid fa-arrow-up" color="white" size="2x" />
@@ -15,6 +17,7 @@ export default {
   name: 'ScrollToTop',
   data() {
     return {
+      wasClicked: false,
       showScrollToTopButton: false,
     };
   },
@@ -33,6 +36,7 @@ export default {
       this.showScrollToTopButton = event.srcElement.scrollTop > 100;
     },
     scrollToTop() {
+      this.wasClicked = true;
       document
         .getElementsByClassName('white-background')[0]
         .scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,6 +58,22 @@ export default {
   position: fixed;
   align-self: end;
   bottom: 0;
+}
+
+.bounce-animation {
+  animation: bounce 0.3s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .slide-in-and-out-enter-active,
