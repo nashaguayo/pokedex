@@ -7,7 +7,7 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <div class="scroll-to-top">
+        <div class="scroll-to-top" @click="scrollToTop">
           <FontAwesomeIcon
             icon="fa-solid fa-arrow-up"
             color="white"
@@ -32,6 +32,13 @@ export default {
     title: {
       type: String,
       default: 'Pokemon',
+    },
+  },
+  methods: {
+    scrollToTop() {
+      document
+        .getElementsByClassName('white-background')[0]
+        .scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 };
