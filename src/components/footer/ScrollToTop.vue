@@ -71,6 +71,7 @@ export default {
   position: fixed;
   align-self: end;
   bottom: 0;
+  cursor: pointer;
 }
 
 .bounce-animation {
