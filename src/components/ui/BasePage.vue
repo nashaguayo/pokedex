@@ -7,19 +7,7 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <transition name="slide-in-and-out">
-          <div
-            class="scroll-to-top"
-            @click="scrollToTop"
-            v-if="showScrollToTopButton"
-          >
-            <FontAwesomeIcon
-              icon="fa-solid fa-arrow-up"
-              color="white"
-              size="2x"
-            />
-          </div>
-        </transition>
+        <ScrollToTop />
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -29,40 +17,21 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import BaseHeader from '@components/ui/BaseHeader.vue';
+import ScrollToTop from '@components/ui/ScrollToTop.vue';
 import BaseFooter from '@components/ui/BaseFooter.vue';
 
 export default {
   name: 'BasePage',
-  components: { CenteredColumn, BaseHeader, BaseFooter },
-  data() {
-    return {
-      showScrollToTopButton: false,
-    };
+  components: {
+    CenteredColumn,
+    BaseHeader,
+    BaseFooter,
+    ScrollToTop,
   },
   props: {
     title: {
       type: String,
       default: 'Pokemon',
-    },
-  },
-  mounted() {
-    document
-      .getElementsByClassName('white-background')[0]
-      .addEventListener('scroll', this.handleScroll);
-  },
-  beforeDestroy() {
-    document
-      .getElementsByClassName('white-background')[0]
-      .removeEventListener('scroll', this.handleScroll);
-  },
-  methods: {
-    handleScroll(event) {
-      this.showScrollToTopButton = event.srcElement.scrollTop > 100;
-    },
-    scrollToTop() {
-      document
-        .getElementsByClassName('white-background')[0]
-        .scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 };
@@ -109,35 +78,5 @@ export default {
       width: 27rem;
     }
   }
-
-  .scroll-to-top {
-    background-color: var(--variant-background-color);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    margin: 9rem 2rem;
-    padding: 0.5rem;
-    text-align: center;
-    box-shadow: var(--main-box-shadow);
-    position: fixed;
-    align-self: end;
-    bottom: 0;
-  }
-}
-
-.slide-in-and-out-enter-active,
-.slide-in-and-out-leave-active {
-  transition: all 0.5s;
-}
-
-.slide-in-and-out-leave-from,
-.slide-in-and-out-enter-to {
-  opacity: 1;
-}
-
-.slide-in-and-out-leave-to,
-.slide-in-and-out-enter {
-  opacity: 0;
-  transform: translateY(5rem);
 }
 </style>
