@@ -64,12 +64,12 @@ export default {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  margin-left: 2rem;
+  margin-right: 2rem;
   padding: 0.5rem;
   text-align: center;
   box-shadow: var(--main-box-shadow);
   position: fixed;
-  align-self: end;
+  justify-self: end;
   bottom: 0;
 }
 
