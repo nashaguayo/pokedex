@@ -67,12 +67,15 @@ export default {
 @keyframes bounce {
   0% {
     transform: scale(1);
+    background-color: var(--variant-background-color);
   }
   50% {
     transform: scale(1.1);
+    background-color: var(--main-background-color);
   }
   100% {
     transform: scale(1);
+    background-color: var(--variant-background-color);
   }
 }
 
