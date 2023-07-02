@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
-import BaseFooter from '@components/ui/BaseFooter.vue';
+import FooterLinks from '@components/footer/FooterLinks.vue';
 
-describe('BaseFooter', () => {
+describe('FooterLinks', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(BaseFooter);
+    wrapper = shallowMount(FooterLinks);
   });
 
   afterEach(() => {

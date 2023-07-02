@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import CenteredColumn from './CenteredColumn.vue';
+import CenteredColumn from '../ui/CenteredColumn.vue';
 
 export default {
-  name: 'BaseFooter',
+  name: 'FooterLinks',
   components: { CenteredColumn },
   data() {
     return {
