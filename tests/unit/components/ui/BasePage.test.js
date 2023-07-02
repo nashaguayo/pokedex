@@ -6,6 +6,11 @@ jest.mock('@components/ui/BaseHeader.vue', () => ({
   template: '<div class="mocked-header"></div>',
 }));
 
+jest.mock('@components/ui/ScrollToTop.vue', () => ({
+  name: 'ScrollToTop',
+  template: '<div class="mocked-scroll-to-top"></div>',
+}));
+
 jest.mock('@components/ui/BaseFooter.vue', () => ({
   name: 'BaseFooter',
   template: '<div class="mocked-footer"></div>',
@@ -28,6 +33,10 @@ describe('BasePage', () => {
 
   it('renders the BaseHeader component in the header slot', () => {
     expect(wrapper.find('baseheader-stub').exists()).toBe(true);
+  });
+
+  it('renders the ScrollToTop component', () => {
+    expect(wrapper.find('scrolltotop-stub').exists()).toBe(true);
   });
 
   it('renders the BaseFooter component in the footer slot', () => {

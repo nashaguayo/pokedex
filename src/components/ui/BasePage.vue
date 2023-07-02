@@ -7,6 +7,7 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
+        <ScrollToTop />
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -16,11 +17,17 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import BaseHeader from '@components/ui/BaseHeader.vue';
+import ScrollToTop from '@components/ui/ScrollToTop.vue';
 import BaseFooter from '@components/ui/BaseFooter.vue';
 
 export default {
   name: 'BasePage',
-  components: { CenteredColumn, BaseHeader, BaseFooter },
+  components: {
+    CenteredColumn,
+    BaseHeader,
+    BaseFooter,
+    ScrollToTop,
+  },
   props: {
     title: {
       type: String,
@@ -41,7 +48,7 @@ export default {
     background-color: var(--main-background-color);
     width: 100vw;
     box-shadow: none;
-    min-height: calc(100vh - 5rem);
+    min-height: calc(100vh - 7rem);
     overflow-y: scroll;
     padding-top: 7rem;
 
