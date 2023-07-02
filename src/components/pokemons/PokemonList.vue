@@ -34,6 +34,8 @@ export default {
 .pokemon-list {
   display: grid;
   grid-template-rows: 1fr;
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
 
   @media (min-width: $min-width-first-break) {
     grid-template-columns: 1fr 1fr;
@@ -45,6 +47,10 @@ export default {
 
   @media (min-width: $min-width-fourth-break) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media (min-width: $min-width-fifth-break) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 </style>
