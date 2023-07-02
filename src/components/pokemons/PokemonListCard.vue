@@ -47,6 +47,7 @@ export default {
     background-color: white;
     border-radius: 0.5rem;
     margin-bottom: 0.3rem;
+    border: 0.15rem solid var(--main-border-color);
   }
 
   span {
