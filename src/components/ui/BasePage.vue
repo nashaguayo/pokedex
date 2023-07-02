@@ -28,7 +28,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Pokemon',
+      default: '',
     },
   },
 };

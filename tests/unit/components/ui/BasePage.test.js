@@ -22,10 +22,6 @@ describe('BasePage', () => {
     wrapper.destroy();
   });
 
-  it('renders the default title when no title prop is provided', () => {
-    expect(wrapper.find('h1').text()).toBe('Pokemon');
-  });
-
   it('renders the BaseHeader component in the header slot', () => {
     expect(wrapper.find('baseheader-stub').exists()).toBe(true);
   });
