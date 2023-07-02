@@ -26,7 +26,7 @@ describe('FooterLinks', () => {
       'https://pokeapi.co/docs/v2'
     );
     expect(wrapper.find('#fueled-by a img').attributes('alt')).toBe(
-      'pokapi logo'
+      'pokeapi logo'
     );
   });
 
