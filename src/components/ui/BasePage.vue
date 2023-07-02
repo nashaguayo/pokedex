@@ -7,6 +7,13 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
+        <div class="scroll-to-top">
+          <FontAwesomeIcon
+            icon="fa-solid fa-arrow-up"
+            color="white"
+            size="2x"
+          />
+        </div>
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -70,6 +77,20 @@ export default {
     @media (min-width: $min-width-second-break) {
       width: 27rem;
     }
+  }
+
+  .scroll-to-top {
+    background-color: var(--variant-background-color);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin: 9rem 2rem;
+    padding: 0.5rem;
+    text-align: center;
+    box-shadow: var(--main-box-shadow);
+    position: fixed;
+    align-self: end;
+    bottom: 0;
   }
 }
 </style>

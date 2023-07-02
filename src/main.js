@@ -6,9 +6,11 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import { faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faToggleOn);
 library.add(faToggleOff);
+library.add(faArrowUp);
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 
