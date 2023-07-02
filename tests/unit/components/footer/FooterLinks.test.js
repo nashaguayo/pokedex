@@ -5,7 +5,9 @@ describe('FooterLinks', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(FooterLinks);
+    wrapper = shallowMount(FooterLinks, {
+      props: { hasToUpdateHeight: false },
+    });
   });
 
   afterEach(() => {
