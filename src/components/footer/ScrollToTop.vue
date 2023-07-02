@@ -2,6 +2,7 @@
   <transition name="slide-in-and-out">
     <div
       :class="{ 'bounce-animation': wasClicked }"
+      :style="{ 'margin-bottom': `${marginBottom}px` }"
       class="scroll-to-top"
       @click="scrollToTop"
       @animationend="wasClicked = false"
@@ -13,8 +14,16 @@
 </template>
 
 <script>
+import throttle from 'lodash/throttle';
+
 export default {
   name: 'ScrollToTop',
+  props: {
+    marginBottom: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       wasClicked: false,
@@ -24,16 +33,20 @@ export default {
   mounted() {
     document
       .getElementsByClassName('white-background')[0]
-      .addEventListener('scroll', this.handleScroll);
+      .addEventListener('scroll', this.throttledHandleScroll);
   },
   beforeDestroy() {
     document
       .getElementsByClassName('white-background')[0]
-      .removeEventListener('scroll', this.handleScroll);
+      .removeEventListener('scroll', this.throttledHandleScroll);
+  },
+  created() {
+    this.throttledHandleScroll = throttle(this.handleScroll, 300);
   },
   methods: {
     handleScroll(event) {
       this.showScrollToTopButton = event.srcElement.scrollTop > 100;
+      this.$emit('userScrolled');
     },
     scrollToTop() {
       this.wasClicked = true;
@@ -51,7 +64,7 @@ export default {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  margin: 9rem 2rem;
+  margin-left: 2rem;
   padding: 0.5rem;
   text-align: center;
   box-shadow: var(--main-box-shadow);
