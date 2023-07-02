@@ -2,6 +2,7 @@
   <transition name="slide-in-and-out">
     <div
       :class="{ 'bounce-animation': wasClicked }"
+      :style="{ 'margin-bottom': `${marginBottom}px` }"
       class="scroll-to-top"
       @click="scrollToTop"
       @animationend="wasClicked = false"
@@ -15,6 +16,12 @@
 <script>
 export default {
   name: 'ScrollToTop',
+  props: {
+    marginBottom: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       wasClicked: false,
@@ -34,6 +41,7 @@ export default {
   methods: {
     handleScroll(event) {
       this.showScrollToTopButton = event.srcElement.scrollTop > 100;
+      this.$emit('userScrolled');
     },
     scrollToTop() {
       this.wasClicked = true;

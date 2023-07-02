@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="footer-links">
+  <CenteredColumn class="footer-links" ref="footerLinks">
     <div id="disclaimer">
       <span>This is a project built for learning.</span>
     </div>
@@ -29,8 +29,29 @@ export default {
   components: { CenteredColumn },
   data() {
     return {
+      height: 0,
       githubRepoUrl: process.env.VUE_APP_GITHUB_REPO_URL,
     };
+  },
+  props: {
+    hasToUpdateHeight: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  watch: {
+    hasToUpdateHeight() {
+      this.setHeight();
+    },
+  },
+  mounted() {
+    this.setHeight();
+  },
+  methods: {
+    setHeight() {
+      this.height = this.$refs.footerLinks.$el.offsetHeight;
+      this.$emit('setHeight', this.height);
+    },
   },
 };
 </script>

@@ -1,7 +1,10 @@
 <template>
   <div class="base-footer">
-    <ScrollToTop />
-    <FooterLinks />
+    <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateHeight" />
+    <FooterLinks
+      :hasToUpdateHeight="hasToUpdateHeight"
+      @setHeight="setHeight"
+    />
   </div>
 </template>
 
@@ -14,6 +17,21 @@ export default {
   components: {
     ScrollToTop,
     FooterLinks,
+  },
+  data() {
+    return {
+      hasToUpdateHeight: false,
+      marginBottom: 0,
+    };
+  },
+  methods: {
+    setHeight(height) {
+      this.marginBottom = height + 20;
+      this.hasToUpdateHeight = false;
+    },
+    updateHeight() {
+      this.hasToUpdateHeight = true;
+    },
   },
 };
 </script>
