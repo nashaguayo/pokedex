@@ -7,7 +7,11 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <div class="scroll-to-top" @click="scrollToTop">
+        <div
+          class="scroll-to-top"
+          @click="scrollToTop"
+          v-if="showScrollToTopButton"
+        >
           <FontAwesomeIcon
             icon="fa-solid fa-arrow-up"
             color="white"
@@ -28,13 +32,31 @@ import BaseFooter from '@components/ui/BaseFooter.vue';
 export default {
   name: 'BasePage',
   components: { CenteredColumn, BaseHeader, BaseFooter },
+  data() {
+    return {
+      showScrollToTopButton: false,
+    };
+  },
   props: {
     title: {
       type: String,
       default: 'Pokemon',
     },
   },
+  mounted() {
+    document
+      .getElementsByClassName('white-background')[0]
+      .addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    document
+      .getElementsByClassName('white-background')[0]
+      .removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
+    handleScroll(event) {
+      this.showScrollToTopButton = event.srcElement.scrollTop > 100;
+    },
     scrollToTop() {
       document
         .getElementsByClassName('white-background')[0]
