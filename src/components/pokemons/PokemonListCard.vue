@@ -1,7 +1,7 @@
 <template>
   <CenteredColumn class="pokemon-list-card">
     <h2>{{ pokemonName }}</h2>
-    <img :src="pokemon.sprites.front_default" alt="pokemon front default" />
+    <img :src="pokemon.sprites?.front_default" alt="pokemon front default" />
   </CenteredColumn>
 </template>
 
