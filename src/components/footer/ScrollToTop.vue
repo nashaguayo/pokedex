@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import throttle from 'lodash/throttle';
+
 export default {
   name: 'ScrollToTop',
   props: {
@@ -31,12 +33,15 @@ export default {
   mounted() {
     document
       .getElementsByClassName('white-background')[0]
-      .addEventListener('scroll', this.handleScroll);
+      .addEventListener('scroll', this.throttledHandleScroll);
   },
   beforeDestroy() {
     document
       .getElementsByClassName('white-background')[0]
-      .removeEventListener('scroll', this.handleScroll);
+      .removeEventListener('scroll', this.throttledHandleScroll);
+  },
+  created() {
+    this.throttledHandleScroll = throttle(this.handleScroll, 300);
   },
   methods: {
     handleScroll(event) {
