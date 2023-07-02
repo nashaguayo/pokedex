@@ -12,6 +12,7 @@
 - Footer Page
 - Night mode
 - Scroll to top button
+- Pokemons Page
 
 ---
 
