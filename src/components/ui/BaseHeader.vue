@@ -13,21 +13,23 @@
       </router-link>
     </div>
     <div class="darkmode">
-      <template v-if="isDarkModeEnabled">
+      <transition name="flip" mode="out-in">
         <FontAwesomeIcon
+          key="on"
+          v-if="isDarkModeEnabled"
           @click="toggleTheme"
           icon="fa-solid fa-toggle-on"
           size="3x"
           color="white"
         />
-      </template>
-      <template v-else>
         <FontAwesomeIcon
+          key="off"
+          v-else
           @click="toggleTheme"
           icon="fa-solid fa-toggle-off"
           size="3x"
         />
-      </template>
+      </transition>
     </div>
   </div>
 </template>
@@ -92,6 +94,16 @@ export default {
 
   .darkmode {
     margin-right: 2rem;
+  }
+
+  .flip-enter-active,
+  .flip-leave-active {
+    transition: transform 0.1s;
+  }
+
+  .flip-enter,
+  .flip-leave-to {
+    transform: scaleX(0);
   }
 }
 </style>
