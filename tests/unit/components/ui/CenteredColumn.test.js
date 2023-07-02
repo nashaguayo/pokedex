@@ -2,8 +2,17 @@ import { shallowMount } from '@vue/test-utils';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 
 describe('CenteredColumn', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallowMount(CenteredColumn);
+  });
+
+  afterEach(() => {
+    wrapper.destroy();
+  });
+
   it('renders a div with the correct CSS classes', () => {
-    const wrapper = shallowMount(CenteredColumn);
     const div = wrapper.find('div.centered-column');
 
     expect(div.exists()).toBe(true);
@@ -11,7 +20,7 @@ describe('CenteredColumn', () => {
 
   it('renders the slot content', () => {
     const slotContent = '<span>Example content</span>';
-    const wrapper = shallowMount(CenteredColumn, {
+    wrapper = shallowMount(CenteredColumn, {
       slots: {
         default: slotContent,
       },
@@ -21,7 +30,6 @@ describe('CenteredColumn', () => {
   });
 
   it('has the correct CSS styles', () => {
-    const wrapper = shallowMount(CenteredColumn);
     const div = wrapper.find('div.centered-column');
 
     expect(div.classes()).toContain('centered-column');

@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@css/colors.scss';
+@import '@css/themes.scss';
 @import '@css/media-queries.scss';
 
 @font-face {
@@ -39,6 +39,40 @@ export default {
 @font-face {
   font-family: 'Upheaval';
   src: local('Upheaval'), url(@assets/fonts/upheaval.ttf) format('truetype');
+}
+
+html[data-theme='light'] {
+  --main-background-color: #{$light-main-background-color};
+  --secondary-background-color: #{$light-secondary-background-color};
+  --variant-background-color: #{$light-variant-background-color};
+
+  --main-shadow-color: #{$light-main-shadow-color};
+  --secondary-shadow-color: #{$light-secondary-shadow-color};
+
+  --main-text-color: #{$light-main-text-color};
+  --secondary-text-color: #{$light-secondary-text-color};
+  --variant-text-color: #{$light-variant-text-color};
+
+  --main-border-color: #{$light-main-border-color};
+
+  --main-box-shadow: #{$light-main-box-shadow};
+}
+
+html[data-theme='dark'] {
+  --main-background-color: #{$dark-main-background-color};
+  --secondary-background-color: #{$dark-secondary-background-color};
+  --variant-background-color: #{$dark-variant-background-color};
+
+  --main-shadow-color: #{$dark-main-shadow-color};
+  --secondary-shadow-color: #{$dark-secondary-shadow-color};
+
+  --main-text-color: #{$dark-main-text-color};
+  --secondary-text-color: #{$dark-secondary-text-color};
+  --variant-text-color: #{$dark-variant-text-color};
+
+  --main-border-color: #{$dark-main-border-color};
+
+  --main-box-shadow: #{$dark-main-box-shadow};
 }
 
 body {
@@ -68,14 +102,14 @@ a:active {
   h2,
   span,
   p {
-    color: $main-text-color;
+    color: var(--main-text-color);
   }
 
   span,
   p {
     font-family: 'Upheaval';
     font-size: 1rem;
-    color: $main-text-color;
+    color: var(--main-text-color);
 
     @media (min-width: $min-width-first-break) {
       font-size: 1.2rem;
@@ -114,7 +148,7 @@ a:active {
 
   h1,
   h2 {
-    text-shadow: $secondary-background-color 0.1rem 0 1rem;
+    text-shadow: var(--secondary-background-color) 0.1rem 0 1rem;
     letter-spacing: 0.25rem;
     text-align: center;
   }

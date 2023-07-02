@@ -12,24 +12,31 @@ jest.mock('@components/ui/BaseFooter.vue', () => ({
 }));
 
 describe('BasePage', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallowMount(BasePage);
+  });
+
+  afterEach(() => {
+    wrapper.destroy();
+  });
+
   it('renders the default title when no title prop is provided', () => {
-    const wrapper = shallowMount(BasePage);
     expect(wrapper.find('h1').text()).toBe('Pokemon');
   });
 
   it('renders the BaseHeader component in the header slot', () => {
-    const wrapper = shallowMount(BasePage);
     expect(wrapper.find('baseheader-stub').exists()).toBe(true);
   });
 
   it('renders the BaseFooter component in the footer slot', () => {
-    const wrapper = shallowMount(BasePage);
     expect(wrapper.find('basefooter-stub').exists()).toBe(true);
   });
 
   it('renders the provided title when title prop is provided', () => {
     const title = 'Custom Title';
-    const wrapper = shallowMount(BasePage, {
+    wrapper = shallowMount(BasePage, {
       propsData: {
         title,
       },
@@ -39,7 +46,7 @@ describe('BasePage', () => {
 
   it('renders the header slot content', () => {
     const slotContent = '<div class="custom-header">Header Content</div>';
-    const wrapper = shallowMount(BasePage, {
+    wrapper = shallowMount(BasePage, {
       slots: {
         header: slotContent,
       },
@@ -50,7 +57,7 @@ describe('BasePage', () => {
 
   it('renders the content slot content', () => {
     const slotContent = '<div class="custom-content">Content</div>';
-    const wrapper = shallowMount(BasePage, {
+    wrapper = shallowMount(BasePage, {
       slots: {
         content: slotContent,
       },
@@ -61,7 +68,7 @@ describe('BasePage', () => {
 
   it('renders the footer slot content', () => {
     const slotContent = '<div class="custom-footer">Footer Content</div>';
-    const wrapper = shallowMount(BasePage, {
+    wrapper = shallowMount(BasePage, {
       slots: {
         footer: slotContent,
       },

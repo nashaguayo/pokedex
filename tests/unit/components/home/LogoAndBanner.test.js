@@ -7,14 +7,23 @@ jest.mock('@components/ui/BaseHeader.vue', () => ({
 }));
 
 describe('LogoAndBanner', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallowMount(LogoAndBanner);
+  });
+
+  afterEach(() => {
+    wrapper.destroy();
+  });
+
   it('renders the header component', () => {
-    const wrapper = shallowMount(LogoAndBanner);
     expect(wrapper.find('baseheader-stub').exists()).toBe(true);
   });
 
   it('renders the component with the given props', () => {
     const subtitle = 'Welcome to the Pokedex';
-    const wrapper = shallowMount(LogoAndBanner, {
+    wrapper = shallowMount(LogoAndBanner, {
       propsData: { subtitle },
     });
     expect(wrapper.find('h1').text()).toBe(subtitle);
@@ -26,7 +35,6 @@ describe('LogoAndBanner', () => {
     window.matchMedia = jest.fn().mockImplementation((query) => ({
       matches: query.includes('min-width-second-break'),
     }));
-    const wrapper = shallowMount(LogoAndBanner);
     expect(wrapper.find('.banner').exists()).toBe(true);
   });
 });

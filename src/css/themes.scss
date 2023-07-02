@@ -1,0 +1,31 @@
+// Light mode
+$light-main-background-color: rgb(252, 252, 231);
+$light-secondary-background-color: #af0c00;
+$light-variant-background-color: black;
+
+$light-main-shadow-color: rgba(0, 0, 0, 0.6);
+$light-secondary-shadow-color: rgba(0, 0, 0, 0.3);
+
+$light-main-text-color: black;
+$light-secondary-text-color: white;
+$light-variant-text-color: white;
+
+$light-main-border-color: black;
+
+$light-main-box-shadow: 0 0 0.3rem 0.1rem $light-secondary-shadow-color;
+
+// Dark mode
+$dark-main-background-color: rgb(0, 0, 0);
+$dark-secondary-background-color: rgb(105, 0, 61);
+$dark-variant-background-color: rgb(255, 255, 255);
+
+$dark-main-shadow-color: rgba(255, 255, 255, 0.6);
+$dark-secondary-shadow-color: rgba(255, 255, 255, 0.3);
+
+$dark-main-text-color: white;
+$dark-secondary-text-color: black;
+$dark-variant-text-color: black;
+
+$dark-main-border-color: white;
+
+$dark-main-box-shadow: 0 0 0.3rem 0.1rem $dark-secondary-shadow-color;

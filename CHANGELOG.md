@@ -10,6 +10,7 @@
 - 404 Not Found Page
 - Header Page
 - Footer Page
+- Night mode
 
 ---
 
