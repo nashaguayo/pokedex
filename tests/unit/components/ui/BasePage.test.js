@@ -6,14 +6,9 @@ jest.mock('@components/ui/BaseHeader.vue', () => ({
   template: '<div class="mocked-header"></div>',
 }));
 
-jest.mock('@components/footer/ScrollToTop.vue', () => ({
-  name: 'ScrollToTop',
-  template: '<div class="mocked-scroll-to-top"></div>',
-}));
-
-jest.mock('@components/footer/FooterLinks.vue', () => ({
-  name: 'FooterLinks',
-  template: '<div class="mocked-footer-links"></div>',
+jest.mock('@components/ui/BaseFooter.vue', () => ({
+  name: 'BaseFooter',
+  template: '<div class="mocked-footer"></div>',
 }));
 
 describe('BasePage', () => {
@@ -35,12 +30,8 @@ describe('BasePage', () => {
     expect(wrapper.find('baseheader-stub').exists()).toBe(true);
   });
 
-  it('renders the ScrollToTop component', () => {
-    expect(wrapper.find('scrolltotop-stub').exists()).toBe(true);
-  });
-
   it('renders the BaseFooter component in the footer slot', () => {
-    expect(wrapper.find('footerlinks-stub').exists()).toBe(true);
+    expect(wrapper.find('basefooter-stub').exists()).toBe(true);
   });
 
   it('renders the provided title when title prop is provided', () => {
