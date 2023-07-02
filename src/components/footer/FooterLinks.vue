@@ -1,5 +1,12 @@
 <template>
-  <CenteredColumn class="footer-links" ref="footerLinks">
+  <CenteredColumn
+    class="footer-links"
+    ref="footerLinks"
+    v-observe-visibility="{
+      callback: visibilityChanged,
+      throttle: 300,
+    }"
+  >
     <div id="disclaimer">
       <span>This is a project built for learning.</span>
     </div>
@@ -29,6 +36,7 @@ export default {
   components: { CenteredColumn },
   data() {
     return {
+      isVisible: false,
       height: 0,
       githubRepoUrl: process.env.VUE_APP_GITHUB_REPO_URL,
     };
@@ -49,8 +57,14 @@ export default {
   },
   methods: {
     setHeight() {
-      this.height = this.$refs.footerLinks.$el.offsetHeight;
+      this.height = this.isVisible
+        ? this.$refs.footerLinks.$el.offsetHeight
+        : 0;
       this.$emit('setHeight', this.height);
+    },
+    visibilityChanged(isVisible) {
+      this.isVisible = isVisible;
+      this.setHeight();
     },
   },
 };

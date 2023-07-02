@@ -1,10 +1,12 @@
 import { shallowMount, mount } from '@vue/test-utils';
 import FooterLinks from '@components/footer/FooterLinks.vue';
+import Vue from 'vue';
 
 describe('FooterLinks', () => {
   let wrapper;
 
   beforeEach(() => {
+    Vue.directive('observe-visibility', {});
     wrapper = shallowMount(FooterLinks, {
       props: { hasToUpdateHeight: false },
     });
@@ -80,5 +82,28 @@ describe('FooterLinks', () => {
     expect(githubLogoWrapper.attributes('href')).toBe(
       env.VUE_APP_GITHUB_REPO_URL
     );
+  });
+
+  it('initializes isVisible as false and height as 0', () => {
+    expect(wrapper.vm.isVisible).toBe(false);
+    expect(wrapper.vm.height).toBe(0);
+  });
+
+  it('sets height correctly when isVisible is true', () => {
+    wrapper.vm.isVisible = true;
+    wrapper.vm.setHeight();
+    expect(wrapper.vm.height).toBe(
+      wrapper.vm.$refs.footerLinks.$el.offsetHeight
+    );
+    expect(wrapper.emitted('setHeight')).toBeTruthy();
+    expect(wrapper.emitted('setHeight')[0][0]).toBe(wrapper.vm.height);
+  });
+
+  it('sets height to 0 when isVisible is false', () => {
+    wrapper.vm.isVisible = false;
+    wrapper.vm.setHeight();
+    expect(wrapper.vm.height).toBe(0);
+    expect(wrapper.emitted('setHeight')).toBeTruthy();
+    expect(wrapper.emitted('setHeight')[0][0]).toBe(0);
   });
 });
