@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="base-footer">
+  <CenteredColumn class="footer-links">
     <div id="disclaimer">
       <span>This is a project built for learning.</span>
     </div>
@@ -38,13 +38,9 @@ export default {
 <style lang="scss" scoped>
 @import '@css/media-queries.scss';
 
-.base-footer {
-  position: relative;
+.footer-links {
   background-color: var(--variant-background-color);
   box-shadow: var(--main-box-shadow);
-  width: 100%;
-  bottom: 0;
-  margin-top: auto;
 
   @media (min-width: $min-width-first-break) {
     flex-direction: row;

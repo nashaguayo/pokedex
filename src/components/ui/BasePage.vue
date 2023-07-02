@@ -7,8 +7,7 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <ScrollToTop />
-        <FooterLinks />
+        <BaseFooter />
       </slot>
     </CenteredColumn>
   </CenteredColumn>
@@ -17,16 +16,14 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import BaseHeader from '@components/ui/BaseHeader.vue';
-import ScrollToTop from '@components/footer/ScrollToTop.vue';
-import FooterLinks from '@components/footer/FooterLinks.vue';
+import BaseFooter from '@components/ui/BaseFooter.vue';
 
 export default {
   name: 'BasePage',
   components: {
     CenteredColumn,
     BaseHeader,
-    FooterLinks,
-    ScrollToTop,
+    BaseFooter,
   },
   props: {
     title: {
