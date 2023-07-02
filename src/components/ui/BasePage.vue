@@ -7,17 +7,19 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <div
-          class="scroll-to-top"
-          @click="scrollToTop"
-          v-if="showScrollToTopButton"
-        >
-          <FontAwesomeIcon
-            icon="fa-solid fa-arrow-up"
-            color="white"
-            size="2x"
-          />
-        </div>
+        <transition name="slide-in-and-out">
+          <div
+            class="scroll-to-top"
+            @click="scrollToTop"
+            v-if="showScrollToTopButton"
+          >
+            <FontAwesomeIcon
+              icon="fa-solid fa-arrow-up"
+              color="white"
+              size="2x"
+            />
+          </div>
+        </transition>
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -121,5 +123,21 @@ export default {
     align-self: end;
     bottom: 0;
   }
+}
+
+.slide-in-and-out-enter-active,
+.slide-in-and-out-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-in-and-out-leave-from,
+.slide-in-and-out-enter-to {
+  opacity: 1;
+}
+
+.slide-in-and-out-leave-to,
+.slide-in-and-out-enter {
+  opacity: 0;
+  transform: translateY(5rem);
 }
 </style>
