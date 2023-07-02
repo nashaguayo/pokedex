@@ -7,7 +7,7 @@
       <CenteredColumn id="fueled-by">
         <span>Fueled by</span>
         <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
-          <img src="@assets/ui/pokeapi.png" alt="pokapi logo" />
+          <img src="@assets/ui/pokeapi.png" alt="pokeapi logo" />
         </a>
       </CenteredColumn>
       <a :href="githubRepoUrl" id="repository" target="_blank" ref="noreferrer">
