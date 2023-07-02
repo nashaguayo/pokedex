@@ -28,4 +28,23 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
+.pokemon-list {
+  display: grid;
+  grid-template-rows: 1fr;
+
+  @media (min-width: $min-width-first-break) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: $min-width-third-break) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (min-width: $min-width-fourth-break) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+</style>
