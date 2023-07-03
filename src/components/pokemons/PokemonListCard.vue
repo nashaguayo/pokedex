@@ -42,6 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-list-card {
+  // TODO: Make this a css variable for darkmode.
   background-color: rgb(20, 119, 0);
   box-shadow: var(--main-box-shadow);
   border: 0.15rem solid var(--main-border-color);
