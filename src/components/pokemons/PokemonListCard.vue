@@ -1,16 +1,20 @@
 <template>
-  <CenteredColumn class="pokemon-list-card">
+  <div
+    class="pokemon-list-card"
+    :class="{ 'shrink-animation': wasClicked }"
+    @click="showPokemonInfo"
+    @animationend="wasClicked = false"
+  >
     <img
       :src="pokemon.sprites?.front_default"
       alt="pokemon front default"
       class="screen"
     />
     <span>{{ pokemonName }}</span>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import { getPokemon } from '@lib/pokemon';
 import silouette from '@assets/pokemons/silouette.png';
 
@@ -18,15 +22,13 @@ export default {
   name: 'PokemonListCard',
   data() {
     return {
+      wasClicked: false,
       pokemon: {
         sprites: {
           front_default: silouette,
         },
       },
     };
-  },
-  components: {
-    CenteredColumn,
   },
   props: {
     pokemonName: {
@@ -36,6 +38,11 @@ export default {
   },
   async created() {
     this.pokemon = await getPokemon(this.pokemonName);
+  },
+  methods: {
+    showPokemonInfo() {
+      this.wasClicked = true;
+    },
   },
 };
 </script>
@@ -48,6 +55,11 @@ export default {
   border: 0.15rem solid var(--main-border-color);
   border-radius: 1rem;
   padding: 0.5rem;
+  width: 10rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .screen {
     background-color: white;
@@ -61,6 +73,22 @@ export default {
 
   span {
     color: var(--secondary-text-color);
+  }
+}
+
+.shrink-animation {
+  animation: shrink 0.3s;
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>
