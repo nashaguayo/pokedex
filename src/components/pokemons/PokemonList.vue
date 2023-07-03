@@ -1,8 +1,8 @@
 <template>
   <transition-group name="slide-up" class="pokemon-list">
     <PokemonListCard
-      v-for="(pokemon, id) in pokemons"
-      :key="id"
+      v-for="pokemon in pokemons"
+      :key="pokemon.name"
       :pokemonName="pokemon.name"
     />
   </transition-group>
