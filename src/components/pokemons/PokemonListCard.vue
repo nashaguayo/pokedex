@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { getPokemon } from '@lib/pokemon';
+import { getPokemon } from '@api/pokemon';
 import silouette from '@assets/pokemons/silouette.png';
 
 export default {

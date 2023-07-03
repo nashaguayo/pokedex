@@ -18,7 +18,7 @@
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
-import { getPokemons } from '@lib/pokemon';
+import { getPokemons } from '@api/pokemon';
 
 export default {
   name: 'PokemonList',
