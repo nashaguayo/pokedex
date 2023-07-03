@@ -11,6 +11,7 @@ module.exports = {
     '^@views/(.*)': '<rootDir>/src/views/$1',
     '^@lib/(.*)': '<rootDir>/src/lib/$1',
     '^@css/(.*)': '<rootDir>/src/css/$1',
+    '^@api/(.*)': '<rootDir>/src/api/$1',
   },
   testEnvironment: 'jsdom',
 };
