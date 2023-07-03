@@ -14,12 +14,10 @@
         />
       </div>
       <div class="pagination-buttons">
-        <BaseButton
-          text="Previous"
-          :onClickHandler="getPreviousPage"
-          :disabled="!previousUrl"
-        />
-        <BaseButton text="Next" :onClickHandler="getNextPage" />
+        <BaseButton :onClickHandler="getPreviousPage" :disabled="!previousUrl">
+          Previous
+        </BaseButton>
+        <BaseButton :onClickHandler="getNextPage">Next</BaseButton>
       </div>
     </template>
   </CenteredColumn>
