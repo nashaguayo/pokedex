@@ -1,11 +1,11 @@
 <template>
-  <div class="pokemon-list">
+  <transition-group name="slide-up" class="pokemon-list">
     <PokemonListCard
       v-for="(pokemon, id) in pokemons"
       :key="id"
       :pokemonName="pokemon.name"
     />
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -53,5 +53,20 @@ export default {
   @media (min-width: $min-width-fifth-break) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 0.5s;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(5rem);
+}
+
+.slide-up-enter-to,
+.slide-up-leave-from {
+  transform: translateY(0);
 }
 </style>
