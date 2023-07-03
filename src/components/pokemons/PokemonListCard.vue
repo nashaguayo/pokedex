@@ -6,7 +6,7 @@
     @animationend="wasClicked = false"
   >
     <img
-      :src="pokemon.sprites?.front_default"
+      :src="pokemon.sprites.front_default"
       alt="pokemon front default"
       class="screen"
     />

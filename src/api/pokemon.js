@@ -10,15 +10,6 @@ export async function getPokemonsInfo(url) {
   }
 }
 
-export async function getAmountOfPokemons() {
-  try {
-    const response = await pokemonApi.get('pokemon');
-    return response.data.count;
-  } catch (e) {
-    logError(this.function.name, 'Unable to retrieve Pokemon count', e);
-  }
-}
-
 export async function getPokemon(id) {
   try {
     const response = await pokemonApi.get(`pokemon/${id}`);
