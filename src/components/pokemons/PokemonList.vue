@@ -5,6 +5,7 @@
         v-for="pokemon in pokemons"
         :key="pokemon.name"
         :pokemonName="pokemon.name"
+        :disabled="!nextUrl"
       />
     </div>
     <div class="pagination-buttons">
