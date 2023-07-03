@@ -1,21 +1,27 @@
 <template>
   <CenteredColumn class="pokemon-list">
-    <div class="pokemons">
-      <PokemonListCard
-        v-for="pokemon in pokemons"
-        :key="pokemon.name"
-        :pokemonName="pokemon.name"
-        :disabled="!nextUrl"
-      />
-    </div>
-    <div class="pagination-buttons">
-      <BaseButton
-        text="Previous"
-        :onClickHandler="getPreviousPage"
-        :disabled="!previousUrl"
-      />
-      <BaseButton text="Next" :onClickHandler="getNextPage" />
-    </div>
+    <template v-if="!pokemons.length">
+      <h2>Something went wrong!</h2>
+      <p>No pokemons to display.</p>
+    </template>
+    <template v-else>
+      <div class="pokemons">
+        <PokemonListCard
+          v-for="pokemon in pokemons"
+          :key="pokemon.name"
+          :pokemonName="pokemon.name"
+          :disabled="!nextUrl"
+        />
+      </div>
+      <div class="pagination-buttons">
+        <BaseButton
+          text="Previous"
+          :onClickHandler="getPreviousPage"
+          :disabled="!previousUrl"
+        />
+        <BaseButton text="Next" :onClickHandler="getNextPage" />
+      </div>
+    </template>
   </CenteredColumn>
 </template>
 
