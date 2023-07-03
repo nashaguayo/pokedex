@@ -8,7 +8,7 @@
       />
     </transition-group>
     <div class="pagination-buttons">
-      <BaseButton text="Previous" />
+      <BaseButton text="Previous" :disabled="!previousUrl" />
       <BaseButton text="Next" />
     </div>
   </CenteredColumn>
@@ -18,7 +18,7 @@
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
-import { getPokemons } from '@api/pokemon';
+import { getPokemonsInfo } from '@api/pokemon';
 
 export default {
   name: 'PokemonList',
@@ -30,10 +30,15 @@ export default {
   data() {
     return {
       pokemons: [],
+      previousUrl: null,
+      nextUrl: null,
     };
   },
   async mounted() {
-    this.pokemons = (await getPokemons()).results;
+    const pokemonsInfo = await getPokemonsInfo();
+    this.pokemons = pokemonsInfo.results;
+    this.nextUrl = pokemonsInfo.next;
+    this.previousUrl = pokemonsInfo.previous;
   },
 };
 </script>

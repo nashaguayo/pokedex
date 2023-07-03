@@ -49,6 +49,9 @@ html[data-theme='light'] {
 
   --cards-background-color: #{$light-cards-background-color};
   --screen-background-color: #{$light-screen-background-color};
+
+  --disabled-button-background-color: #{$light-disabled-button-background-color};
+  --disabled-button-color: #{$light-disabled-button-color};
 }
 
 html[data-theme='dark'] {
@@ -69,6 +72,9 @@ html[data-theme='dark'] {
 
   --cards-background-color: #{$dark-cards-background-color};
   --screen-background-color: #{$dark-screen-background-color};
+
+  --disabled-button-background-color: #{$dark-disabled-button-background-color};
+  --disabled-button-color: #{$dark-disabled-button-color};
 }
 
 body {

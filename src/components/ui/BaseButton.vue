@@ -1,5 +1,6 @@
 <template>
   <button
+    :disabled="disabled"
     @click="handleAndAnimate"
     :class="{ 'shrink-animation': wasClicked }"
     class="base-button"
@@ -20,6 +21,10 @@ export default {
     text: {
       type: String,
       default: 'Click Me',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -48,6 +53,11 @@ export default {
   font-size: 1.5rem;
   box-shadow: var(--main-box-shadow);
   border: 0.2rem solid var(--main-border-color);
+
+  &[disabled] {
+    background-color: var(--disabled-button-background-color);
+    color: var(--disabled-button-color);
+  }
 }
 
 .shrink-animation {
