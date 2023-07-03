@@ -1,18 +1,36 @@
 <template>
-  <button @click="onClick" class="base-button">{{ text }}</button>
+  <button
+    @click="handleAndAnimate"
+    :class="{ 'shrink-animation': wasClicked }"
+    class="base-button"
+    @animationend="wasClicked = false"
+  >
+    {{ text }}
+  </button>
 </template>
 
 <script>
 export default {
   name: 'BaseButton',
   props: {
-    onClick: {
+    onClickHandler: {
       type: Function,
       default: () => {},
     },
     text: {
       type: String,
       default: 'Click Me',
+    },
+  },
+  data() {
+    return {
+      wasClicked: false,
+    };
+  },
+  methods: {
+    handleAndAnimate() {
+      this.wasClicked = true;
+      this.onClickHandler();
     },
   },
 };
@@ -30,5 +48,23 @@ export default {
   font-size: 1.5rem;
   box-shadow: var(--main-box-shadow);
   border: 0.2rem solid var(--main-border-color);
+}
+
+.shrink-animation {
+  animation: shrink 0.3s;
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
