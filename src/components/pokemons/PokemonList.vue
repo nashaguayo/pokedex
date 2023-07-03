@@ -1,21 +1,31 @@
 <template>
-  <transition-group name="slide-up" class="pokemon-list">
-    <PokemonListCard
-      v-for="pokemon in pokemons"
-      :key="pokemon.name"
-      :pokemonName="pokemon.name"
-    />
-  </transition-group>
+  <CenteredColumn class="pokemon-list">
+    <transition-group name="slide-up" class="pokemons">
+      <PokemonListCard
+        v-for="pokemon in pokemons"
+        :key="pokemon.name"
+        :pokemonName="pokemon.name"
+      />
+    </transition-group>
+    <div class="pagination-buttons">
+      <BaseButton text="Previous" />
+      <BaseButton text="Next" />
+    </div>
+  </CenteredColumn>
 </template>
 
 <script>
 import PokemonListCard from '@components/pokemons/PokemonListCard';
+import CenteredColumn from '@components/ui/CenteredColumn';
+import BaseButton from '@components/ui/BaseButton';
 import { getPokemons } from '@lib/pokemon';
 
 export default {
   name: 'PokemonList',
   components: {
     PokemonListCard,
+    BaseButton,
+    CenteredColumn,
   },
   data() {
     return {
@@ -31,12 +41,12 @@ export default {
 <style lang="scss" scoped>
 @import '@css/media-queries.scss';
 
-.pokemon-list {
+.pokemons {
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 1rem;
   grid-column-gap: 3rem;
-  margin: 0 3rem 5rem;
+  margin: 0 3rem 1rem;
 
   @media (min-width: $min-width-first-break) {
     grid-template-columns: 1fr 1fr;
@@ -53,6 +63,12 @@ export default {
   @media (min-width: $min-width-fifth-break) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+}
+
+.pagination-buttons {
+  margin: 1rem 0 3rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .slide-up-enter-active,
