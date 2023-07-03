@@ -48,6 +48,7 @@ html[data-theme='light'] {
   --main-box-shadow: #{$light-main-box-shadow};
 
   --cards-background-color: #{$light-cards-background-color};
+  --screen-background-color: #{$light-screen-background-color};
 }
 
 html[data-theme='dark'] {
@@ -67,6 +68,7 @@ html[data-theme='dark'] {
   --main-box-shadow: #{$dark-main-box-shadow};
 
   --cards-background-color: #{$dark-cards-background-color};
+  --screen-background-color: #{$dark-screen-background-color};
 }
 
 body {
