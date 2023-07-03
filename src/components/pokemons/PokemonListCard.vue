@@ -12,12 +12,17 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import { getPokemon } from '@lib/pokemon';
+import silouette from '@assets/pokemons/silouette.png';
 
 export default {
   name: 'PokemonListCard',
   data() {
     return {
-      pokemon: {},
+      pokemon: {
+        sprites: {
+          front_default: silouette,
+        },
+      },
     };
   },
   components: {
@@ -45,9 +50,12 @@ export default {
 
   .screen {
     background-color: white;
+    background-size: cover;
     border-radius: 0.5rem;
     margin-bottom: 0.3rem;
     border: 0.15rem solid var(--main-border-color);
+    width: 6.25rem;
+    height: 6.25rem;
   }
 
   span {
