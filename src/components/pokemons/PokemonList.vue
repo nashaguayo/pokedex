@@ -23,6 +23,7 @@ import PokemonListCard from '@components/pokemons/PokemonListCard';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
 import { getPokemonsInfo } from '@api/pokemon';
+import { scrollToTopOfBackgroundPage } from '@lib/helpers';
 
 export default {
   name: 'PokemonList',
@@ -55,9 +56,7 @@ export default {
       this.pokemons = pokemonsInfo.results;
       this.nextUrl = pokemonsInfo.next;
       this.previousUrl = pokemonsInfo.previous;
-      document
-        .getElementsByClassName('white-background')[0]
-        .scrollTo({ top: 0 });
+      scrollToTopOfBackgroundPage();
     },
   },
 };
