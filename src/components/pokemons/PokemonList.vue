@@ -49,7 +49,9 @@ export default {
       await this.getPokemons(this.nextUrl);
     },
     async getPokemons(url) {
-      const pokemonsInfo = await getPokemonsInfo(url);
+      const pokemonsInfo = await getPokemonsInfo(
+        url?.replace(process.env.VUE_APP_POKEAPI_URL, '')
+      );
       this.pokemons = pokemonsInfo.results;
       this.nextUrl = pokemonsInfo.next;
       this.previousUrl = pokemonsInfo.previous;
