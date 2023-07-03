@@ -55,6 +55,9 @@ export default {
       this.pokemons = pokemonsInfo.results;
       this.nextUrl = pokemonsInfo.next;
       this.previousUrl = pokemonsInfo.previous;
+      document
+        .getElementsByClassName('white-background')[0]
+        .scrollTo({ top: 0 });
     },
   },
 };
