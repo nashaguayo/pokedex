@@ -1,15 +1,15 @@
 <template>
   <CenteredColumn class="pokemon-list">
-    <transition-group name="slide-up" class="pokemons">
+    <div class="pokemons">
       <PokemonListCard
         v-for="pokemon in pokemons"
         :key="pokemon.name"
         :pokemonName="pokemon.name"
       />
-    </transition-group>
+    </div>
     <div class="pagination-buttons">
       <BaseButton text="Previous" :disabled="!previousUrl" />
-      <BaseButton text="Next" />
+      <BaseButton text="Next" :onClickHandler="getNextPage" />
     </div>
   </CenteredColumn>
 </template>
@@ -35,10 +35,18 @@ export default {
     };
   },
   async mounted() {
-    const pokemonsInfo = await getPokemonsInfo();
-    this.pokemons = pokemonsInfo.results;
-    this.nextUrl = pokemonsInfo.next;
-    this.previousUrl = pokemonsInfo.previous;
+    this.getPokemons();
+  },
+  methods: {
+    async getNextPage() {
+      await this.getPokemons(this.nextUrl);
+    },
+    async getPokemons(url) {
+      const pokemonsInfo = await getPokemonsInfo(url);
+      this.pokemons = pokemonsInfo.results;
+      this.nextUrl = pokemonsInfo.next;
+      this.previousUrl = pokemonsInfo.previous;
+    },
   },
 };
 </script>
@@ -78,16 +86,16 @@ export default {
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: transform 0.5s;
+  transition: opacity 0.3s;
 }
 
 .slide-up-enter,
 .slide-up-leave-to {
-  transform: translateY(5rem);
+  opacity: 1;
 }
 
 .slide-up-enter-to,
 .slide-up-leave-from {
-  transform: translateY(0);
+  opacity: 0;
 }
 </style>
