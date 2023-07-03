@@ -14,18 +14,30 @@ $light-main-border-color: black;
 
 $light-main-box-shadow: 0 0 0.3rem 0.1rem $light-secondary-shadow-color;
 
+$light-cards-background-color: rgb(20, 119, 0);
+$light-screen-background-color: white;
+
+$light-disabled-button-background-color: #cccccc;
+$light-disabled-button-color: #666666;
+
 // Dark mode
-$dark-main-background-color: rgb(0, 0, 0);
-$dark-secondary-background-color: rgb(105, 0, 61);
-$dark-variant-background-color: rgb(255, 255, 255);
+$dark-main-background-color: rgb(44, 44, 44);
+$dark-secondary-background-color: rgb(78, 16, 52);
+$dark-variant-background-color: rgb(0, 0, 0);
 
 $dark-main-shadow-color: rgba(255, 255, 255, 0.6);
 $dark-secondary-shadow-color: rgba(255, 255, 255, 0.3);
 
 $dark-main-text-color: white;
 $dark-secondary-text-color: black;
-$dark-variant-text-color: black;
+$dark-variant-text-color: white;
 
-$dark-main-border-color: white;
+$dark-main-border-color: rgb(34, 34, 34);
 
 $dark-main-box-shadow: 0 0 0.3rem 0.1rem $dark-secondary-shadow-color;
+
+$dark-cards-background-color: rgb(9, 54, 0);
+$dark-screen-background-color: black;
+
+$dark-disabled-button-background-color: #535353;
+$dark-disabled-button-color: #cccccc;

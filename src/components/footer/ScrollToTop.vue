@@ -15,6 +15,7 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import { scrollToTopOfBackgroundPage } from '@lib/helpers';
 
 export default {
   name: 'ScrollToTop',
@@ -50,9 +51,7 @@ export default {
     },
     scrollToTop() {
       this.wasClicked = true;
-      document
-        .getElementsByClassName('white-background')[0]
-        .scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToTopOfBackgroundPage();
     },
   },
 };

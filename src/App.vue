@@ -5,18 +5,8 @@
 </template>
 
 <script>
-import pokemonApi from '@config/pokemonApi';
-
 export default {
   name: 'App',
-  async created() {
-    const response = await pokemonApi.get('pokemon/1');
-    if (response.status === 200) {
-      console.log('Axios connection OK');
-    } else {
-      console.error('Something went wrong. Unable to connect to axios!');
-    }
-  },
 };
 </script>
 
@@ -56,6 +46,12 @@ html[data-theme='light'] {
   --main-border-color: #{$light-main-border-color};
 
   --main-box-shadow: #{$light-main-box-shadow};
+
+  --cards-background-color: #{$light-cards-background-color};
+  --screen-background-color: #{$light-screen-background-color};
+
+  --disabled-button-background-color: #{$light-disabled-button-background-color};
+  --disabled-button-color: #{$light-disabled-button-color};
 }
 
 html[data-theme='dark'] {
@@ -73,6 +69,12 @@ html[data-theme='dark'] {
   --main-border-color: #{$dark-main-border-color};
 
   --main-box-shadow: #{$dark-main-box-shadow};
+
+  --cards-background-color: #{$dark-cards-background-color};
+  --screen-background-color: #{$dark-screen-background-color};
+
+  --disabled-button-background-color: #{$dark-disabled-button-background-color};
+  --disabled-button-color: #{$dark-disabled-button-color};
 }
 
 body {

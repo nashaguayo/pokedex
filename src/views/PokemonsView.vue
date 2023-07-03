@@ -1,16 +1,17 @@
 <template>
-  <BasePage>
+  <BasePage title="Pokemons">
     <template v-slot:content>
-      <h1>Pokemons</h1>
-      <span>This page will display Pokemons.</span>
+      <PokemonList />
     </template>
   </BasePage>
 </template>
 
 <script>
-import BasePage from '@/components/ui/BasePage.vue';
+import BasePage from '@components/ui/BasePage.vue';
+import PokemonList from '@components/pokemons/PokemonList.vue';
+
 export default {
   name: 'PokemonsView',
-  components: { BasePage },
+  components: { BasePage, PokemonList },
 };
 </script>
