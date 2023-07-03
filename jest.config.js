@@ -4,6 +4,7 @@ module.exports = {
   transform: {
     '^.+\\.js$': 'babel-jest',
     '.*\\.(vue)$': 'vue-jest',
+    '.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub',
   },
   moduleNameMapper: {
     '^@src/(.*)': '<rootDir>/src/$1',
@@ -12,6 +13,7 @@ module.exports = {
     '^@lib/(.*)': '<rootDir>/src/lib/$1',
     '^@css/(.*)': '<rootDir>/src/css/$1',
     '^@api/(.*)': '<rootDir>/src/api/$1',
+    '^@assets/(.*)': '<rootDir>/src/assets/$1',
   },
   testEnvironment: 'jsdom',
 };
