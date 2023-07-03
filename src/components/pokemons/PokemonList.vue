@@ -8,7 +8,11 @@
       />
     </div>
     <div class="pagination-buttons">
-      <BaseButton text="Previous" :disabled="!previousUrl" />
+      <BaseButton
+        text="Previous"
+        :onClickHandler="getPreviousPage"
+        :disabled="!previousUrl"
+      />
       <BaseButton text="Next" :onClickHandler="getNextPage" />
     </div>
   </CenteredColumn>
@@ -38,6 +42,9 @@ export default {
     this.getPokemons();
   },
   methods: {
+    async getPreviousPage() {
+      await this.getPokemons(this.previousUrl);
+    },
     async getNextPage() {
       await this.getPokemons(this.nextUrl);
     },
