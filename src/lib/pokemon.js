@@ -22,7 +22,7 @@ export async function getAmountOfPokemons() {
 export async function getPokemon(id) {
   try {
     const response = await pokemonApi.get(`pokemon/${id}`);
-    // throw Error('probando error rrandom');
+    console.log(response.data);
     return response.data;
   } catch (e) {
     logError(this.function.name, 'Unable to retrieve Pokemon', e);
