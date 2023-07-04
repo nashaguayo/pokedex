@@ -1,7 +1,18 @@
 <template>
-  <CenteredColumn class="pokemon-item">
-    <img class="location" src="@assets/pokemons/location.jpg" />
-    <img class="pokemon-image" :src="pokemonImage" alt="pokemon" />
+  <CenteredColumn class="pokemon-item" ref="pokemonItem">
+    <img
+      class="location"
+      src="@assets/pokemons/location.jpg"
+      :height="locationHeight"
+      :width="locationWidth"
+    />
+    <img
+      class="pokemon-image"
+      :src="pokemonImage"
+      alt="pokemon"
+      ref="pokemonImage"
+      @load="setLocationHeight"
+    />
     <div class="pokemon-backdrop-filter"></div>
     <h2 class="pokemon-name">{{ getCapitalizedPokemonName() }}</h2>
     <div class="pokemon-info-container">
@@ -25,6 +36,8 @@ export default {
     return {
       pokemon: {},
       pokemonImage: '',
+      locationHeight: 0,
+      locationWidth: 0,
     };
   },
   async created() {
@@ -46,6 +59,10 @@ export default {
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
       return pokemonNameCapitalized;
     },
+    setLocationHeight() {
+      this.locationHeight = this.$refs.pokemonImage.offsetHeight;
+      this.locationWidth = this.$refs.pokemonItem.offsetWidth;
+    },
   },
 };
 </script>
@@ -56,10 +73,15 @@ export default {
 .pokemon-item {
   .location {
     position: absolute;
+
+    @media (min-width: $min-width-second-break) {
+      width: 75%;
+    }
   }
   .pokemon-image {
     width: 20rem;
     z-index: 5;
+    padding: 2rem 0;
 
     @media (min-width: $min-width-first-break) {
       width: 25rem;
