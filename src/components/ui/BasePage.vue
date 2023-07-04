@@ -1,12 +1,12 @@
 <template>
   <CenteredColumn class="base-page">
     <CenteredColumn class="page-background">
-      <slot name="header">
+      <slot v-if="displayHeader" name="header">
         <BaseHeader />
         <h1 v-if="title">{{ title }}</h1>
       </slot>
       <slot name="content"></slot>
-      <slot name="footer">
+      <slot v-if="displayFooter" name="footer">
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -29,6 +29,14 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    displayHeader: {
+      type: Boolean,
+      default: true,
+    },
+    displayFooter: {
+      type: Boolean,
+      default: true,
     },
   },
 };
