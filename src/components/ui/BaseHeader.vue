@@ -37,13 +37,13 @@
 </template>
 
 <script>
-import { getDarkMode, toggleDarkMode } from '@lib/localStorage';
+import { isDarkModeEnabled, toggleDarkMode } from '@lib/localStorage';
 
 export default {
   name: 'BaseHeader',
   data() {
     return {
-      isDarkModeEnabled: getDarkMode(),
+      isDarkModeEnabled: isDarkModeEnabled(),
     };
   },
   created() {
