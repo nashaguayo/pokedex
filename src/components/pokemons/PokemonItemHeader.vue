@@ -55,10 +55,18 @@ export default {
 .pokemon-item-header {
   width: 100%;
 
+  @media (min-width: $min-width-fifth-break) {
+    width: auto;
+  }
+
   .location {
     position: absolute;
     box-shadow: var(--main-box-shadow);
     width: 100%;
+
+    @media (min-width: $min-width-fifth-break) {
+      display: none;
+    }
   }
 
   .pokemon-backdrop-filter {
@@ -90,6 +98,14 @@ export default {
 
     @media (min-width: $min-width-second-break) {
       width: 30rem;
+    }
+
+    @media (min-width: $min-width-fifth-break) {
+      border: 0.2rem solid var(--secondary-border-color);
+      border-radius: 5rem;
+      box-shadow: var(--main-box-shadow);
+      max-width: 20rem;
+      padding: 3rem;
     }
   }
 

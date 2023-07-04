@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
 .pokemon-item-stat {
   display: grid;
   grid-template-columns: 1fr 1fr;

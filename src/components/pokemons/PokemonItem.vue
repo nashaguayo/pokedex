@@ -82,6 +82,12 @@ export default {
     width: 75%;
   }
 
+  @media (min-width: $min-width-fifth-break) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+  }
+
   .pokemon-info-container {
     margin-top: 3rem;
 
@@ -91,6 +97,10 @@ export default {
 
     @media (min-width: $min-width-second-break) {
       margin-top: 6rem;
+    }
+
+    @media (min-width: $min-width-fifth-break) {
+      width: auto;
     }
   }
 
