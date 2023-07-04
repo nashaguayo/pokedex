@@ -15,11 +15,6 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/pokemons',
-    name: 'pokemons',
-    component: () => import('@views/PokemonsView.vue'),
-  },
-  {
     path: '/404',
     name: 'pageNotFound',
     component: () => import('@views/PageNotFoundView.vue'),
@@ -27,6 +22,16 @@ const routes = [
   {
     path: '*',
     redirect: '/404',
+  },
+  {
+    path: '/pokemons',
+    name: 'pokemons',
+    component: () => import('@views/PokemonsView.vue'),
+  },
+  {
+    path: '/pokemon',
+    name: 'pokemon',
+    component: () => import('@components/pokemons/PokemonItem.vue'),
   },
 ];
 
