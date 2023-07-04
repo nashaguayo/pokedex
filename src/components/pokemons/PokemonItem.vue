@@ -72,13 +72,15 @@ export default {
     width: 100%;
     z-index: 5;
     top: -5rem;
-    backdrop-filter: grayscale(100%);
+    backdrop-filter: grayscale(100%) blur(1rem);
 
     @media (min-width: $min-width-first-break) {
+      top: -7rem;
       height: 4rem;
     }
 
     @media (min-width: $min-width-second-break) {
+      top: -9rem;
       height: 5rem;
     }
   }
@@ -87,13 +89,14 @@ export default {
     position: relative;
     top: -8rem;
     z-index: 10;
+    color: var(--variant-text-color) !important;
 
     @media (min-width: $min-width-first-break) {
-      top: -9rem;
+      top: -11rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      top: -10.5rem;
+      top: -14.5rem;
     }
   }
 
