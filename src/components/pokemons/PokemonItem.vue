@@ -1,6 +1,7 @@
 <template>
   <CenteredColumn class="pokemon-item">
     <img class="pokemon-image" :src="pokemonImage" />
+    <div class="pokemon-image-container"></div>
     <h2 class="pokemon-name">{{ getCapitalizedPokemonName() }}</h2>
     <div class="pokemon-info-container">
       <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
@@ -64,10 +65,29 @@ export default {
     }
   }
 
+  .pokemon-image-container {
+    position: fixed;
+    height: 2.5rem;
+    width: 100%;
+    z-index: 5;
+    top: 16.5rem;
+    backdrop-filter: grayscale(100%);
+
+    @media (min-width: $min-width-first-break) {
+      top: 20.5rem;
+      height: 3rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      top: 24rem;
+      height: 4rem;
+    }
+  }
+
   .pokemon-name {
     position: fixed;
     top: 16rem;
-    z-index: 5;
+    z-index: 10;
 
     @media (min-width: $min-width-first-break) {
       top: 20rem;
