@@ -1,9 +1,12 @@
 <template>
   <CenteredColumn class="pokemon-item-type">
     <span class="title">Types</span>
-    <div v-for="t in types" :key="`type-${t}`" class="type">
+    <div v-for="t in types" :key="`type-${t.type.name}`" class="type">
       <span>{{ t.type.name }}</span>
-      <div class="lights">
+      <div
+        class="lights"
+        :style="{ backgroundColor: backgroundColorTypes.get(t.type.name) }"
+      >
         <div class="shine" />
       </div>
     </div>
@@ -13,9 +16,37 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 
+const backgroundColorTypes = new Map([
+  ['normal', 'black'],
+  ['fighting', 'white'],
+  ['flying', 'blue'],
+  ['poison', 'green'],
+  ['ground', 'brown'],
+  ['rock', 'darkgrey'],
+  ['bug', 'fuchsia'],
+  ['ghost', 'coral'],
+  ['steel', 'grey'],
+  ['fire', 'red'],
+  ['water', 'aquamarine'],
+  ['grass', 'lime'],
+  ['electric', 'antiquewhite'],
+  ['psychic', 'blueviolet'],
+  ['ice', 'blanchedalmond'],
+  ['dragon', 'chocolate'],
+  ['dark', 'darkolivegreen'],
+  ['fairy', 'darkorange'],
+  ['unknown', 'black'],
+  ['shadow', 'darksalmon'],
+]);
+
 export default {
   name: 'PokemonItemType',
   components: { CenteredColumn },
+  data() {
+    return {
+      backgroundColorTypes,
+    };
+  },
   props: {
     types: Array,
     default: [],
