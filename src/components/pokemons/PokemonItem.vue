@@ -117,6 +117,10 @@ export default {
   .go-back-button {
     margin-top: 1rem;
     margin-bottom: 3rem;
+
+    @media (min-width: $min-width-fourth-break) {
+      margin-top: 3rem;
+    }
   }
 }
 </style>
