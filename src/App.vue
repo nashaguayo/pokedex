@@ -155,7 +155,7 @@ a:active {
 
   h1,
   h2 {
-    text-shadow: var(--secondary-background-color) 0.1rem 0 1rem;
+    text-shadow: var(--variant-background-color) 0 0 0.2rem;
     letter-spacing: 0.25rem;
     text-align: center;
   }
