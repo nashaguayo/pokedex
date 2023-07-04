@@ -74,6 +74,7 @@ export default {
 .pokemon-item {
   background-color: var(--secondary-background-color);
   height: 100%;
+  overflow-x: hidden;
 
   .pokemon-info-container {
     margin-top: 3rem;
