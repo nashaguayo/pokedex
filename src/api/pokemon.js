@@ -2,12 +2,12 @@ import pokemonApi from '@config/pokemonApi';
 import { logError } from '@lib/logger';
 import silouette from '@assets/pokemons/silouette.png';
 
-export async function getPokemonsInfo(url) {
+export async function getPokemons(url) {
   try {
     const response = await pokemonApi.get(url ?? 'pokemon');
     return response.data;
   } catch (e) {
-    logError(getPokemonsInfo.name, 'Unable to retrieve Pokemons', e);
+    logError(getPokemons.name, 'Unable to retrieve Pokemons', e);
     return [];
   }
 }

@@ -29,7 +29,7 @@
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
-import { getPokemonsInfo } from '@api/pokemon';
+import { getPokemons } from '@api/pokemon';
 import { scrollToTopOfBackgroundPage } from '@lib/helpers';
 
 export default {
@@ -58,7 +58,7 @@ export default {
       await this.getPokemons(this.nextUrl);
     },
     async getPokemons(url) {
-      const pokemonsInfo = await getPokemonsInfo(
+      const pokemonsInfo = await getPokemons(
         url?.replace(process.env.VUE_APP_POKEAPI_URL, '')
       );
       this.pokemons = pokemonsInfo.results;
