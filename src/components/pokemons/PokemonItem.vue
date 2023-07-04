@@ -72,7 +72,7 @@ export default {
     width: 100%;
     z-index: 5;
     top: -5rem;
-    backdrop-filter: grayscale(100%) blur(1rem);
+    backdrop-filter: blur(1rem);
 
     @media (min-width: $min-width-first-break) {
       top: -7rem;
