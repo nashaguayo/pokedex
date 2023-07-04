@@ -16,6 +16,7 @@
         :key="pokemonStat.name"
         :pokemonStat="pokemonStat"
       />
+      <PokemonItemType :types="pokemonTypes" />
       <BaseButton class="go-back-button" :onClickHandler="goBack"
         >Go Back</BaseButton
       >
@@ -28,6 +29,7 @@ import BaseButton from '@components/ui/BaseButton.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
 import PokemonItemStat from '@components/pokemons/PokemonItemStat.vue';
+import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
 import { getPokemon } from '@api/pokemon';
 import { capitalizeWord } from '@lib/helpers';
 
@@ -38,6 +40,7 @@ export default {
     CenteredColumn,
     PokemonItemHeader,
     PokemonItemStat,
+    PokemonItemType,
   },
   data() {
     return {
@@ -45,6 +48,7 @@ export default {
       pokemonImage: '',
       pokemonName: '',
       pokemonStats: [],
+      pokemonTypes: [],
     };
   },
   async created() {
@@ -54,6 +58,8 @@ export default {
       return { name: s.stat.name, value: s.base_stat };
     });
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
+    console.log(this.pokemon.types);
+    this.pokemonTypes = this.pokemon.types;
     this.getCapitalizedPokemonName();
   },
   methods: {
