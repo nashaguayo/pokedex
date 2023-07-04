@@ -57,15 +57,14 @@ export default {
 
 .pokemon-item {
   .pokemon-info-container {
-    position: relative;
-    top: -5rem;
+    margin-top: 5rem;
 
     @media (min-width: $min-width-first-break) {
-      top: -7rem;
+      margin-top: 6rem;
     }
 
-    @media (min-width: $min-width-second-break) {
-      top: -9rem;
+    @media (min-width: $min-width-first-break) {
+      margin-top: 7.5rem;
     }
   }
 }

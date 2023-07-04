@@ -65,20 +65,19 @@ export default {
   }
 
   .pokemon-backdrop-filter {
-    position: relative;
     height: 2.5rem;
     width: 100%;
     z-index: 5;
-    top: -5rem;
+    margin-top: -6rem;
     backdrop-filter: blur(1rem);
 
     @media (min-width: $min-width-first-break) {
-      top: -7rem;
+      margin-top: -8rem;
       height: 4rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      top: -9rem;
+      margin-top: -11rem;
       height: 5rem;
     }
   }
@@ -98,17 +97,16 @@ export default {
   }
 
   .pokemon-name {
-    position: relative;
-    top: -8rem;
+    margin-top: -2rem;
     z-index: 10;
     color: var(--variant-text-color) !important;
 
     @media (min-width: $min-width-first-break) {
-      top: -11rem;
+      margin-top: -3rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      top: -14.5rem;
+      margin-top: -3.5rem;
     }
   }
 }
