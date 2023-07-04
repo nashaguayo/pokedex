@@ -1,7 +1,6 @@
 <template>
   <CenteredColumn>
     <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
-    <p>{{ $route.params.id }}</p>
   </CenteredColumn>
 </template>
 
@@ -15,9 +14,19 @@ export default {
     BaseButton,
     CenteredColumn,
   },
+  created() {
+    this.getCapitalizedPokemonName();
+  },
   methods: {
     goBack() {
       this.$router.back();
+    },
+    getCapitalizedPokemonName() {
+      const pokemonName = this.$route.params.id;
+      const firstLetter = pokemonName.charAt(0).toUpperCase();
+      const remainingLetters = pokemonName.substring(1);
+      const pokemonNameCapitalized = `${firstLetter}${remainingLetters}`;
+      document.title = `Pokedex - ${pokemonNameCapitalized}`;
     },
   },
 };

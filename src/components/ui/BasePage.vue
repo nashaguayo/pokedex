@@ -45,7 +45,7 @@ export default {
     background-color: var(--main-background-color);
     width: 100vw;
     box-shadow: none;
-    min-height: calc(100vh - 7rem);
+    min-height: calc(100vh - 5rem);
     overflow-y: scroll;
     padding-top: 5rem;
 
@@ -53,6 +53,7 @@ export default {
       box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
       width: 75vw;
       padding-top: 7rem;
+      min-height: calc(100vh - 7rem);
     }
   }
 
