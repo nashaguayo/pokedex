@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-list">
-    <template v-if="!pokemons?.length">
+    <template v-if="!count">
       <h2>Something went wrong!</h2>
       <p>No pokemons to display.</p>
     </template>
@@ -17,7 +17,9 @@
         <BaseButton :onClickHandler="getPreviousPage" :disabled="!previousUrl">
           Previous
         </BaseButton>
-        <BaseButton :onClickHandler="getNextPage">Next</BaseButton>
+        <BaseButton :onClickHandler="getNextPage" :disabled="!nextUrl">
+          Next
+        </BaseButton>
       </div>
     </template>
   </CenteredColumn>
@@ -42,6 +44,7 @@ export default {
       pokemons: [],
       previousUrl: null,
       nextUrl: null,
+      count: 0,
     };
   },
   async mounted() {
@@ -61,6 +64,7 @@ export default {
       this.pokemons = pokemonsInfo.results;
       this.nextUrl = pokemonsInfo.next;
       this.previousUrl = pokemonsInfo.previous;
+      this.count = pokemonsInfo.count;
       scrollToTopOfBackgroundPage();
     },
   },

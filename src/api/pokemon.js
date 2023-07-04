@@ -1,5 +1,6 @@
 import pokemonApi from '@config/pokemonApi';
 import { logError } from '@lib/logger';
+import silouette from '@assets/pokemons/silouette.png';
 
 export async function getPokemonsInfo(url) {
   try {
@@ -17,5 +18,10 @@ export async function getPokemon(id) {
     return response.data;
   } catch (e) {
     logError(getPokemon.name, 'Unable to retrieve Pokemon', e);
+    return {
+      sprites: {
+        front_default: silouette,
+      },
+    };
   }
 }

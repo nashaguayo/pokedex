@@ -10,7 +10,9 @@
       alt="pokemon front default"
       class="screen"
     />
-    <span>{{ pokemonName }}</span>
+    <span>{{
+      pokemon.sprites.front_default === silouette ? '???' : pokemonName
+    }}</span>
   </div>
 </template>
 
@@ -28,6 +30,7 @@ export default {
           front_default: silouette,
         },
       },
+      silouette,
     };
   },
   props: {
