@@ -37,27 +37,33 @@
 </template>
 
 <script>
+import { getDarkMode, toggleDarkMode } from '@lib/localStorage';
+
 export default {
   name: 'BaseHeader',
   data() {
     return {
-      isDarkModeEnabled: false,
+      isDarkModeEnabled: getDarkMode(),
     };
   },
   created() {
-    document.documentElement.setAttribute('data-theme', 'light');
+    this.setTheme(this.isDarkModeEnabled);
   },
   watch: {
     isDarkModeEnabled(newValue) {
-      document.documentElement.setAttribute(
-        'data-theme',
-        newValue ? 'dark' : 'light'
-      );
+      this.setTheme(newValue);
     },
   },
   methods: {
     toggleTheme() {
       this.isDarkModeEnabled = !this.isDarkModeEnabled;
+      toggleDarkMode();
+    },
+    setTheme(isDarkMode) {
+      document.documentElement.setAttribute(
+        'data-theme',
+        isDarkMode ? 'dark' : 'light'
+      );
     },
   },
 };
