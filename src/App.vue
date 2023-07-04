@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition appear name="slide-in" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -99,6 +101,9 @@ a:active {
 
 #app {
   height: 100vh;
+  background-image: url(@assets/ui/wallpaper.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 
   h1,
   h2,
@@ -154,5 +159,18 @@ a:active {
     letter-spacing: 0.25rem;
     text-align: center;
   }
+}
+
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-in-enter {
+  transform: translateY(100%);
+}
+
+.slide-in-leave-to {
+  transform: translateY(-100%);
 }
 </style>

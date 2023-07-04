@@ -59,11 +59,6 @@ export default {
     display: none;
   }
 
-  @media (min-width: $min-width-second-break) {
-    background-image: url('@assets/ui/background.jpg');
-    background-size: contain;
-  }
-
   .logo {
     width: 18rem;
 

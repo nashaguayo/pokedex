@@ -31,7 +31,7 @@ const routes = [
   {
     path: '/pokemon',
     name: 'pokemon',
-    component: () => import('@components/pokemons/PokemonItem.vue'),
+    component: () => import('@views/PokemonView.vue'),
   },
 ];
 
