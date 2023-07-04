@@ -46,6 +46,7 @@ html[data-theme='light'] {
   --variant-text-color: #{$light-variant-text-color};
 
   --main-border-color: #{$light-main-border-color};
+  --secondary-border-color: #{$light-secondary-border-color};
 
   --main-box-shadow: #{$light-main-box-shadow};
 
@@ -69,6 +70,7 @@ html[data-theme='dark'] {
   --variant-text-color: #{$dark-variant-text-color};
 
   --main-border-color: #{$dark-main-border-color};
+  --secondary-border-color: #{$dark-secondary-border-color};
 
   --main-box-shadow: #{$dark-main-box-shadow};
 

@@ -51,7 +51,7 @@ export default {
   color: var(--secondary-text-color);
   font-family: 'Upheaval';
   box-shadow: var(--main-box-shadow);
-  border: 0.2rem solid var(--main-border-color);
+  border: 0.2rem solid var(--secondary-border-color);
   cursor: pointer;
   padding: 0.5rem;
   min-width: 10rem;
