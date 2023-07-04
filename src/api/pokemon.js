@@ -6,7 +6,8 @@ export async function getPokemonsInfo(url) {
     const response = await pokemonApi.get(url ?? 'pokemon');
     return response.data;
   } catch (e) {
-    logError(this.function.name, 'Unable to retrieve Pokemons', e);
+    logError(getPokemonsInfo.name, 'Unable to retrieve Pokemons', e);
+    return [];
   }
 }
 
@@ -15,6 +16,6 @@ export async function getPokemon(id) {
     const response = await pokemonApi.get(`pokemon/${id}`);
     return response.data;
   } catch (e) {
-    logError(this.function.name, 'Unable to retrieve Pokemon', e);
+    logError(getPokemon.name, 'Unable to retrieve Pokemon', e);
   }
 }

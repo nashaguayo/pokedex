@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-list">
-    <template v-if="!pokemons.length">
+    <template v-if="!pokemons?.length">
       <h2>Something went wrong!</h2>
       <p>No pokemons to display.</p>
     </template>
