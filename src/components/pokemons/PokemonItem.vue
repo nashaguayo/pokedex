@@ -17,7 +17,10 @@
         :pokemonStat="pokemonStat"
       />
       <PokemonItemType :types="pokemonTypes" />
-      <BaseButton class="go-back-button" :onClickHandler="goBack"
+      <BaseButton
+        class="go-back-button"
+        :onClickHandler="goBack"
+        :variant="true"
         >Go Back</BaseButton
       >
     </CenteredColumn>
