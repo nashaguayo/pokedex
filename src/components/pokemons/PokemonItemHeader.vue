@@ -1,5 +1,5 @@
 <template>
-  <div class="pokemon-item-header">
+  <CenteredColumn class="pokemon-item-header" ref="pokemonItemHeader">
     <img
       class="location"
       src="@assets/pokemons/location.jpg"
@@ -15,12 +15,15 @@
     />
     <div class="pokemon-backdrop-filter"></div>
     <h2 class="pokemon-name">{{ pokemonName }}</h2>
-  </div>
+  </CenteredColumn>
 </template>
 
 <script>
+import CenteredColumn from '@components/ui/CenteredColumn.vue';
+
 export default {
   name: 'PokemonItemHeader',
+  components: { CenteredColumn },
   data() {
     return {
       locationHeight: 0,
@@ -40,7 +43,7 @@ export default {
   methods: {
     setLocationHeight() {
       this.locationHeight = this.$refs.pokemonImage.offsetHeight;
-      this.locationWidth = this.$refs.pokemonItem.offsetWidth;
+      this.locationWidth = this.$refs.pokemonItemHeader.offsetWidth;
     },
   },
 };
@@ -50,6 +53,8 @@ export default {
 @import '@css/media-queries.scss';
 
 .pokemon-item-header {
+  width: 100%;
+
   .location {
     position: absolute;
 

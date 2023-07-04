@@ -1,7 +1,7 @@
 <template>
   <CenteredColumn class="pokemon-item" ref="pokemonItem">
     <PokemonItemHeader
-      :pokemonName="getCapitalizedPokemonName()"
+      :pokemonName="pokemonName"
       :pokemonImage="pokemonImage"
     />
     <div class="pokemon-info-container">
@@ -27,6 +27,7 @@ export default {
     return {
       pokemon: {},
       pokemonImage: '',
+      pokemonName: '',
     };
   },
   async created() {
@@ -44,8 +45,8 @@ export default {
       const firstLetter = pokemonName.charAt(0).toUpperCase();
       const remainingLetters = pokemonName.substring(1);
       const pokemonNameCapitalized = `${firstLetter}${remainingLetters}`;
+      this.pokemonName = pokemonNameCapitalized;
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
-      return pokemonNameCapitalized;
     },
   },
 };
