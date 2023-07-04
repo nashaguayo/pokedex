@@ -1,11 +1,15 @@
 <template>
-  <transition name="slide-in">
-    <button @click="goBack">Go Back</button>
-  </transition>
+  <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
 </template>
 
 <script>
+import BaseButton from '@components/ui/BaseButton.vue';
+
 export default {
+  name: 'PokemonItem',
+  components: {
+    BaseButton,
+  },
   methods: {
     goBack() {
       this.$router.back();
@@ -14,17 +18,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.slide-in-enter-active,
-.slide-in-leave-active {
-  transition: transform 0.3s;
-}
-
-.slide-in-enter {
-  transform: translateY(100%);
-}
-
-.slide-in-leave-to {
-  transform: translateY(-100%);
-}
-</style>
+<style lang="scss" scoped></style>
