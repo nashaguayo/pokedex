@@ -15,7 +15,10 @@
 
 <script>
 import throttle from 'lodash/throttle';
-import { scrollToTopOfBackgroundPage } from '@lib/helpers';
+import {
+  scrollToTopOfBackgroundPage,
+  getPageBackgroundElement,
+} from '@lib/helpers';
 
 export default {
   name: 'ScrollToTop',
@@ -32,14 +35,16 @@ export default {
     };
   },
   mounted() {
-    document
-      .getElementsByClassName('white-background')[0]
-      .addEventListener('scroll', this.throttledHandleScroll);
+    getPageBackgroundElement().addEventListener(
+      'scroll',
+      this.throttledHandleScroll
+    );
   },
   beforeDestroy() {
-    document
-      .getElementsByClassName('white-background')[0]
-      .removeEventListener('scroll', this.throttledHandleScroll);
+    getPageBackgroundElement().removeEventListener(
+      'scroll',
+      this.throttledHandleScroll
+    );
   },
   created() {
     this.throttledHandleScroll = throttle(this.handleScroll, 300);

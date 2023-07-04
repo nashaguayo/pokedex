@@ -1,5 +1,7 @@
+export function getPageBackgroundElement() {
+  return document.getElementsByClassName('page-background')[0];
+}
+
 export function scrollToTopOfBackgroundPage() {
-  document
-    .getElementsByClassName('white-background')[0]
-    .scrollTo({ top: 0, behavior: 'smooth' });
+  getPageBackgroundElement().scrollTo({ top: 0, behavior: 'smooth' });
 }

@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="base-page">
-    <CenteredColumn class="white-background">
+    <CenteredColumn class="page-background">
       <slot name="header">
         <BaseHeader />
         <h1 v-if="title">{{ title }}</h1>
@@ -41,7 +41,7 @@ export default {
   overflow-y: scroll;
   height: 100vh;
 
-  .white-background {
+  .page-background {
     background-color: var(--main-background-color);
     width: 100vw;
     box-shadow: none;
@@ -55,7 +55,7 @@ export default {
     }
   }
 
-  .white-background::-webkit-scrollbar {
+  .page-background::-webkit-scrollbar {
     display: none;
   }
 

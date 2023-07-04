@@ -5,7 +5,7 @@ describe('ScrollToTop', () => {
   let wrapper;
 
   beforeEach(() => {
-    document.body.innerHTML = '<div class="white-background"></div>';
+    document.body.innerHTML = '<div class="page-background"></div>';
     window.Element.prototype.scrollTo = jest.fn();
     wrapper = shallowMount(ScrollToTop, {
       stubs: ['FontAwesomeIcon'],
@@ -30,7 +30,7 @@ describe('ScrollToTop', () => {
     expect(wrapper.vm.showScrollToTopButton).toBe(false);
   });
 
-  it('scrolls to the top of the white-background element', () => {
+  it('scrolls to the top of the page-background element', () => {
     wrapper.vm.scrollToTop();
     expect(window.Element.prototype.scrollTo).toHaveBeenCalledWith({
       top: 0,
