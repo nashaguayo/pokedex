@@ -17,6 +17,7 @@ import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
 import PokemonItemStats from '@components/pokemons/PokemonItemStats.vue';
 import { getPokemon } from '@api/pokemon';
+import { capitalizeWord } from '@lib/helpers';
 
 export default {
   name: 'PokemonItem',
@@ -44,10 +45,7 @@ export default {
       this.$router.back();
     },
     getCapitalizedPokemonName() {
-      const pokemonName = this.$route.params.id;
-      const firstLetter = pokemonName.charAt(0).toUpperCase();
-      const remainingLetters = pokemonName.substring(1);
-      const pokemonNameCapitalized = `${firstLetter}${remainingLetters}`;
+      const pokemonNameCapitalized = capitalizeWord(this.$route.params.id);
       this.pokemonName = pokemonNameCapitalized;
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
     },
@@ -59,6 +57,9 @@ export default {
 @import '@css/media-queries.scss';
 
 .pokemon-item {
+  background-color: var(--secondary-background-color);
+  height: 100%;
+
   .pokemon-info-container {
     margin-top: 3rem;
 
