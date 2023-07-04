@@ -1,5 +1,5 @@
 <template>
-  <BasePage title="Pokemon">
+  <BasePage :title="'Pokemon'" :displayHeader="false">
     <template v-slot:content>
       <PokemonItem />
     </template>
@@ -12,6 +12,7 @@ import PokemonItem from '@components/pokemons/PokemonItem.vue';
 
 export default {
   name: 'PokemonView',
+  title: 'Pokemon',
   components: { BasePage, PokemonItem },
 };
 </script>

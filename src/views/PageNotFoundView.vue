@@ -14,6 +14,7 @@ import BasePage from '@components/ui/BasePage.vue';
 
 export default {
   components: { BasePage },
+  title: 'Page Not Found',
   name: 'PageNotFoundView',
 };
 </script>

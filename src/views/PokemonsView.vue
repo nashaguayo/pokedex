@@ -12,6 +12,7 @@ import PokemonList from '@components/pokemons/PokemonList.vue';
 
 export default {
   name: 'PokemonsView',
+  title: 'Pokemons',
   components: { BasePage, PokemonList },
 };
 </script>
