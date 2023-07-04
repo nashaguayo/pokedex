@@ -6,7 +6,7 @@
     class="base-button"
     @animationend="wasClicked = false"
   >
-    {{ text }}
+    <slot>Click Me</slot>
   </button>
 </template>
 
