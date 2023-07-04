@@ -65,7 +65,8 @@ export default {
     width: 100%;
 
     @media (min-width: $min-width-fourth-break) {
-      display: none;
+      border-radius: 5rem;
+      max-width: 20rem;
     }
   }
 
@@ -108,7 +109,6 @@ export default {
       border-radius: 5rem;
       box-shadow: var(--main-box-shadow);
       max-width: 20rem;
-      padding: 3rem;
     }
   }
 
