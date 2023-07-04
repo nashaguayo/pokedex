@@ -1,6 +1,9 @@
 <template>
   <CenteredColumn class="pokemon-item-type">
-    <span v-for="t in types" :key="`type-${t}`">{{ t.type.name }}</span>
+    <div v-for="t in types" :key="`type-${t}`" class="type">
+      <span>{{ t.type.name }}</span>
+      <div class="lights" />
+    </div>
   </CenteredColumn>
 </template>
 
@@ -22,5 +25,22 @@ export default {
   background-color: var(--main-background-color);
   width: 100%;
   margin-top: 2rem;
+  padding: 1rem 0;
+
+  .type {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.5rem;
+    gap: 1rem;
+    align-items: center;
+
+    .lights {
+      border-radius: 50%;
+      box-shadow: var(--main-box-shadow);
+      height: 1rem;
+      width: 1rem;
+      border: 0.2rem solid var(--main-border-color);
+    }
+  }
 }
 </style>
