@@ -74,12 +74,12 @@ export default {
   }
 
   .no-margins {
-    min-height: calc(100vh - 2rem);
-    padding-top: 2rem;
+    min-height: 100vh;
+    padding-top: 0rem;
 
     @media (min-width: $min-width-second-break) {
-      min-height: calc(100vh - 3rem);
-      padding-top: 3rem;
+      min-height: 100vh;
+      padding-top: 0rem;
     }
   }
 

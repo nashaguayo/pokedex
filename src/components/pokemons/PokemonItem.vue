@@ -1,5 +1,6 @@
 <template>
   <CenteredColumn>
+    <h2>{{ getCapitalizedPokemonName() }}</h2>
     <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
   </CenteredColumn>
 </template>
@@ -27,6 +28,7 @@ export default {
       const remainingLetters = pokemonName.substring(1);
       const pokemonNameCapitalized = `${firstLetter}${remainingLetters}`;
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
+      return pokemonNameCapitalized;
     },
   },
 };
