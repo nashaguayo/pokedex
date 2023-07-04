@@ -43,7 +43,6 @@ export default {
   async created() {
     // TODO: handle error gracefully when no pokemon is found or getPokemon() throws exception
     this.pokemon = await getPokemon(this.$route.params.id);
-    console.log(this.pokemon);
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.getCapitalizedPokemonName();
   },
