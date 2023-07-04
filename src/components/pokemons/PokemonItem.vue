@@ -87,6 +87,8 @@ export default {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-evenly;
+    align-items: start;
+    margin-top: 3rem;
   }
 
   .pokemon-info-container {
@@ -102,6 +104,11 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       width: auto;
+      background-color: var(--variant-background-color);
+      border-radius: 5rem;
+      box-shadow: var(--marin-box-shadow);
+      border: 0.2rem solid var(--secondary-border-color);
+      margin-top: 0;
     }
 
     .pokemon-name {
@@ -117,6 +124,10 @@ export default {
   .go-back-button {
     margin-top: 1rem;
     margin-bottom: 3rem;
+
+    @media (min-width: $min-width-first-break) {
+      margin-top: 2rem;
+    }
 
     @media (min-width: $min-width-fourth-break) {
       margin-top: 3rem;

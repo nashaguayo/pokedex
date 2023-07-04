@@ -32,6 +32,10 @@ export default {
   border-bottom: 0.2rem solid var(--secondary-border-color);
   width: 100%;
 
+  @media (min-width: $min-width-first-break) {
+    width: 70%;
+  }
+
   .big {
     font-size: 2rem;
   }
