@@ -1,9 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-item">
-    <div
-      class="pokemon-image"
-      :style="{ backgroundImage: `url(${pokemonImage})` }"
-    ></div>
+    <img class="pokemon-image" :src="pokemonImage" />
     <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
   </CenteredColumn>
 </template>
@@ -48,12 +45,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
 .pokemon-item {
   .pokemon-image {
-    background-size: contain;
-    background-repeat: no-repeat;
     width: 20rem;
-    height: 20rem;
+
+    @media (min-width: $min-width-first-break) {
+      width: 25rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      width: 30rem;
+    }
   }
 }
 </style>
