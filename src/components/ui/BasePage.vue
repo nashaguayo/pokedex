@@ -1,6 +1,12 @@
 <template>
   <CenteredColumn class="base-page">
-    <CenteredColumn class="page-background">
+    <CenteredColumn
+      class="page-background"
+      :class="{
+        'add-margins': displayHeaderAndFooter,
+        'no-margins': !displayHeaderAndFooter,
+      }"
+    >
       <slot v-if="displayHeaderAndFooter" name="header">
         <BaseHeader />
         <h1 v-if="title">{{ title }}</h1>
@@ -49,15 +55,31 @@ export default {
     background-color: var(--main-background-color);
     width: 100vw;
     box-shadow: none;
-    min-height: calc(100vh - 5rem);
     overflow-y: scroll;
-    padding-top: 5rem;
 
     @media (min-width: $min-width-second-break) {
       box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
       width: 75vw;
-      padding-top: 7rem;
+    }
+  }
+
+  .add-margins {
+    min-height: calc(100vh - 5rem);
+    padding-top: 5rem;
+
+    @media (min-width: $min-width-second-break) {
       min-height: calc(100vh - 7rem);
+      padding-top: 7rem;
+    }
+  }
+
+  .no-margins {
+    min-height: calc(100vh - 2rem);
+    padding-top: 2rem;
+
+    @media (min-width: $min-width-second-break) {
+      min-height: calc(100vh - 3rem);
+      padding-top: 3rem;
     }
   }
 
