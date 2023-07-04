@@ -58,6 +58,7 @@ export default {
       return { name: s.stat.name, value: s.base_stat };
     });
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
+    console.log(this.pokemon.types);
     this.pokemonTypes = this.pokemon.types;
     this.getCapitalizedPokemonName();
   },

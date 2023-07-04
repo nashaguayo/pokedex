@@ -24,10 +24,11 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-type {
-  background-color: var(--main-background-color);
+  background-color: var(--variant-background-color);
   width: 100%;
   margin-top: 2rem;
   padding: 1rem 0;
+  box-shadow: var(--main-box-shadow);
 
   .type {
     display: grid;
@@ -36,12 +37,16 @@ export default {
     gap: 1rem;
     align-items: center;
 
+    span {
+      color: var(--variant-text-color) !important;
+    }
+
     .lights {
       border-radius: 50%;
       box-shadow: var(--main-box-shadow);
       height: 1rem;
       width: 1rem;
-      border: 0.2rem solid var(--main-border-color);
+      border: 0.2rem solid var(--secondary-border-color);
 
       .shine {
         background-color: rgba(255, 255, 255, 0.5);
