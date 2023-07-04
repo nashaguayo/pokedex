@@ -6,7 +6,7 @@ jest.mock('@lib/helpers', () => ({
 }));
 
 jest.mock('@api/pokemon', () => ({
-  getPokemonsInfo: jest.fn().mockImplementation(() => {
+  getPokemons: jest.fn().mockImplementation(() => {
     return {
       count: 1,
       results: [
