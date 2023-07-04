@@ -5,6 +5,7 @@
       :pokemonImage="pokemonImage"
     />
     <CenteredColumn class="pokemon-info-container">
+      <h1 class="pokemon-name">{{ pokemon.name }}</h1>
       <PokemonItemStat
         :key="'stat'"
         :pokemonStat="{ name: 'stat', value: 'value' }"
@@ -82,7 +83,7 @@ export default {
     width: 75%;
   }
 
-  @media (min-width: $min-width-fifth-break) {
+  @media (min-width: $min-width-fourth-break) {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-evenly;
@@ -99,8 +100,17 @@ export default {
       margin-top: 6rem;
     }
 
-    @media (min-width: $min-width-fifth-break) {
+    @media (min-width: $min-width-fourth-break) {
       width: auto;
+    }
+
+    .pokemon-name {
+      display: none;
+      color: var(--secondary-text-color) !important;
+
+      @media (min-width: $min-width-fourth-break) {
+        display: block;
+      }
     }
   }
 

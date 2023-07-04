@@ -55,7 +55,7 @@ export default {
 .pokemon-item-header {
   width: 100%;
 
-  @media (min-width: $min-width-fifth-break) {
+  @media (min-width: $min-width-fourth-break) {
     width: auto;
   }
 
@@ -64,7 +64,7 @@ export default {
     box-shadow: var(--main-box-shadow);
     width: 100%;
 
-    @media (min-width: $min-width-fifth-break) {
+    @media (min-width: $min-width-fourth-break) {
       display: none;
     }
   }
@@ -85,6 +85,9 @@ export default {
       margin-top: -11rem;
       height: 5rem;
     }
+    @media (min-width: $min-width-fourth-break) {
+      display: none;
+    }
   }
 
   .pokemon-image {
@@ -100,7 +103,7 @@ export default {
       width: 30rem;
     }
 
-    @media (min-width: $min-width-fifth-break) {
+    @media (min-width: $min-width-fourth-break) {
       border: 0.2rem solid var(--secondary-border-color);
       border-radius: 5rem;
       box-shadow: var(--main-box-shadow);
@@ -120,6 +123,10 @@ export default {
 
     @media (min-width: $min-width-second-break) {
       margin-top: -3.5rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      display: none;
     }
   }
 }
