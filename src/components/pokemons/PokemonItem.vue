@@ -77,14 +77,14 @@ export default {
   overflow: hidden;
 
   .pokemon-info-container {
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     @media (min-width: $min-width-first-break) {
-      margin-top: 6rem;
+      margin-top: 5rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      margin-top: 8rem;
+      margin-top: 6rem;
     }
   }
 
