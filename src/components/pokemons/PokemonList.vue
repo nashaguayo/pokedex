@@ -101,7 +101,12 @@ export default {
 .pagination-buttons {
   margin: 1rem 0 3rem;
   display: flex;
+  flex-direction: column;
   gap: 2rem;
+
+  @media (min-width: $min-width-first-break) {
+    flex-direction: row;
+  }
 }
 
 .slide-up-enter-active,
