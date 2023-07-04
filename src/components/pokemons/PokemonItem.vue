@@ -113,10 +113,10 @@ export default {
 
     .pokemon-name {
       display: none;
-      color: var(--secondary-text-color) !important;
 
       @media (min-width: $min-width-fourth-break) {
         display: block;
+        color: var(--secondary-text-color) !important;
       }
     }
   }
