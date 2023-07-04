@@ -66,7 +66,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       border-radius: 5rem;
-      max-width: 20rem;
+      max-width: 24rem;
     }
   }
 
