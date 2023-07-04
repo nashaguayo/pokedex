@@ -68,6 +68,10 @@ export default {
       border-radius: 5rem;
       max-width: 24rem;
     }
+
+    @media (min-width: $min-width-fifth-break) {
+      max-width: 34rem;
+    }
   }
 
   .pokemon-backdrop-filter {
@@ -109,6 +113,10 @@ export default {
       border-radius: 5rem;
       box-shadow: var(--main-box-shadow);
       max-width: 20rem;
+    }
+
+    @media (min-width: $min-width-fifth-break) {
+      max-width: 30rem;
     }
   }
 
