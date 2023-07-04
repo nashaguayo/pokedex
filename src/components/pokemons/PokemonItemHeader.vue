@@ -94,7 +94,7 @@ export default {
   .pokemon-image {
     width: 20rem;
     z-index: 5;
-    padding: 2rem 0;
+    padding: 2rem;
 
     @media (min-width: $min-width-first-break) {
       width: 25rem;
