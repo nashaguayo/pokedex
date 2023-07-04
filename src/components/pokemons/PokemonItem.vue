@@ -4,9 +4,10 @@
       :pokemonName="pokemonName"
       :pokemonImage="pokemonImage"
     />
-    <div class="pokemon-info-container">
+    <CenteredColumn class="pokemon-info-container">
+      <PokemonItemStats :pokemon="pokemon" />
       <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
-    </div>
+    </CenteredColumn>
   </CenteredColumn>
 </template>
 
@@ -14,6 +15,7 @@
 import BaseButton from '@components/ui/BaseButton.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
+import PokemonItemStats from '@components/pokemons/PokemonItemStats.vue';
 import { getPokemon } from '@api/pokemon';
 
 export default {
@@ -22,6 +24,7 @@ export default {
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
+    PokemonItemStats,
   },
   data() {
     return {
@@ -57,14 +60,14 @@ export default {
 
 .pokemon-item {
   .pokemon-info-container {
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     @media (min-width: $min-width-first-break) {
-      margin-top: 6rem;
+      margin-top: 4rem;
     }
 
-    @media (min-width: $min-width-first-break) {
-      margin-top: 7.5rem;
+    @media (min-width: $min-width-second-break) {
+      margin-top: 6rem;
     }
   }
 }
