@@ -1,7 +1,7 @@
 <template>
   <CenteredColumn class="pokemon-item">
     <img class="pokemon-image" :src="pokemonImage" />
-    <div class="pokemon-image-container"></div>
+    <div class="pokemon-backdrop-filter"></div>
     <h2 class="pokemon-name">{{ getCapitalizedPokemonName() }}</h2>
     <div class="pokemon-info-container">
       <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
@@ -29,6 +29,7 @@ export default {
   async created() {
     // TODO: handle error gracefully when no pokemon is found or getPokemon() throws exception
     this.pokemon = await getPokemon(this.$route.params.id);
+    console.log(this.pokemon);
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.getCapitalizedPokemonName();
   },
@@ -65,41 +66,48 @@ export default {
     }
   }
 
-  .pokemon-image-container {
-    position: fixed;
+  .pokemon-backdrop-filter {
+    position: relative;
     height: 2.5rem;
     width: 100%;
     z-index: 5;
-    top: 16.5rem;
+    top: -5rem;
     backdrop-filter: grayscale(100%);
 
     @media (min-width: $min-width-first-break) {
-      top: 20.5rem;
-      height: 3rem;
+      height: 4rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      top: 24rem;
-      height: 4rem;
+      height: 5rem;
     }
   }
 
   .pokemon-name {
-    position: fixed;
-    top: 16rem;
+    position: relative;
+    top: -8rem;
     z-index: 10;
 
     @media (min-width: $min-width-first-break) {
-      top: 20rem;
+      top: -9rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      top: 23rem;
+      top: -10.5rem;
     }
   }
 
   .pokemon-info-container {
-    margin-top: 2rem;
+    position: relative;
+    top: -5rem;
+
+    @media (min-width: $min-width-first-break) {
+      top: -7rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      top: -9rem;
+    }
   }
 }
 </style>
