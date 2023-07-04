@@ -29,7 +29,7 @@ const routes = [
     component: () => import('@views/PokemonsView.vue'),
   },
   {
-    path: '/pokemon',
+    path: '/pokemon/:id',
     name: 'pokemon',
     component: () => import('@views/PokemonView.vue'),
   },

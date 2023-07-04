@@ -45,7 +45,7 @@ export default {
   methods: {
     showPokemonInfo() {
       this.wasClicked = true;
-      this.$router.push({ name: 'pokemon' });
+      this.$router.push({ name: 'pokemon', params: { id: this.pokemonName } });
     },
   },
 };
