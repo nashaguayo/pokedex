@@ -116,6 +116,10 @@ export default {
       margin-top: 0;
     }
 
+    @media (min-width: $min-width-fifth-break) {
+      min-width: 40rem;
+    }
+
     .pokemon-name {
       display: none;
 
