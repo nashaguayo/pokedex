@@ -47,11 +47,12 @@ export default {
     box-shadow: none;
     min-height: calc(100vh - 7rem);
     overflow-y: scroll;
-    padding-top: 7rem;
+    padding-top: 5rem;
 
     @media (min-width: $min-width-second-break) {
       box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
       width: 75vw;
+      padding-top: 7rem;
     }
   }
 
