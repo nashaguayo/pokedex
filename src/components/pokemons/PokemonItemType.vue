@@ -1,5 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-item-type">
+    <span class="title">Types</span>
     <div v-for="t in types" :key="`type-${t}`" class="type">
       <span>{{ t.type.name }}</span>
       <div class="lights">
@@ -29,6 +30,11 @@ export default {
   margin-top: 2rem;
   padding: 1rem 0;
   box-shadow: var(--main-box-shadow);
+
+  .title {
+    font-size: 2rem !important;
+    color: var(--secondary-text-color) !important;
+  }
 
   .type {
     display: grid;
