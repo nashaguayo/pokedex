@@ -1,6 +1,9 @@
 <template>
-  <CenteredColumn>
-    <h2>{{ getCapitalizedPokemonName() }}</h2>
+  <CenteredColumn class="pokemon-item">
+    <div
+      class="pokemon-image"
+      :style="{ backgroundImage: `url(${pokemonImage})` }"
+    ></div>
     <BaseButton :onClickHandler="goBack">Go Back</BaseButton>
   </CenteredColumn>
 </template>
@@ -8,6 +11,7 @@
 <script>
 import BaseButton from '@components/ui/BaseButton.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import { getPokemon } from '@api/pokemon';
 
 export default {
   name: 'PokemonItem',
@@ -15,7 +19,16 @@ export default {
     BaseButton,
     CenteredColumn,
   },
-  created() {
+  data() {
+    return {
+      pokemon: {},
+      pokemonImage: '',
+    };
+  },
+  async created() {
+    // TODO: handle error gracefully when no pokemon is found or getPokemon() throws exception
+    this.pokemon = await getPokemon(this.$route.params.id);
+    this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.getCapitalizedPokemonName();
   },
   methods: {
@@ -34,4 +47,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.pokemon-item {
+  .pokemon-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20rem;
+    height: 20rem;
+  }
+}
+</style>
