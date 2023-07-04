@@ -1,6 +1,7 @@
 <template>
   <CenteredColumn class="pokemon-item">
-    <img class="pokemon-image" :src="pokemonImage" />
+    <img class="location" src="@assets/pokemons/location.jpg" />
+    <img class="pokemon-image" :src="pokemonImage" alt="pokemon" />
     <div class="pokemon-backdrop-filter"></div>
     <h2 class="pokemon-name">{{ getCapitalizedPokemonName() }}</h2>
     <div class="pokemon-info-container">
@@ -53,9 +54,12 @@ export default {
 @import '@css/media-queries.scss';
 
 .pokemon-item {
-  margin-top: 2rem;
+  .location {
+    position: absolute;
+  }
   .pokemon-image {
     width: 20rem;
+    z-index: 5;
 
     @media (min-width: $min-width-first-break) {
       width: 25rem;
