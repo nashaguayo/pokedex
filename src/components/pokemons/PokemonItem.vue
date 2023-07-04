@@ -72,9 +72,15 @@ export default {
 @import '@css/media-queries.scss';
 
 .pokemon-item {
+  position: absolute;
+  z-index: 1;
   background-image: var(--popup-background-color);
   height: 100%;
   overflow-x: hidden;
+
+  @media (min-width: $min-width-second-break) {
+    width: 75%;
+  }
 
   .pokemon-info-container {
     margin-top: 3rem;

@@ -59,10 +59,6 @@ export default {
     position: absolute;
     box-shadow: var(--main-box-shadow);
     width: 100%;
-
-    @media (min-width: $min-width-second-break) {
-      width: 75%;
-    }
   }
 
   .pokemon-backdrop-filter {
