@@ -53,5 +53,5 @@ $dark-disabled-button-color: #cccccc;
 $dark-popup-background-gradient: linear-gradient(
   180deg,
   transparent,
-  --dark-secondary-background-color
+  $dark-secondary-background-color
 );
