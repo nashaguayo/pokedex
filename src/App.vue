@@ -55,6 +55,8 @@ html[data-theme='light'] {
 
   --disabled-button-background-color: #{$light-disabled-button-background-color};
   --disabled-button-color: #{$light-disabled-button-color};
+
+  --popup-background-color: #{$light-popup-background-gradient};
 }
 
 html[data-theme='dark'] {
@@ -79,6 +81,8 @@ html[data-theme='dark'] {
 
   --disabled-button-background-color: #{$dark-disabled-button-background-color};
   --disabled-button-color: #{$dark-disabled-button-color};
+
+  --popup-background-color: #{$dark-popup-background-gradient};
 }
 
 body {

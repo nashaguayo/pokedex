@@ -21,6 +21,12 @@ $light-screen-background-color: white;
 $light-disabled-button-background-color: #cccccc;
 $light-disabled-button-color: #666666;
 
+$light-popup-background-gradient: linear-gradient(
+  180deg,
+  transparent,
+  $light-secondary-background-color
+);
+
 // Dark mode
 $dark-main-background-color: rgb(44, 44, 44);
 $dark-secondary-background-color: rgb(78, 16, 52);
@@ -43,3 +49,9 @@ $dark-screen-background-color: black;
 
 $dark-disabled-button-background-color: #535353;
 $dark-disabled-button-color: #cccccc;
+
+$dark-popup-background-gradient: linear-gradient(
+  180deg,
+  transparent,
+  --dark-secondary-background-color
+);

@@ -72,7 +72,7 @@ export default {
 @import '@css/media-queries.scss';
 
 .pokemon-item {
-  background-color: var(--secondary-background-color);
+  background-image: var(--popup-background-color);
   height: 100%;
   overflow-x: hidden;
 
