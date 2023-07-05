@@ -72,4 +72,36 @@ describe('BasePage', () => {
     expect(wrapper.find('.custom-footer').exists()).toBe(true);
     expect(wrapper.find('.custom-footer').text()).toBe('Footer Content');
   });
+
+  it('does not render the BaseHeader component in the header slot when displayHeaderAndFooter prop is false', () => {
+    wrapper = shallowMount(BasePage, {
+      propsData: {
+        displayHeaderAndFooter: false,
+      },
+    });
+    expect(wrapper.find('baseheader-stub').exists()).toBe(false);
+  });
+
+  it('does not render the BaseFooter component in the footer slot when displayHeaderAndFooter prop is false', () => {
+    wrapper = shallowMount(BasePage, {
+      propsData: {
+        displayHeaderAndFooter: false,
+      },
+    });
+    expect(wrapper.find('basefooter-stub').exists()).toBe(false);
+  });
+
+  it('does not render the h1 element when title prop is not provided', () => {
+    expect(wrapper.find('h1').exists()).toBe(false);
+  });
+
+  it('renders the provided title in the h1 element when title prop is provided', () => {
+    const title = 'Custom Title';
+    wrapper = shallowMount(BasePage, {
+      propsData: {
+        title,
+      },
+    });
+    expect(wrapper.find('h1').text()).toBe(title);
+  });
 });

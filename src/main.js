@@ -10,6 +10,8 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 
+import titleMixin from '@lib/titleMixin';
+
 library.add(faToggleOn);
 library.add(faToggleOff);
 library.add(faArrowUp);
@@ -17,6 +19,8 @@ library.add(faArrowUp);
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 
 Vue.use(VueObserveVisibility);
+
+Vue.mixin(titleMixin);
 
 Vue.config.productionTip = false;
 

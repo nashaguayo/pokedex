@@ -2,7 +2,7 @@
   <button
     :disabled="disabled"
     @click="handleAndAnimate"
-    :class="{ 'shrink-animation': wasClicked }"
+    :class="{ 'shrink-animation': wasClicked, 'background-variant': variant }"
     class="base-button"
     @animationend="wasClicked = false"
   >
@@ -23,6 +23,10 @@ export default {
       default: 'Click Me',
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    variant: {
       type: Boolean,
       default: false,
     },
@@ -51,7 +55,7 @@ export default {
   color: var(--secondary-text-color);
   font-family: 'Upheaval';
   box-shadow: var(--main-box-shadow);
-  border: 0.2rem solid var(--main-border-color);
+  border: 0.2rem solid var(--secondary-border-color);
   cursor: pointer;
   padding: 0.5rem;
   min-width: 10rem;
@@ -66,6 +70,11 @@ export default {
     padding: 0.8rem;
     min-width: 15rem;
     font-size: 1.5rem;
+  }
+
+  &.background-variant {
+    background-color: var(--variant-background-color) !important;
+    color: var(--variant-text-color);
   }
 }
 

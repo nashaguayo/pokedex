@@ -16,6 +16,7 @@ import RandomPokemon from '@components/home/RandomPokemon.vue';
 
 export default {
   name: 'HomeView',
+  title: 'Learn all about Pokemons!',
   components: {
     BasePage,
     LogoAndBanner,

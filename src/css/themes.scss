@@ -11,6 +11,7 @@ $light-secondary-text-color: white;
 $light-variant-text-color: white;
 
 $light-main-border-color: black;
+$light-secondary-border-color: white;
 
 $light-main-box-shadow: 0 0 0.3rem 0.1rem $light-secondary-shadow-color;
 
@@ -19,6 +20,12 @@ $light-screen-background-color: white;
 
 $light-disabled-button-background-color: #cccccc;
 $light-disabled-button-color: #666666;
+
+$light-popup-background-gradient: linear-gradient(
+  180deg,
+  transparent,
+  $light-secondary-background-color
+);
 
 // Dark mode
 $dark-main-background-color: rgb(44, 44, 44);
@@ -29,10 +36,11 @@ $dark-main-shadow-color: rgba(255, 255, 255, 0.6);
 $dark-secondary-shadow-color: rgba(255, 255, 255, 0.3);
 
 $dark-main-text-color: white;
-$dark-secondary-text-color: black;
+$dark-secondary-text-color: white;
 $dark-variant-text-color: white;
 
 $dark-main-border-color: rgb(34, 34, 34);
+$dark-secondary-border-color: black;
 
 $dark-main-box-shadow: 0 0 0.3rem 0.1rem $dark-secondary-shadow-color;
 
@@ -41,3 +49,9 @@ $dark-screen-background-color: black;
 
 $dark-disabled-button-background-color: #535353;
 $dark-disabled-button-color: #cccccc;
+
+$dark-popup-background-gradient: linear-gradient(
+  180deg,
+  transparent,
+  $dark-secondary-background-color
+);

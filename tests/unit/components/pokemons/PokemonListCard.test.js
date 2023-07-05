@@ -13,9 +13,16 @@ describe('PokemonListCard', () => {
   let wrapper;
 
   beforeEach(() => {
+    const $router = {
+      push: jest.fn(),
+    };
+
     wrapper = shallowMount(PokemonListCard, {
       propsData: {
         pokemonName: 'pikachu',
+      },
+      mocks: {
+        $router,
       },
     });
   });

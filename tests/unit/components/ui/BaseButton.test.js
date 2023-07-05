@@ -42,6 +42,15 @@ describe('BaseButton', () => {
     expect(wrapper.classes('shrink-animation')).toBe(true);
   });
 
+  it('applies the "background-variant" class when "variant" prop is true', async () => {
+    wrapper = shallowMount(BaseButton, {
+      propsData: {
+        variant: true,
+      },
+    });
+    expect(wrapper.classes('background-variant')).toBe(true);
+  });
+
   it('disables the button when "disabled" prop is true', async () => {
     expect(wrapper.attributes('disabled')).toBeFalsy();
     await wrapper.setProps({ disabled: true });

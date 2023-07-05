@@ -1,12 +1,18 @@
 <template>
   <CenteredColumn class="base-page">
-    <CenteredColumn class="white-background">
-      <slot name="header">
+    <CenteredColumn
+      class="page-background"
+      :class="{
+        'add-margins': displayHeaderAndFooter,
+        'no-margins': !displayHeaderAndFooter,
+      }"
+    >
+      <slot v-if="displayHeaderAndFooter" name="header">
         <BaseHeader />
         <h1 v-if="title">{{ title }}</h1>
       </slot>
       <slot name="content"></slot>
-      <slot name="footer">
+      <slot v-if="displayHeaderAndFooter" name="footer">
         <BaseFooter />
       </slot>
     </CenteredColumn>
@@ -30,6 +36,10 @@ export default {
       type: String,
       default: '',
     },
+    displayHeaderAndFooter: {
+      type: Boolean,
+      default: true,
+    },
   },
 };
 </script>
@@ -41,13 +51,11 @@ export default {
   overflow-y: scroll;
   height: 100vh;
 
-  .white-background {
+  .page-background {
     background-color: var(--main-background-color);
     width: 100vw;
     box-shadow: none;
-    min-height: calc(100vh - 7rem);
     overflow-y: scroll;
-    padding-top: 7rem;
 
     @media (min-width: $min-width-second-break) {
       box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
@@ -55,13 +63,28 @@ export default {
     }
   }
 
-  .white-background::-webkit-scrollbar {
-    display: none;
+  .add-margins {
+    min-height: calc(100vh - 5rem);
+    padding-top: 5rem;
+
+    @media (min-width: $min-width-second-break) {
+      min-height: calc(100vh - 7rem);
+      padding-top: 7rem;
+    }
   }
 
-  @media (min-width: $min-width-second-break) {
-    background-image: url('@assets/ui/background.jpg');
-    background-size: contain;
+  .no-margins {
+    min-height: 100vh;
+    padding-top: 0rem;
+
+    @media (min-width: $min-width-second-break) {
+      min-height: 100vh;
+      padding-top: 0rem;
+    }
+  }
+
+  .page-background::-webkit-scrollbar {
+    display: none;
   }
 
   .logo {

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition appear name="slide-in" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -44,6 +46,7 @@ html[data-theme='light'] {
   --variant-text-color: #{$light-variant-text-color};
 
   --main-border-color: #{$light-main-border-color};
+  --secondary-border-color: #{$light-secondary-border-color};
 
   --main-box-shadow: #{$light-main-box-shadow};
 
@@ -52,6 +55,8 @@ html[data-theme='light'] {
 
   --disabled-button-background-color: #{$light-disabled-button-background-color};
   --disabled-button-color: #{$light-disabled-button-color};
+
+  --popup-background-color: #{$light-popup-background-gradient};
 }
 
 html[data-theme='dark'] {
@@ -67,6 +72,7 @@ html[data-theme='dark'] {
   --variant-text-color: #{$dark-variant-text-color};
 
   --main-border-color: #{$dark-main-border-color};
+  --secondary-border-color: #{$dark-secondary-border-color};
 
   --main-box-shadow: #{$dark-main-box-shadow};
 
@@ -75,6 +81,8 @@ html[data-theme='dark'] {
 
   --disabled-button-background-color: #{$dark-disabled-button-background-color};
   --disabled-button-color: #{$dark-disabled-button-color};
+
+  --popup-background-color: #{$dark-popup-background-gradient};
 }
 
 body {
@@ -99,6 +107,9 @@ a:active {
 
 #app {
   height: 100vh;
+  background-image: url(@assets/ui/wallpaper.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 
   h1,
   h2,
@@ -150,9 +161,22 @@ a:active {
 
   h1,
   h2 {
-    text-shadow: var(--secondary-background-color) 0.1rem 0 1rem;
+    text-shadow: var(--variant-background-color) 0 0 0.2rem;
     letter-spacing: 0.25rem;
     text-align: center;
   }
+}
+
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-in-enter {
+  transform: translateY(100%);
+}
+
+.slide-in-leave-to {
+  transform: translateY(-100%);
 }
 </style>
