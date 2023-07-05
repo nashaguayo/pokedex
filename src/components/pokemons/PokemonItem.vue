@@ -18,9 +18,9 @@
       />
       <PokemonItemType :types="pokemonTypes" />
     </CenteredColumn>
-    <BaseButton class="go-back-button" :onClickHandler="goBack" :variant="true"
-      >Go Back</BaseButton
-    >
+    <BaseButton class="go-back-button" :onClickHandler="goBack" :variant="true">
+      Go Back
+    </BaseButton>
   </CenteredColumn>
 </template>
 
