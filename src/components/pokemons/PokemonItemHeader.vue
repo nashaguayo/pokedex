@@ -1,5 +1,9 @@
 <template>
-  <CenteredColumn class="pokemon-item-header" ref="pokemonItemHeader">
+  <CenteredColumn
+    class="pokemon-item-header"
+    :style="{ top: `${topPosition}px` }"
+    ref="pokemonItemHeader"
+  >
     <img
       class="location"
       src="@assets/pokemons/location.jpg"
@@ -39,6 +43,10 @@ export default {
       type: String,
       required: true,
     },
+    topPosition: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
     setLocationHeight() {
@@ -54,6 +62,7 @@ export default {
 
 .pokemon-item-header {
   width: 100%;
+  position: relative;
 
   @media (min-width: $min-width-fourth-break) {
     width: auto;
