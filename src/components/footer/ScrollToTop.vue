@@ -77,6 +77,7 @@ export default {
   bottom: 0;
   transition: margin-bottom 0.5s;
   cursor: pointer;
+  z-index: 50;
 }
 
 .bounce-animation {

@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       hasToUpdateMargin: false,
-      marginBottom: 0,
+      marginBottom: 30,
     };
   },
   methods: {
@@ -50,5 +50,6 @@ export default {
   bottom: 0;
   margin-top: auto;
   display: grid;
+  z-index: 50;
 }
 </style>
