@@ -27,7 +27,29 @@ jest.mock('@components/pokemons/PokemonItemType.vue', () => ({
 }));
 
 jest.mock('@api/pokemon', () => ({
-  getPokemon: jest.fn(),
+  getPokemon: jest.fn(() =>
+    Promise.resolve({
+      name: 'Charizard',
+      sprites: {
+        other: {
+          dream_world: {
+            front_default: 'charizard.png',
+          },
+        },
+      },
+      stats: [
+        {
+          stat: { name: 'hp' },
+          base_stat: 78,
+        },
+        {
+          stat: { name: 'attack' },
+          base_stat: 84,
+        },
+      ],
+      types: [{ name: 'fire' }, { name: 'flying' }],
+    })
+  ),
 }));
 
 jest.mock('@lib/helpers', () => ({
@@ -36,7 +58,9 @@ jest.mock('@lib/helpers', () => ({
     removeEventListener: jest.fn(),
     scrollTop: 0,
   })),
+  capitalizeWord: jest.fn(),
 }));
+
 describe('PokemonItem', () => {
   let wrapper;
 
