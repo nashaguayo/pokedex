@@ -18,6 +18,8 @@ import throttle from 'lodash/throttle';
 import {
   scrollToTopOfBackgroundPage,
   getPageBackgroundElement,
+  getPokemonPageBackgroundElement,
+  scrollToTopOfBackgroundPokemonPage,
 } from '@lib/helpers';
 
 export default {
@@ -39,9 +41,17 @@ export default {
       'scroll',
       this.throttledHandleScroll
     );
+    getPokemonPageBackgroundElement()?.addEventListener(
+      'scroll',
+      this.throttledHandleScroll
+    );
   },
   beforeDestroy() {
     getPageBackgroundElement().removeEventListener(
+      'scroll',
+      this.throttledHandleScroll
+    );
+    getPokemonPageBackgroundElement()?.removeEventListener(
       'scroll',
       this.throttledHandleScroll
     );
@@ -51,12 +61,13 @@ export default {
   },
   methods: {
     handleScroll(event) {
-      this.showScrollToTopButton = event.srcElement.scrollTop > 100;
+      this.showScrollToTopButton = event.srcElement.scrollTop > 0;
       this.$emit('userScrolled');
     },
     scrollToTop() {
       this.wasClicked = true;
       scrollToTopOfBackgroundPage();
+      scrollToTopOfBackgroundPokemonPage();
     },
   },
 };
