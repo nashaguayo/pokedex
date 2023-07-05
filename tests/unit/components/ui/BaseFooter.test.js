@@ -24,14 +24,14 @@ describe('BaseFooter', () => {
 
   it('updates the height when setHeight method is called', () => {
     const height = 100;
-    wrapper.vm.setHeight(height);
+    wrapper.vm.setMargin(height);
     expect(wrapper.vm.marginBottom).toBe(height + 20);
-    expect(wrapper.vm.hasToUpdateHeight).toBe(false);
+    expect(wrapper.vm.hasToUpdateMargin).toBe(false);
   });
 
   it('updates hasToUpdateHeight when updateHeight method is called', () => {
-    wrapper.vm.updateHeight();
-    expect(wrapper.vm.hasToUpdateHeight).toBe(true);
+    wrapper.vm.updateMargin();
+    expect(wrapper.vm.hasToUpdateMargin).toBe(true);
   });
 
   it('renders ScrollToTop component', () => {

@@ -1,6 +1,6 @@
 <template>
   <div class="base-footer" :displayFooter="false">
-    <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateHeight" />
+    <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateMargin" />
     <FooterLinks
       v-if="displayFooter"
       :hasToUpdateHeight="hasToUpdateMargin"
@@ -36,7 +36,7 @@ export default {
       this.marginBottom = height + 20;
       this.hasToUpdateMargin = false;
     },
-    updateHeight() {
+    updateMargin() {
       this.hasToUpdateMargin = true;
     },
   },
