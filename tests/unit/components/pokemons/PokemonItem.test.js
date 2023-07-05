@@ -1,30 +1,29 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonItem from '@components/pokemons/PokemonItem.vue';
-import { getPokemon } from '@api/pokemon';
 
 jest.mock('@components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
-  template: '<button></button>',
+  template: '<div class="mocked-base-button"></div>',
 }));
 
 jest.mock('@components/ui/CenteredColumn.vue', () => ({
   name: 'CenteredColumn',
-  template: '<div></div>',
+  template: '<div class="mocked-centered-column"></div>',
 }));
 
 jest.mock('@components/pokemons/PokemonItemHeader.vue', () => ({
   name: 'PokemonItemHeader',
-  template: '<div></div>',
+  template: '<div class="mocked-pokemon-item-header"></div>',
 }));
 
 jest.mock('@components/pokemons/PokemonItemStat.vue', () => ({
   name: 'PokemonItemStat',
-  template: '<div></div>',
+  template: '<div class="mocked-pokemon-item-stat"></div>',
 }));
 
 jest.mock('@components/pokemons/PokemonItemType.vue', () => ({
   name: 'PokemonItemType',
-  template: '<div></div>',
+  template: '<div class="mocked-pokemon-item-type"></div>',
 }));
 
 jest.mock('@api/pokemon', () => ({
@@ -59,5 +58,13 @@ describe('PokemonItem', () => {
 
   it('renders the component', () => {
     expect(wrapper.exists()).toBe(true);
+  });
+
+  it('renders its respective components', () => {
+    expect(wrapper.find('basebutton-stub').exists()).toBe(true);
+    expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemstat-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
   });
 });
