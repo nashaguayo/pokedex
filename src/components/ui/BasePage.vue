@@ -13,7 +13,7 @@
       </slot>
       <slot name="content"></slot>
       <slot name="footer">
-        <BaseFooter />
+        <BaseFooter :displayFooter="displayFooter" />
       </slot>
     </CenteredColumn>
   </CenteredColumn>
@@ -37,6 +37,10 @@ export default {
       default: '',
     },
     displayHeader: {
+      type: Boolean,
+      default: true,
+    },
+    displayFooter: {
       type: Boolean,
       default: true,
     },

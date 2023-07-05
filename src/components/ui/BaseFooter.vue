@@ -1,7 +1,8 @@
 <template>
-  <div class="base-footer">
+  <div class="base-footer" :displayFooter="false">
     <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateHeight" />
     <FooterLinks
+      v-if="displayFooter"
       :hasToUpdateHeight="hasToUpdateHeight"
       @setHeight="setHeight"
     />
@@ -17,6 +18,12 @@ export default {
   components: {
     ScrollToTop,
     FooterLinks,
+  },
+  props: {
+    displayFooter: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
