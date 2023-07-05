@@ -1,8 +1,10 @@
 <template>
   <CenteredColumn class="pokemon-item" ref="pokemonItem">
     <PokemonItemHeader
+      id="header"
       :pokemonName="pokemonName"
       :pokemonImage="pokemonImage"
+      :topPosition="topPosition"
     />
     <CenteredColumn class="pokemon-info-container">
       <h1 class="pokemon-name">{{ pokemon.name }}</h1>
@@ -31,7 +33,7 @@ import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
 import PokemonItemStat from '@components/pokemons/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
 import { getPokemon } from '@api/pokemon';
-import { capitalizeWord } from '@lib/helpers';
+import { capitalizeWord, getPokemonPageBackgroundElement } from '@lib/helpers';
 
 export default {
   name: 'PokemonItem',
@@ -49,6 +51,7 @@ export default {
       pokemonName: '',
       pokemonStats: [],
       pokemonTypes: [],
+      topPosition: 0,
     };
   },
   async created() {
@@ -61,6 +64,15 @@ export default {
     this.pokemonTypes = this.pokemon.types;
     this.getCapitalizedPokemonName();
   },
+  mounted() {
+    getPokemonPageBackgroundElement().addEventListener('scroll', this.parallax);
+  },
+  beforeDestroy() {
+    getPokemonPageBackgroundElement().removeEventListener(
+      'scroll',
+      this.parallax
+    );
+  },
   methods: {
     goBack() {
       this.$router.back();
@@ -69,6 +81,10 @@ export default {
       const pokemonNameCapitalized = capitalizeWord(this.$route.params.id);
       this.pokemonName = pokemonNameCapitalized;
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
+    },
+    parallax() {
+      var yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
+      this.topPosition = yPosition;
     },
   },
 };
