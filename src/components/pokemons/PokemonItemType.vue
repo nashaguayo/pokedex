@@ -20,7 +20,7 @@ const backgroundColorTypes = new Map([
   ['normal', 'black'],
   ['fighting', 'white'],
   ['flying', 'blue'],
-  ['poison', 'green'],
+  ['poison', 'violet'],
   ['ground', 'brown'],
   ['rock', 'darkgrey'],
   ['bug', 'fuchsia'],
