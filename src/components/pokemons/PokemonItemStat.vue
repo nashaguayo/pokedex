@@ -26,7 +26,7 @@ export default {
 
 .pokemon-item-stat {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   padding: 0.5rem 2rem;
   border-bottom: 0.2rem solid var(--secondary-border-color);

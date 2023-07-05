@@ -91,7 +91,7 @@ export default {
   @media (min-width: $min-width-fourth-break) {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
     margin: 3rem 3rem 0;
     align-items: start;
     gap: 3rem;
