@@ -55,8 +55,8 @@ export default {
     };
   },
   async created() {
-    // TODO: handle error gracefully when no pokemon is found or getPokemon() throws exception
     this.pokemon = await getPokemon(this.$route.params.id);
+
     this.pokemonStats = this.pokemon.stats.map((s) => {
       return { name: s.stat.name, value: s.base_stat };
     });
