@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      hasToUpdateHeight: false,
+      hasToUpdateMargin: false,
       marginBottom: 0,
     };
   },
