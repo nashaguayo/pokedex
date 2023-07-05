@@ -11,7 +11,7 @@ export function getPokemonPageBackgroundElement() {
 }
 
 export function scrollToTopOfBackgroundPokemonPage() {
-  getPokemonPageBackgroundElement().scrollTo({ top: 0, behavior: 'smooth' });
+  getPokemonPageBackgroundElement()?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 export function capitalizeWord(word) {
