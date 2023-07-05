@@ -111,17 +111,21 @@ export default {
     margin: 3rem 3rem 0;
     align-items: start;
     gap: 3rem;
+    height: calc(100% - 3rem);
   }
 
   .pokemon-info-container {
     margin-top: 3rem;
+    z-index: 10;
+    background-color: var(--main-background-color);
+    box-shadow: var(--main-box-shadow);
 
     @media (min-width: $min-width-first-break) {
-      margin-top: 5rem;
+      margin-top: 4rem;
     }
 
     @media (min-width: $min-width-second-break) {
-      margin-top: 6rem;
+      margin-top: 5rem;
     }
 
     @media (min-width: $min-width-fourth-break) {

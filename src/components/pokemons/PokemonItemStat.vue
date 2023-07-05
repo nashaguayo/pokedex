@@ -29,11 +29,15 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   padding: 0.5rem 2rem;
-  border-bottom: 0.2rem solid var(--secondary-border-color);
+  border-bottom: 0.2rem solid var(--main-border-color);
   width: 100%;
 
   @media (min-width: $min-width-first-break) {
     width: 70%;
+  }
+
+  @media (min-width: $min-width-fourth-break) {
+    border-bottom: 0.2rem solid var(--secondary-border-color);
   }
 
   .big {
@@ -43,7 +47,10 @@ export default {
   .property-names,
   .property-values {
     font-family: 'Upheaval';
-    color: var(--secondary-text-color);
+
+    @media (min-width: $min-width-fourth-break) {
+      color: var(--secondary-text-color);
+    }
   }
 
   .property-names {
