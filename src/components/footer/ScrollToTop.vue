@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     handleScroll(event) {
-      this.showScrollToTopButton = event.srcElement.scrollTop > 0;
+      this.showScrollToTopButton = event.srcElement.scrollTop > 100;
       this.$emit('userScrolled');
     },
     scrollToTop() {
