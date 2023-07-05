@@ -3,8 +3,8 @@
     <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateHeight" />
     <FooterLinks
       v-if="displayFooter"
-      :hasToUpdateHeight="hasToUpdateHeight"
-      @setHeight="setHeight"
+      :hasToUpdateHeight="hasToUpdateMargin"
+      @setMargin="setMargin"
     />
   </div>
 </template>
@@ -32,12 +32,12 @@ export default {
     };
   },
   methods: {
-    setHeight(height) {
+    setMargin(height) {
       this.marginBottom = height + 20;
-      this.hasToUpdateHeight = false;
+      this.hasToUpdateMargin = false;
     },
     updateHeight() {
-      this.hasToUpdateHeight = true;
+      this.hasToUpdateMargin = true;
     },
   },
 };

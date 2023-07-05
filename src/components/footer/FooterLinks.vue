@@ -60,7 +60,7 @@ export default {
       this.height = this.isVisible
         ? this.$refs.footerLinks.$el.offsetHeight
         : 0;
-      this.$emit('setHeight', this.height);
+      this.$emit('setMargin', this.height);
     },
     visibilityChanged(isVisible) {
       this.isVisible = isVisible;
