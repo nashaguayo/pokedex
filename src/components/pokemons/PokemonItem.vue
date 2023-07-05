@@ -67,7 +67,7 @@ export default {
     this.getCapitalizedPokemonName();
   },
   mounted() {
-    this.throttledParallax = throttle(this.parallax, 100); // Adjust the throttle delay as needed
+    this.throttledParallax = throttle(this.parallax, 20);
     getPokemonPageBackgroundElement().addEventListener(
       'scroll',
       this.throttledParallax
