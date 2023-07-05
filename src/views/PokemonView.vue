@@ -1,5 +1,5 @@
 <template>
-  <BasePage :displayHeaderAndFooter="false">
+  <BasePage :displayHeader="false">
     <template v-slot:content>
       <PokemonItem />
     </template>
