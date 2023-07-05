@@ -11,8 +11,31 @@
 </template>
 
 <script>
+import { isDarkModeEnabled } from '@lib/localStorage';
+
 export default {
   name: 'App',
+  data() {
+    return {
+      isDarkModeEnabled: isDarkModeEnabled(),
+    };
+  },
+  created() {
+    this.setTheme(this.isDarkModeEnabled);
+  },
+  watch: {
+    isDarkModeEnabled(newValue) {
+      this.setTheme(newValue);
+    },
+  },
+  methods: {
+    setTheme(isDarkMode) {
+      document.documentElement.setAttribute(
+        'data-theme',
+        isDarkMode ? 'dark' : 'light'
+      );
+    },
+  },
 };
 </script>
 
