@@ -22,14 +22,14 @@ describe('BaseFooter', () => {
     wrapper.destroy();
   });
 
-  it('updates the height when setHeight method is called', () => {
+  it('sets the margin when setMargin method is called', () => {
     const height = 100;
     wrapper.vm.setMargin(height);
     expect(wrapper.vm.marginBottom).toBe(height + 20);
     expect(wrapper.vm.hasToUpdateMargin).toBe(false);
   });
 
-  it('updates hasToUpdateHeight when updateHeight method is called', () => {
+  it('updates hasToUpdateMargin when updateMargin method is called', () => {
     wrapper.vm.updateMargin();
     expect(wrapper.vm.hasToUpdateMargin).toBe(true);
   });
@@ -38,7 +38,8 @@ describe('BaseFooter', () => {
     expect(wrapper.find('scrolltotop-stub').exists()).toBe(true);
   });
 
-  it('renders FooterLinks component', () => {
+  it('renders FooterLinks component if displayFooter prop is true', () => {
+    wrapper.setProps({ displayFooter: true });
     expect(wrapper.find('footerlinks-stub').exists()).toBe(true);
   });
 });
