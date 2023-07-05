@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { throttle } from 'lodash';
 import BaseButton from '@components/ui/BaseButton.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
@@ -52,6 +53,7 @@ export default {
       pokemonStats: [],
       pokemonTypes: [],
       topPosition: 0,
+      throttledParallax: null,
     };
   },
   async created() {
@@ -65,12 +67,16 @@ export default {
     this.getCapitalizedPokemonName();
   },
   mounted() {
-    getPokemonPageBackgroundElement().addEventListener('scroll', this.parallax);
+    this.throttledParallax = throttle(this.parallax, 100); // Adjust the throttle delay as needed
+    getPokemonPageBackgroundElement().addEventListener(
+      'scroll',
+      this.throttledParallax
+    );
   },
   beforeDestroy() {
     getPokemonPageBackgroundElement().removeEventListener(
       'scroll',
-      this.parallax
+      this.throttledParallax
     );
   },
   methods: {
