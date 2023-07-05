@@ -82,19 +82,19 @@ export default {
   margin: 0 3rem 1rem;
 
   @media (min-width: $min-width-first-break) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media (min-width: $min-width-third-break) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @media (min-width: $min-width-fourth-break) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @media (min-width: $min-width-fifth-break) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 

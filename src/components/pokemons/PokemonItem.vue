@@ -17,13 +17,10 @@
         :pokemonStat="pokemonStat"
       />
       <PokemonItemType :types="pokemonTypes" />
-      <BaseButton
-        class="go-back-button"
-        :onClickHandler="goBack"
-        :variant="true"
-        >Go Back</BaseButton
-      >
     </CenteredColumn>
+    <BaseButton class="go-back-button" :onClickHandler="goBack" :variant="true"
+      >Go Back</BaseButton
+    >
   </CenteredColumn>
 </template>
 
@@ -92,11 +89,12 @@ export default {
   }
 
   @media (min-width: $min-width-fourth-break) {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    margin: 3rem 3rem 0;
+    align-items: start;
+    gap: 3rem;
   }
 
   .pokemon-info-container {
@@ -117,6 +115,9 @@ export default {
       box-shadow: var(--marin-box-shadow);
       border: 0.2rem solid var(--secondary-border-color);
       margin-top: 0;
+      margin-left: 3rem;
+      grid-row-start: 1;
+      grid-row-end: 3;
     }
 
     @media (min-width: $min-width-fifth-break) {
@@ -143,6 +144,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       margin-top: 3rem;
+      margin-right: 3rem;
     }
   }
 }

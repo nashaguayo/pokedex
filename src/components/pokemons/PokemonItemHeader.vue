@@ -57,6 +57,7 @@ export default {
 
   @media (min-width: $min-width-fourth-break) {
     width: auto;
+    margin-right: 3rem;
   }
 
   .location {
