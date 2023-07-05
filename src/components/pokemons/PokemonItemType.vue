@@ -55,12 +55,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
 .pokemon-item-type {
   background-color: var(--variant-background-color);
   width: 100%;
   margin-top: 2rem;
   padding: 1rem 0;
   box-shadow: var(--main-box-shadow);
+
+  @media (min-width: $min-width-fourth-break) {
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: 2rem;
+  }
 
   .title {
     font-size: 2rem !important;
