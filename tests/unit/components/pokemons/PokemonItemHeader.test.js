@@ -10,6 +10,7 @@ describe('PokemonItemHeader', () => {
       propsData: {
         pokemonImage: 'image-url',
         pokemonName: 'Pikachu',
+        topPosition: 0,
       },
       attachTo: document.body,
     });
