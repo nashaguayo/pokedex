@@ -37,7 +37,11 @@
 </template>
 
 <script>
-import { isDarkModeEnabled, toggleDarkMode } from '@lib/localStorage';
+import {
+  isDarkModeEnabled,
+  toggleDarkMode as toggleDarkModeLocalStorage,
+} from '@lib/localStorage';
+import { toggleDarkMode as toggleDarkModeInDOM } from '@lib/helpers';
 
 export default {
   name: 'GeneralNavigation',
@@ -49,7 +53,8 @@ export default {
   methods: {
     toggleTheme() {
       this.isDarkModeEnabled = !this.isDarkModeEnabled;
-      toggleDarkMode();
+      toggleDarkModeLocalStorage();
+      toggleDarkModeInDOM();
       document.documentElement.setAttribute(
         'data-theme',
         this.isDarkModeEnabled ? 'dark' : 'light'

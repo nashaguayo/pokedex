@@ -12,6 +12,7 @@
 
 <script>
 import { isDarkModeEnabled } from '@lib/localStorage';
+import { toggleDarkMode } from '@lib/helpers';
 
 export default {
   name: 'App',
@@ -30,10 +31,7 @@ export default {
   },
   methods: {
     setTheme(isDarkMode) {
-      document.documentElement.setAttribute(
-        'data-theme',
-        isDarkMode ? 'dark' : 'light'
-      );
+      toggleDarkMode(isDarkMode);
     },
   },
 };

@@ -19,3 +19,10 @@ export function capitalizeWord(word) {
   const remainingLetters = word.substring(1);
   return `${firstLetter}${remainingLetters}`;
 }
+
+export function toggleDarkMode(isDarkMode) {
+  document.documentElement.setAttribute(
+    'data-theme',
+    isDarkMode ? 'dark' : 'light'
+  );
+}
