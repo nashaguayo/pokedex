@@ -3,17 +3,17 @@
     <CenteredColumn
       class="page-background"
       :class="{
-        'add-margins': displayHeaderAndFooter,
-        'no-margins': !displayHeaderAndFooter,
+        'add-margins': displayHeader,
+        'no-margins': !displayHeader,
       }"
     >
-      <slot v-if="displayHeaderAndFooter" name="header">
+      <slot v-if="displayHeader" name="header">
         <BaseHeader />
         <h1 v-if="title">{{ title }}</h1>
       </slot>
       <slot name="content"></slot>
-      <slot v-if="displayHeaderAndFooter" name="footer">
-        <BaseFooter />
+      <slot name="footer">
+        <BaseFooter :displayFooter="displayFooter" />
       </slot>
     </CenteredColumn>
   </CenteredColumn>
@@ -36,7 +36,11 @@ export default {
       type: String,
       default: '',
     },
-    displayHeaderAndFooter: {
+    displayHeader: {
+      type: Boolean,
+      default: true,
+    },
+    displayFooter: {
       type: Boolean,
       default: true,
     },

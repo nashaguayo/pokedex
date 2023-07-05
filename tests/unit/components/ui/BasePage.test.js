@@ -73,22 +73,13 @@ describe('BasePage', () => {
     expect(wrapper.find('.custom-footer').text()).toBe('Footer Content');
   });
 
-  it('does not render the BaseHeader component in the header slot when displayHeaderAndFooter prop is false', () => {
+  it('does not render the BaseHeader component in the header slot when displayHeader prop is false', () => {
     wrapper = shallowMount(BasePage, {
       propsData: {
-        displayHeaderAndFooter: false,
+        displayHeader: false,
       },
     });
     expect(wrapper.find('baseheader-stub').exists()).toBe(false);
-  });
-
-  it('does not render the BaseFooter component in the footer slot when displayHeaderAndFooter prop is false', () => {
-    wrapper = shallowMount(BasePage, {
-      propsData: {
-        displayHeaderAndFooter: false,
-      },
-    });
-    expect(wrapper.find('basefooter-stub').exists()).toBe(false);
   });
 
   it('does not render the h1 element when title prop is not provided', () => {

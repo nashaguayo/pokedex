@@ -63,6 +63,7 @@ export default {
     position: absolute;
     box-shadow: var(--main-box-shadow);
     width: 100%;
+    object-fit: cover;
 
     @media (min-width: $min-width-fourth-break) {
       border-radius: 5rem;

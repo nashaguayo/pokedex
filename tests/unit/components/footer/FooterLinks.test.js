@@ -44,8 +44,8 @@ describe('FooterLinks', () => {
   });
 
   it('emits the height when mounted', () => {
-    expect(wrapper.emitted('setHeight')).toBeTruthy();
-    expect(wrapper.emitted('setHeight')[0][0]).toBe(wrapper.vm.height);
+    expect(wrapper.emitted('setMargin')).toBeTruthy();
+    expect(wrapper.emitted('setMargin')[0][0]).toBe(wrapper.vm.height);
   });
 
   it('updates the height when hasToUpdateHeight prop changes', async () => {
@@ -59,8 +59,8 @@ describe('FooterLinks', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted('setHeight')).toBeTruthy();
-    expect(wrapper.emitted('setHeight')[0][0]).toBe(wrapper.vm.height);
+    expect(wrapper.emitted('setMargin')).toBeTruthy();
+    expect(wrapper.emitted('setMargin')[0][0]).toBe(wrapper.vm.height);
   });
 
   it('renders the GitHub logo with the correct URL', () => {
@@ -95,15 +95,15 @@ describe('FooterLinks', () => {
     expect(wrapper.vm.height).toBe(
       wrapper.vm.$refs.footerLinks.$el.offsetHeight
     );
-    expect(wrapper.emitted('setHeight')).toBeTruthy();
-    expect(wrapper.emitted('setHeight')[0][0]).toBe(wrapper.vm.height);
+    expect(wrapper.emitted('setMargin')).toBeTruthy();
+    expect(wrapper.emitted('setMargin')[0][0]).toBe(wrapper.vm.height);
   });
 
   it('sets height to 0 when isVisible is false', () => {
     wrapper.vm.isVisible = false;
     wrapper.vm.setHeight();
     expect(wrapper.vm.height).toBe(0);
-    expect(wrapper.emitted('setHeight')).toBeTruthy();
-    expect(wrapper.emitted('setHeight')[0][0]).toBe(0);
+    expect(wrapper.emitted('setMargin')).toBeTruthy();
+    expect(wrapper.emitted('setMargin')[0][0]).toBe(0);
   });
 });

@@ -1,9 +1,10 @@
 <template>
   <div class="base-footer">
-    <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateHeight" />
+    <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateMargin" />
     <FooterLinks
-      :hasToUpdateHeight="hasToUpdateHeight"
-      @setHeight="setHeight"
+      v-if="displayFooter"
+      :hasToUpdateHeight="hasToUpdateMargin"
+      @setMargin="setMargin"
     />
   </div>
 </template>
@@ -18,19 +19,25 @@ export default {
     ScrollToTop,
     FooterLinks,
   },
+  props: {
+    displayFooter: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
-      hasToUpdateHeight: false,
-      marginBottom: 0,
+      hasToUpdateMargin: false,
+      marginBottom: 30,
     };
   },
   methods: {
-    setHeight(height) {
+    setMargin(height) {
       this.marginBottom = height + 20;
-      this.hasToUpdateHeight = false;
+      this.hasToUpdateMargin = false;
     },
-    updateHeight() {
-      this.hasToUpdateHeight = true;
+    updateMargin() {
+      this.hasToUpdateMargin = true;
     },
   },
 };
@@ -43,5 +50,6 @@ export default {
   bottom: 0;
   margin-top: auto;
   display: grid;
+  z-index: 50;
 }
 </style>
