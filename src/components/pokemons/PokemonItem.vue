@@ -92,9 +92,9 @@ export default {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 1fr;
-    margin-top: 3rem;
+    margin: 3rem 3rem 0;
     align-items: start;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .pokemon-info-container {
@@ -115,6 +115,7 @@ export default {
       box-shadow: var(--marin-box-shadow);
       border: 0.2rem solid var(--secondary-border-color);
       margin-top: 0;
+      margin-left: 3rem;
       grid-row-start: 1;
       grid-row-end: 3;
     }
@@ -143,6 +144,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       margin-top: 3rem;
+      margin-right: 3rem;
     }
   }
 }
