@@ -1,5 +1,5 @@
 <template>
-  <div class="base-footer" :displayFooter="false">
+  <div class="base-footer">
     <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateMargin" />
     <FooterLinks
       v-if="displayFooter"
