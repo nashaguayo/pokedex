@@ -32,6 +32,7 @@ const routes = [
     path: '/pokemons/:id',
     name: 'pokemon',
     component: () => import('@views/PokemonView.vue'),
+    meta: { transition: 'slide-vertical' },
   },
 ];
 

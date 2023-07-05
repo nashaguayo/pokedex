@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <transition appear name="slide-in" mode="out-in">
+    <transition
+      appear
+      :name="$route.meta.transition ?? 'slide-horizontal'"
+      mode="out-in"
+    >
       <router-view />
     </transition>
   </div>
@@ -167,16 +171,29 @@ a:active {
   }
 }
 
-.slide-in-enter-active,
-.slide-in-leave-active {
+.slide-horizontal-enter-active,
+.slide-horizontal-leave-active {
   transition: transform 0.3s;
 }
 
-.slide-in-enter {
+.slide-horizontal-enter {
+  transform: translateX(100%);
+}
+
+.slide-horizontal-leave-to {
+  transform: translateX(-100%);
+}
+
+.slide-vertical-enter-active,
+.slide-vertical-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-vertical-enter {
   transform: translateY(100%);
 }
 
-.slide-in-leave-to {
+.slide-vertical-leave-to {
   transform: translateY(-100%);
 }
 </style>
