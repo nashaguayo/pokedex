@@ -21,6 +21,7 @@
         />
         <PokemonItemType :types="pokemonTypes" />
       </CenteredColumn>
+      <PokemonItemEvolutions :pokemonName="pokemonName" />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
@@ -40,6 +41,7 @@ import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
 import PokemonItemStat from '@components/pokemons/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
+import PokemonItemEvolutions from '@components/pokemons/PokemonItemEvolutions.vue';
 import { getPokemon } from '@api/pokemon';
 import { capitalizeWord, getPokemonPageBackgroundElement } from '@lib/helpers';
 import { logError } from '@lib/logger';
@@ -53,6 +55,7 @@ export default {
     PokemonItemHeader,
     PokemonItemStat,
     PokemonItemType,
+    PokemonItemEvolutions,
   },
   data() {
     return {
