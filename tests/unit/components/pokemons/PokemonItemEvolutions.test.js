@@ -30,6 +30,7 @@ describe('PokemonItemEvolutions', () => {
         pokemonId: 1,
         pokemonName: 'pokemonId1',
       },
+      stubs: ['router-link'],
     });
 
     await wrapper.vm.$nextTick();
