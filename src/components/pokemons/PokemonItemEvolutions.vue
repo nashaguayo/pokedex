@@ -1,15 +1,11 @@
 <template>
   <CenteredColumn class="pokemon-item-evolutions">
     <p>Evolutions</p>
-    <div
-      v-for="evolution in evolutions"
-      :key="`evolution-${evolution.species}`"
-      class="evolution"
-    >
+    <div class="evolution">
       <span>
-        {{ evolution.species }}
+        {{ evolutions[evolution].species }}
       </span>
-      <img :src="evolution.image" alt="evolution" />
+      <img :src="evolutions[evolution].image" alt="evolution" />
     </div>
   </CenteredColumn>
 </template>
@@ -25,15 +21,23 @@ export default {
       type: Number,
       required: true,
     },
+    pokemonName: {
+      type: String,
+      required: true,
+    },
   },
   components: { CenteredColumn },
   data() {
     return {
-      evolutions: [],
+      evolutions: [{ species: '', image: '' }],
+      evolution: 0,
     };
   },
   async created() {
     this.evolutions = await getPokemonEvolutions(this.pokemonId);
+    this.evolution = this.evolutions.findIndex(
+      (evolution) => evolution?.species === this.pokemonName.toLowerCase()
+    );
   },
 };
 </script>

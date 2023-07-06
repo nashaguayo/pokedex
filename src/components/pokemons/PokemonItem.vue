@@ -21,7 +21,10 @@
         />
         <PokemonItemType :types="pokemonTypes" />
       </CenteredColumn>
-      <PokemonItemEvolutions :pokemonId="pokemonId" />
+      <PokemonItemEvolutions
+        :pokemonId="pokemonId"
+        :pokemonName="pokemonName"
+      />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
