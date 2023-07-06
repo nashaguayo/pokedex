@@ -155,7 +155,7 @@ export default {
     grid-template-rows: repeat(2, 1fr);
     margin: 3rem 3rem 0;
     align-items: start;
-    gap: 3rem;
+    gap: 1rem;
     height: calc(100% - 3rem);
   }
 

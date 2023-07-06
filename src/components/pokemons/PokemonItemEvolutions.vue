@@ -66,10 +66,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
 .pokemon-item-evolutions {
   margin: 1rem 0;
+
+  @media (min-width: $min-width-fourth-break) {
+    margin: 0;
+  }
+
   .title {
     font-size: 2rem;
+
+    @media (min-width: $min-width-fourth-break) {
+      display: none;
+    }
   }
 
   .card {
@@ -80,11 +91,22 @@ export default {
     min-width: 10rem;
     box-shadow: var(--main-box-shadow);
 
+    @media (min-width: $min-width-fourth-break) {
+      margin-top: 0;
+      width: 80%;
+      margin-right: 3rem;
+      border-radius: 5rem;
+    }
+
     .evolution img {
       background: var(--screen-background-gradient);
       border-radius: 1rem;
       margin: 1rem 0;
       border: 0.2rem solid var(--main-border-color);
+
+      @media (min-width: $min-width-fourth-break) {
+        border-radius: 3rem;
+      }
     }
 
     .evolution span {
