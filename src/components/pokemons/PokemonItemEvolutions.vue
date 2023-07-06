@@ -17,11 +17,13 @@
       </CenteredColumn>
       <div class="buttons">
         <BaseChevron
+          ref="previousEvolutionButton"
           :onClickHandler="getPreviousEvolution"
           direction="left"
           :disabled="!evolution"
         />
         <BaseChevron
+          ref="nextEvolutionButton"
           :onClickHandler="getNextEvolution"
           direction="right"
           :disabled="evolutions.length - 1 === evolution"
@@ -60,17 +62,17 @@ export default {
   },
   computed: {
     species() {
-      return this.evolutions[this.evolution].species;
+      return this.evolutions[this.evolution]?.species;
     },
     image() {
-      return this.evolutions[this.evolution].image;
+      return this.evolutions[this.evolution]?.image;
     },
   },
   async created() {
     this.evolutions = await getPokemonEvolutions(this.pokemonId);
     this.evolution =
-      this.evolutions?.findIndex(
-        (evolution) => evolution?.species === this.pokemonName.toLowerCase()
+      this.evolutions.findIndex(
+        (evolution) => evolution.species === this.pokemonName.toLowerCase()
       ) ?? 0;
   },
   methods: {
