@@ -151,13 +151,13 @@ export default {
   }
 
   .pokemon-info-container {
-    margin-top: 3rem;
+    margin-top: 2rem;
     z-index: 10;
     background-color: var(--main-background-color);
     box-shadow: var(--main-box-shadow);
 
     @media (min-width: $min-width-first-break) {
-      margin-top: 4rem;
+      margin-top: 3rem;
     }
 
     @media (min-width: $min-width-second-break) {
