@@ -21,7 +21,7 @@
         />
         <PokemonItemType :types="pokemonTypes" />
       </CenteredColumn>
-      <PokemonItemEvolutions :pokemonName="pokemonName" />
+      <PokemonItemEvolutions :pokemonId="pokemonId" />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
@@ -60,6 +60,7 @@ export default {
   data() {
     return {
       pokemon: {},
+      pokemonId: 0,
       pokemonImage: '',
       pokemonName: '',
       pokemonStats: [],
@@ -88,6 +89,7 @@ export default {
     });
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.pokemonTypes = this.pokemon.types;
+    this.pokemonId = this.pokemon.id;
     this.getCapitalizedPokemonName();
     this.loading = false;
   },

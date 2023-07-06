@@ -1,15 +1,21 @@
 <template>
-  <h1>Evolutions</h1>
+  <h1>Evolutions {{ pokemonId }}</h1>
 </template>
 
 <script>
+import { getPokemonEvolutions } from '@api/pokemon.js';
+
 export default {
   name: 'PokemonItemEvolutions',
   props: {
-    pokemonName: {
-      type: String,
+    pokemonId: {
+      type: Number,
       required: true,
     },
+  },
+  async created() {
+    const evolutions = await getPokemonEvolutions(this.pokemonId);
+    console.log(evolutions);
   },
 };
 </script>
