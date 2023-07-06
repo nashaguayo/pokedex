@@ -146,10 +146,6 @@ export default {
       grid-row-end: 3;
     }
 
-    @media (min-width: $min-width-fifth-break) {
-      min-width: 40rem;
-    }
-
     .pokemon-name {
       display: none;
 
