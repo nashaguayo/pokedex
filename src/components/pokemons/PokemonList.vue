@@ -31,7 +31,7 @@ import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
 import { getPokemons } from '@api/pokemon';
 import { scrollToTopOfBackgroundPage } from '@lib/helpers';
-import { logError } from '@/lib/logger';
+import { logError } from '@lib/logger';
 
 export default {
   name: 'PokemonList',
