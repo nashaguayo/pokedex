@@ -8,22 +8,23 @@
       <img :src="evolutions[evolution].image" alt="evolution" />
     </CenteredColumn>
     <div class="buttons">
-      <BaseButton :onClickHandler="getPreviousEvolution" :disabled="!evolution">
-        Previous
-      </BaseButton>
-      <BaseButton
+      <BaseChevron
+        :onClickHandler="getPreviousEvolution"
+        direction="left"
+        :disabled="!evolution"
+      />
+      <BaseChevron
         :onClickHandler="getNextEvolution"
-        :disabled="evolution === evolutions.length - 1"
-      >
-        Next
-      </BaseButton>
+        direction="right"
+        :disabled="evolutions.length - 1 === evolution"
+      />
     </div>
   </CenteredColumn>
 </template>
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import BaseButton from '@components/ui/BaseButton.vue';
+import BaseChevron from '@components/ui/BaseChevron.vue';
 import { getPokemonEvolutions } from '@api/evolutions.js';
 
 export default {
@@ -38,7 +39,7 @@ export default {
       required: true,
     },
   },
-  components: { CenteredColumn, BaseButton },
+  components: { CenteredColumn, BaseChevron },
   data() {
     return {
       evolutions: [{ species: '', image: '' }],
