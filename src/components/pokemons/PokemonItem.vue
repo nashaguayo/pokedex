@@ -1,5 +1,11 @@
 <template>
-  <CenteredColumn class="pokemon-item" ref="pokemonItem">
+  <FontAwesomeIcon
+    v-if="loading"
+    icon="fa-solid fa-spinner"
+    class="fa-spin-pulse spinner-icon"
+    size="6x"
+  />
+  <CenteredColumn v-else class="pokemon-item" ref="pokemonItem">
     <PokemonItemHeader
       id="header"
       :pokemonName="pokemonName"
@@ -55,6 +61,7 @@ export default {
       pokemonTypes: [],
       topPosition: 0,
       throttledParallax: null,
+      loading: true,
     };
   },
   async created() {
@@ -77,6 +84,7 @@ export default {
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.pokemonTypes = this.pokemon.types;
     this.getCapitalizedPokemonName();
+    this.loading = false;
   },
   mounted() {
     this.throttledParallax = throttle(this.parallax, 20);
@@ -114,6 +122,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '@css/media-queries.scss';
+
+.spinner-icon {
+  position: absolute;
+  top: 50%;
+}
 
 .pokemon-item {
   position: absolute;
