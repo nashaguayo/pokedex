@@ -152,7 +152,7 @@ export default {
   @media (min-width: $min-width-fourth-break) {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     margin: 3rem 3rem 0;
     align-items: start;
     gap: 1rem;
@@ -204,8 +204,10 @@ export default {
     }
 
     @media (min-width: $min-width-fourth-break) {
-      margin-top: 3rem;
-      margin-right: 3rem;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      justify-self: center;
+      width: calc(100% - 6rem);
     }
   }
 }
