@@ -20,35 +20,59 @@ export async function getPokemon(id) {
 }
 
 export async function getPokemonEvolutions(pokemonId) {
-  const pokemonSpeciesUrl = `/pokemon-species/${pokemonId}`;
-
   try {
-    const speciesResponse = await pokemonApi.get(pokemonSpeciesUrl);
+    const speciesResponse = await pokemonApi.get(
+      `/pokemon-species/${pokemonId}`
+    );
     const speciesData = speciesResponse.data;
 
-    const evolutionChainUrl = speciesData['evolution_chain']['url'];
+    const evolutionChainUrl = speciesData.evolution_chain.url;
     const evolutionChainResponse = await pokemonApi.get(evolutionChainUrl);
     const evolutionChainData = evolutionChainResponse.data;
 
     const evolutions = [];
-    let chain = evolutionChainData['chain'];
+    let chain = evolutionChainData.chain;
 
-    // Include the initial Pokémon in the list of evolutions
-    const initialPokemonName = chain['species']['name'];
-    evolutions.push(initialPokemonName);
+    const initialPokemonResponse = await pokemonApi.get(
+      `/pokemon/${pokemonId}`
+    );
+    const initialPokemonData = initialPokemonResponse.data;
+
+    const initialPokemon = {
+      species: chain.species.name,
+      image: initialPokemonData.sprites.front_default,
+    };
+    evolutions.push(initialPokemon);
 
     while (chain['evolves_to'].length > 0) {
-      const evolutionDetails = chain['evolves_to'][0]['evolution_details'];
+      const evolutionDetails = chain.evolves_to[0].evolution_details;
       if (evolutionDetails.length > 0) {
-        const speciesName = chain['evolves_to'][0]['species']['name'];
-        evolutions.push(speciesName);
+        const speciesName = chain.evolves_to[0].species.name;
+        const speciesId = chain.evolves_to[0].species.url
+          .split('/')
+          .slice(-2, -1)[0];
+        const evolutionPokemonResponse = await pokemonApi.get(
+          `/pokemon/${speciesId}`
+        );
+        const evolutionPokemonData = evolutionPokemonResponse.data;
+        const image = evolutionPokemonData.sprites.front_default;
+
+        const evolution = {
+          species: speciesName,
+          image: image,
+        };
+        evolutions.push(evolution);
       }
 
-      chain = chain['evolves_to'][0];
+      chain = chain.evolves_to[0];
     }
 
     return evolutions;
   } catch (error) {
-    console.log(`Error: ${error.message}`);
+    logError(
+      getPokemonEvolutions.name,
+      'Unable to retrieve evolutions for Pokemon',
+      error
+    );
   }
 }
