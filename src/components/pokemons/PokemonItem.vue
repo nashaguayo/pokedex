@@ -57,8 +57,14 @@ export default {
     };
   },
   async created() {
-    this.pokemon = await getPokemon(this.$route.params.id);
+    const pokemon = await getPokemon(this.$route.params.id);
 
+    if (!pokemon) {
+      this.$router.push({ name: 'pageNotFound' });
+      return;
+    }
+
+    this.pokemon = pokemon;
     this.pokemonStats = this.pokemon.stats.map((s) => {
       return { name: s.stat.name, value: s.base_stat };
     });
