@@ -76,7 +76,7 @@ html[data-theme='light'] {
   --main-box-shadow: #{$light-main-box-shadow};
 
   --cards-background-color: #{$light-cards-background-color};
-  --screen-background-color: #{$light-screen-background-color};
+  --screen-background-gradient: #{$light-screen-background-gradient};
 
   --disabled-button-background-color: #{$light-disabled-button-background-color};
   --disabled-button-color: #{$light-disabled-button-color};
@@ -102,7 +102,7 @@ html[data-theme='dark'] {
   --main-box-shadow: #{$dark-main-box-shadow};
 
   --cards-background-color: #{$dark-cards-background-color};
-  --screen-background-color: #{$dark-screen-background-color};
+  --screen-background-gradient: #{$dark-screen-background-gradient};
 
   --disabled-button-background-color: #{$dark-disabled-button-background-color};
   --disabled-button-color: #{$dark-disabled-button-color};

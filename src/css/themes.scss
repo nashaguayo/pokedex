@@ -16,7 +16,11 @@ $light-secondary-border-color: white;
 $light-main-box-shadow: 0 0 0.3rem 0.1rem $light-secondary-shadow-color;
 
 $light-cards-background-color: rgb(20, 119, 0);
-$light-screen-background-color: white;
+$light-screen-background-gradient: linear-gradient(
+  0deg,
+  rgba(166, 0, 255, 1) 0%,
+  rgba(255, 255, 255, 1) 100%
+);
 
 $light-disabled-button-background-color: #cccccc;
 $light-disabled-button-color: #666666;
@@ -45,8 +49,11 @@ $dark-secondary-border-color: black;
 $dark-main-box-shadow: 0 0 0.3rem 0.1rem $dark-secondary-shadow-color;
 
 $dark-cards-background-color: rgb(9, 54, 0);
-$dark-screen-background-color: black;
-
+$dark-screen-background-gradient: linear-gradient(
+  0deg,
+  rgba(166, 0, 255, 1) 0%,
+  rgba(0, 0, 0, 1) 100%
+);
 $dark-disabled-button-background-color: #535353;
 $dark-disabled-button-color: #cccccc;
 
