@@ -10,12 +10,12 @@ export async function getPokemonEvolutions(pokemonId) {
       speciesResponse.data.evolution_chain.url
     );
     const initialPokemonResponse = await pokemonApi.get(
-      `/pokemon/${pokemonId}`
+      `/pokemon/${evolutionChainResponse.data.chain.species.name}`
     );
 
     const evolutions = [];
     const initialPokemon = {
-      species: speciesResponse.data.name,
+      species: evolutionChainResponse.data.chain.species.name,
       image: initialPokemonResponse.data.sprites.front_default,
     };
     evolutions.push(initialPokemon);
@@ -32,9 +32,12 @@ export async function getPokemonEvolutions(pokemonId) {
         const evolutionPokemonResponse = await pokemonApi.get(
           `/pokemon/${speciesId}`
         );
+        const evolutionPokemonData = evolutionPokemonResponse.data;
+        const image = evolutionPokemonData.sprites.front_default;
+
         const evolution = {
           species: chain.evolves_to[0].species.name,
-          image: evolutionPokemonResponse.data.sprites.front_default,
+          image: image,
         };
         evolutions.push(evolution);
       }

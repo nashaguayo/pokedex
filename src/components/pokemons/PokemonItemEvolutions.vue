@@ -1,5 +1,16 @@
 <template>
-  <h1>Evolutions {{ pokemonId }}</h1>
+  <div class="pokemon-item-evolutions">
+    <div
+      v-for="evolution in evolutions"
+      :key="`evolution-${evolution.species}`"
+      class="evolution"
+    >
+      <span>
+        {{ evolution.species }}
+      </span>
+      <img :src="evolution.image" alt="evolution" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -13,9 +24,14 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      evolutions: [],
+    };
+  },
   async created() {
-    const evolutions = await getPokemonEvolutions(this.pokemonId);
-    console.log(evolutions);
+    this.evolutions = await getPokemonEvolutions(this.pokemonId);
+    console.log(this.evolutions);
   },
 };
 </script>
