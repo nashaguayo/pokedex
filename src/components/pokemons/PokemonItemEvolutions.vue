@@ -4,16 +4,14 @@
     <div class="card">
       <CenteredColumn class="evolution">
         <transition name="fade" mode="out-in">
-          <span :key="evolutions[evolution].species">
-            {{ evolutions[evolution].species }}
+          <span :key="species">
+            {{ species }}
           </span>
         </transition>
         <div
           class="screen"
           :style="{
-            backgroundImage: evolutions[evolution].image
-              ? `url(${evolutions[evolution].image})`
-              : 'none',
+            backgroundImage: image ? `url(${image})` : 'none',
           }"
         ></div>
       </CenteredColumn>
@@ -60,11 +58,20 @@ export default {
       evolution: 0,
     };
   },
+  computed: {
+    species() {
+      return this.evolutions[this.evolution].species;
+    },
+    image() {
+      return this.evolutions[this.evolution].image;
+    },
+  },
   async created() {
     this.evolutions = await getPokemonEvolutions(this.pokemonId);
-    this.evolution = this.evolutions.findIndex(
-      (evolution) => evolution?.species === this.pokemonName.toLowerCase()
-    );
+    this.evolution =
+      this.evolutions?.findIndex(
+        (evolution) => evolution?.species === this.pokemonName.toLowerCase()
+      ) ?? 0;
   },
   methods: {
     getPreviousEvolution() {
