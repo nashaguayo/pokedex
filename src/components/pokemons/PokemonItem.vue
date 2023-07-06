@@ -35,6 +35,7 @@ import PokemonItemStat from '@components/pokemons/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
 import { getPokemon } from '@api/pokemon';
 import { capitalizeWord, getPokemonPageBackgroundElement } from '@lib/helpers';
+import { logError } from '@/lib/logger';
 
 export default {
   name: 'PokemonItem',
@@ -61,6 +62,11 @@ export default {
 
     if (!pokemon) {
       this.$router.push({ name: 'pageNotFound' });
+      logError(
+        'created',
+        'Call to pokeapi API failed',
+        new Error('pokemon is either undefined or null')
+      );
       return;
     }
 

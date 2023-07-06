@@ -31,6 +31,7 @@ import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
 import { getPokemons } from '@api/pokemon';
 import { scrollToTopOfBackgroundPage } from '@lib/helpers';
+import { logError } from '@/lib/logger';
 
 export default {
   name: 'PokemonList',
@@ -61,6 +62,16 @@ export default {
       const pokemonsInfo = await getPokemons(
         url?.replace(process.env.VUE_APP_POKEAPI_URL, '')
       );
+
+      if (!pokemonsInfo) {
+        logError(
+          this.getPokemons.name,
+          'Call to pokeapi API failed',
+          new Error('pokemonsInfo is either undefined or null')
+        );
+        return;
+      }
+
       this.pokemons = pokemonsInfo.results;
       this.nextUrl = pokemonsInfo.next;
       this.previousUrl = pokemonsInfo.previous;
