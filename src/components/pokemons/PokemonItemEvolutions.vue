@@ -1,5 +1,6 @@
 <template>
-  <div class="pokemon-item-evolutions">
+  <CenteredColumn class="pokemon-item-evolutions">
+    <p>Evolutions</p>
     <div
       v-for="evolution in evolutions"
       :key="`evolution-${evolution.species}`"
@@ -10,10 +11,11 @@
       </span>
       <img :src="evolution.image" alt="evolution" />
     </div>
-  </div>
+  </CenteredColumn>
 </template>
 
 <script>
+import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import { getPokemonEvolutions } from '@api/evolutions.js';
 
 export default {
@@ -24,6 +26,7 @@ export default {
       required: true,
     },
   },
+  components: { CenteredColumn },
   data() {
     return {
       evolutions: [],
@@ -31,7 +34,6 @@ export default {
   },
   async created() {
     this.evolutions = await getPokemonEvolutions(this.pokemonId);
-    console.log(this.evolutions);
   },
 };
 </script>
