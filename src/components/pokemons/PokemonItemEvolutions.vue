@@ -7,11 +7,23 @@
       </span>
       <img :src="evolutions[evolution].image" alt="evolution" />
     </div>
+    <div class="buttons">
+      <BaseButton :onClickHandler="getPreviousEvolution" :disabled="!evolution">
+        Previous
+      </BaseButton>
+      <BaseButton
+        :onClickHandler="getNextEvolution"
+        :disabled="evolution === evolutions.length - 1"
+      >
+        Next
+      </BaseButton>
+    </div>
   </CenteredColumn>
 </template>
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import BaseButton from '@components/ui/BaseButton.vue';
 import { getPokemonEvolutions } from '@api/evolutions.js';
 
 export default {
@@ -26,7 +38,7 @@ export default {
       required: true,
     },
   },
-  components: { CenteredColumn },
+  components: { CenteredColumn, BaseButton },
   data() {
     return {
       evolutions: [{ species: '', image: '' }],
@@ -38,6 +50,14 @@ export default {
     this.evolution = this.evolutions.findIndex(
       (evolution) => evolution?.species === this.pokemonName.toLowerCase()
     );
+  },
+  methods: {
+    getPreviousEvolution() {
+      this.evolution = this.evolution - 1;
+    },
+    getNextEvolution() {
+      this.evolution = this.evolution + 1;
+    },
   },
 };
 </script>
