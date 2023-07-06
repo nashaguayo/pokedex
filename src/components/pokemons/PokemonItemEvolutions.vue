@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { getPokemonEvolutions } from '@api/pokemon.js';
+import { getPokemonEvolutions } from '@api/evolutions.js';
 
 export default {
   name: 'PokemonItemEvolutions',
