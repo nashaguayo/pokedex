@@ -11,8 +11,29 @@
 </template>
 
 <script>
+import { isDarkModeEnabled } from '@lib/localStorage';
+import { toggleDarkMode } from '@lib/helpers';
+
 export default {
   name: 'App',
+  data() {
+    return {
+      isDarkModeEnabled: isDarkModeEnabled(),
+    };
+  },
+  created() {
+    this.setTheme(this.isDarkModeEnabled);
+  },
+  watch: {
+    isDarkModeEnabled(newValue) {
+      this.setTheme(newValue);
+    },
+  },
+  methods: {
+    setTheme(isDarkMode) {
+      toggleDarkMode(isDarkMode);
+    },
+  },
 };
 </script>
 
