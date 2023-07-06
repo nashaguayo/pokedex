@@ -8,6 +8,10 @@ import { faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import { faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 
@@ -17,6 +21,10 @@ library.add(faToggleOn);
 library.add(faToggleOff);
 library.add(faArrowUp);
 library.add(faSpinner);
+library.add(faChevronDown);
+library.add(faChevronUp);
+library.add(faChevronRight);
+library.add(faChevronLeft);
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 

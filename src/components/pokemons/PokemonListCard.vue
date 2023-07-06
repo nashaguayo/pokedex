@@ -65,7 +65,7 @@ export default {
   align-items: center;
 
   .screen {
-    background-color: var(--screen-background-color);
+    background: var(--screen-background-gradient);
     background-size: cover;
     border-radius: 0.5rem;
     margin-bottom: 0.3rem;

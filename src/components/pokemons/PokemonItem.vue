@@ -21,10 +21,15 @@
         />
         <PokemonItemType :types="pokemonTypes" />
       </CenteredColumn>
+      <PokemonItemEvolutions
+        :pokemonId="pokemonId"
+        :pokemonName="pokemonName"
+      />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
         :variant="true"
+        :big="true"
       >
         Go Back
       </BaseButton>
@@ -40,6 +45,7 @@ import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
 import PokemonItemStat from '@components/pokemons/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
+import PokemonItemEvolutions from '@components/pokemons/PokemonItemEvolutions.vue';
 import { getPokemon } from '@api/pokemon';
 import { capitalizeWord, getPokemonPageBackgroundElement } from '@lib/helpers';
 import { logError } from '@lib/logger';
@@ -53,10 +59,12 @@ export default {
     PokemonItemHeader,
     PokemonItemStat,
     PokemonItemType,
+    PokemonItemEvolutions,
   },
   data() {
     return {
       pokemon: {},
+      pokemonId: 0,
       pokemonImage: '',
       pokemonName: '',
       pokemonStats: [],
@@ -85,6 +93,7 @@ export default {
     });
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.pokemonTypes = this.pokemon.types;
+    this.pokemonId = this.pokemon.id;
     this.getCapitalizedPokemonName();
     this.loading = false;
   },
@@ -116,7 +125,7 @@ export default {
     },
     parallax() {
       const resolution = 1200;
-      if (window.innerWidth > resolution) {
+      if (window.innerWidth >= resolution) {
         return;
       }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
@@ -143,21 +152,21 @@ export default {
   @media (min-width: $min-width-fourth-break) {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     margin: 3rem 3rem 0;
     align-items: start;
-    gap: 3rem;
+    gap: 1rem;
     height: calc(100% - 3rem);
   }
 
   .pokemon-info-container {
-    margin-top: 3rem;
+    margin-top: 2rem;
     z-index: 10;
     background-color: var(--main-background-color);
     box-shadow: var(--main-box-shadow);
 
     @media (min-width: $min-width-first-break) {
-      margin-top: 4rem;
+      margin-top: 3rem;
     }
 
     @media (min-width: $min-width-second-break) {
@@ -195,8 +204,10 @@ export default {
     }
 
     @media (min-width: $min-width-fourth-break) {
-      margin-top: 3rem;
-      margin-right: 3rem;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      justify-self: center;
+      width: calc(100% - 6rem);
     }
   }
 }

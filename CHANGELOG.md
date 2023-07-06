@@ -14,6 +14,7 @@
 - Scroll to top button
 - Pokemons Page
 - Individual Pokemon Page
+- Pokemon Evolutions
 
 ---
 

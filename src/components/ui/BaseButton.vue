@@ -2,7 +2,11 @@
   <button
     :disabled="disabled"
     @click="handleAndAnimate"
-    :class="{ 'shrink-animation': wasClicked, 'background-variant': variant }"
+    :class="{
+      'shrink-animation': wasClicked,
+      'background-variant': variant,
+      big: big,
+    }"
     class="base-button"
     @animationend="wasClicked = false"
   >
@@ -27,6 +31,10 @@ export default {
       default: false,
     },
     variant: {
+      type: Boolean,
+      default: false,
+    },
+    big: {
       type: Boolean,
       default: false,
     },
@@ -75,6 +83,10 @@ export default {
   &.background-variant {
     background-color: var(--variant-background-color) !important;
     color: var(--variant-text-color);
+  }
+
+  &.big {
+    width: 80%;
   }
 }
 
