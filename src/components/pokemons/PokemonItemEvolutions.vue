@@ -10,7 +10,11 @@
         </transition>
         <div
           class="screen"
-          :style="{ backgroundImage: `url(${evolutions[evolution].image})` }"
+          :style="{
+            backgroundImage: evolutions[evolution].image
+              ? `url(${evolutions[evolution].image})`
+              : 'none',
+          }"
         ></div>
       </CenteredColumn>
       <div class="buttons">
@@ -46,7 +50,10 @@ export default {
       required: true,
     },
   },
-  components: { CenteredColumn, BaseChevron },
+  components: {
+    CenteredColumn,
+    BaseChevron,
+  },
   data() {
     return {
       evolutions: [{ species: '', image: '' }],
