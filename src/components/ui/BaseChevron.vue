@@ -54,7 +54,6 @@ export default {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  margin-right: 2rem;
   padding: 0.5rem;
   text-align: center;
   box-shadow: var(--main-box-shadow);

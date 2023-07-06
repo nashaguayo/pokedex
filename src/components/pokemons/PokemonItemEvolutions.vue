@@ -65,9 +65,14 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-evolutions {
-  margin-top: 1rem;
+  margin: 1rem 0;
   .title {
     font-size: 2rem;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
   }
 }
 </style>
