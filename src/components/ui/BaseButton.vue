@@ -86,7 +86,7 @@ export default {
   }
 
   &.big {
-    width: 100%;
+    width: 80%;
   }
 }
 
