@@ -107,6 +107,10 @@ export default {
       margin: 1rem 0;
       width: 6rem;
       height: 6rem;
+      background-color: white;
+      border: 0.2rem solid var(--main-border-color);
+      border-radius: 50%;
+      box-shadow: var(main-box-shadow);
       transition: background-image 0.6s;
 
       @media (min-width: $min-width-fourth-break) {
