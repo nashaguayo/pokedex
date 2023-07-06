@@ -75,7 +75,6 @@ export default {
   .card {
     margin-top: 1rem;
     background-color: var(--cards-background-color);
-    padding: 0.5rem;
     border-radius: 1rem;
     border: 0.2rem solid var(--main-border-color);
     min-width: 10rem;
@@ -86,6 +85,10 @@ export default {
       border-radius: 1rem;
       margin: 1rem 0;
       border: 0.2rem solid var(--main-border-color);
+    }
+
+    .evolution span {
+      margin-top: 1rem;
     }
   }
 
