@@ -14,29 +14,27 @@ export async function getPokemonEvolutions(pokemonId) {
     );
 
     const evolutions = [];
-    let chain = evolutionChainResponse.data.chain;
     const initialPokemon = {
-      species: chain.species.name,
+      species: speciesResponse.data.name,
       image: initialPokemonResponse.data.sprites.front_default,
     };
     evolutions.push(initialPokemon);
 
-    while (chain['evolves_to'].length > 0) {
+    let chain = evolutionChainResponse.data.chain;
+
+    while (chain.evolves_to.length > 0) {
       const evolutionDetails = chain.evolves_to[0].evolution_details;
+
       if (evolutionDetails.length > 0) {
-        const speciesName = chain.evolves_to[0].species.name;
         const speciesId = chain.evolves_to[0].species.url
           .split('/')
           .slice(-2, -1)[0];
         const evolutionPokemonResponse = await pokemonApi.get(
           `/pokemon/${speciesId}`
         );
-        const evolutionPokemonData = evolutionPokemonResponse.data;
-        const image = evolutionPokemonData.sprites.front_default;
-
         const evolution = {
-          species: speciesName,
-          image: image,
+          species: chain.evolves_to[0].species.name,
+          image: evolutionPokemonResponse.data.sprites.front_default,
         };
         evolutions.push(evolution);
       }
