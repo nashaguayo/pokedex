@@ -3,10 +3,15 @@
     <span class="title">Evolutions</span>
     <div class="card">
       <CenteredColumn class="evolution">
-        <span>
-          {{ evolutions[evolution].species }}
-        </span>
-        <img :src="evolutions[evolution].image" alt="evolution" />
+        <transition name="fade" mode="out-in">
+          <span :key="evolutions[evolution].species">
+            {{ evolutions[evolution].species }}
+          </span>
+        </transition>
+        <div
+          class="screen"
+          :style="{ backgroundImage: `url(${evolutions[evolution].image})` }"
+        ></div>
       </CenteredColumn>
       <div class="buttons">
         <BaseChevron
@@ -98,11 +103,11 @@ export default {
       border-radius: 5rem;
     }
 
-    .evolution img {
-      background: var(--screen-background-gradient);
-      border-radius: 1rem;
+    .screen {
       margin: 1rem 0;
-      border: 0.2rem solid var(--main-border-color);
+      width: 6rem;
+      height: 6rem;
+      transition: background-image 0.6s;
 
       @media (min-width: $min-width-fourth-break) {
         border-radius: 3rem;
@@ -120,5 +125,15 @@ export default {
     justify-content: center;
     margin-bottom: 1rem;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
