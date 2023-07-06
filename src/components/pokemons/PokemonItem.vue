@@ -1,33 +1,40 @@
 <template>
-  <CenteredColumn class="pokemon-item" ref="pokemonItem">
-    <PokemonItemHeader
-      id="header"
-      :pokemonName="pokemonName"
-      :pokemonImage="pokemonImage"
-      :topPosition="topPosition"
-    />
-    <CenteredColumn class="pokemon-info-container">
-      <h1 class="pokemon-name">{{ pokemon.name }}</h1>
-      <PokemonItemStat
-        :key="'stat'"
-        :pokemonStat="{ name: 'stat', value: 'value' }"
-        :big="true"
+  <BaseLoader :loading="loading">
+    <CenteredColumn class="pokemon-item" ref="pokemonItem">
+      <PokemonItemHeader
+        id="header"
+        :pokemonName="pokemonName"
+        :pokemonImage="pokemonImage"
+        :topPosition="topPosition"
       />
-      <PokemonItemStat
-        v-for="pokemonStat in pokemonStats"
-        :key="pokemonStat.name"
-        :pokemonStat="pokemonStat"
-      />
-      <PokemonItemType :types="pokemonTypes" />
+      <CenteredColumn class="pokemon-info-container">
+        <h1 class="pokemon-name">{{ pokemon.name }}</h1>
+        <PokemonItemStat
+          :key="'stat'"
+          :pokemonStat="{ name: 'stat', value: 'value' }"
+          :big="true"
+        />
+        <PokemonItemStat
+          v-for="pokemonStat in pokemonStats"
+          :key="pokemonStat.name"
+          :pokemonStat="pokemonStat"
+        />
+        <PokemonItemType :types="pokemonTypes" />
+      </CenteredColumn>
+      <BaseButton
+        class="go-back-button"
+        :onClickHandler="goBack"
+        :variant="true"
+      >
+        Go Back
+      </BaseButton>
     </CenteredColumn>
-    <BaseButton class="go-back-button" :onClickHandler="goBack" :variant="true">
-      Go Back
-    </BaseButton>
-  </CenteredColumn>
+  </BaseLoader>
 </template>
 
 <script>
 import { throttle } from 'lodash';
+import BaseLoader from '@components/ui/BaseLoader.vue';
 import BaseButton from '@components/ui/BaseButton.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
@@ -40,6 +47,7 @@ import { logError } from '@lib/logger';
 export default {
   name: 'PokemonItem',
   components: {
+    BaseLoader,
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
@@ -55,6 +63,7 @@ export default {
       pokemonTypes: [],
       topPosition: 0,
       throttledParallax: null,
+      loading: true,
     };
   },
   async created() {
@@ -77,8 +86,13 @@ export default {
     this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
     this.pokemonTypes = this.pokemon.types;
     this.getCapitalizedPokemonName();
+    this.loading = false;
   },
-  mounted() {
+  updated() {
+    if (this.loading) {
+      return;
+    }
+
     this.throttledParallax = throttle(this.parallax, 20);
     getPokemonPageBackgroundElement().addEventListener(
       'scroll',

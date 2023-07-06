@@ -1,32 +1,38 @@
 <template>
-  <CenteredColumn class="pokemon-list">
-    <template v-if="!count">
-      <h2>Something went wrong!</h2>
-      <p>No pokemons to display.</p>
-    </template>
-    <template v-else>
-      <div class="pokemons">
-        <PokemonListCard
-          v-for="pokemon in pokemons"
-          :key="pokemon.name"
-          :pokemonName="pokemon.name"
-          :disabled="!nextUrl"
-        />
-      </div>
-      <div class="pagination-buttons">
-        <BaseButton :onClickHandler="getPreviousPage" :disabled="!previousUrl">
-          Previous
-        </BaseButton>
-        <BaseButton :onClickHandler="getNextPage" :disabled="!nextUrl">
-          Next
-        </BaseButton>
-      </div>
-    </template>
-  </CenteredColumn>
+  <BaseLoader :loading="loading">
+    <CenteredColumn class="pokemon-list">
+      <template v-if="!count">
+        <h2>Something went wrong!</h2>
+        <p>No pokemons to display.</p>
+      </template>
+      <template v-else>
+        <div class="pokemons">
+          <PokemonListCard
+            v-for="pokemon in pokemons"
+            :key="pokemon.name"
+            :pokemonName="pokemon.name"
+            :disabled="!nextUrl"
+          />
+        </div>
+        <div class="pagination-buttons">
+          <BaseButton
+            :onClickHandler="getPreviousPage"
+            :disabled="!previousUrl"
+          >
+            Previous
+          </BaseButton>
+          <BaseButton :onClickHandler="getNextPage" :disabled="!nextUrl">
+            Next
+          </BaseButton>
+        </div>
+      </template>
+    </CenteredColumn>
+  </BaseLoader>
 </template>
 
 <script>
 import PokemonListCard from '@components/pokemons/PokemonListCard';
+import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
 import { getPokemons } from '@api/pokemon';
@@ -36,6 +42,7 @@ import { logError } from '@lib/logger';
 export default {
   name: 'PokemonList',
   components: {
+    BaseLoader,
     PokemonListCard,
     BaseButton,
     CenteredColumn,
@@ -46,6 +53,7 @@ export default {
       previousUrl: null,
       nextUrl: null,
       count: 0,
+      loading: true,
     };
   },
   async mounted() {
@@ -77,6 +85,7 @@ export default {
       this.previousUrl = pokemonsInfo.previous;
       this.count = pokemonsInfo.count;
       scrollToTopOfBackgroundPage();
+      this.loading = false;
     },
   },
 };

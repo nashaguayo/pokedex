@@ -10,7 +10,9 @@
       :height="locationHeight"
       :width="locationWidth"
     />
+    <img v-if="!pokemonImage" :src="silouette" alt="pokemon silouette" />
     <img
+      v-else
       class="pokemon-image"
       :src="pokemonImage"
       alt="pokemon"
@@ -24,6 +26,7 @@
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import silouette from '@assets/pokemons/silouette.png';
 
 export default {
   name: 'PokemonItemHeader',
@@ -32,6 +35,7 @@ export default {
     return {
       locationHeight: 0,
       locationWidth: 0,
+      silouette,
     };
   },
   props: {
