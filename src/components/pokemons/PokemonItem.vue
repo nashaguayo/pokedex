@@ -125,7 +125,7 @@ export default {
     },
     parallax() {
       const resolution = 1200;
-      if (window.innerWidth > resolution) {
+      if (window.innerWidth >= resolution) {
         return;
       }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
