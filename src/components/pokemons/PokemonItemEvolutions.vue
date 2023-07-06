@@ -1,12 +1,12 @@
 <template>
   <CenteredColumn class="pokemon-item-evolutions">
-    <p>Evolutions</p>
-    <div class="evolution">
+    <span class="title">Evolutions</span>
+    <CenteredColumn class="evolution">
       <span>
         {{ evolutions[evolution].species }}
       </span>
       <img :src="evolutions[evolution].image" alt="evolution" />
-    </div>
+    </CenteredColumn>
     <div class="buttons">
       <BaseButton :onClickHandler="getPreviousEvolution" :disabled="!evolution">
         Previous
@@ -62,4 +62,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.pokemon-item-evolutions {
+  margin-top: 1rem;
+  .title {
+    font-size: 2rem;
+  }
+}
+</style>

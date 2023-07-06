@@ -146,7 +146,6 @@ a:active {
   span,
   p {
     font-family: 'Upheaval';
-    font-size: 1rem;
     color: var(--main-text-color);
 
     @media (min-width: $min-width-first-break) {
