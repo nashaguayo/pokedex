@@ -88,7 +88,11 @@ export default {
     this.getCapitalizedPokemonName();
     this.loading = false;
   },
-  mounted() {
+  updated() {
+    if (this.loading) {
+      return;
+    }
+
     this.throttledParallax = throttle(this.parallax, 20);
     getPokemonPageBackgroundElement().addEventListener(
       'scroll',
