@@ -89,6 +89,10 @@ export default {
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
     },
     parallax() {
+      const resolution = 1200;
+      if (window.innerWidth > resolution) {
+        return;
+      }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
@@ -144,10 +148,6 @@ export default {
       margin-left: 3rem;
       grid-row-start: 1;
       grid-row-end: 3;
-    }
-
-    @media (min-width: $min-width-fifth-break) {
-      min-width: 40rem;
     }
 
     .pokemon-name {
