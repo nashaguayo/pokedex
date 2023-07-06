@@ -6,23 +6,18 @@ export async function getPokemonEvolutions(pokemonId) {
     const speciesResponse = await pokemonApi.get(
       `/pokemon-species/${pokemonId}`
     );
-    const speciesData = speciesResponse.data;
     const evolutionChainResponse = await pokemonApi.get(
-      speciesData.evolution_chain.url
+      speciesResponse.data.evolution_chain.url
     );
-    const evolutionChainData = evolutionChainResponse.data;
-
-    const evolutions = [];
-    let chain = evolutionChainData.chain;
-
     const initialPokemonResponse = await pokemonApi.get(
       `/pokemon/${pokemonId}`
     );
-    const initialPokemonData = initialPokemonResponse.data;
 
+    const evolutions = [];
+    let chain = evolutionChainResponse.data.chain;
     const initialPokemon = {
       species: chain.species.name,
-      image: initialPokemonData.sprites.front_default,
+      image: initialPokemonResponse.data.sprites.front_default,
     };
     evolutions.push(initialPokemon);
 
