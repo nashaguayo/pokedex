@@ -29,6 +29,7 @@
         class="go-back-button"
         :onClickHandler="goBack"
         :variant="true"
+        :big="true"
       >
         Go Back
       </BaseButton>
