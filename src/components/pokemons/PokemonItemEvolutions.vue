@@ -8,12 +8,14 @@
             {{ species }}
           </span>
         </transition>
-        <div
-          class="screen"
-          :style="{
-            backgroundImage: image ? `url(${image})` : 'none',
-          }"
-        ></div>
+        <router-link :to="`/pokemons/${species}`">
+          <div
+            class="screen"
+            :style="{
+              backgroundImage: image ? `url(${image})` : 'none',
+            }"
+          ></div>
+        </router-link>
       </CenteredColumn>
       <div class="buttons">
         <BaseChevron
