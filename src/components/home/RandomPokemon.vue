@@ -33,10 +33,19 @@ export default {
   data() {
     return {
       randomPokemons: [],
+      timer: null,
     };
   },
   async created() {
     this.getRandomPokemons();
+  },
+  mounted() {
+    this.timer = setInterval(async () => {
+      await this.getNewRandomPokemon();
+    }, 5000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
   methods: {
     async getRandomPokemons() {
@@ -56,11 +65,18 @@ export default {
         pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
       }
 
+      this.randomPokemons = [];
       for (let pokemon in pokemons) {
-        const image = pokemons[pokemon].sprites.front_default;
-        const name = pokemons[pokemon].name;
-        this.randomPokemons.push({ name, image });
+        this.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
       }
+    },
+    async getNewRandomPokemon() {
+      const newPokemon = (await getRandomPokemonsApi(1))[0];
+      this.randomPokemons.pop();
+      this.randomPokemons.unshift(this.getPokemonData(newPokemon));
+    },
+    getPokemonData(pokemon) {
+      return { name: pokemon.name, image: pokemon.sprites.front_default };
     },
     goToPokemonPage(pokemonName) {
       this.$router.push({ name: 'pokemon', params: { id: pokemonName } });
