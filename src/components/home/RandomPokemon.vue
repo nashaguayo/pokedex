@@ -57,12 +57,6 @@ export default {
       }
 
       for (let pokemon in pokemons) {
-        if (
-          !pokemons[pokemon]?.sprites?.front_default ||
-          !pokemons[pokemon]?.name
-        ) {
-          break;
-        }
         const image = pokemons[pokemon].sprites.front_default;
         const name = pokemons[pokemon].name;
         this.randomPokemons.push({ name, image });
