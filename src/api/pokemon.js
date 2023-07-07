@@ -18,3 +18,13 @@ export async function getPokemon(id) {
     logError(getPokemon.name, 'Unable to retrieve Pokemon', error);
   }
 }
+
+export async function getRandomPokemon() {
+  try {
+    const response = await getPokemons();
+    const randomPokemonId = Math.floor(Math.random() * response.count);
+    return await getPokemon(randomPokemonId);
+  } catch (error) {
+    logError(getRandomPokemon.name, 'Unable to retrieve Random Pokemon', error);
+  }
+}
