@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       image: silouette,
-      name: 'name',
+      name: 'loading',
     };
   },
   async created() {
@@ -54,12 +54,16 @@ export default {
 
     .pokemon-image {
       background-color: var(--main-background-color);
-      border-radius: 1rem;
+      border-radius: 50%;
       margin-top: 1rem;
       display: flex;
       justify-content: center;
       border: 0.2rem solid var(--main-border-color);
       padding: 1rem;
+
+      img {
+        border-radius: 50%;
+      }
 
       @media (min-width: $min-width-second-break) {
         margin-top: 2rem;
