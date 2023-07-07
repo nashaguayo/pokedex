@@ -31,7 +31,11 @@ export default {
   },
   methods: {
     async getRandomPokemon() {
-      const pokemon = await getRandomPokemon();
+      let pokemon;
+      while (!pokemon) {
+        pokemon = await getRandomPokemon();
+      }
+
       this.image = pokemon.sprites.front_default;
       this.name = pokemon.name;
     },
@@ -54,14 +58,12 @@ export default {
       margin-top: 1rem;
       display: flex;
       justify-content: center;
+      border: 0.2rem solid var(--main-border-color);
+      padding: 1rem;
 
       @media (min-width: $min-width-second-break) {
         margin-top: 2rem;
       }
-    }
-
-    .pokemon-name {
-      color: var(--secondary-text-color) !important;
     }
   }
 }
