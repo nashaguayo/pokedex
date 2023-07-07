@@ -1,7 +1,7 @@
 <template>
   <CenteredColumn class="random-pokemon">
     <h2>Random Pokemon</h2>
-    <div class="pokemons">
+    <transition-group name="slide-to-right" class="pokemons" mode="out-in">
       <CenteredColumn
         class="pokedex"
         v-for="pokemon in randomPokemons"
@@ -13,7 +13,7 @@
         </div>
         <span class="pokemon-name">{{ pokemon.name }}</span>
       </CenteredColumn>
-    </div>
+    </transition-group>
   </CenteredColumn>
 </template>
 
@@ -99,10 +99,12 @@ export default {
 
   .pokemons {
     display: flex;
+    direction: row-reverse;
     gap: 1rem;
   }
 
   .pokedex {
+    width: 9rem;
     .pokemon-image {
       background-color: var(--main-background-color);
       border-radius: 50%;
@@ -129,5 +131,21 @@ export default {
       margin-bottom: 2rem;
     }
   }
+}
+
+.slide-to-right-move,
+.slide-to-right-enter-active,
+.slide-to-right-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-to-right-enter {
+  transform: translateX(-5rem);
+  opacity: 0;
+}
+
+.slide-to-right-leave-to {
+  transform: translateX(5rem);
+  opacity: 0;
 }
 </style>
