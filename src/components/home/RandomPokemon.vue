@@ -52,6 +52,8 @@ export default {
       background-color: var(--main-background-color);
       border-radius: 1rem;
       margin-top: 1rem;
+      display: flex;
+      justify-content: center;
 
       @media (min-width: $min-width-second-break) {
         margin-top: 2rem;
