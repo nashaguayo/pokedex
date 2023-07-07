@@ -14,6 +14,7 @@ module.exports = {
     '^@css/(.*)': '<rootDir>/src/css/$1',
     '^@api/(.*)': '<rootDir>/src/api/$1',
     '^@assets/(.*)': '<rootDir>/src/assets/$1',
+    '^@constants/(.*)': '<rootDir>/src/constants/$1',
   },
   testEnvironment: 'jsdom',
 };
