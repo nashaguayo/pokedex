@@ -2,10 +2,12 @@
   <CenteredColumn class="random-pokemon">
     <h2>Random Pokemon</h2>
     <CenteredColumn class="pokedex">
-      <div class="pokemon-image">
-        <img :src="image" alt="random pokemon" />
-      </div>
-      <h2 class="pokemon-name">{{ name }}</h2>
+      <router-link :to="{ name: 'pokemon', params: { id: name } }">
+        <div class="pokemon-image">
+          <img :src="image" alt="random pokemon" />
+        </div>
+        <h2 class="pokemon-name">{{ name }}</h2>
+      </router-link>
     </CenteredColumn>
   </CenteredColumn>
 </template>
