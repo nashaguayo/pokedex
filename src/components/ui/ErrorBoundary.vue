@@ -1,4 +1,6 @@
 <script>
+import { logError } from '@lib/logger';
+
 export default {
   name: 'ErrorBoundary',
   data: () => ({
@@ -14,13 +16,12 @@ export default {
       required: true,
     },
   },
-  errorCaptured() {
+  errorCaptured(error) {
     this.error = true;
+    logError(this.componentName, this.errorMessage, error);
   },
   render(h) {
-    return this.error
-      ? h('p', `Something went wrong! ${this.errorMessage}`)
-      : this.$slots.default[0];
+    return this.error ? h('p', `${this.errorMessage}`) : this.$slots.default[0];
   },
 };
 </script>
