@@ -26,7 +26,7 @@ export async function getRandomPokemons(amount) {
     let n = 0;
     while (n < amount) {
       const randomPokemonId = Math.floor(Math.random() * response.count);
-      let pokemon = await getPokemon(randomPokemonId);
+      const pokemon = await getPokemon(randomPokemonId);
       if (!pokemon) {
         continue;
       } else {

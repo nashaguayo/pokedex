@@ -60,11 +60,7 @@ export default {
         amountOfRandomPokemons = 2;
       }
 
-      let pokemons;
-      while (!pokemons) {
-        pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
-      }
-
+      const pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
       this.randomPokemons = [];
       for (let pokemon in pokemons) {
         this.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
