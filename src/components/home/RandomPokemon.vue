@@ -61,7 +61,7 @@ export default {
           !pokemons[pokemon]?.sprites?.front_default ||
           !pokemons[pokemon]?.name
         ) {
-          return;
+          break;
         }
         const image = pokemons[pokemon].sprites.front_default;
         const name = pokemons[pokemon].name;
