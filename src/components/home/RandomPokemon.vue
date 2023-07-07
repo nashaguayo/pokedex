@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       image: silouette,
-      name: '',
+      name: 'name',
     };
   },
   async created() {
