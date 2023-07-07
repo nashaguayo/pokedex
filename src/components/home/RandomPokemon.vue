@@ -1,17 +1,148 @@
 <template>
-  <CenteredColumn>
+  <CenteredColumn class="random-pokemon">
     <h2>Random Pokemon</h2>
-    <div class="pokedex">
-      <!-- TODO -->
-    </div>
+    <transition-group name="slide-to-right" class="pokemons">
+      <CenteredColumn
+        class="pokedex"
+        v-for="pokemon in randomPokemons"
+        :key="pokemon.name"
+        @click="goToPokemonPage(pokemon.name)"
+      >
+        <div class="pokemon-image">
+          <img :src="pokemon.image" alt="random pokemon" />
+        </div>
+        <span class="pokemon-name">{{ pokemon.name }}</span>
+      </CenteredColumn>
+    </transition-group>
   </CenteredColumn>
 </template>
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import { getRandomPokemons as getRandomPokemonsApi } from '@api/pokemon';
+import {
+  FIRST_BREAK,
+  THIRD_BREAK,
+  FOURTH_BREAK,
+  FIFTH_BREAK,
+} from '@constants/resolutions';
 
 export default {
   name: 'RandomPokemon',
   components: { CenteredColumn },
+  data() {
+    return {
+      randomPokemons: [],
+      timer: null,
+    };
+  },
+  async created() {
+    this.getRandomPokemons();
+  },
+  mounted() {
+    this.timer = setInterval(async () => {
+      await this.getNewRandomPokemon();
+    }, 5000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
+  methods: {
+    async getRandomPokemons() {
+      let amountOfRandomPokemons = 1;
+      if (window.innerWidth >= FIFTH_BREAK) {
+        amountOfRandomPokemons = 5;
+      } else if (window.innerWidth >= FOURTH_BREAK) {
+        amountOfRandomPokemons = 4;
+      } else if (window.innerWidth >= THIRD_BREAK) {
+        amountOfRandomPokemons = 3;
+      } else if (window.innerWidth >= FIRST_BREAK) {
+        amountOfRandomPokemons = 2;
+      }
+
+      const pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
+      this.randomPokemons = [];
+      for (let pokemon in pokemons) {
+        this.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
+      }
+    },
+    async getNewRandomPokemon() {
+      const newPokemon = (await getRandomPokemonsApi(1))[0];
+      this.randomPokemons.pop();
+      this.randomPokemons.unshift(this.getPokemonData(newPokemon));
+    },
+    getPokemonData(pokemon) {
+      return { name: pokemon.name, image: pokemon.sprites.front_default };
+    },
+    goToPokemonPage(pokemonName) {
+      this.$router.push({ name: 'pokemon', params: { id: pokemonName } });
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '@css/media-queries.scss';
+
+.random-pokemon {
+  box-shadow: var(--main-box-shadow);
+  background-color: var(--secondary-background-color);
+  width: 100%;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .pokemons {
+    display: flex;
+    direction: row-reverse;
+    gap: 1rem;
+  }
+
+  .pokedex {
+    width: 9rem;
+    .pokemon-image {
+      background-color: var(--main-background-color);
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--main-box-shadow);
+      border: 0.2rem solid var(--main-border-color);
+      padding: 1rem;
+      width: 6rem;
+      height: 6rem;
+      display: flex;
+
+      img {
+        border-radius: 50%;
+        justify-self: center;
+        align-self: center;
+      }
+
+      @media (min-width: $min-width-second-break) {
+        margin-top: 2rem;
+      }
+    }
+
+    .pokemon-name {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  }
+}
+
+.slide-to-right-move,
+.slide-to-right-enter-active,
+.slide-to-right-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-to-right-enter {
+  transform: translateX(-5rem);
+  opacity: 0;
+}
+
+.slide-to-right-leave-to {
+  transform: translateX(5rem);
+  opacity: 0;
+}
+</style>

@@ -49,6 +49,7 @@ import PokemonItemEvolutions from '@components/pokemons/PokemonItemEvolutions.vu
 import { getPokemon } from '@api/pokemon';
 import { capitalizeWord, getPokemonPageBackgroundElement } from '@lib/helpers';
 import { logError } from '@lib/logger';
+import { FOURTH_BREAK } from '@constants/resolutions';
 
 export default {
   name: 'PokemonItem',
@@ -124,8 +125,7 @@ export default {
       document.title = `Pokedex - ${pokemonNameCapitalized}`;
     },
     parallax() {
-      const resolution = 1200;
-      if (window.innerWidth >= resolution) {
+      if (window.innerWidth >= FOURTH_BREAK) {
         return;
       }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
