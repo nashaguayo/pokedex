@@ -19,12 +19,27 @@ export async function getPokemon(id) {
   }
 }
 
-export async function getRandomPokemon() {
+export async function getRandomPokemons(amount) {
   try {
     const response = await getPokemons();
-    const randomPokemonId = Math.floor(Math.random() * response.count);
-    return await getPokemon(randomPokemonId);
+    const randomPokemons = [];
+    let n = 0;
+    while (n < amount) {
+      const randomPokemonId = Math.floor(Math.random() * response.count);
+      let pokemon = await getPokemon(randomPokemonId);
+      if (!pokemon) {
+        break;
+      } else {
+        n++;
+      }
+      randomPokemons.push(pokemon);
+    }
+    return randomPokemons;
   } catch (error) {
-    logError(getRandomPokemon.name, 'Unable to retrieve Random Pokemon', error);
+    logError(
+      getRandomPokemons.name,
+      'Unable to retrieve Random Pokemon',
+      error
+    );
   }
 }

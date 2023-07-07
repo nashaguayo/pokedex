@@ -11,7 +11,7 @@
         <div class="pokemon-image">
           <img :src="pokemon.image" alt="random pokemon" />
         </div>
-        <h2 class="pokemon-name">{{ pokemon.name }}</h2>
+        <span class="pokemon-name">{{ pokemon.name }}</span>
       </CenteredColumn>
     </div>
   </CenteredColumn>
@@ -19,7 +19,13 @@
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import { getRandomPokemon } from '@api/pokemon';
+import { getRandomPokemons as getRandomPokemonsApi } from '@api/pokemon';
+import {
+  FIRST_BREAK,
+  THIRD_BREAK,
+  FOURTH_BREAK,
+  FIFTH_BREAK,
+} from '@constants/resolutions';
 
 export default {
   name: 'RandomPokemon',
@@ -34,14 +40,33 @@ export default {
   },
   methods: {
     async getRandomPokemons() {
-      let pokemon;
-      while (!pokemon) {
-        pokemon = await getRandomPokemon();
+      let amountOfRandomPokemons = 1;
+      if (window.innerWidth >= FIFTH_BREAK) {
+        amountOfRandomPokemons = 5;
+      } else if (window.innerWidth >= FOURTH_BREAK) {
+        amountOfRandomPokemons = 4;
+      } else if (window.innerWidth >= THIRD_BREAK) {
+        amountOfRandomPokemons = 3;
+      } else if (window.innerWidth >= FIRST_BREAK) {
+        amountOfRandomPokemons = 2;
       }
 
-      const image = pokemon.sprites.front_default;
-      const name = pokemon.name;
-      this.randomPokemons.push({ name, image });
+      let pokemons;
+      while (!pokemons) {
+        pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
+      }
+
+      for (let pokemon in pokemons) {
+        if (
+          !pokemons[pokemon]?.sprites?.front_default ||
+          !pokemons[pokemon]?.name
+        ) {
+          return;
+        }
+        const image = pokemons[pokemon].sprites.front_default;
+        const name = pokemons[pokemon].name;
+        this.randomPokemons.push({ name, image });
+      }
     },
     goToPokemonPage(pokemonName) {
       this.$router.push({ name: 'pokemon', params: { id: pokemonName } });
@@ -58,6 +83,10 @@ export default {
   background-color: var(--secondary-background-color);
   width: 100%;
 
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
   .pokemons {
     display: flex;
     gap: 1rem;
@@ -67,7 +96,8 @@ export default {
     .pokemon-image {
       background-color: var(--main-background-color);
       border-radius: 50%;
-      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--main-box-shadow);
       border: 0.2rem solid var(--main-border-color);
       padding: 1rem;
       width: 6rem;
@@ -83,6 +113,10 @@ export default {
       @media (min-width: $min-width-second-break) {
         margin-top: 2rem;
       }
+    }
+
+    .pokemon-name {
+      margin-bottom: 2rem;
     }
   }
 }
