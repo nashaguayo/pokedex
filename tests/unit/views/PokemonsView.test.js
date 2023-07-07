@@ -18,7 +18,6 @@ describe('PokemonsView', () => {
   });
 
   it('renders PokemonsView with PokemonList component', () => {
-    const pokemonList = wrapper.findComponent({ name: 'PokemonList' });
-    expect(pokemonList.exists()).toBe(true);
+    expect(wrapper.find('pokemonlist-stub').exists()).toBe(true);
   });
 });
