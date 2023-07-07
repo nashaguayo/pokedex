@@ -1,7 +1,7 @@
 <template>
   <CenteredColumn class="random-pokemon">
     <h2>Random Pokemon</h2>
-    <transition-group name="slide-to-right" class="pokemons" mode="out-in">
+    <transition-group name="slide-to-right" class="pokemons">
       <CenteredColumn
         class="pokedex"
         v-for="pokemon in randomPokemons"
@@ -125,6 +125,7 @@ export default {
 
     .pokemon-name {
       margin-bottom: 2rem;
+      text-align: center;
     }
   }
 }
