@@ -37,7 +37,6 @@ export default {
   },
   watch: {
     async searchTerm() {
-      console.log(this.searchTerm);
       await store.searchPokemons(this.searchTerm);
     },
   },
