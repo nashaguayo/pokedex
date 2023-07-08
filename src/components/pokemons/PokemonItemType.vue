@@ -1,11 +1,11 @@
 <template>
   <CenteredColumn class="pokemon-item-type">
     <span class="title">Types</span>
-    <div v-for="t in types" :key="`type-${t.type.name}`" class="type">
-      <span>{{ t.type.name }}</span>
+    <div v-for="t in types" :key="`type-${t}`" class="type">
+      <span>{{ t }}</span>
       <div
         class="lights"
-        :style="{ backgroundColor: backgroundColorTypes.get(t.type.name) }"
+        :style="{ backgroundColor: backgroundColorTypes.get(t) }"
       >
         <div class="shine" />
       </div>
@@ -48,8 +48,10 @@ export default {
     };
   },
   props: {
-    types: Array,
-    default: [],
+    types: {
+      type: Array,
+      required: [],
+    },
   },
 };
 </script>

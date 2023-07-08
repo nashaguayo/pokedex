@@ -5,14 +5,14 @@ describe('PokemonItemStat', () => {
   let wrapper;
 
   beforeEach(() => {
-    const pokemonStat = {
+    const stat = {
       name: 'HP',
       value: 100,
     };
 
     wrapper = mount(PokemonItemStat, {
       propsData: {
-        pokemonStat,
+        stat,
       },
     });
   });
@@ -22,7 +22,7 @@ describe('PokemonItemStat', () => {
   });
 
   it('renders the component with the correct props', () => {
-    expect(wrapper.props('pokemonStat')).toEqual({
+    expect(wrapper.props('stat')).toEqual({
       name: 'HP',
       value: 100,
     });
@@ -36,7 +36,7 @@ describe('PokemonItemStat', () => {
   it('renders the component without the "big" class by default', () => {
     wrapper = mount(PokemonItemStat, {
       propsData: {
-        pokemonStat: {},
+        stat: {},
         big: true,
       },
     });

@@ -3,28 +3,21 @@
     <CenteredColumn class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         id="header"
-        :pokemonName="pokemonName"
-        :pokemonImage="pokemonImage"
+        :name="name"
+        :image="image"
         :topPosition="topPosition"
       />
       <CenteredColumn class="pokemon-info-container">
-        <h1 class="pokemon-name">{{ pokemon.name }}</h1>
+        <h1 class="pokemon-name">{{ name }}</h1>
         <PokemonItemStat
           :key="'stat'"
-          :pokemonStat="{ name: 'stat', value: 'value' }"
+          :stat="{ name: 'stat', value: 'value' }"
           :big="true"
         />
-        <PokemonItemStat
-          v-for="pokemonStat in pokemonStats"
-          :key="pokemonStat.name"
-          :pokemonStat="pokemonStat"
-        />
-        <PokemonItemType :types="pokemonTypes" />
+        <PokemonItemStat v-for="stat in stats" :key="stat.name" :stat="stat" />
+        <PokemonItemType :types="types" />
       </CenteredColumn>
-      <PokemonItemEvolutions
-        :pokemonId="pokemonId"
-        :pokemonName="pokemonName"
-      />
+      <PokemonItemEvolutions :pokemonId="id" :pokemonName="name" />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
@@ -46,10 +39,10 @@ import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
 import PokemonItemStat from '@components/pokemons/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
 import PokemonItemEvolutions from '@components/pokemons/PokemonItemEvolutions.vue';
-import { getPokemon } from '@api/pokemon';
-import { capitalizeWord, getPokemonPageBackgroundElement } from '@lib/helpers';
-import { logError } from '@lib/logger';
+import { getPokemonPageBackgroundElement } from '@lib/helpers';
 import { FOURTH_BREAK } from '@constants/resolutions';
+import store from '@lib/store';
+import { capitalizeWord } from '@lib/helpers';
 
 export default {
   name: 'PokemonItem',
@@ -64,39 +57,42 @@ export default {
   },
   data() {
     return {
-      pokemon: {},
-      pokemonId: 0,
-      pokemonImage: '',
-      pokemonName: '',
-      pokemonStats: [],
-      pokemonTypes: [],
       topPosition: 0,
       throttledParallax: null,
-      loading: true,
+      loading: false,
     };
   },
+  watch: {
+    name() {
+      document.title = `Pokedex - ${capitalizeWord(this.name ?? '')}`;
+    },
+  },
+  computed: {
+    urlId() {
+      return this.$route.params.id;
+    },
+    id() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id;
+    },
+    name() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name;
+    },
+    image() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+    },
+    stats() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats;
+    },
+    types() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types;
+    },
+  },
   async created() {
-    const pokemon = await getPokemon(this.$route.params.id);
-
-    if (!pokemon) {
-      this.$router.push({ name: 'pageNotFound' });
-      logError(
-        'created',
-        'Call to pokeapi API failed',
-        new Error('pokemon is either undefined or null')
-      );
-      return;
+    if (!store.state.pokemon.has(this.urlId)) {
+      this.loading = true;
+      await store.getPokemon(this.urlId);
+      this.loading = false;
     }
-
-    this.pokemon = pokemon;
-    this.pokemonStats = this.pokemon.stats.map((s) => {
-      return { name: s.stat.name, value: s.base_stat };
-    });
-    this.pokemonImage = this.pokemon.sprites.other.dream_world.front_default;
-    this.pokemonTypes = this.pokemon.types;
-    this.pokemonId = this.pokemon.id;
-    this.getCapitalizedPokemonName();
-    this.loading = false;
   },
   async onUpdated() {
     if (this.loading) {
@@ -117,11 +113,6 @@ export default {
   methods: {
     goBack() {
       this.$router.back();
-    },
-    getCapitalizedPokemonName() {
-      const pokemonNameCapitalized = capitalizeWord(this.$route.params.id);
-      this.pokemonName = pokemonNameCapitalized;
-      document.title = `Pokedex - ${pokemonNameCapitalized}`;
     },
     parallax() {
       if (window.innerWidth >= FOURTH_BREAK) {

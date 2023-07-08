@@ -10,23 +10,24 @@
       :height="locationHeight"
       :width="locationWidth"
     />
-    <img v-if="!pokemonImage" :src="silouette" alt="pokemon silouette" />
+    <img v-if="!image" :src="silouette" alt="pokemon silouette" />
     <img
       v-else
       class="pokemon-image"
-      :src="pokemonImage"
+      :src="image"
       alt="pokemon"
-      ref="pokemonImage"
+      ref="image"
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
-    <h2 class="pokemon-name">{{ pokemonName }}</h2>
+    <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
   </CenteredColumn>
 </template>
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import silouette from '@assets/pokemons/silouette.png';
+import { capitalizeWord } from '@lib/helpers';
 
 export default {
   name: 'PokemonItemHeader',
@@ -39,11 +40,11 @@ export default {
     };
   },
   props: {
-    pokemonImage: {
+    image: {
       type: String,
       required: true,
     },
-    pokemonName: {
+    name: {
       type: String,
       required: true,
     },
@@ -53,8 +54,9 @@ export default {
     },
   },
   methods: {
+    capitalizeWord,
     setLocationHeight() {
-      this.locationHeight = this.$refs.pokemonImage.offsetHeight;
+      this.locationHeight = this.$refs.image.offsetHeight;
       this.locationWidth = this.$refs.pokemonItemHeader.offsetWidth;
     },
   },
