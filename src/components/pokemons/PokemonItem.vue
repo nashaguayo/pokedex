@@ -112,6 +112,10 @@ export default {
   },
   methods: {
     goBack() {
+      if (this.$router.history?._startLocation === this.$route.path) {
+        this.$router.push({ name: 'pokemons' });
+        return;
+      }
       this.$router.back();
     },
     parallax() {
