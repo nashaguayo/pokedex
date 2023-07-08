@@ -10,9 +10,9 @@ import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
 
 const state = Vue.observable({
   allPokemons: [],
-  pokemons: [],
   randomPokemons: [],
   scroll: {
+    pokemons: [],
     previousUrl: '',
     nextUrl: '',
   },
@@ -34,7 +34,7 @@ export default {
 
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
-    state.pokemons = response.results;
+    state.scroll.pokemons = response.results;
     state.scroll.previousUrl = response.previous;
     state.scroll.nextUrl = response.next;
   },

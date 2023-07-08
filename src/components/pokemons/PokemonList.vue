@@ -11,19 +11,7 @@
             v-for="pokemon in pokemons"
             :key="pokemon.name"
             :pokemonName="pokemon.name"
-            :disabled="!nextUrl"
           />
-        </div>
-        <div class="pagination-buttons">
-          <BaseButton
-            :onClickHandler="getPreviousPage"
-            :disabled="!previousUrl"
-          >
-            Previous
-          </BaseButton>
-          <BaseButton :onClickHandler="getNextPage" :disabled="!nextUrl">
-            Next
-          </BaseButton>
         </div>
       </template>
     </CenteredColumn>
@@ -34,7 +22,6 @@
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn';
-import BaseButton from '@components/ui/BaseButton';
 import { scrollToTopOfBackgroundPage } from '@lib/helpers';
 import store from '@lib/store';
 
@@ -43,7 +30,6 @@ export default {
   components: {
     BaseLoader,
     PokemonListCard,
-    BaseButton,
     CenteredColumn,
   },
   data() {
@@ -53,25 +39,13 @@ export default {
   },
   computed: {
     pokemons() {
-      return store.state.pokemons;
-    },
-    previousUrl() {
-      return store.state.scroll.previousUrl;
-    },
-    nextUrl() {
-      return store.state.scroll.nextUrl;
+      return store.state.scroll.pokemons;
     },
   },
   async created() {
     await this.getPokemons();
   },
   methods: {
-    async getPreviousPage() {
-      await this.getPokemons(this.previousUrl);
-    },
-    async getNextPage() {
-      await this.getPokemons(this.nextUrl);
-    },
     async getPokemons(url) {
       this.loading = true;
       await store.getPokemons(url);
@@ -106,17 +80,6 @@ export default {
 
   @media (min-width: $min-width-fifth-break) {
     grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-.pagination-buttons {
-  margin: 1rem 0 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  @media (min-width: $min-width-first-break) {
-    flex-direction: row;
   }
 }
 
