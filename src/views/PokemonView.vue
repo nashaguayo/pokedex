@@ -12,7 +12,7 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
-import PokemonItem from '@components/pokemons/PokemonItem.vue';
+import PokemonItem from '@components/pokemon/PokemonItem.vue';
 
 export default {
   name: 'PokemonView',

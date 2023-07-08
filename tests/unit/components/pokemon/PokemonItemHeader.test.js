@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PokemonItemHeader from '@components/pokemons/PokemonItemHeader.vue';
+import PokemonItemHeader from '@components/pokemon/PokemonItemHeader.vue';
 
 describe('PokemonItemHeader', () => {
   let wrapper;

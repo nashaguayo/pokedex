@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonItemEvolutions from '@components/pokemons/PokemonItemEvolutions.vue';
+import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
 import { getPokemonEvolutions } from '@api/evolutions.js';
 
 jest.mock('@components/ui/BaseChevron.vue', () => ({
