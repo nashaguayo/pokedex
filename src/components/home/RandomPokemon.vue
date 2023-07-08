@@ -72,7 +72,7 @@ export default {
         amountOfRandomPokemons = 2;
       }
 
-      store.getRandomPokemons(amountOfRandomPokemons);
+      await store.getRandomPokemons(amountOfRandomPokemons);
       this.loading = false;
     },
     async getNewRandomPokemon() {
