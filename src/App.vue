@@ -15,7 +15,7 @@
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
-          <BaseFooter v-if="displayFooter" />
+          <BaseFooter :displayFooter="displayFooter" />
         </transition>
       </CenteredColumn>
     </CenteredColumn>
