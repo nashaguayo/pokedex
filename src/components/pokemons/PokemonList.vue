@@ -66,9 +66,9 @@ export default {
       this.loading = false;
       scrollToTopOfBackgroundPage();
     },
-    handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
+    async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
-        console.log('Scrolled to the bottom!');
+        await store.getMorePokemons();
       }
     },
   },

@@ -13,7 +13,6 @@ const state = Vue.observable({
   randomPokemons: [],
   scroll: {
     pokemons: [],
-    previousUrl: '',
     nextUrl: '',
   },
   pokemon: new Map(),
@@ -35,7 +34,16 @@ export default {
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
     state.scroll.pokemons = response.results;
-    state.scroll.previousUrl = response.previous;
+    state.scroll.nextUrl = response.next;
+  },
+
+  async getMorePokemons() {
+    const response = await getPokemonsApi(state.scroll.nextUrl);
+    if (!response) {
+      return;
+    }
+
+    state.scroll.pokemons = [...state.scroll.pokemons, ...response.results];
     state.scroll.nextUrl = response.next;
   },
 

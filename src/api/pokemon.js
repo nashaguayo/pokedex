@@ -3,7 +3,9 @@ import { logError } from '@lib/logger';
 
 export async function getPokemons(url) {
   try {
-    const response = await pokemonApi.get(url ?? 'pokemon');
+    const response = await pokemonApi.get(
+      url?.replace('https://pokeapi.co/api/v2/', '') ?? 'pokemon'
+    );
     return response.data;
   } catch (error) {
     logError(getPokemons.name, 'Unable to retrieve Pokemons', error);
