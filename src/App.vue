@@ -1,15 +1,25 @@
 <template>
   <div id="app">
-    <router-view :key="$route.fullPath" />
+    <CenteredColumn class="base-page">
+      <CenteredColumn class="page-background">
+        <BaseHeader />
+        <router-view :key="$route.fullPath" />
+        <BaseFooter />
+      </CenteredColumn>
+    </CenteredColumn>
   </div>
 </template>
 
 <script>
+import CenteredColumn from './components/ui/CenteredColumn.vue';
+import BaseHeader from './components/ui/BaseHeader.vue';
+import BaseFooter from './components/ui/BaseFooter.vue';
 import { isDarkModeEnabled } from '@lib/localStorage';
 import { toggleDarkMode } from '@lib/helpers';
 
 export default {
   name: 'App',
+  components: { CenteredColumn, BaseHeader, BaseFooter },
   data() {
     return {
       isDarkModeEnabled: isDarkModeEnabled(),
@@ -182,6 +192,30 @@ a:active {
     text-shadow: var(--variant-background-color) 0 0 0.2rem;
     letter-spacing: 0.25rem;
     text-align: center;
+  }
+
+  .base-page {
+    overflow-y: scroll;
+    height: 100vh;
+
+    .page-background {
+      background-color: var(--main-background-color);
+      width: 100vw;
+      height: 100vh;
+      box-shadow: none;
+      overflow-y: scroll;
+      padding-top: 5rem;
+
+      @media (min-width: $min-width-second-break) {
+        box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
+        width: 75vw;
+        padding-top: 7rem;
+      }
+    }
+
+    .page-background::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 </style>
