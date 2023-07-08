@@ -40,6 +40,15 @@ const routes = [
       footer: false,
     },
   },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@views/SearchView.vue'),
+    meta: {
+      header: false,
+      footer: false,
+    },
+  },
 ];
 
 const router = new VueRouter({
