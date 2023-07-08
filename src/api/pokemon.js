@@ -21,7 +21,7 @@ export async function getPokemon(id) {
 
 export async function getRandomPokemons(amount) {
   try {
-    const response = await getPokemons();
+    const response = await getPokemons('pokemon?limit=1');
     const randomPokemons = [];
     let n = 0;
     while (n < amount) {
