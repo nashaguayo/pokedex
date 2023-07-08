@@ -16,6 +16,7 @@
 - Individual Pokemon Page
 - Pokemon Evolutions
 - Random Pokemons
+- Pokemon Search
 
 ---
 
