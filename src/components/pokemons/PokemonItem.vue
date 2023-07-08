@@ -1,5 +1,5 @@
 <template>
-  <BaseLoader :loading="loading">
+  <BaseLoader :loading="loading" :coverPage="true">
     <CenteredColumn class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         id="header"
@@ -98,11 +98,10 @@ export default {
     this.getCapitalizedPokemonName();
     this.loading = false;
   },
-  updated() {
+  async onUpdated() {
     if (this.loading) {
       return;
     }
-
     this.throttledParallax = throttle(this.parallax, 20);
     getPokemonPageBackgroundElement().addEventListener(
       'scroll',
