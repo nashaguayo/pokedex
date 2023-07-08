@@ -22,10 +22,6 @@ export default {
       type: Function,
       default: () => {},
     },
-    text: {
-      type: String,
-      default: 'Click Me',
-    },
     disabled: {
       type: Boolean,
       default: false,

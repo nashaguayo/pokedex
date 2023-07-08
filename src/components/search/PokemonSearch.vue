@@ -24,16 +24,26 @@
         </span>
       </transition-group>
     </div>
+    <div class="go-back">
+      <BaseButton
+        :onClickHandler="goToPokemonsPage"
+        :big="true"
+        :variant="true"
+      >
+        Go Back
+      </BaseButton>
+    </div>
   </CenteredColumn>
 </template>
 
 <script>
+import BaseButton from '@components/ui/BaseButton';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import store from '@lib/store';
 
 export default {
   name: 'PokemonSearch',
-  components: { CenteredColumn },
+  components: { BaseButton, CenteredColumn },
   data() {
     return {
       searchTerm: '',
@@ -52,6 +62,9 @@ export default {
   methods: {
     goToPokemonPage(pokemon) {
       this.$router.push({ name: 'pokemon', params: { id: pokemon } });
+    },
+    goToPokemonsPage() {
+      this.$router.push({ name: 'pokemons' });
     },
   },
 };
@@ -89,11 +102,35 @@ export default {
 
   .results {
     min-width: 100%;
+    margin-bottom: 5rem;
+
+    @media (min-width: $min-width-second-break) {
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: $min-width-third-break) {
+      margin-bottom: 7rem;
+    }
+
     .search-result {
       display: flex;
       padding: 1rem;
       border-bottom: 0.2rem solid var(--main-border-color);
       width: 100%;
+
+      @media (min-width: $min-width-third-break) {
+        padding: 1rem 3rem;
+      }
+    }
+  }
+
+  .go-back {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 1rem;
+
+    @media (min-width: $min-width-second-break) {
+      margin-bottom: 2rem;
     }
   }
 }
