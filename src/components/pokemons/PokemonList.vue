@@ -13,6 +13,7 @@
             :pokemonName="pokemon.name"
           />
         </div>
+        <BaseLoader :loading="loadingMorePokemons" />
       </template>
     </CenteredColumn>
   </BaseLoader>
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       loading: true,
+      loadingMorePokemons: false,
     };
   },
   computed: {
@@ -68,7 +70,9 @@ export default {
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
+        this.loadingMorePokemons = true;
         await store.getMorePokemons();
+        this.loadingMorePokemons = false;
       }
     },
   },
@@ -78,27 +82,31 @@ export default {
 <style lang="scss" scoped>
 @import '@css/media-queries.scss';
 
-.pokemons {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 1rem;
-  grid-column-gap: 3rem;
-  margin: 0 3rem 1rem;
+.pokemon-list {
+  margin-bottom: 2rem;
 
-  @media (min-width: $min-width-first-break) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .pokemons {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 1rem;
+    grid-column-gap: 3rem;
+    margin: 0 3rem 1rem;
 
-  @media (min-width: $min-width-third-break) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+    @media (min-width: $min-width-first-break) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
-  @media (min-width: $min-width-fourth-break) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+    @media (min-width: $min-width-third-break) {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
-  @media (min-width: $min-width-fifth-break) {
-    grid-template-columns: repeat(5, 1fr);
+    @media (min-width: $min-width-fourth-break) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: $min-width-fifth-break) {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 }
 
