@@ -27,6 +27,9 @@ const routes = [
     path: '/pokemons',
     name: 'pokemons',
     component: () => import('@views/PokemonsView.vue'),
+    meta: {
+      footer: false,
+    },
   },
   {
     path: '/pokemons/:id',

@@ -66,8 +66,10 @@ export default {
       this.loading = false;
       scrollToTopOfBackgroundPage();
     },
-    handleScroll() {
-      console.log('Handle scroll');
+    handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
+      if (scrollTop + clientHeight >= scrollHeight) {
+        console.log('Scrolled to the bottom!');
+      }
     },
   },
 };
