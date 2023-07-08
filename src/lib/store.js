@@ -5,6 +5,8 @@ import {
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
 } from '@api/pokemon';
+import { isDarkModeEnabled } from '@lib/localStorage';
+import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -15,6 +17,7 @@ const state = Vue.observable({
     nextUrl: '',
   },
   pokemon: new Map(),
+  isDarkModeEnabled: isDarkModeEnabled(),
 });
 
 export default {
@@ -71,5 +74,10 @@ export default {
 
   getPokemonData(pokemon) {
     return { name: pokemon.name, image: pokemon.sprites.front_default };
+  },
+
+  toggleDarkMode() {
+    state.isDarkModeEnabled = !state.isDarkModeEnabled;
+    toggleDarkModeInLocalStorage();
   },
 };
