@@ -13,24 +13,32 @@ describe('RandomPokemon', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(RandomPokemon);
+    wrapper = shallowMount(RandomPokemon, { stubs: ['router-link'] });
   });
 
   afterEach(() => {
     wrapper.destroy();
   });
 
-  it('navigates to the Pokemon page when a Pokemon is clicked', async () => {
-    const mockRouter = {
-      push: jest.fn(),
+  it('should set the randomPokemons data and loading to false', async () => {
+    await wrapper.vm.getRandomPokemons();
+    expect(wrapper.vm.randomPokemons.length).toBeGreaterThan(0);
+    expect(wrapper.vm.loading).toBe(false);
+  });
+
+  it('should set the randomPokemons data and loading to false', async () => {
+    await wrapper.vm.getRandomPokemons();
+    expect(wrapper.vm.randomPokemons.length).toBeGreaterThan(0);
+    expect(wrapper.vm.loading).toBe(false);
+  });
+
+  it('should return the correct Pokemon data', () => {
+    const pokemon = {
+      name: 'Charizard',
+      sprites: { front_default: 'charizard.png' },
     };
-    wrapper.vm.$router = mockRouter;
-
-    await wrapper.vm.goToPokemonPage('Pikachu');
-
-    expect(mockRouter.push).toHaveBeenCalledWith({
-      name: 'pokemon',
-      params: { id: 'Pikachu' },
-    });
+    const pokemonData = wrapper.vm.getPokemonData(pokemon);
+    expect(pokemonData.name).toEqual(pokemon.name);
+    expect(pokemonData.image).toEqual(pokemon.sprites.front_default);
   });
 });

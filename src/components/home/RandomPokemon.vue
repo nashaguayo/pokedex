@@ -7,12 +7,16 @@
           class="pokedex"
           v-for="pokemon in randomPokemons"
           :key="pokemon.name"
-          @click="goToPokemonPage(pokemon.name)"
         >
-          <div class="pokemon-image">
-            <img :src="pokemon.image" alt="random pokemon" />
-          </div>
-          <span class="pokemon-name">{{ pokemon.name }}</span>
+          <router-link
+            :to="{ name: 'pokemon', params: { id: pokemon.name } }"
+            class="link"
+          >
+            <div class="pokemon-image">
+              <img :src="pokemon.image" alt="random pokemon" />
+            </div>
+            <span class="pokemon-name">{{ pokemon.name }}</span>
+          </router-link>
         </CenteredColumn>
       </transition-group>
     </CenteredColumn>
@@ -79,9 +83,6 @@ export default {
     getPokemonData(pokemon) {
       return { name: pokemon.name, image: pokemon.sprites.front_default };
     },
-    goToPokemonPage(pokemonName) {
-      this.$router.push({ name: 'pokemon', params: { id: pokemonName } });
-    },
   },
 };
 </script>
@@ -106,6 +107,13 @@ export default {
 
   .pokedex {
     width: 9rem;
+
+    .link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .pokemon-image {
       background-color: var(--main-background-color);
       border-radius: 50%;
