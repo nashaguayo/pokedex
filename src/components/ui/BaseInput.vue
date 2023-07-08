@@ -4,7 +4,7 @@
       <FontAwesomeIcon v-if="icon" :icon="icon" />
       <span v-if="label">{{ label }}</span>
     </label>
-    <input :type="type" :id="name" :name="name" />
+    <input :type="type" :id="name" :name="name" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -27,6 +27,10 @@ export default {
     type: {
       type: String,
       default: 'text',
+    },
+    placeholder: {
+      type: String,
+      default: 'type here',
     },
   },
 };
@@ -51,7 +55,7 @@ export default {
     border: 0.2rem solid var(--main-border-color);
     border-radius: 2rem;
     height: 2rem;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     font-family: 'Upheaval';
     width: 70%;
   }

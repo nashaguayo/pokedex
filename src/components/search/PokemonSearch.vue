@@ -1,6 +1,10 @@
 <template>
   <CenteredColumn>
-    <BaseInput name="pokemon" icon="fa-solid fa-magnifying-glass" />
+    <BaseInput
+      name="pokemon"
+      icon="fa-solid fa-magnifying-glass"
+      placeholder="search for pokemons"
+    />
   </CenteredColumn>
 </template>
 
