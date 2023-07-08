@@ -7,6 +7,12 @@
       <LogoAndBanner subtitle="Learn all about pokemons!" />
     </ErrorBoundary>
     <ErrorBoundary
+      componentName="GuessPokemon"
+      errorMessage="Unable to load mini-game"
+    >
+      <GuessPokemon />
+    </ErrorBoundary>
+    <ErrorBoundary
       componentName="RandomPokemon"
       errorMessage="Unable to load random pokemon"
     >
@@ -19,6 +25,7 @@
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
 import LogoAndBanner from '@components/home/LogoAndBanner.vue';
+import GuessPokemon from '@components/home/GuessPokemon.vue';
 import RandomPokemon from '@components/home/RandomPokemon.vue';
 
 export default {
@@ -28,6 +35,7 @@ export default {
     CenteredColumn,
     ErrorBoundary,
     LogoAndBanner,
+    GuessPokemon,
     RandomPokemon,
   },
 };
