@@ -12,14 +12,18 @@
         v-model="searchTerm"
       />
     </div>
-    <span
-      v-for="pokemon in searchResults"
-      :key="pokemon"
-      class="search-result"
-      @click="goToPokemonPage(pokemon)"
-    >
-      {{ pokemon }}
-    </span>
+    <div class="results">
+      <transition-group name="slide-from-right" appear>
+        <span
+          v-for="pokemon in searchResults"
+          :key="pokemon"
+          class="search-result"
+          @click="goToPokemonPage(pokemon)"
+        >
+          {{ pokemon }}
+        </span>
+      </transition-group>
+    </div>
   </CenteredColumn>
 </template>
 
@@ -57,6 +61,8 @@ export default {
 @import '@css/media-queries.scss';
 
 .pokemon-search {
+  width: 100%;
+
   .base-input {
     margin-top: 2rem;
     padding-bottom: 2rem;
@@ -81,11 +87,26 @@ export default {
     }
   }
 
-  .search-result {
-    margin: 0 1rem;
-    padding: 1rem;
-    border-bottom: 0.2rem solid var(--main-border-color);
-    width: calc(100% - 2rem);
+  .results {
+    min-width: 100%;
+    .search-result {
+      display: flex;
+      padding: 1rem;
+      border-bottom: 0.2rem solid var(--main-border-color);
+      width: 100%;
+    }
   }
+}
+
+.slide-from-right-move,
+.slide-from-right-enter-active,
+.slide-from-right-leave-active {
+  transition: all 0.3s;
+}
+
+.slide-from-right-enter,
+.slide-from-right-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>
