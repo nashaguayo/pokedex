@@ -1,23 +1,26 @@
 <template>
-  <CenteredColumn class="random-pokemon">
-    <h2>Random Pokemon</h2>
-    <transition-group name="slide-to-right" class="pokemons">
-      <CenteredColumn
-        class="pokedex"
-        v-for="pokemon in randomPokemons"
-        :key="pokemon.name"
-        @click="goToPokemonPage(pokemon.name)"
-      >
-        <div class="pokemon-image">
-          <img :src="pokemon.image" alt="random pokemon" />
-        </div>
-        <span class="pokemon-name">{{ pokemon.name }}</span>
-      </CenteredColumn>
-    </transition-group>
-  </CenteredColumn>
+  <BaseLoader :loading="loading">
+    <CenteredColumn class="random-pokemon">
+      <h2>Random Pokemon</h2>
+      <transition-group name="slide-to-right" class="pokemons">
+        <CenteredColumn
+          class="pokedex"
+          v-for="pokemon in randomPokemons"
+          :key="pokemon.name"
+          @click="goToPokemonPage(pokemon.name)"
+        >
+          <div class="pokemon-image">
+            <img :src="pokemon.image" alt="random pokemon" />
+          </div>
+          <span class="pokemon-name">{{ pokemon.name }}</span>
+        </CenteredColumn>
+      </transition-group>
+    </CenteredColumn>
+  </BaseLoader>
 </template>
 
 <script>
+import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import { getRandomPokemons as getRandomPokemonsApi } from '@api/pokemon';
 import {
@@ -29,11 +32,12 @@ import {
 
 export default {
   name: 'RandomPokemon',
-  components: { CenteredColumn },
+  components: { BaseLoader, CenteredColumn },
   data() {
     return {
       randomPokemons: [],
       timer: null,
+      loading: true,
     };
   },
   async created() {
@@ -65,6 +69,7 @@ export default {
       for (let pokemon in pokemons) {
         this.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
       }
+      this.loading = false;
     },
     async getNewRandomPokemon() {
       const newPokemon = (await getRandomPokemonsApi(1))[0];

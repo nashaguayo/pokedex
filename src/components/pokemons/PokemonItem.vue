@@ -1,5 +1,5 @@
 <template>
-  <BaseLoader :loading="loading">
+  <BaseLoader :loading="loading" :coverPage="true">
     <CenteredColumn class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         id="header"
