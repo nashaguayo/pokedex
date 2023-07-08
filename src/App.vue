@@ -231,21 +231,17 @@ a:active {
       }
 
       &.add-margins {
-        // min-height: calc(100vh - 5rem);
         padding-top: 5rem;
 
         @media (min-width: $min-width-second-break) {
-          // min-height: calc(100vh - 7rem);
           padding-top: 7rem;
         }
       }
 
       &.no-margins {
-        // min-height: 100vh;
         padding-top: 0rem;
 
         @media (min-width: $min-width-second-break) {
-          // min-height: 100vh;
           padding-top: 0rem;
         }
       }
