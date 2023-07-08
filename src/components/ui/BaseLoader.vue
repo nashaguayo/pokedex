@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade-in-out">
+  <transition name="fade-in-out" mode="out-in">
     <FontAwesomeIcon
       v-if="loading"
       icon="fa-solid fa-spinner"
