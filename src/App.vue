@@ -9,7 +9,9 @@
         }"
       >
         <BaseHeader v-if="displayHeader" />
-        <router-view :key="$route.fullPath" />
+        <transition name="slide" appear mode="out-in">
+          <router-view :key="$route.fullPath" />
+        </transition>
         <BaseFooter v-if="displayFooter" />
       </CenteredColumn>
     </CenteredColumn>
@@ -249,5 +251,18 @@ a:active {
       display: none;
     }
   }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s;
+}
+
+.slide-enter {
+  transform: translateY(100%);
+}
+
+.slide-leave-to {
+  transform: translateY(-100%);
 }
 </style>
