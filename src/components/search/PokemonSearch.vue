@@ -12,7 +12,12 @@
         v-model="searchTerm"
       />
     </div>
-    <span v-for="pokemon in searchResults" :key="pokemon" class="search-result">
+    <span
+      v-for="pokemon in searchResults"
+      :key="pokemon"
+      class="search-result"
+      @click="goToPokemonPage(pokemon)"
+    >
       {{ pokemon }}
     </span>
   </CenteredColumn>
@@ -39,6 +44,11 @@ export default {
   computed: {
     searchResults() {
       return store.state.searchResults;
+    },
+  },
+  methods: {
+    goToPokemonPage(pokemon) {
+      this.$router.push({ name: 'pokemon', params: { id: pokemon } });
     },
   },
 };
