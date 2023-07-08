@@ -19,6 +19,9 @@ export default {
   },
 
   async getAllPokemons() {
+    if (state.allPokemons.length) {
+      return;
+    }
     state.allPokemons = (await getAllPokemonsApi()).results;
   },
 
