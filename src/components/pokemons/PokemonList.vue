@@ -59,9 +59,8 @@ export default {
     );
   },
   methods: {
-    async getPokemons(url) {
-      this.loading = true;
-      await store.getPokemons(url);
+    async getPokemons() {
+      await store.getPokemons();
       this.loading = false;
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
