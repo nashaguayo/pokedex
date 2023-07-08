@@ -19,10 +19,14 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce';
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn';
-import { scrollToTopOfBackgroundPage } from '@lib/helpers';
+import {
+  getPageBackgroundElement,
+  scrollToTopOfBackgroundPage,
+} from '@lib/helpers';
 import store from '@lib/store';
 
 export default {
@@ -45,12 +49,25 @@ export default {
   async created() {
     await this.getPokemons();
   },
+  mounted() {
+    this.debouncedScroll = debounce(this.handleScroll, 100);
+    getPageBackgroundElement().addEventListener('scroll', this.debouncedScroll);
+  },
+  beforeDestroy() {
+    getPageBackgroundElement().removeEventListener(
+      'scroll',
+      this.debouncedScroll
+    );
+  },
   methods: {
     async getPokemons(url) {
       this.loading = true;
       await store.getPokemons(url);
       this.loading = false;
       scrollToTopOfBackgroundPage();
+    },
+    handleScroll() {
+      console.log('Handle scroll');
     },
   },
 };
