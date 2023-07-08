@@ -12,7 +12,9 @@
         v-model="searchTerm"
       />
     </div>
-    <span v-for="pokemon in searchResults" :key="pokemon">{{ pokemon }}</span>
+    <span v-for="pokemon in searchResults" :key="pokemon" class="search-result">
+      {{ pokemon }}
+    </span>
   </CenteredColumn>
 </template>
 
@@ -47,11 +49,13 @@ export default {
 
 .pokemon-search {
   .base-input {
-    margin: 2rem;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: space-evenly;
+    border-bottom: 0.2rem solid var(--main-border-color);
 
     label {
       font-family: 'Upheaval';
@@ -66,6 +70,13 @@ export default {
       font-family: 'Upheaval';
       width: 70%;
     }
+  }
+
+  .search-result {
+    margin: 0 1rem;
+    padding: 1rem;
+    border-bottom: 0.2rem solid var(--main-border-color);
+    width: calc(100% - 2rem);
   }
 }
 </style>
