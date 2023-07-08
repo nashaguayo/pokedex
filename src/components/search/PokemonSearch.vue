@@ -1,7 +1,6 @@
 <template>
   <CenteredColumn>
-    <h2>Search for Pokemons!</h2>
-    <BaseInput />
+    <BaseInput name="pokemon" icon="fa-solid fa-magnifying-glass" />
   </CenteredColumn>
 </template>
 
