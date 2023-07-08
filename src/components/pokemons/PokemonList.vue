@@ -5,6 +5,14 @@
       <p>No pokemons to display.</p>
     </template>
     <template v-else>
+      <h1>Pokemons</h1>
+      <router-link :to="{ name: 'search' }">
+        <FontAwesomeIcon
+          icon="fa-solid fa-magnifying-glass"
+          size="3x"
+          class="search"
+        />
+      </router-link>
       <div class="pokemons">
         <PokemonListCard
           v-for="pokemon in pokemons"
@@ -77,6 +85,10 @@ export default {
 .pokemon-list {
   margin-bottom: 2rem;
 
+  .search {
+    margin-bottom: 1rem;
+  }
+
   .pokemons {
     display: grid;
     grid-template-columns: 1fr;
@@ -99,6 +111,9 @@ export default {
     @media (min-width: $min-width-fifth-break) {
       grid-template-columns: repeat(5, 1fr);
     }
+  }
+
+  .header {
   }
 }
 
