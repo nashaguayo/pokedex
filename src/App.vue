@@ -1,10 +1,16 @@
 <template>
   <div id="app">
     <CenteredColumn class="base-page">
-      <CenteredColumn class="page-background">
-        <BaseHeader />
+      <CenteredColumn
+        class="page-background"
+        :class="{
+          'add-margins': displayHeader,
+          'no-margins': !displayHeader,
+        }"
+      >
+        <BaseHeader v-if="displayHeader" />
         <router-view :key="$route.fullPath" />
-        <BaseFooter />
+        <BaseFooter v-if="displayFooter" />
       </CenteredColumn>
     </CenteredColumn>
   </div>
@@ -27,6 +33,14 @@ export default {
   },
   created() {
     this.setTheme(this.isDarkModeEnabled);
+  },
+  computed: {
+    displayHeader() {
+      return this.$route.meta.header ?? true;
+    },
+    displayFooter() {
+      return this.$route.meta.footer ?? true;
+    },
   },
   watch: {
     isDarkModeEnabled(newValue) {
@@ -204,12 +218,30 @@ a:active {
       height: 100vh;
       box-shadow: none;
       overflow-y: scroll;
-      padding-top: 5rem;
 
       @media (min-width: $min-width-second-break) {
         box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
         width: 75vw;
-        padding-top: 7rem;
+      }
+
+      &.add-margins {
+        // min-height: calc(100vh - 5rem);
+        padding-top: 5rem;
+
+        @media (min-width: $min-width-second-break) {
+          // min-height: calc(100vh - 7rem);
+          padding-top: 7rem;
+        }
+      }
+
+      &.no-margins {
+        // min-height: 100vh;
+        padding-top: 0rem;
+
+        @media (min-width: $min-width-second-break) {
+          // min-height: 100vh;
+          padding-top: 0rem;
+        }
       }
     }
 
