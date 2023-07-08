@@ -24,10 +24,7 @@ import debounce from 'lodash/debounce';
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn';
-import {
-  getPageBackgroundElement,
-  scrollToTopOfBackgroundPage,
-} from '@lib/helpers';
+import { getPageBackgroundElement } from '@lib/helpers';
 import store from '@lib/store';
 
 export default {
@@ -66,7 +63,6 @@ export default {
       this.loading = true;
       await store.getPokemons(url);
       this.loading = false;
-      scrollToTopOfBackgroundPage();
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
