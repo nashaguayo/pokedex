@@ -26,21 +26,18 @@
 import CenteredColumn from './components/ui/CenteredColumn.vue';
 import BaseHeader from './components/ui/BaseHeader.vue';
 import BaseFooter from './components/ui/BaseFooter.vue';
-import { isDarkModeEnabled } from '@lib/localStorage';
-import { toggleDarkMode } from '@lib/helpers';
+import store from '@lib/store';
 
 export default {
   name: 'App',
   components: { CenteredColumn, BaseHeader, BaseFooter },
-  data() {
-    return {
-      isDarkModeEnabled: isDarkModeEnabled(),
-    };
-  },
   created() {
     this.setTheme(this.isDarkModeEnabled);
   },
   computed: {
+    isDarkModeEnabled() {
+      return store.state.isDarkModeEnabled;
+    },
     displayHeader() {
       return this.$route.meta.header ?? true;
     },
@@ -54,8 +51,11 @@ export default {
     },
   },
   methods: {
-    setTheme(isDarkMode) {
-      toggleDarkMode(isDarkMode);
+    setTheme(isDarkModeEnabled) {
+      document.documentElement.setAttribute(
+        'data-theme',
+        isDarkModeEnabled ? 'dark' : 'light'
+      );
     },
   },
 };

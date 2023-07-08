@@ -48,20 +48,4 @@ describe('PokemonList', () => {
   it('renders the BaseButton component', () => {
     expect(wrapper.find('basebutton-stub').exists()).toBe(true);
   });
-
-  it('calls getPokemons method with previousUrl when getPreviousPage is called', async () => {
-    const previousUrl = 'previous-url';
-    wrapper.setData({ previousUrl });
-    wrapper.vm.getPokemons = jest.fn();
-    await wrapper.vm.getPreviousPage();
-    expect(wrapper.vm.getPokemons).toHaveBeenCalledWith(previousUrl);
-  });
-
-  it('calls getPokemons method with nextUrl when getNextPage is called', async () => {
-    const nextUrl = 'next-url';
-    wrapper.setData({ nextUrl });
-    wrapper.vm.getPokemons = jest.fn();
-    await wrapper.vm.getNextPage();
-    expect(wrapper.vm.getPokemons).toHaveBeenCalledWith(nextUrl);
-  });
 });

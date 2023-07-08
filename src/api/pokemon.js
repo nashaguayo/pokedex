@@ -10,6 +10,16 @@ export async function getPokemons(url) {
   }
 }
 
+export async function getAllPokemons() {
+  try {
+    const count = (await pokemonApi.get('pokemon?limit=1')).count;
+    const response = await pokemonApi.get(`pokemon?limit=${count}`);
+    return response.data;
+  } catch (error) {
+    logError(getAllPokemons.name, 'Unable to retrieve all Pokemons', error);
+  }
+}
+
 export async function getPokemon(id) {
   try {
     const response = await pokemonApi.get(`pokemon/${id}`);
@@ -21,7 +31,7 @@ export async function getPokemon(id) {
 
 export async function getRandomPokemons(amount) {
   try {
-    const response = await getPokemons();
+    const response = await getPokemons('pokemon?limit=1');
     const randomPokemons = [];
     let n = 0;
     while (n < amount) {

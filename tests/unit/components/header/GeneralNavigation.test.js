@@ -1,9 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import GeneralNavigation from '@components/header/GeneralNavigation.vue';
+import store from '@lib/store';
 
-jest.mock('@lib/localStorage', () => ({
+jest.mock('@lib/store', () => ({
+  state: { isDarkModeEnabled: true },
   toggleDarkMode: jest.fn(),
-  isDarkModeEnabled: jest.fn().mockImplementation(() => false),
 }));
 
 describe('GeneralNavigation', () => {
@@ -15,38 +16,16 @@ describe('GeneralNavigation', () => {
     });
   });
 
-  afterEach(() => {
+  afterAll(() => {
     wrapper.destroy();
   });
 
-  it('should initialize with isDarkModeEnabled set to false', () => {
-    expect(wrapper.vm.isDarkModeEnabled).toBe(false);
+  it('renders the component correctly', () => {
+    expect(wrapper.exists()).toBe(true);
   });
 
-  it('should toggle isDarkModeEnabled when toggleTheme method is called', () => {
+  it('calls the toggleDarkMode method from the store when toggleTheme is called', () => {
     wrapper.vm.toggleTheme();
-    expect(wrapper.vm.isDarkModeEnabled).toBe(true);
-
-    wrapper.vm.toggleTheme();
-    expect(wrapper.vm.isDarkModeEnabled).toBe(false);
-  });
-
-  it('should update data-theme attribute when isDarkModeEnabled changes', async () => {
-    const lightTheme = 'light';
-    const darkTheme = 'dark';
-
-    expect(document.documentElement.getAttribute('data-theme')).toBe(
-      lightTheme
-    );
-
-    wrapper.vm.toggleTheme();
-    await wrapper.vm.$nextTick();
-    expect(document.documentElement.getAttribute('data-theme')).toBe(darkTheme);
-
-    wrapper.vm.toggleTheme();
-    await wrapper.vm.$nextTick();
-    expect(document.documentElement.getAttribute('data-theme')).toBe(
-      lightTheme
-    );
+    expect(store.toggleDarkMode).toHaveBeenCalled();
   });
 });

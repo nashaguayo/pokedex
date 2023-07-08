@@ -26,20 +26,19 @@
 <script>
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import { getRandomPokemons as getRandomPokemonsApi } from '@api/pokemon';
 import {
   FIRST_BREAK,
   THIRD_BREAK,
   FOURTH_BREAK,
   FIFTH_BREAK,
 } from '@constants/resolutions';
+import store from '@lib/store';
 
 export default {
   name: 'RandomPokemon',
   components: { BaseLoader, CenteredColumn },
   data() {
     return {
-      randomPokemons: [],
       timer: null,
       loading: true,
     };
@@ -55,6 +54,11 @@ export default {
   beforeDestroy() {
     clearInterval(this.timer);
   },
+  computed: {
+    randomPokemons() {
+      return store.state.randomPokemons;
+    },
+  },
   methods: {
     async getRandomPokemons() {
       let amountOfRandomPokemons = 1;
@@ -68,20 +72,11 @@ export default {
         amountOfRandomPokemons = 2;
       }
 
-      const pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
-      this.randomPokemons = [];
-      for (let pokemon in pokemons) {
-        this.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
-      }
+      store.getRandomPokemons(amountOfRandomPokemons);
       this.loading = false;
     },
     async getNewRandomPokemon() {
-      const newPokemon = (await getRandomPokemonsApi(1))[0];
-      this.randomPokemons.pop();
-      this.randomPokemons.unshift(this.getPokemonData(newPokemon));
-    },
-    getPokemonData(pokemon) {
-      return { name: pokemon.name, image: pokemon.sprites.front_default };
+      await store.getNewRandomPokemon();
     },
   },
 };

@@ -52,7 +52,7 @@ jest.mock('@api/pokemon', () => ({
           base_stat: 84,
         },
       ],
-      types: [{ name: 'fire' }, { name: 'flying' }],
+      types: [{ type: { name: 'fire' } }, { type: { name: 'flying' } }],
     })
   ),
 }));

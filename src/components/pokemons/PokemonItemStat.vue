@@ -1,7 +1,7 @@
 <template>
   <div class="pokemon-item-stat">
-    <div class="property-names" :class="{ big }">{{ pokemonStat.name }}</div>
-    <div class="property-values" :class="{ big }">{{ pokemonStat.value }}</div>
+    <div class="property-names" :class="{ big }">{{ stat.name }}</div>
+    <div class="property-values" :class="{ big }">{{ stat.value }}</div>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   name: 'PokemonItemStat',
   props: {
-    pokemonStat: {
+    stat: {
       type: Object,
       required: true,
     },

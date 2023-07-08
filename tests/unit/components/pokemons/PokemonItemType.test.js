@@ -3,11 +3,7 @@ import PokemonItemType from '@components/pokemons/PokemonItemType.vue';
 
 describe('PokemonItemType', () => {
   it('renders the component with the correct props', () => {
-    const types = [
-      { type: { name: 'fire' } },
-      { type: { name: 'water' } },
-      { type: { name: 'grass' } },
-    ];
+    const types = ['fire', 'water', 'grass'];
 
     const wrapper = mount(PokemonItemType, {
       propsData: {
@@ -20,7 +16,7 @@ describe('PokemonItemType', () => {
 
     typeElements.wrappers.forEach((typeElementWrapper, index) => {
       const typeElement = typeElementWrapper.element;
-      const type = types[index].type.name;
+      const type = types[index];
       const typeNameElement = typeElement.querySelector('span');
       const lightsElement = typeElement.querySelector('.lights');
       const shineElement = typeElement.querySelector('.shine');
