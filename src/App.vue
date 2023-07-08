@@ -1,21 +1,37 @@
 <template>
   <div id="app">
-    <transition
-      appear
-      :name="$route.meta.transition ?? 'slide-horizontal'"
-      mode="out-in"
-    >
-      <router-view :key="$route.fullPath" />
-    </transition>
+    <CenteredColumn class="base-page">
+      <CenteredColumn
+        class="page-background"
+        :class="{
+          'add-margins': displayHeader,
+          'no-margins': !displayHeader,
+        }"
+      >
+        <transition name="drawer-up">
+          <BaseHeader v-if="displayHeader" />
+        </transition>
+        <transition name="slide" appear mode="out-in">
+          <router-view :key="$route.fullPath" />
+        </transition>
+        <transition name="drawer-down">
+          <BaseFooter v-if="displayFooter" />
+        </transition>
+      </CenteredColumn>
+    </CenteredColumn>
   </div>
 </template>
 
 <script>
+import CenteredColumn from './components/ui/CenteredColumn.vue';
+import BaseHeader from './components/ui/BaseHeader.vue';
+import BaseFooter from './components/ui/BaseFooter.vue';
 import { isDarkModeEnabled } from '@lib/localStorage';
 import { toggleDarkMode } from '@lib/helpers';
 
 export default {
   name: 'App',
+  components: { CenteredColumn, BaseHeader, BaseFooter },
   data() {
     return {
       isDarkModeEnabled: isDarkModeEnabled(),
@@ -23,6 +39,14 @@ export default {
   },
   created() {
     this.setTheme(this.isDarkModeEnabled);
+  },
+  computed: {
+    displayHeader() {
+      return this.$route.meta.header ?? true;
+    },
+    displayFooter() {
+      return this.$route.meta.footer ?? true;
+    },
   },
   watch: {
     isDarkModeEnabled(newValue) {
@@ -189,31 +213,76 @@ a:active {
     letter-spacing: 0.25rem;
     text-align: center;
   }
+
+  .base-page {
+    overflow-y: scroll;
+    height: 100vh;
+
+    .page-background {
+      background-color: var(--main-background-color);
+      width: 100vw;
+      height: 100vh;
+      box-shadow: none;
+      overflow-y: scroll;
+
+      @media (min-width: $min-width-second-break) {
+        box-shadow: 0 0 0.5rem 0.3rem var(--main-shadow-color);
+        width: 75vw;
+      }
+
+      &.add-margins {
+        padding-top: 5rem;
+
+        @media (min-width: $min-width-second-break) {
+          padding-top: 7rem;
+        }
+      }
+
+      &.no-margins {
+        padding-top: 0rem;
+
+        @media (min-width: $min-width-second-break) {
+          padding-top: 0rem;
+        }
+      }
+    }
+
+    .page-background::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
-.slide-horizontal-enter-active,
-.slide-horizontal-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: transform 0.3s;
 }
 
-.slide-horizontal-enter {
-  transform: translateX(100%);
-}
-
-.slide-horizontal-leave-to {
-  transform: translateX(-100%);
-}
-
-.slide-vertical-enter-active,
-.slide-vertical-leave-active {
-  transition: transform 0.3s;
-}
-
-.slide-vertical-enter {
+.slide-enter {
   transform: translateY(100%);
 }
 
-.slide-vertical-leave-to {
+.slide-leave-to {
   transform: translateY(-100%);
+}
+
+.drawer-up-enter-active,
+.drawer-up-leave-active {
+  transition: transform 0.3s;
+}
+
+.drawer-up-enter,
+.drawer-up-leave-to {
+  transform: translateY(-100%);
+}
+
+.drawer-down-enter-active,
+.drawer-down-leave-active {
+  transition: transform 0.3s;
+}
+
+.drawer-down-enter,
+.drawer-down-leave-to {
+  transform: translateY(100%);
 }
 </style>

@@ -1,19 +1,18 @@
 <template>
-  <BasePage title="404 Error">
-    <template v-slot:content>
-      <h2>Page Not Found</h2>
-      <span class="page-not-found-text">
-        How did you get here? There's nothing to see!
-      </span>
-    </template>
-  </BasePage>
+  <CenteredColumn>
+    <h1>404 Error</h1>
+    <h2>Page Not Found</h2>
+    <span class="page-not-found-text">
+      How did you get here? There's nothing to see!
+    </span>
+  </CenteredColumn>
 </template>
 
 <script>
-import BasePage from '@components/ui/BasePage.vue';
+import CenteredColumn from '@components/ui/CenteredColumn.vue';
 
 export default {
-  components: { BasePage },
+  components: { CenteredColumn },
   title: 'Page Not Found',
   name: 'PageNotFoundView',
 };

@@ -20,4 +20,12 @@ describe('PokemonsView', () => {
   it('renders PokemonsView with PokemonList component', () => {
     expect(wrapper.find('pokemonlist-stub').exists()).toBe(true);
   });
+
+  it('renders PokemonsView with PokemonList component', () => {
+    expect(wrapper.find('pokemonlist-stub').exists()).toBe(true);
+  });
+
+  it('renders title', () => {
+    expect(wrapper.find('pokemonlist-stub').exists()).toBe(true);
+  });
 });

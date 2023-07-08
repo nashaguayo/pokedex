@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade-in-out" mode="in-out">
+  <transition name="fade-in-out">
     <FontAwesomeIcon
       v-if="loading"
       icon="fa-solid fa-spinner"
@@ -26,11 +26,13 @@ export default {
 .spinner-icon {
   position: absolute;
   top: 50%;
+  height: 100vh;
+  width: 50%;
 }
 
 .fade-in-out-enter-active,
 .fade-in-out-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.3s linear;
 }
 
 .fade-in-out-enter,
