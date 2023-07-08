@@ -20,14 +20,22 @@ jest.mock('@api/pokemon', () => ({
   }),
 }));
 
+jest.mock('@lib/helpers', () => ({
+  scrollToTopOfBackgroundPage: jest.fn(),
+  getPageBackgroundElement: jest.fn().mockReturnValue({
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  }),
+}));
+
 jest.mock('@components/pokemons/PokemonListCard.vue', () => ({
   name: 'PokemonListCard',
   template: '<div class="mocked-pokemon-list-card"></div>',
 }));
 
-jest.mock('@components/ui/BaseButton.vue', () => ({
-  name: 'BaseButton',
-  template: '<div class="mocked-base-button"></div>',
+jest.mock('@components/ui/BaseLoader.vue', () => ({
+  name: 'BaseLoader',
+  template: '<div class="mocked-base-loader"></div>',
 }));
 
 describe('PokemonList', () => {
@@ -45,7 +53,7 @@ describe('PokemonList', () => {
     expect(wrapper.find('pokemonlistcard-stub').exists()).toBe(true);
   });
 
-  it('renders the BaseButton component', () => {
-    expect(wrapper.find('basebutton-stub').exists()).toBe(true);
+  it('renders the BaseLoader component', () => {
+    expect(wrapper.find('baseloader-stub').exists()).toBe(true);
   });
 });
