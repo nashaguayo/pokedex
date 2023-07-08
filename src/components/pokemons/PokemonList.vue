@@ -11,31 +11,20 @@
             v-for="pokemon in pokemons"
             :key="pokemon.name"
             :pokemonName="pokemon.name"
-            :disabled="!nextUrl"
           />
         </div>
-        <div class="pagination-buttons">
-          <BaseButton
-            :onClickHandler="getPreviousPage"
-            :disabled="!previousUrl"
-          >
-            Previous
-          </BaseButton>
-          <BaseButton :onClickHandler="getNextPage" :disabled="!nextUrl">
-            Next
-          </BaseButton>
-        </div>
+        <BaseLoader :loading="loadingMorePokemons" />
       </template>
     </CenteredColumn>
   </BaseLoader>
 </template>
 
 <script>
+import debounce from 'lodash/debounce';
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn';
-import BaseButton from '@components/ui/BaseButton';
-import { scrollToTopOfBackgroundPage } from '@lib/helpers';
+import { getPageBackgroundElement } from '@lib/helpers';
 import store from '@lib/store';
 
 export default {
@@ -43,40 +32,44 @@ export default {
   components: {
     BaseLoader,
     PokemonListCard,
-    BaseButton,
     CenteredColumn,
   },
   data() {
     return {
       loading: true,
+      loadingMorePokemons: false,
     };
   },
   computed: {
     pokemons() {
-      return store.state.pokemons;
-    },
-    previousUrl() {
-      return store.state.scroll.previousUrl;
-    },
-    nextUrl() {
-      return store.state.scroll.nextUrl;
+      return store.state.scroll.pokemons;
     },
   },
   async created() {
     await this.getPokemons();
   },
+  mounted() {
+    this.debouncedScroll = debounce(this.handleScroll, 100);
+    getPageBackgroundElement().addEventListener('scroll', this.debouncedScroll);
+  },
+  beforeDestroy() {
+    getPageBackgroundElement().removeEventListener(
+      'scroll',
+      this.debouncedScroll
+    );
+  },
   methods: {
-    async getPreviousPage() {
-      await this.getPokemons(this.previousUrl);
-    },
-    async getNextPage() {
-      await this.getPokemons(this.nextUrl);
-    },
     async getPokemons(url) {
       this.loading = true;
       await store.getPokemons(url);
       this.loading = false;
-      scrollToTopOfBackgroundPage();
+    },
+    async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
+      if (scrollTop + clientHeight >= scrollHeight) {
+        this.loadingMorePokemons = true;
+        await store.getMorePokemons();
+        this.loadingMorePokemons = false;
+      }
     },
   },
 };
@@ -85,38 +78,31 @@ export default {
 <style lang="scss" scoped>
 @import '@css/media-queries.scss';
 
-.pokemons {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 1rem;
-  grid-column-gap: 3rem;
-  margin: 0 3rem 1rem;
+.pokemon-list {
+  margin-bottom: 2rem;
 
-  @media (min-width: $min-width-first-break) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .pokemons {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 1rem;
+    grid-column-gap: 3rem;
+    margin: 0 3rem 1rem;
 
-  @media (min-width: $min-width-third-break) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+    @media (min-width: $min-width-first-break) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
-  @media (min-width: $min-width-fourth-break) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+    @media (min-width: $min-width-third-break) {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
-  @media (min-width: $min-width-fifth-break) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
+    @media (min-width: $min-width-fourth-break) {
+      grid-template-columns: repeat(4, 1fr);
+    }
 
-.pagination-buttons {
-  margin: 1rem 0 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  @media (min-width: $min-width-first-break) {
-    flex-direction: row;
+    @media (min-width: $min-width-fifth-break) {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 }
 
