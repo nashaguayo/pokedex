@@ -1,5 +1,5 @@
 <template>
-  <BaseLoader :loading="loading" :coverPage="true">
+  <BaseLoader :loading="loading" :coverPage="true" mode="in-out">
     <CenteredColumn class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         id="header"
@@ -59,12 +59,23 @@ export default {
     return {
       topPosition: 0,
       throttledParallax: null,
-      loading: false,
+      loading: true,
     };
   },
   watch: {
     name() {
       document.title = `Pokedex - ${capitalizeWord(this.name ?? '')}`;
+    },
+    async loading() {
+      if (this.loading) {
+        return;
+      }
+      await this.$nextTick();
+      this.throttledParallax = throttle(this.parallax, 20);
+      getPokemonPageBackgroundElement().addEventListener(
+        'scroll',
+        this.throttledParallax
+      );
     },
   },
   computed: {
@@ -89,20 +100,9 @@ export default {
   },
   async created() {
     if (!store.state.pokemon.has(this.urlId)) {
-      this.loading = true;
       await store.getPokemon(this.urlId);
-      this.loading = false;
     }
-  },
-  async onUpdated() {
-    if (this.loading) {
-      return;
-    }
-    this.throttledParallax = throttle(this.parallax, 20);
-    getPokemonPageBackgroundElement().addEventListener(
-      'scroll',
-      this.throttledParallax
-    );
+    this.loading = false;
   },
   beforeDestroy() {
     getPokemonPageBackgroundElement().removeEventListener(

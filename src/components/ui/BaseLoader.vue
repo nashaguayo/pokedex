@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade-in-out" mode="out-in">
+  <transition name="fade-in-out" :mode="mode" appear>
     <FontAwesomeIcon
       v-if="loading"
       icon="fa-solid fa-spinner"
@@ -18,6 +18,10 @@ export default {
     loading: {
       type: Boolean,
       required: true,
+    },
+    mode: {
+      type: String,
+      default: 'out-in',
     },
     coverPage: {
       type: Boolean,
