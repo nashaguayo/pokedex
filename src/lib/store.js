@@ -17,6 +17,7 @@ const state = Vue.observable({
   },
   pokemon: new Map(),
   isDarkModeEnabled: isDarkModeEnabled(),
+  searchResults: [],
 });
 
 export default {
@@ -78,6 +79,21 @@ export default {
     const newPokemon = (await getRandomPokemonsApi(1))[0];
     state.randomPokemons.pop();
     state.randomPokemons.unshift(this.getPokemonData(newPokemon));
+  },
+
+  async searchPokemons(searchTerm) {
+    if (!state.allPokemons.length) {
+      const allPokemons = (await getAllPokemonsApi()).results;
+      state.allPokemons = allPokemons.map((pokemon) => pokemon.name);
+    }
+
+    const results = [];
+    state.allPokemons.forEach((pokemon) => {
+      if (pokemon.includes(searchTerm)) {
+        results.push(pokemon);
+      }
+    });
+    state.searchResults = results;
   },
 
   getPokemonData(pokemon) {

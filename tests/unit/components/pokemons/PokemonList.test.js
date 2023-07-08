@@ -42,7 +42,9 @@ describe('PokemonList', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(PokemonList);
+    wrapper = shallowMount(PokemonList, {
+      stubs: ['router-link', 'FontAwesomeIcon'],
+    });
   });
 
   afterEach(() => {

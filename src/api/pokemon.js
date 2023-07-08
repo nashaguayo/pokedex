@@ -14,7 +14,7 @@ export async function getPokemons(url) {
 
 export async function getAllPokemons() {
   try {
-    const count = (await pokemonApi.get('pokemon?limit=1')).count;
+    const count = (await pokemonApi.get('pokemon?limit=1')).data.count;
     const response = await pokemonApi.get(`pokemon?limit=${count}`);
     return response.data;
   } catch (error) {

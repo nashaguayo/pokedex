@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonItem from '@components/pokemons/PokemonItem.vue';
+import PokemonItem from '@components/pokemon/PokemonItem.vue';
 
 jest.mock('@components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
@@ -11,22 +11,22 @@ jest.mock('@components/ui/CenteredColumn.vue', () => ({
   template: '<div class="mocked-centered-column"></div>',
 }));
 
-jest.mock('@components/pokemons/PokemonItemHeader.vue', () => ({
+jest.mock('@components/pokemon/PokemonItemHeader.vue', () => ({
   name: 'PokemonItemHeader',
   template: '<div class="mocked-pokemon-item-header"></div>',
 }));
 
-jest.mock('@components/pokemons/PokemonItemStat.vue', () => ({
+jest.mock('@components/pokemon/PokemonItemStat.vue', () => ({
   name: 'PokemonItemStat',
   template: '<div class="mocked-pokemon-item-stat"></div>',
 }));
 
-jest.mock('@components/pokemons/PokemonItemType.vue', () => ({
+jest.mock('@components/pokemon/PokemonItemType.vue', () => ({
   name: 'PokemonItemType',
   template: '<div class="mocked-pokemon-item-type"></div>',
 }));
 
-jest.mock('@components/pokemons/PokemonItemEvolutions.vue', () => ({
+jest.mock('@components/pokemon/PokemonItemEvolutions.vue', () => ({
   name: 'PokemonItemEvolutions',
   template: '<div class="mocked-pokemon-item-evolutions"></div>',
 }));

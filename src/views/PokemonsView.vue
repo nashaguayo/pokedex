@@ -1,6 +1,5 @@
 <template>
   <CenteredColumn>
-    <h1>Pokemons</h1>
     <ErrorBoundary
       componentName="PokemonList"
       errorMessage="Unable to load Pokemon list"
