@@ -1,20 +1,43 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonSearch from '@components/search/PokemonSearch.vue';
+import PokemonSearch from '@components/search/PokemonSearch';
+import CenteredColumn from '@components/ui/CenteredColumn';
+import store from '@lib/store';
 
-jest.mock('@components/ui/CenteredColumn.vue', () => ({
-  name: 'CenteredColumn',
-  template: '<div class="mocked-centered-column"></div>',
-}));
-
-jest.mock('@components/ui/BaseInput.vue', () => ({
-  name: 'BaseInput',
-  template: '<div class="mocked-base-input"></div>',
+jest.mock('@lib/store', () => ({
+  searchPokemons: jest.fn(),
+  state: {
+    searchResults: ['Pikachu', 'Charizard'],
+  },
 }));
 
 describe('PokemonSearch', () => {
-  it('renders all components components', () => {
-    const wrapper = shallowMount(PokemonSearch);
-    expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
-    expect(wrapper.find('baseinput-stub').exists()).toBe(true);
+  let wrapper;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    wrapper = shallowMount(PokemonSearch, {
+      components: {
+        CenteredColumn,
+      },
+      stubs: ['FontAwesomeIcon'],
+    });
+  });
+
+  afterAll(() => {
+    wrapper.destroy();
+  });
+
+  it('updates searchTerm on input change', async () => {
+    const input = wrapper.find('input');
+    const searchTerm = 'Pikachu';
+    await input.setValue(searchTerm);
+    expect(wrapper.vm.searchTerm).toBe(searchTerm);
+    expect(store.searchPokemons).toHaveBeenCalledWith(searchTerm);
+  });
+
+  it('displays search results', async () => {
+    const resultElements = wrapper.findAll('span');
+    expect(resultElements).toHaveLength(2);
   });
 });

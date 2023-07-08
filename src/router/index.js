@@ -32,18 +32,18 @@ const routes = [
     },
   },
   {
-    path: '/pokemons/:id',
-    name: 'pokemon',
-    component: () => import('@views/PokemonView.vue'),
+    path: '/pokemons/search',
+    name: 'search',
+    component: () => import('@views/SearchView.vue'),
     meta: {
       header: false,
       footer: false,
     },
   },
   {
-    path: '/search',
-    name: 'search',
-    component: () => import('@views/SearchView.vue'),
+    path: '/pokemons/:id',
+    name: 'pokemon',
+    component: () => import('@views/PokemonView.vue'),
     meta: {
       header: false,
       footer: false,
