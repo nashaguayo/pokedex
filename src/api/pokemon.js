@@ -10,6 +10,16 @@ export async function getPokemons(url) {
   }
 }
 
+export async function getAllPokemons() {
+  try {
+    const count = (await pokemonApi.get('pokemon?limit=1')).count;
+    const response = await pokemonApi.get(`pokemon?limit=${count}`);
+    return response.data;
+  } catch (error) {
+    logError(getAllPokemons.name, 'Unable to retrieve all Pokemons', error);
+  }
+}
+
 export async function getPokemon(id) {
   try {
     const response = await pokemonApi.get(`pokemon/${id}`);
