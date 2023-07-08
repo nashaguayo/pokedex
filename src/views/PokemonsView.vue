@@ -1,24 +1,23 @@
 <template>
-  <BasePage title="Pokemons">
-    <template v-slot:content>
-      <ErrorBoundary
-        componentName="PokemonList"
-        errorMessage="Unable to load Pokemon list"
-      >
-        <PokemonList />
-      </ErrorBoundary>
-    </template>
-  </BasePage>
+  <CenteredColumn>
+    <h1>Pokemons</h1>
+    <ErrorBoundary
+      componentName="PokemonList"
+      errorMessage="Unable to load Pokemon list"
+    >
+      <PokemonList />
+    </ErrorBoundary>
+  </CenteredColumn>
 </template>
 
 <script>
-import BasePage from '@components/ui/BasePage.vue';
+import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
 import PokemonList from '@components/pokemons/PokemonList.vue';
 
 export default {
   name: 'PokemonsView',
   title: 'Pokemons',
-  components: { BasePage, PokemonList, ErrorBoundary },
+  components: { CenteredColumn, PokemonList, ErrorBoundary },
 };
 </script>
