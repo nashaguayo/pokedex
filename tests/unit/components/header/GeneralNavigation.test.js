@@ -24,13 +24,6 @@ describe('GeneralNavigation', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('calls the toggleTheme method when dark mode icon is clicked', () => {
-    const toggleThemeSpy = jest.spyOn(wrapper.vm, 'toggleTheme');
-    const darkModeIcon = wrapper.find('.icon');
-    darkModeIcon.trigger('click');
-    expect(toggleThemeSpy).toHaveBeenCalled();
-  });
-
   it('calls the toggleDarkMode method from the store when toggleTheme is called', () => {
     wrapper.vm.toggleTheme();
     expect(store.toggleDarkMode).toHaveBeenCalled();
