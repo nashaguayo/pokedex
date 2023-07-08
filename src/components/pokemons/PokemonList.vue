@@ -1,22 +1,20 @@
 <template>
-  <BaseLoader :loading="loading">
-    <CenteredColumn class="pokemon-list">
-      <template v-if="!pokemons.length">
-        <h2>Something went wrong!</h2>
-        <p>No pokemons to display.</p>
-      </template>
-      <template v-else>
-        <div class="pokemons">
-          <PokemonListCard
-            v-for="pokemon in pokemons"
-            :key="pokemon.name"
-            :pokemonName="pokemon.name"
-          />
-        </div>
-        <BaseLoader :loading="loadingMorePokemons" />
-      </template>
-    </CenteredColumn>
-  </BaseLoader>
+  <CenteredColumn class="pokemon-list">
+    <template v-if="!pokemons.length">
+      <h2>Something went wrong!</h2>
+      <p>No pokemons to display.</p>
+    </template>
+    <template v-else>
+      <div class="pokemons">
+        <PokemonListCard
+          v-for="pokemon in pokemons"
+          :key="pokemon.name"
+          :pokemonName="pokemon.name"
+        />
+      </div>
+      <BaseLoader :loading="loading" />
+    </template>
+  </CenteredColumn>
 </template>
 
 <script>
@@ -37,7 +35,6 @@ export default {
   data() {
     return {
       loading: true,
-      loadingMorePokemons: false,
     };
   },
   computed: {
@@ -59,16 +56,15 @@ export default {
     );
   },
   methods: {
-    async getPokemons(url) {
-      this.loading = true;
-      await store.getPokemons(url);
+    async getPokemons() {
+      await store.getPokemons();
       this.loading = false;
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
-        this.loadingMorePokemons = true;
+        this.loading = true;
         await store.getMorePokemons();
-        this.loadingMorePokemons = false;
+        this.loading = false;
       }
     },
   },
