@@ -7,6 +7,10 @@ import {
 const state = Vue.observable({
   allPokemons: [],
   pokemons: [],
+  scroll: {
+    previousUrl: '',
+    nextUrl: '',
+  },
 });
 
 export default {
@@ -19,6 +23,9 @@ export default {
   },
 
   async getPokemons(url) {
-    state.pokemons = (await getPokemonsApi(url)).results;
+    const response = await getPokemonsApi(url);
+    state.pokemons = response.results;
+    state.scroll.previousUrl = response.previous;
+    state.scroll.nextUrl = response.next;
   },
 };

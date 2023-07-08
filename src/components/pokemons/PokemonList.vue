@@ -1,7 +1,7 @@
 <template>
   <BaseLoader :loading="loading">
     <CenteredColumn class="pokemon-list">
-      <template v-if="!count">
+      <template v-if="!pokemons.length">
         <h2>Something went wrong!</h2>
         <p>No pokemons to display.</p>
       </template>
@@ -35,9 +35,8 @@ import PokemonListCard from '@components/pokemons/PokemonListCard';
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseButton from '@components/ui/BaseButton';
-import { getPokemons } from '@api/pokemon';
 import { scrollToTopOfBackgroundPage } from '@lib/helpers';
-import { logError } from '@lib/logger';
+import store from '@lib/store';
 
 export default {
   name: 'PokemonList',
@@ -49,15 +48,22 @@ export default {
   },
   data() {
     return {
-      pokemons: [],
-      previousUrl: null,
-      nextUrl: null,
-      count: 0,
       loading: true,
     };
   },
-  async mounted() {
-    this.getPokemons();
+  computed: {
+    pokemons() {
+      return store.state.pokemons;
+    },
+    previousUrl() {
+      return store.state.scroll.previousUrl;
+    },
+    nextUrl() {
+      return store.state.scroll.nextUrl;
+    },
+  },
+  async created() {
+    await this.getPokemons();
   },
   methods: {
     async getPreviousPage() {
@@ -67,25 +73,10 @@ export default {
       await this.getPokemons(this.nextUrl);
     },
     async getPokemons(url) {
-      const pokemonsInfo = await getPokemons(
-        url?.replace(process.env.VUE_APP_POKEAPI_URL, '')
-      );
-
-      if (!pokemonsInfo) {
-        logError(
-          this.getPokemons.name,
-          'Call to pokeapi API failed',
-          new Error('pokemonsInfo is either undefined or null')
-        );
-        return;
-      }
-
-      this.pokemons = pokemonsInfo.results;
-      this.nextUrl = pokemonsInfo.next;
-      this.previousUrl = pokemonsInfo.previous;
-      this.count = pokemonsInfo.count;
-      scrollToTopOfBackgroundPage();
+      this.loading = true;
+      await store.getPokemons(url);
       this.loading = false;
+      scrollToTopOfBackgroundPage();
     },
   },
 };
