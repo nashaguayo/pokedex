@@ -8,11 +8,15 @@
           'no-margins': !displayHeader,
         }"
       >
-        <BaseHeader v-if="displayHeader" />
+        <transition name="drawer-up">
+          <BaseHeader v-if="displayHeader" />
+        </transition>
         <transition name="slide" appear mode="out-in">
           <router-view :key="$route.fullPath" />
         </transition>
-        <BaseFooter v-if="displayFooter" />
+        <transition name="drawer-down">
+          <BaseFooter v-if="displayFooter" />
+        </transition>
       </CenteredColumn>
     </CenteredColumn>
   </div>
@@ -255,7 +259,7 @@ a:active {
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.3s;
+  transition: transform 0.3s;
 }
 
 .slide-enter {
@@ -264,5 +268,25 @@ a:active {
 
 .slide-leave-to {
   transform: translateY(-100%);
+}
+
+.drawer-up-enter-active,
+.drawer-up-leave-active {
+  transition: transform 0.3s;
+}
+
+.drawer-up-enter,
+.drawer-up-leave-to {
+  transform: translateY(-100%);
+}
+
+.drawer-down-enter-active,
+.drawer-down-leave-active {
+  transition: transform 0.3s;
+}
+
+.drawer-down-enter,
+.drawer-down-leave-to {
+  transform: translateY(100%);
 }
 </style>
