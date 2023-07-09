@@ -7,6 +7,7 @@ import {
 } from '@api/pokemon';
 import { isDarkModeEnabled } from '@lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
+import silouette from '@assets/pokemons/silouette.png';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -27,13 +28,6 @@ const state = Vue.observable({
 export default {
   get state() {
     return state;
-  },
-
-  async getAllPokemons() {
-    if (state.allPokemons.length) {
-      return;
-    }
-    state.allPokemons = (await getAllPokemonsApi()).results;
   },
 
   async getPokemons(url) {
@@ -63,7 +57,7 @@ export default {
     const stats = pokemon.stats.map((s) => {
       return { name: s.stat.name, value: s.base_stat };
     });
-    const image = pokemon.sprites.other.dream_world.front_default;
+    const image = pokemon.sprites.other.dream_world.front_default ?? silouette;
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
@@ -88,7 +82,10 @@ export default {
   async searchPokemons(searchTerm) {
     if (!state.allPokemons.length) {
       const allPokemons = (await getAllPokemonsApi()).results;
-      state.allPokemons = allPokemons.map((pokemon) => pokemon.name);
+      const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
+      state.allPokemons = allPokemonNames.filter(
+        (pokemon) => !pokemon.includes('-')
+      );
     }
 
     const results = [];
