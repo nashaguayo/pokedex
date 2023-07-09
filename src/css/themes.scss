@@ -31,6 +31,9 @@ $light-popup-background-gradient: linear-gradient(
   $light-secondary-background-color
 );
 
+$light-winning-color: green;
+$light-losing-color: red;
+
 // Dark mode
 $dark-main-background-color: rgb(44, 44, 44);
 $dark-secondary-background-color: rgb(78, 16, 52);
@@ -62,3 +65,6 @@ $dark-popup-background-gradient: linear-gradient(
   transparent,
   $dark-secondary-background-color
 );
+
+$dark-winning-color: green;
+$dark-losing-color: red;

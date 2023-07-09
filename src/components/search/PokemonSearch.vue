@@ -1,17 +1,13 @@
 <template>
   <CenteredColumn class="pokemon-search">
-    <div class="base-input">
-      <label for="search">
-        <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
-      </label>
-      <input
-        type="text"
-        id="search"
-        name="search"
-        placeholder="search for pokemon"
-        v-model="searchTerm"
-      />
-    </div>
+    <BaseInput
+      name="search"
+      placeholder="search for pokemon"
+      icon="fa-solid fa-magnifying-glass"
+      @inputValueChanged="setSearchTerm"
+      :model="searchTerm"
+      class="search-input"
+    />
     <div class="results">
       <transition-group name="slide-from-right" appear>
         <span
@@ -38,12 +34,13 @@
 
 <script>
 import BaseButton from '@components/ui/BaseButton';
+import BaseInput from '@components/ui/BaseInput';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import store from '@lib/store';
 
 export default {
   name: 'PokemonSearch',
-  components: { BaseButton, CenteredColumn },
+  components: { BaseButton, BaseInput, CenteredColumn },
   data() {
     return {
       searchTerm: '',
@@ -66,6 +63,9 @@ export default {
     goToPokemonsPage() {
       this.$router.push({ name: 'pokemons' });
     },
+    setSearchTerm(searchTerm) {
+      this.searchTerm = searchTerm;
+    },
   },
 };
 </script>
@@ -76,28 +76,8 @@ export default {
 .pokemon-search {
   width: 100%;
 
-  .base-input {
-    margin-top: 2rem;
-    padding-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-evenly;
+  .search-input {
     border-bottom: 0.2rem solid var(--main-border-color);
-
-    label {
-      font-family: 'Upheaval';
-      font-size: 1.5rem;
-    }
-
-    input {
-      border: 0.2rem solid var(--main-border-color);
-      border-radius: 2rem;
-      height: 2rem;
-      padding: 0 1rem;
-      font-family: 'Upheaval';
-      width: 70%;
-    }
   }
 
   .results {
@@ -117,6 +97,7 @@ export default {
       padding: 1rem;
       border-bottom: 0.2rem solid var(--main-border-color);
       width: 100%;
+      cursor: pointer;
 
       @media (min-width: $min-width-third-break) {
         padding: 1rem 3rem;

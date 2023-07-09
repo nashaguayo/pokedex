@@ -12,6 +12,12 @@
     >
       <RandomPokemon />
     </ErrorBoundary>
+    <ErrorBoundary
+      componentName="GuessPokemon"
+      errorMessage="Unable to load mini-game"
+    >
+      <GuessPokemon />
+    </ErrorBoundary>
   </CenteredColumn>
 </template>
 
@@ -20,6 +26,7 @@ import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
 import LogoAndBanner from '@components/home/LogoAndBanner.vue';
 import RandomPokemon from '@components/home/RandomPokemon.vue';
+import GuessPokemon from '@components/home/GuessPokemon.vue';
 
 export default {
   name: 'HomeView',
@@ -29,6 +36,7 @@ export default {
     ErrorBoundary,
     LogoAndBanner,
     RandomPokemon,
+    GuessPokemon,
   },
 };
 </script>

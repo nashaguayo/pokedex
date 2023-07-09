@@ -106,6 +106,9 @@ html[data-theme='light'] {
   --disabled-button-color: #{$light-disabled-button-color};
 
   --popup-background-color: #{$light-popup-background-gradient};
+
+  --losing-color: #{$light-losing-color};
+  --winning-color: #{$light-winning-color};
 }
 
 html[data-theme='dark'] {
@@ -132,6 +135,9 @@ html[data-theme='dark'] {
   --disabled-button-color: #{$dark-disabled-button-color};
 
   --popup-background-color: #{$dark-popup-background-gradient};
+
+  --losing-color: #{$dark-losing-color};
+  --winning-color: #{$dark-winning-color};
 }
 
 body {

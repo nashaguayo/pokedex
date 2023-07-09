@@ -18,6 +18,10 @@ const state = Vue.observable({
   pokemon: new Map(),
   isDarkModeEnabled: isDarkModeEnabled(),
   searchResults: [],
+  game: {
+    image: '',
+    name: '',
+  },
 });
 
 export default {
@@ -94,6 +98,12 @@ export default {
       }
     });
     state.searchResults = results;
+  },
+
+  async getNewMysteryPokemon() {
+    const newMysteryPokemon = (await getRandomPokemonsApi(1))[0];
+    state.game.image = newMysteryPokemon.sprites.front_default;
+    state.game.name = newMysteryPokemon.name;
   },
 
   getPokemonData(pokemon) {

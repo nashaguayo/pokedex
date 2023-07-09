@@ -13,7 +13,9 @@ describe('RandomPokemon', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(RandomPokemon, { stubs: ['router-link'] });
+    wrapper = shallowMount(RandomPokemon, {
+      stubs: ['router-link'],
+    });
   });
 
   afterEach(() => {
