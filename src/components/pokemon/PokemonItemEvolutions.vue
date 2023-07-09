@@ -8,7 +8,10 @@
             {{ species }}
           </span>
         </transition>
-        <router-link :to="`/pokemons/${species}`">
+        <span v-if="evolutions.length === 1" class="no-evolutions">
+          This pokemon has no evolutions!
+        </span>
+        <router-link v-else :to="`/pokemons/${species}`">
           <div
             class="screen"
             :style="{
@@ -105,6 +108,12 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       display: none;
     }
+  }
+
+  .no-evolutions {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--secondary-text-color) !important;
   }
 
   .card {
