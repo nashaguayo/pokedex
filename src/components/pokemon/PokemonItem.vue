@@ -8,7 +8,7 @@
         :topPosition="topPosition"
       />
       <CenteredColumn class="pokemon-info-container">
-        <h1 class="pokemon-name">{{ capitalizeWord(name ?? '') }}</h1>
+        <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
         <PokemonItemStat
           :key="'stat'"
           :stat="{ name: 'stat', value: 'value' }"
@@ -64,7 +64,7 @@ export default {
   },
   watch: {
     name() {
-      document.title = `Pokedex - ${capitalizeWord(this.name ?? '')}`;
+      document.title = `Pokedex - ${capitalizeWord(this.name)}`;
     },
     async loading() {
       if (this.loading) {
