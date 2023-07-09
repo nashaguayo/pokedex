@@ -40,9 +40,9 @@ import PokemonItemStat from '@components/pokemon/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
 import { getPokemonPageBackgroundElement } from '@lib/helpers';
-import { FOURTH_BREAK } from '@constants/resolutions';
 import store from '@lib/store';
 import { capitalizeWord } from '@lib/helpers';
+import mediaQueries from '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
 
 export default {
   name: 'PokemonItem',
@@ -119,7 +119,9 @@ export default {
       this.$router.back();
     },
     parallax() {
-      if (window.innerWidth >= FOURTH_BREAK) {
+      if (
+        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
+      ) {
         return;
       }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;

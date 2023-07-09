@@ -26,13 +26,8 @@
 <script>
 import BaseLoader from '@components/ui/BaseLoader.vue';
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import {
-  FIRST_BREAK,
-  THIRD_BREAK,
-  FOURTH_BREAK,
-  FIFTH_BREAK,
-} from '@constants/resolutions';
 import store from '@lib/store';
+import mediaQueries from '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
 
 export default {
   name: 'RandomPokemon',
@@ -62,13 +57,19 @@ export default {
   methods: {
     async getRandomPokemons() {
       let amountOfRandomPokemons = 1;
-      if (window.innerWidth >= FIFTH_BREAK) {
+      if (window.innerWidth >= this.getResolution(mediaQueries.fifthBreak)) {
         amountOfRandomPokemons = 5;
-      } else if (window.innerWidth >= FOURTH_BREAK) {
+      } else if (
+        window.innerWidth >= this.getResolution(mediaQueries.fourthBreak)
+      ) {
         amountOfRandomPokemons = 4;
-      } else if (window.innerWidth >= THIRD_BREAK) {
+      } else if (
+        window.innerWidth >= this.getResolution(mediaQueries.thirdBreak)
+      ) {
         amountOfRandomPokemons = 3;
-      } else if (window.innerWidth >= FIRST_BREAK) {
+      } else if (
+        window.innerWidth >= this.getResolution(mediaQueries.firstBreak)
+      ) {
         amountOfRandomPokemons = 2;
       }
 
@@ -77,6 +78,9 @@ export default {
     },
     async getNewRandomPokemon() {
       await store.getNewRandomPokemon();
+    },
+    getResolution(resolution) {
+      return Number(resolution.replace('px', ''));
     },
   },
 };
