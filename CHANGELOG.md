@@ -17,6 +17,7 @@
 - Pokemon Evolutions
 - Random Pokemons
 - Pokemon Search
+- Guess the Pokemon Game
 
 ---
 
