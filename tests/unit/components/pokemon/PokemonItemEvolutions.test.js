@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
-import { getPokemonEvolutions } from '@api/evolutions.js';
 
 jest.mock('@components/ui/BaseChevron.vue', () => ({
   name: 'BaseChevron',
@@ -12,21 +11,16 @@ jest.mock('@components/ui/CenteredColumn.vue', () => ({
   template: '<div class="mocked-centered-column"></div>',
 }));
 
-jest.mock('@api/evolutions.js', () => ({
-  getPokemonEvolutions: jest.fn(() =>
-    Promise.resolve([
-      { species: 1, image: 'image-1.png' },
-      { species: 2, image: 'image-2.png' },
-    ])
-  ),
-}));
-
 describe('PokemonItemEvolutions', () => {
   let wrapper;
 
   beforeEach(async () => {
     wrapper = shallowMount(PokemonItemEvolutions, {
       propsData: {
+        evolutions: [
+          { name: 'pokemon1', image: 'pokemon1.png' },
+          { name: 'pokemon2', image: 'pokemon2.png' },
+        ],
         pokemonId: 1,
         pokemonName: 'pokemonId1',
       },
@@ -52,13 +46,5 @@ describe('PokemonItemEvolutions', () => {
   it('renders stub components', () => {
     expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
     expect(wrapper.find('basechevron-stub').exists()).toBe(true);
-  });
-
-  it('fetches and sets the evolutions data', () => {
-    expect(getPokemonEvolutions).toHaveBeenCalledWith(1);
-    expect(wrapper.vm.evolutions).toEqual([
-      { species: 1, image: 'image-1.png' },
-      { species: 2, image: 'image-2.png' },
-    ]);
   });
 });
