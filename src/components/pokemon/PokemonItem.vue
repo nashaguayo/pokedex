@@ -156,7 +156,8 @@ export default {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: repeat(3, 1fr);
-    margin: 3rem 3rem 0;
+    margin: 0rem 3rem 0;
+    padding-top: 3rem;
     align-items: start;
     gap: 1rem;
     height: calc(100% - 3rem);
