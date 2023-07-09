@@ -9,6 +9,17 @@ jest.mock('@api/pokemon', () => ({
     ]),
 }));
 
+jest.mock(
+  '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
+  () => ({
+    firstBreak: '1px',
+    secondBreak: 'px',
+    thirdBreak: 'px',
+    fourthBreak: 'px',
+    fifthBreak: 'px',
+  })
+);
+
 describe('RandomPokemon', () => {
   let wrapper;
 
