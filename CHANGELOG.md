@@ -8,6 +8,10 @@
 
 - Optimized Search
 
+##### Fixed
+
+- Pokemon Game: input clears when getting a new pokemon
+
 ---
 
 ## [V0.1.1](https://github.com/nashaguayo/pokedex/compare/V0.1.0...V0.1.1) (09-07-2023)
