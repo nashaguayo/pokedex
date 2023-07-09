@@ -10,6 +10,10 @@ const routes = [
     redirect: '/',
   },
   {
+    path: '/pokedex',
+    redirect: '/',
+  },
+  {
     path: '/',
     name: 'home',
     component: HomeView,
