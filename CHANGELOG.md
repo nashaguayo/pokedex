@@ -2,7 +2,7 @@
 
 ---
 
-## Unreleased
+## [V0.1.1](https://github.com/nashaguayo/pokedex/releases/tag/V0.1.1)
 
 ##### Added
 
