@@ -58,7 +58,7 @@ export default {
   border: 0.15rem solid var(--main-border-color);
   border-radius: 1rem;
   padding: 0.5rem;
-  width: 10rem;
+  width: 8rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
