@@ -8,7 +8,11 @@
         :class="{ 'is-guessing': !hasWon, 'has-won': hasWon }"
       />
     </div>
-    <span class="game-results">{{ gameResultsText }}</span>
+    <span
+      class="game-results"
+      :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
+      >{{ gameResultsText }}</span
+    >
     <BaseInput
       name="guess"
       placeholder="Guess the pokemon!"
@@ -99,6 +103,14 @@ export default {
     margin-top: 1rem;
     margin-bottom: -1rem;
     text-align: center;
+
+    &.losing {
+      color: red !important;
+    }
+
+    &.winning {
+      color: green !important;
+    }
   }
 }
 </style>
