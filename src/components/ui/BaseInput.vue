@@ -10,6 +10,7 @@
       :name="name"
       :placeholder="placeholder"
       v-model="inputValue"
+      ref="input"
     />
   </div>
 </template>
@@ -40,6 +41,17 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    reset: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  watch: {
+    reset(reset) {
+      if (reset) {
+        this.$refs['input'].value = '';
+      }
     },
   },
   computed: {
