@@ -29,13 +29,6 @@ export default {
     return state;
   },
 
-  async getAllPokemons() {
-    if (state.allPokemons.length) {
-      return;
-    }
-    state.allPokemons = (await getAllPokemonsApi()).results;
-  },
-
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
     state.scroll.pokemons = response.results;
