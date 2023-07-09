@@ -11,6 +11,7 @@ import silouette from '@assets/pokemons/silouette.png';
 
 const state = Vue.observable({
   allPokemons: [],
+  isLoadingAllPokemons: false,
   randomPokemons: [],
   scroll: {
     pokemons: [],
@@ -34,6 +35,18 @@ export default {
     const response = await getPokemonsApi(url);
     state.scroll.pokemons = response.results;
     state.scroll.nextUrl = response.next;
+  },
+
+  async getAllPokemons() {
+    if (!state.allPokemons.length || !state.isLoadingAllPokemons) {
+      state.isLoadingAllPokemons = true;
+      const allPokemons = (await getAllPokemonsApi()).results;
+      const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
+      state.allPokemons = allPokemonNames.filter(
+        (pokemon) => !pokemon.includes('-')
+      );
+      state.isLoadingAllPokemons = false;
+    }
   },
 
   async getMorePokemons() {
@@ -80,14 +93,9 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    if (!state.allPokemons.length) {
-      const allPokemons = (await getAllPokemonsApi()).results;
-      const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
-      state.allPokemons = allPokemonNames.filter(
-        (pokemon) => !pokemon.includes('-')
-      );
+    while (!state.allPokemons.length) {
+      this.getAllPokemons();
     }
-
     const results = [];
     state.allPokemons.forEach((pokemon) => {
       if (pokemon.includes(searchTerm)) {
