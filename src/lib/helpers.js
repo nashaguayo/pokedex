@@ -15,7 +15,7 @@ export function scrollToTopOfBackgroundPokemonPage() {
 }
 
 export function capitalizeWord(word) {
-  const firstLetter = word.charAt(0).toUpperCase();
+  const firstLetter = (word ?? '').charAt(0).toUpperCase();
   const remainingLetters = word.substring(1);
   return `${firstLetter}${remainingLetters}`;
 }

@@ -64,7 +64,7 @@ export default {
   },
   watch: {
     name() {
-      document.title = `Pokedex - ${capitalizeWord(this.name ?? '')}`;
+      document.title = `Pokedex - ${capitalizeWord(this.name)}`;
     },
     async loading() {
       if (this.loading) {
