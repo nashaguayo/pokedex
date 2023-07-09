@@ -17,7 +17,8 @@
         <PokemonListCard
           v-for="pokemon in pokemons"
           :key="pokemon.name"
-          :pokemonName="pokemon.name"
+          :name="pokemon.name"
+          :image="pokemon.image"
         />
       </div>
       <BaseLoader :loading="loading" />

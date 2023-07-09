@@ -1,14 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonListCard from '@components/pokemons/PokemonListCard';
 
-jest.mock('@api/pokemon', () => ({
-  getPokemon: jest.fn().mockResolvedValue({
-    sprites: {
-      front_default: '',
-    },
-  }),
-}));
-
 describe('PokemonListCard', () => {
   let wrapper;
 
@@ -19,7 +11,8 @@ describe('PokemonListCard', () => {
 
     wrapper = shallowMount(PokemonListCard, {
       propsData: {
-        pokemonName: 'pikachu',
+        name: 'pikachu',
+        image: 'pokemon-image.png',
       },
       mocks: {
         $router,
@@ -37,7 +30,7 @@ describe('PokemonListCard', () => {
 
   it('displays the correct image source', () => {
     const image = wrapper.find('.screen');
-    expect(image.attributes('src')).toBe('');
+    expect(image.attributes('src')).toBe('pokemon-image.png');
     expect(image.attributes('alt')).toBe('pokemon front default');
   });
 
@@ -46,7 +39,7 @@ describe('PokemonListCard', () => {
     wrapper.setProps({
       pokemon: { sprites: { front_default: 'some-image.png' } },
     });
-    expect(span.text()).toBe('???');
+    expect(span.text()).toBe('pikachu');
   });
 
   it('sets wasClicked to true when showPokemonInfo is called', () => {
@@ -66,18 +59,5 @@ describe('PokemonListCard', () => {
     await wrapper.vm.$nextTick();
     const image = wrapper.find('.screen');
     expect(image.attributes('src')).toBe('pokemon-image.png');
-  });
-
-  it('renders the silouette image if the front_default sprite is empty', async () => {
-    wrapper.setData({
-      pokemon: {
-        sprites: {
-          front_default: '',
-        },
-      },
-    });
-    await wrapper.vm.$nextTick();
-    const image = wrapper.find('.screen');
-    expect(image.attributes('src')).toBe(wrapper.vm.silouette);
   });
 });

@@ -4,6 +4,7 @@ import {
   getPokemons as getPokemonsApi,
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
+  getImageForPokemon as getImageForPokemonApi,
 } from '@api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@api/evolutions';
 import { isDarkModeEnabled } from '@lib/localStorage';
@@ -33,7 +34,14 @@ export default {
 
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
-    state.scroll.pokemons = response.results;
+    const results = await Promise.all(
+      response.results.map(async (pokemon) => {
+        const name = pokemon.name;
+        const image = await getImageForPokemonApi(name);
+        return { name, image };
+      })
+    );
+    state.scroll.pokemons = results;
     state.scroll.nextUrl = response.next;
   },
 
@@ -54,8 +62,15 @@ export default {
     if (!response) {
       return;
     }
+    const results = await Promise.all(
+      response.results.map(async (pokemon) => {
+        const name = pokemon.name;
+        const image = await getImageForPokemonApi(name);
+        return { name, image };
+      })
+    );
 
-    state.scroll.pokemons = [...state.scroll.pokemons, ...response.results];
+    state.scroll.pokemons = [...state.scroll.pokemons, ...results];
     state.scroll.nextUrl = response.next;
   },
 
