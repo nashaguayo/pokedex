@@ -48,7 +48,7 @@ export default {
     },
     gameResultsText() {
       return !this.playersGuess
-        ? 'Insert the pokemon name below!'
+        ? 'Guess the Pokemon!'
         : this.playersGuess === this.name
         ? 'You won!'
         : "That's not it...";
