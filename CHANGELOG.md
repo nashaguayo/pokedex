@@ -4,6 +4,12 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/HEAD...V0.1.2) (dd-mm-yyyy)
 
+##### Modified
+
+- Optimized Search
+
+---
+
 ## [V0.1.1](https://github.com/nashaguayo/pokedex/compare/V0.1.0...V0.1.1) (09-07-2023)
 
 ##### Added

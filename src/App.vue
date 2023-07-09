@@ -33,6 +33,7 @@ export default {
   components: { CenteredColumn, BaseHeader, BaseFooter },
   created() {
     this.setTheme(this.isDarkModeEnabled);
+    store.getAllPokemons();
   },
   computed: {
     isDarkModeEnabled() {
