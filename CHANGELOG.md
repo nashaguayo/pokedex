@@ -11,6 +11,7 @@
 ##### Fixed
 
 - Pokemon Game: input clears when getting a new pokemon
+- Pokemon Details: fixed issues with missing properties
 
 ---
 
