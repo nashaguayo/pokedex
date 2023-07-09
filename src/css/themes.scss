@@ -1,0 +1,70 @@
+// Light mode
+$light-main-background-color: rgb(252, 252, 231);
+$light-secondary-background-color: #af0c00;
+$light-variant-background-color: black;
+
+$light-main-shadow-color: rgba(0, 0, 0, 0.6);
+$light-secondary-shadow-color: rgba(0, 0, 0, 0.3);
+
+$light-main-text-color: black;
+$light-secondary-text-color: white;
+$light-variant-text-color: white;
+
+$light-main-border-color: black;
+$light-secondary-border-color: white;
+
+$light-main-box-shadow: 0 0 0.3rem 0.1rem $light-secondary-shadow-color;
+
+$light-cards-background-color: rgb(20, 119, 0);
+$light-screen-background-gradient: linear-gradient(
+  0deg,
+  rgba(166, 0, 255, 1) 0%,
+  rgba(255, 255, 255, 1) 100%
+);
+
+$light-disabled-button-background-color: #cccccc;
+$light-disabled-button-color: #666666;
+
+$light-popup-background-gradient: linear-gradient(
+  180deg,
+  transparent,
+  $light-secondary-background-color
+);
+
+$light-winning-color: green;
+$light-losing-color: red;
+
+// Dark mode
+$dark-main-background-color: rgb(44, 44, 44);
+$dark-secondary-background-color: rgb(78, 16, 52);
+$dark-variant-background-color: rgb(0, 0, 0);
+
+$dark-main-shadow-color: rgba(255, 255, 255, 0.6);
+$dark-secondary-shadow-color: rgba(255, 255, 255, 0.3);
+
+$dark-main-text-color: white;
+$dark-secondary-text-color: white;
+$dark-variant-text-color: white;
+
+$dark-main-border-color: rgb(34, 34, 34);
+$dark-secondary-border-color: black;
+
+$dark-main-box-shadow: 0 0 0.3rem 0.1rem $dark-secondary-shadow-color;
+
+$dark-cards-background-color: rgb(9, 54, 0);
+$dark-screen-background-gradient: linear-gradient(
+  0deg,
+  rgba(166, 0, 255, 1) 0%,
+  rgba(0, 0, 0, 1) 100%
+);
+$dark-disabled-button-background-color: #535353;
+$dark-disabled-button-color: #cccccc;
+
+$dark-popup-background-gradient: linear-gradient(
+  180deg,
+  transparent,
+  $dark-secondary-background-color
+);
+
+$dark-winning-color: green;
+$dark-losing-color: red;
