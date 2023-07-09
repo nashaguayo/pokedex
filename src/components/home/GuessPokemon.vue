@@ -1,6 +1,5 @@
 <template>
   <CenteredColumn class="guess-pokemon">
-    <h2>Guess the Pokemon</h2>
     <div class="background-image">
       <img
         :src="image"
@@ -15,7 +14,7 @@
     >
     <BaseInput
       name="guess"
-      placeholder="Guess the pokemon!"
+      placeholder="Insert pokemon name here..."
       :model="playersGuess"
       @inputValueChanged="setPlayersGuess"
     />
@@ -48,7 +47,7 @@ export default {
     },
     gameResultsText() {
       return !this.playersGuess
-        ? 'Insert the pokemon name below!'
+        ? 'Guess the Pokemon!'
         : this.playersGuess === this.name
         ? 'You won!'
         : "That's not it...";
@@ -73,7 +72,7 @@ export default {
 
 <style lang="scss" scoped>
 .guess-pokemon {
-  margin-bottom: 2rem;
+  margin: 2rem 0;
 
   max-width: 25rem;
   .background-image {
