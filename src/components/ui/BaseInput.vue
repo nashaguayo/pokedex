@@ -1,6 +1,6 @@
 <template>
   <div class="base-input">
-    <label for="search">
+    <label for="search" v-if="icon || label">
       <FontAwesomeIcon v-if="icon" :icon="icon" />
       <span v-if="label">{{ label }}</span>
     </label>
