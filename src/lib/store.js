@@ -105,6 +105,10 @@ export default {
     state.searchResults = results;
   },
 
+  async clearSearchResults() {
+    state.searchResults = [];
+  },
+
   async getNewMysteryPokemon() {
     const newMysteryPokemon = (await getRandomPokemonsApi(1))[0];
     state.game.image = newMysteryPokemon.sprites.front_default;
