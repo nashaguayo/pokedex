@@ -71,6 +71,12 @@ export default {
         return;
       }
       await this.$nextTick();
+
+      if (
+        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
+      ) {
+        return;
+      }
       this.throttledParallax = throttle(this.parallax, 20);
       getPokemonPageBackgroundElement().addEventListener(
         'scroll',
@@ -105,6 +111,11 @@ export default {
     this.loading = false;
   },
   beforeDestroy() {
+    if (
+      window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
+    ) {
+      return;
+    }
     getPokemonPageBackgroundElement().removeEventListener(
       'scroll',
       this.throttledParallax
@@ -119,11 +130,6 @@ export default {
       this.$router.back();
     },
     parallax() {
-      if (
-        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
-      ) {
-        return;
-      }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
