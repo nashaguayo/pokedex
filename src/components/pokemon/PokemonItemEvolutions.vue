@@ -38,11 +38,14 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import BaseChevron from '@components/ui/BaseChevron.vue';
-import { getPokemonEvolutions } from '@api/evolutions.js';
 
 export default {
   name: 'PokemonItemEvolutions',
   props: {
+    evolutions: {
+      type: Array,
+      required: true,
+    },
     pokemonId: {
       type: Number,
       required: true,
@@ -58,7 +61,6 @@ export default {
   },
   data() {
     return {
-      evolutions: [{ species: '', image: '' }],
       evolution: 0,
     };
   },
@@ -71,7 +73,6 @@ export default {
     },
   },
   async created() {
-    this.evolutions = await getPokemonEvolutions(this.pokemonId);
     this.evolution =
       this.evolutions.findIndex(
         (evolution) => evolution.species === this.pokemonName.toLowerCase()

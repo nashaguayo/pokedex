@@ -17,7 +17,11 @@
         <PokemonItemStat v-for="stat in stats" :key="stat.name" :stat="stat" />
         <PokemonItemType :types="types" />
       </CenteredColumn>
-      <PokemonItemEvolutions :pokemonId="id" :pokemonName="name" />
+      <PokemonItemEvolutions
+        :evolutions="evolutions"
+        :pokemonId="id"
+        :pokemonName="name"
+      />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
@@ -102,6 +106,9 @@ export default {
     },
     types() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types;
+    },
+    evolutions() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
     },
   },
   async created() {
