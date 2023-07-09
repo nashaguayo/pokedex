@@ -7,7 +7,6 @@ import {
 } from '@api/pokemon';
 import { isDarkModeEnabled } from '@lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
-import silouette from '@assets/pokemons/silouette.png';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -70,7 +69,9 @@ export default {
     const stats = pokemon.stats.map((s) => {
       return { name: s.stat.name, value: s.base_stat };
     });
-    const image = pokemon.sprites.other.dream_world.front_default ?? silouette;
+    const image =
+      pokemon.sprites.other.dream_world.front_default ??
+      pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
