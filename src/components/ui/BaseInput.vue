@@ -2,6 +2,7 @@
   <div class="base-input">
     <label for="search">
       <FontAwesomeIcon v-if="icon" :icon="icon" />
+      <span v-if="label">{{ label }}</span>
     </label>
     <input
       :type="type"
@@ -36,6 +37,10 @@ export default {
       type: String,
       default: '',
     },
+    label: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     inputValue: {
@@ -58,7 +63,6 @@ export default {
   align-items: center;
   width: 100%;
   justify-content: space-evenly;
-  border-bottom: 0.2rem solid var(--main-border-color);
 
   label {
     font-family: 'Upheaval';

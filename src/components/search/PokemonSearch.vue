@@ -6,6 +6,7 @@
       icon="fa-solid fa-magnifying-glass"
       @inputValueChanged="setSearchTerm"
       :model="searchTerm"
+      class="search-input"
     />
     <div class="results">
       <transition-group name="slide-from-right" appear>
@@ -75,6 +76,10 @@ export default {
 .pokemon-search {
   width: 100%;
 
+  .search-input {
+    border-bottom: 0.2rem solid var(--main-border-color);
+  }
+
   .results {
     min-width: 100%;
     margin-bottom: 5rem;
@@ -92,6 +97,7 @@ export default {
       padding: 1rem;
       border-bottom: 0.2rem solid var(--main-border-color);
       width: 100%;
+      cursor: pointer;
 
       @media (min-width: $min-width-third-break) {
         padding: 1rem 3rem;

@@ -12,6 +12,7 @@ describe('BaseInput', () => {
         placeholder: 'Type here',
         model: '',
         icon: 'fa-search',
+        label: 'label',
       },
       stubs: ['FontAwesomeIcon'],
     });
@@ -28,6 +29,7 @@ describe('BaseInput', () => {
     expect(wrapper.props('placeholder')).toBe('Type here');
     expect(wrapper.props('model')).toBe('');
     expect(wrapper.props('icon')).toBe('fa-search');
+    expect(wrapper.props('label')).toBe('label');
   });
 
   it('emits inputValueChanged event when the input value changes', () => {

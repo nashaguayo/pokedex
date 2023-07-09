@@ -2,8 +2,19 @@
   <CenteredColumn class="guess-pokemon">
     <h2>Guess the Pokemon</h2>
     <div class="background-image">
-      <img :src="image" alt="mysterious pokemon" />
+      <img
+        :src="image"
+        alt="mysterious pokemon"
+        :class="{ 'is-guessing': !hasWon, 'has-won': hasWon }"
+      />
     </div>
+    <span class="game-results">{{ gameResultsText }}</span>
+    <BaseInput
+      name="guess"
+      placeholder="Guess the pokemon!"
+      :model="playersGuess"
+      @inputValueChanged="setPlayersGuess"
+    />
     <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
       Guess New Pokemon
     </BaseButton>
@@ -12,12 +23,18 @@
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn';
+import BaseInput from '@components/ui/BaseInput';
 import BaseButton from '@components/ui/BaseButton';
 import store from '@lib/store';
 
 export default {
   name: 'GuessPokemon',
-  components: { CenteredColumn, BaseButton },
+  components: { CenteredColumn, BaseButton, BaseInput },
+  data() {
+    return {
+      playersGuess: '',
+    };
+  },
   computed: {
     image() {
       return store.state.game.image;
@@ -25,13 +42,26 @@ export default {
     name() {
       return store.state.game.name;
     },
+    gameResultsText() {
+      return !this.playersGuess
+        ? 'Insert the pokemon name below!'
+        : this.playersGuess === this.name
+        ? 'You won!'
+        : "That's not it...";
+    },
+    hasWon() {
+      return this.playersGuess === this.name;
+    },
   },
-  created() {
-    this.getNewMysteryPokemon();
+  async created() {
+    await this.getNewMysteryPokemon();
   },
   methods: {
-    getNewMysteryPokemon() {
-      store.getNewMysteryPokemon();
+    async getNewMysteryPokemon() {
+      await store.getNewMysteryPokemon();
+    },
+    setPlayersGuess(playersGuess) {
+      this.playersGuess = playersGuess;
     },
   },
 };
@@ -50,13 +80,24 @@ export default {
     border: 0.2rem solid var(--main-border-color);
     box-shadow: var(--main-box-shadow);
     border-radius: 1rem;
-    margin-bottom: 2rem;
 
     img {
       margin: 1rem;
-      filter: brightness(0);
       width: 10rem;
+
+      &.is-guessing {
+        filter: brightness(0);
+      }
+
+      &.has-won {
+        filter: none;
+      }
     }
+  }
+
+  .game-results {
+    margin-top: 1rem;
+    margin-bottom: -1rem;
   }
 }
 </style>
