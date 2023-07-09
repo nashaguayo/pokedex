@@ -17,6 +17,7 @@
       placeholder="Insert pokemon name here..."
       :model="playersGuess"
       @inputValueChanged="setPlayersGuess"
+      :reset="reset"
     />
     <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
       Guess New Pokemon
@@ -36,6 +37,7 @@ export default {
   data() {
     return {
       playersGuess: '',
+      reset: false,
     };
   },
   computed: {
@@ -62,8 +64,11 @@ export default {
   methods: {
     async getNewMysteryPokemon() {
       await store.getNewMysteryPokemon();
+      this.reset = true;
+      this.playersGuess = '';
     },
     setPlayersGuess(playersGuess) {
+      this.reset = false;
       this.playersGuess = playersGuess;
     },
   },
