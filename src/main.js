@@ -37,6 +37,7 @@ Vue.mixin(titleMixin);
 Vue.config.productionTip = false;
 
 new Vue({
+  base: '/pokedex',
   router,
   render: (h) => h(App),
 }).$mount('#app');
