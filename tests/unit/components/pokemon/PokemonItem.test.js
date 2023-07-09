@@ -68,6 +68,20 @@ jest.mock('@api/pokemon', () => ({
   ),
 }));
 
+jest.mock('@lib/store', () => ({
+  state: {
+    pokemon: new Map([
+      ['id', 1],
+      ['name', 'pikachu'],
+      ['image', 'pikachu.png'],
+      ['stats', [{ name: 'hp', value: '50' }]],
+      ['types', ['fire']],
+      ['evolutions', [{ name: 'pika', image: 'pika.png' }]],
+    ]),
+  },
+  getPokemon: jest.fn(),
+}));
+
 jest.mock('@lib/helpers', () => ({
   getPokemonPageBackgroundElement: jest.fn(() => ({
     addEventListener: jest.fn(),
