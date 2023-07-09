@@ -8,7 +8,7 @@
         :topPosition="topPosition"
       />
       <CenteredColumn class="pokemon-info-container">
-        <h1 class="pokemon-name">{{ name }}</h1>
+        <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
         <PokemonItemStat
           :key="'stat'"
           :stat="{ name: 'stat', value: 'value' }"
@@ -122,6 +122,7 @@ export default {
     );
   },
   methods: {
+    capitalizeWord,
     goBack() {
       if (this.$router.history?._startLocation === this.$route.path) {
         this.$router.push({ name: 'pokemons' });
