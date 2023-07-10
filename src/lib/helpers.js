@@ -14,7 +14,7 @@ export function scrollToTopOfBackgroundPokemonPage() {
   getPokemonPageBackgroundElement()?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-export function capitalizeWord(word) {
+export function capitalizeWord(word = '') {
   const firstLetter = word.charAt(0).toUpperCase();
   const remainingLetters = word.substring(1);
   return `${firstLetter}${remainingLetters}`;

@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-item-evolutions">
-    <span class="title">Evolutions</span>
+    <span id="title">Evolutions</span>
     <div class="card">
       <CenteredColumn class="evolution">
         <transition name="fade" mode="out-in">
@@ -8,7 +8,10 @@
             {{ species }}
           </span>
         </transition>
-        <router-link :to="`/pokemons/${species}`">
+        <span v-if="evolutions.length === 1" id="no-evolutions">
+          This pokemon has no evolutions!
+        </span>
+        <router-link v-else :to="`/pokemons/${species}`">
           <div
             class="screen"
             :style="{
@@ -38,11 +41,14 @@
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn.vue';
 import BaseChevron from '@components/ui/BaseChevron.vue';
-import { getPokemonEvolutions } from '@api/evolutions.js';
 
 export default {
   name: 'PokemonItemEvolutions',
   props: {
+    evolutions: {
+      type: Array,
+      required: true,
+    },
     pokemonId: {
       type: Number,
       required: true,
@@ -58,7 +64,6 @@ export default {
   },
   data() {
     return {
-      evolutions: [{ species: '', image: '' }],
       evolution: 0,
     };
   },
@@ -71,7 +76,6 @@ export default {
     },
   },
   async created() {
-    this.evolutions = await getPokemonEvolutions(this.pokemonId);
     this.evolution =
       this.evolutions.findIndex(
         (evolution) => evolution.species === this.pokemonName.toLowerCase()
@@ -98,12 +102,20 @@ export default {
     margin: 0;
   }
 
-  .title {
+  #title {
     font-size: 2rem;
 
     @media (min-width: $min-width-fourth-break) {
-      display: none;
+      padding-right: 3rem;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
+  }
+
+  #no-evolutions {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--secondary-text-color);
   }
 
   .card {

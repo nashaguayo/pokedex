@@ -38,6 +38,11 @@ jest.mock('@components/ui/BaseLoader.vue', () => ({
   template: '<div class="mocked-base-loader"></div>',
 }));
 
+jest.mock('@lib/store', () => ({
+  state: { scroll: { pokemons: [{ name: 'pikachu' }] } },
+  getPokemons: jest.fn(),
+}));
+
 describe('PokemonList', () => {
   let wrapper;
 

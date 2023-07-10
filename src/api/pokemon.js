@@ -1,10 +1,23 @@
 import pokemonApi from '@config/pokemonApi';
 import { logError } from '@lib/logger';
 
+export async function getImageForPokemon(pokemonName) {
+  try {
+    const response = await pokemonApi.get(`pokemon/${pokemonName}`);
+    return response.data.sprites.front_default;
+  } catch (error) {
+    logError(
+      getImageForPokemon.name,
+      'Unable to retrieve image for pokemon',
+      error
+    );
+  }
+}
+
 export async function getPokemons(url) {
   try {
     const response = await pokemonApi.get(
-      url?.replace('https://pokeapi.co/api/v2/', '') ?? 'pokemon'
+      url?.replace(process.env.VUE_APP_POKEAPI_URL, '') ?? 'pokemon'
     );
     return response.data;
   } catch (error) {
@@ -23,6 +36,9 @@ export async function getAllPokemons() {
 }
 
 export async function getPokemon(id) {
+  if (!id) {
+    return;
+  }
   try {
     const response = await pokemonApi.get(`pokemon/${id}`);
     return response.data;

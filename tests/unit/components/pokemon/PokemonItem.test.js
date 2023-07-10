@@ -31,6 +31,17 @@ jest.mock('@components/pokemon/PokemonItemEvolutions.vue', () => ({
   template: '<div class="mocked-pokemon-item-evolutions"></div>',
 }));
 
+jest.mock(
+  '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
+  () => ({
+    firstBreak: '1px',
+    secondBreak: 'px',
+    thirdBreak: 'px',
+    fourthBreak: 'px',
+    fifthBreak: 'px',
+  })
+);
+
 jest.mock('@api/pokemon', () => ({
   getPokemon: jest.fn(() =>
     Promise.resolve({
@@ -55,6 +66,20 @@ jest.mock('@api/pokemon', () => ({
       types: [{ type: { name: 'fire' } }, { type: { name: 'flying' } }],
     })
   ),
+}));
+
+jest.mock('@lib/store', () => ({
+  state: {
+    pokemon: new Map([
+      ['id', 1],
+      ['name', 'pikachu'],
+      ['image', 'pikachu.png'],
+      ['stats', [{ name: 'hp', value: '50' }]],
+      ['types', ['fire']],
+      ['evolutions', [{ name: 'pika', image: 'pika.png' }]],
+    ]),
+  },
+  getPokemon: jest.fn(),
 }));
 
 jest.mock('@lib/helpers', () => ({

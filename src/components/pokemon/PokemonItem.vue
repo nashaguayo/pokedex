@@ -8,7 +8,7 @@
         :topPosition="topPosition"
       />
       <CenteredColumn class="pokemon-info-container">
-        <h1 class="pokemon-name">{{ name }}</h1>
+        <h1 id="pokemon-name">{{ capitalizeWord(name) }}</h1>
         <PokemonItemStat
           :key="'stat'"
           :stat="{ name: 'stat', value: 'value' }"
@@ -17,7 +17,11 @@
         <PokemonItemStat v-for="stat in stats" :key="stat.name" :stat="stat" />
         <PokemonItemType :types="types" />
       </CenteredColumn>
-      <PokemonItemEvolutions :pokemonId="id" :pokemonName="name" />
+      <PokemonItemEvolutions
+        :evolutions="evolutions"
+        :pokemonId="id"
+        :pokemonName="name"
+      />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
@@ -40,9 +44,9 @@ import PokemonItemStat from '@components/pokemon/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
 import { getPokemonPageBackgroundElement } from '@lib/helpers';
-import { FOURTH_BREAK } from '@constants/resolutions';
 import store from '@lib/store';
 import { capitalizeWord } from '@lib/helpers';
+import mediaQueries from '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
 
 export default {
   name: 'PokemonItem',
@@ -64,13 +68,19 @@ export default {
   },
   watch: {
     name() {
-      document.title = `Pokedex - ${capitalizeWord(this.name ?? '')}`;
+      document.title = `Pokedex - ${capitalizeWord(this.name)}`;
     },
     async loading() {
       if (this.loading) {
         return;
       }
       await this.$nextTick();
+
+      if (
+        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
+      ) {
+        return;
+      }
       this.throttledParallax = throttle(this.parallax, 20);
       getPokemonPageBackgroundElement().addEventListener(
         'scroll',
@@ -97,6 +107,9 @@ export default {
     types() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types;
     },
+    evolutions() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
+    },
   },
   async created() {
     if (!store.state.pokemon.has(this.urlId)) {
@@ -105,12 +118,18 @@ export default {
     this.loading = false;
   },
   beforeDestroy() {
+    if (
+      window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
+    ) {
+      return;
+    }
     getPokemonPageBackgroundElement().removeEventListener(
       'scroll',
       this.throttledParallax
     );
   },
   methods: {
+    capitalizeWord,
     goBack() {
       if (this.$router.history?._startLocation === this.$route.path) {
         this.$router.push({ name: 'pokemons' });
@@ -119,9 +138,6 @@ export default {
       this.$router.back();
     },
     parallax() {
-      if (window.innerWidth >= FOURTH_BREAK) {
-        return;
-      }
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
@@ -147,7 +163,8 @@ export default {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: repeat(3, 1fr);
-    margin: 3rem 3rem 0;
+    margin: 0rem 3rem 0;
+    padding-top: 3rem;
     align-items: start;
     gap: 1rem;
     height: calc(100% - 3rem);
@@ -179,12 +196,12 @@ export default {
       grid-row-end: 3;
     }
 
-    .pokemon-name {
+    #pokemon-name {
       display: none;
 
       @media (min-width: $min-width-fourth-break) {
         display: block;
-        color: var(--secondary-text-color) !important;
+        color: var(--secondary-text-color);
       }
     }
   }

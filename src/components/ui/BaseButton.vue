@@ -77,7 +77,7 @@ export default {
   }
 
   &.background-variant {
-    background-color: var(--variant-background-color) !important;
+    background-color: var(--variant-background-color);
     color: var(--variant-text-color);
   }
 

@@ -4,13 +4,15 @@ import {
   getPokemons as getPokemonsApi,
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
+  getImageForPokemon as getImageForPokemonApi,
 } from '@api/pokemon';
+import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@api/evolutions';
 import { isDarkModeEnabled } from '@lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
-import silouette from '@assets/pokemons/silouette.png';
 
 const state = Vue.observable({
   allPokemons: [],
+  isLoadingAllPokemons: false,
   randomPokemons: [],
   scroll: {
     pokemons: [],
@@ -32,8 +34,27 @@ export default {
 
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
-    state.scroll.pokemons = response.results;
+    const results = await Promise.all(
+      response.results.map(async (pokemon) => {
+        const name = pokemon.name;
+        const image = await getImageForPokemonApi(name);
+        return { name, image };
+      })
+    );
+    state.scroll.pokemons = results;
     state.scroll.nextUrl = response.next;
+  },
+
+  async getAllPokemons() {
+    if (!state.allPokemons.length || !state.isLoadingAllPokemons) {
+      state.isLoadingAllPokemons = true;
+      const allPokemons = (await getAllPokemonsApi()).results;
+      const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
+      state.allPokemons = allPokemonNames.filter(
+        (pokemon) => !pokemon.includes('-')
+      );
+      state.isLoadingAllPokemons = false;
+    }
   },
 
   async getMorePokemons() {
@@ -41,8 +62,15 @@ export default {
     if (!response) {
       return;
     }
+    const results = await Promise.all(
+      response.results.map(async (pokemon) => {
+        const name = pokemon.name;
+        const image = await getImageForPokemonApi(name);
+        return { name, image };
+      })
+    );
 
-    state.scroll.pokemons = [...state.scroll.pokemons, ...response.results];
+    state.scroll.pokemons = [...state.scroll.pokemons, ...results];
     state.scroll.nextUrl = response.next;
   },
 
@@ -54,15 +82,18 @@ export default {
       pokemon = await getPokemonApi(pokemonId);
     }
 
+    const evolutions = await getPokemonEvolutionsApi(pokemonId);
     const stats = pokemon.stats.map((s) => {
       return { name: s.stat.name, value: s.base_stat };
     });
-    const image = pokemon.sprites.other.dream_world.front_default ?? silouette;
+    const image =
+      pokemon.sprites.other.dream_world.front_default ??
+      pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
-    state.pokemon.set(name, { id, name, image, stats, types });
-    state.pokemon.set(id, { id, name, image, stats, types });
+    state.pokemon.set(name, { id, name, image, stats, types, evolutions });
+    state.pokemon.set(id, { id, name, image, stats, types, evolutions });
   },
 
   async getRandomPokemons(amountOfRandomPokemons) {
@@ -80,14 +111,9 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    if (!state.allPokemons.length) {
-      const allPokemons = (await getAllPokemonsApi()).results;
-      const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
-      state.allPokemons = allPokemonNames.filter(
-        (pokemon) => !pokemon.includes('-')
-      );
+    while (!state.allPokemons.length) {
+      this.getAllPokemons();
     }
-
     const results = [];
     state.allPokemons.forEach((pokemon) => {
       if (pokemon.includes(searchTerm)) {
@@ -95,6 +121,10 @@ export default {
       }
     });
     state.searchResults = results;
+  },
+
+  async clearSearchResults() {
+    state.searchResults = [];
   },
 
   async getNewMysteryPokemon() {

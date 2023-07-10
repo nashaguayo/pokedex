@@ -5,19 +5,12 @@
     @click="showPokemonInfo"
     @animationend="wasClicked = false"
   >
-    <img
-      :src="pokemon.sprites.front_default"
-      alt="pokemon front default"
-      class="screen"
-    />
-    <span>{{
-      pokemon.sprites.front_default === silouette ? '???' : pokemonName
-    }}</span>
+    <img :src="image" alt="pokemon front default" class="screen" />
+    <span>{{ image === silouette ? '???' : name }}</span>
   </div>
 </template>
 
 <script>
-import { getPokemon } from '@api/pokemon';
 import silouette from '@assets/pokemons/silouette.png';
 
 export default {
@@ -25,27 +18,22 @@ export default {
   data() {
     return {
       wasClicked: false,
-      pokemon: {
-        sprites: {
-          front_default: silouette,
-        },
-      },
       silouette,
     };
   },
   props: {
-    pokemonName: {
+    name: {
       type: String,
       required: true,
     },
-  },
-  async created() {
-    this.pokemon = await getPokemon(this.pokemonName);
+    image: {
+      required: true,
+    },
   },
   methods: {
     showPokemonInfo() {
       this.wasClicked = true;
-      this.$router.push({ name: 'pokemon', params: { id: this.pokemonName } });
+      this.$router.push({ name: 'pokemon', params: { id: this.name } });
     },
   },
 };
