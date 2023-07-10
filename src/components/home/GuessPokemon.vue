@@ -44,7 +44,11 @@
         </div>
       </CenteredColumn>
     </transition>
-    <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
+    <BaseButton
+      :big="true"
+      :onClickHandler="getNewMysteryPokemonAndRefreshGuessesInARow"
+      :disabled="hasWon"
+    >
       {{ baseButtonText }}
     </BaseButton>
   </CenteredColumn>
@@ -67,6 +71,8 @@ export default {
       tries: 3,
       guessesInARow: 0,
       loading: false,
+      timerCount: 5,
+      timerEnabled: false,
     };
   },
   computed: {
@@ -77,7 +83,9 @@ export default {
       return store.state.game.name;
     },
     triesLeftText() {
-      return this.hasLost
+      return this.hasWon
+        ? `Getting new Pokemon in ${this.timerCount}...`
+        : this.hasLost
         ? `Pokemon was ${this.name}`
         : `You have ${this.tries} ${this.tries === 1 ? 'try' : 'tries'} left`;
     },
@@ -103,6 +111,7 @@ export default {
   watch: {
     hasWon(hasWon) {
       if (hasWon) {
+        this.timerEnabled = true;
         this.guessesInARow++;
       }
     },
@@ -111,11 +120,28 @@ export default {
         this.guessesInARow = 0;
       }
     },
+    timerEnabled(enabled) {
+      if (enabled) {
+        setTimeout(() => {
+          this.timerCount--;
+        }, 1000);
+      }
+    },
+    timerCount(count) {
+      if (count > 0 && this.timerEnabled) {
+        setTimeout(() => {
+          this.timerCount--;
+        }, 1000);
+        return;
+      } else if (count === 0) {
+        this.timerCount = 5;
+        this.timerEnabled = false;
+        this.getNewMysteryPokemon();
+      }
+    },
   },
   async created() {
-    this.loading = true;
-    await this.getNewMysteryPokemon();
-    this.loading = false;
+    await this.getNewMysteryPokemon('created');
   },
   methods: {
     async getNewMysteryPokemon() {
@@ -125,11 +151,16 @@ export default {
       this.playersGuess = '';
       this.tries = 3;
       this.loading = false;
+      console.log(this.name);
     },
     setPlayersGuess(playersGuess) {
       this.tries--;
       this.reset = false;
       this.playersGuess = playersGuess;
+    },
+    getNewMysteryPokemonAndRefreshGuessesInARow() {
+      this.guessesInARow = 0;
+      this.getNewMysteryPokemon();
     },
   },
 };
