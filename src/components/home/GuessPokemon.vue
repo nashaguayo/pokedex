@@ -126,7 +126,7 @@ export default {
       return this.playersGuess === this.name;
     },
     hasLost() {
-      return this.tries === 0;
+      return !this.hasWon && this.tries === 0;
     },
     baseButtonText() {
       return this.hasWon || this.hasLost ? 'New Pokemon!' : 'I Give Up!';
@@ -194,9 +194,11 @@ export default {
       this.loading = false;
     },
     setPlayersGuess(playersGuess) {
-      this.tries--;
       this.reset = false;
       this.playersGuess = playersGuess;
+      if (!this.hasWon) {
+        this.tries--;
+      }
     },
     getNewMysteryPokemonAndRefreshGuessesInARow() {
       this.guessesInARow = 0;
