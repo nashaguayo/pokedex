@@ -8,7 +8,7 @@
       />
     </div>
     <span
-      class="game-results"
+      id="game-results"
       :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
       >{{ gameResultsText }}</span
     >
@@ -103,17 +103,17 @@ export default {
     }
   }
 
-  .game-results {
+  #game-results {
     margin-top: 1rem;
     margin-bottom: -1rem;
     text-align: center;
 
     &.losing {
-      color: red !important;
+      color: red;
     }
 
     &.winning {
-      color: green !important;
+      color: green;
     }
   }
 }

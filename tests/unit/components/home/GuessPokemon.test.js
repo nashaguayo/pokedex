@@ -24,7 +24,7 @@ describe('GuessPokemon', () => {
 
   it('renders correctly', () => {
     expect(wrapper.exists()).toBe(true);
-    expect(wrapper.find('.game-results').text()).toBe('Guess the Pokemon!');
+    expect(wrapper.find('#game-results').text()).toBe('Guess the Pokemon!');
     expect(wrapper.find('baseinput-stub').exists()).toBe(true);
   });
 
