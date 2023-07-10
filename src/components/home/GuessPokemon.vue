@@ -151,7 +151,6 @@ export default {
       this.playersGuess = '';
       this.tries = 3;
       this.loading = false;
-      console.log(this.name);
     },
     setPlayersGuess(playersGuess) {
       this.tries--;
