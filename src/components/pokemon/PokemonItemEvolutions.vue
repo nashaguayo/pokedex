@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-item-evolutions">
-    <span class="title">Evolutions</span>
+    <span id="title">Evolutions</span>
     <div class="card">
       <CenteredColumn class="evolution">
         <transition name="fade" mode="out-in">
@@ -102,11 +102,13 @@ export default {
     margin: 0;
   }
 
-  .title {
+  #title {
     font-size: 2rem;
 
     @media (min-width: $min-width-fourth-break) {
-      display: none;
+      padding-right: 3rem;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
   }
 
