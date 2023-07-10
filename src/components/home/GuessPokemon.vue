@@ -9,11 +9,14 @@
         />
       </BaseLoader>
     </div>
-    <span
-      id="game-results"
-      :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
-      >{{ gameResultsText }}</span
-    >
+    <transition name="flip" mode="out-in">
+      <span
+        id="game-results"
+        :key="gameResultsText"
+        :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
+        >{{ gameResultsText }}</span
+      >
+    </transition>
     <BaseInput
       name="guess"
       placeholder="Insert pokemon name here..."
@@ -23,18 +26,24 @@
       :lazy="true"
       :disabled="hasLost || hasWon"
     />
-    <span v-if="!hasWon" class="tries-left">{{ triesLeftText }}</span>
-    <CenteredColumn v-if="guessesInARow > 0" class="guesses-in-a-row">
-      <span>Guesses in a row</span><br />
-      <div class="stars">
-        <FontAwesomeIcon
-          v-for="guess in guessesInARow"
-          :key="`guess-${guess}`"
-          icon="fa-solid fa-star"
-          class="star"
-        />
-      </div>
-    </CenteredColumn>
+    <transition name="flip" mode="out-in">
+      <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
+    </transition>
+    <transition name="flip" appear>
+      <CenteredColumn v-if="guessesInARow > 0" class="guesses-in-a-row">
+        <span>Guesses in a row</span><br />
+        <div class="stars">
+          <transition-group name="zoom-in" appear>
+            <FontAwesomeIcon
+              v-for="guess in guessesInARow"
+              :key="`guess-${guess}`"
+              icon="fa-solid fa-star"
+              class="star"
+            />
+          </transition-group>
+        </div>
+      </CenteredColumn>
+    </transition>
     <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
       {{ baseButtonText }}
     </BaseButton>
@@ -181,5 +190,26 @@ export default {
       margin: 0 0.1rem;
     }
   }
+}
+
+.flip-enter-active,
+.flip-leave-active {
+  transition: transform 0.3s;
+}
+
+.flip-enter,
+.flip-leave-to {
+  transform: scaleY(0);
+}
+
+.zoom-in-enter-active,
+.zoom-in-leave-active,
+.zoom-in-move {
+  transition: transform 0.3s;
+}
+
+.zoom-in-enter,
+.zoom-in-leave-to {
+  transform: scale(0);
 }
 </style>
