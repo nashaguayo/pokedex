@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/HEAD...V0.1.2) (dd-mm-yyyy)
 
+##### Added
+
+- Pokemon Game: limiting guesses per pokemon and showing amount of guesses in a row
+
 ##### Modified
 
 - Optimized Search

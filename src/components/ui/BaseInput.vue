@@ -5,12 +5,24 @@
       <span v-if="label">{{ label }}</span>
     </label>
     <input
+      v-if="lazy"
+      :type="type"
+      id="search"
+      :name="name"
+      :placeholder="placeholder"
+      v-model.lazy="inputValue"
+      ref="input"
+      :disabled="disabled"
+    />
+    <input
+      v-else
       :type="type"
       id="search"
       :name="name"
       :placeholder="placeholder"
       v-model="inputValue"
       ref="input"
+      :disabled="disabled"
     />
   </div>
 </template>
@@ -43,6 +55,14 @@ export default {
       default: '',
     },
     reset: {
+      type: Boolean,
+      default: false,
+    },
+    lazy: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },

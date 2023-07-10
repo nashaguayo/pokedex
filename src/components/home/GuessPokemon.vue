@@ -4,7 +4,7 @@
       <img
         :src="image"
         alt="mysterious pokemon"
-        :class="{ 'is-guessing': !hasWon, 'has-won': hasWon }"
+        :class="{ 'is-guessing': !hasWon, 'show-pokemon': hasWon || hasLost }"
       />
     </div>
     <span
@@ -18,9 +18,23 @@
       :model="playersGuess"
       @inputValueChanged="setPlayersGuess"
       :reset="reset"
+      :lazy="true"
+      :disabled="hasLost || hasWon"
     />
+    <span v-if="!hasWon" class="tries-left">{{ triesLeftText }}</span>
+    <CenteredColumn v-if="guessesInARow > 0" class="guesses-in-a-row">
+      <span>Guesses in a row</span><br />
+      <div class="stars">
+        <FontAwesomeIcon
+          v-for="guess in guessesInARow"
+          :key="`guess-${guess}`"
+          icon="fa-solid fa-star"
+          class="star"
+        />
+      </div>
+    </CenteredColumn>
     <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
-      Guess New Pokemon
+      {{ baseButtonText }}
     </BaseButton>
   </CenteredColumn>
 </template>
@@ -38,6 +52,8 @@ export default {
     return {
       playersGuess: '',
       reset: false,
+      tries: 3,
+      guessesInARow: 0,
     };
   },
   computed: {
@@ -47,15 +63,40 @@ export default {
     name() {
       return store.state.game.name;
     },
+    triesLeftText() {
+      return this.hasLost
+        ? `Pokemon was ${this.name}`
+        : `You have ${this.tries} ${this.tries === 1 ? 'try' : 'tries'} left`;
+    },
     gameResultsText() {
       return !this.playersGuess
         ? 'Guess the Pokemon!'
+        : this.hasLost
+        ? 'You Lost!'
         : this.playersGuess === this.name
         ? 'You won!'
         : "That's not it...";
     },
     hasWon() {
       return this.playersGuess === this.name;
+    },
+    hasLost() {
+      return this.tries === 0;
+    },
+    baseButtonText() {
+      return this.hasWon || this.hasLost ? 'New Pokemon!' : 'I Give Up!';
+    },
+  },
+  watch: {
+    hasWon(hasWon) {
+      if (hasWon) {
+        this.guessesInARow++;
+      }
+    },
+    hasLost(hasLost) {
+      if (hasLost) {
+        this.guessesInARow = 0;
+      }
     },
   },
   async created() {
@@ -66,8 +107,10 @@ export default {
       await store.getNewMysteryPokemon();
       this.reset = true;
       this.playersGuess = '';
+      this.tries = 3;
     },
     setPlayersGuess(playersGuess) {
+      this.tries--;
       this.reset = false;
       this.playersGuess = playersGuess;
     },
@@ -97,7 +140,7 @@ export default {
         filter: brightness(0);
       }
 
-      &.has-won {
+      &.show-pokemon {
         filter: none;
       }
     }
@@ -114,6 +157,20 @@ export default {
 
     &.winning {
       color: green;
+    }
+  }
+
+  .tries-left {
+    margin-top: -1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .guesses-in-a-row {
+    margin-bottom: 1rem;
+
+    .star {
+      color: #edb200;
+      margin: 0 0.1rem;
     }
   }
 }

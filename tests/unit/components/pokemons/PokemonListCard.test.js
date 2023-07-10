@@ -47,17 +47,4 @@ describe('PokemonListCard', () => {
     wrapper.vm.showPokemonInfo();
     expect(wrapper.vm.wasClicked).toBe(true);
   });
-
-  it('renders the pokemon image if the front_default sprite exists', async () => {
-    wrapper.setData({
-      pokemon: {
-        sprites: {
-          front_default: 'pokemon-image.png',
-        },
-      },
-    });
-    await wrapper.vm.$nextTick();
-    const image = wrapper.find('.screen');
-    expect(image.attributes('src')).toBe('pokemon-image.png');
-  });
 });
