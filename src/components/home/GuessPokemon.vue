@@ -108,7 +108,6 @@ export default {
       this.reset = true;
       this.playersGuess = '';
       this.tries = 3;
-      console.log(this.name);
     },
     setPlayersGuess(playersGuess) {
       this.tries--;
