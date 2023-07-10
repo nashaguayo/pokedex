@@ -4,7 +4,7 @@
       <img
         :src="image"
         alt="mysterious pokemon"
-        :class="{ 'is-guessing': !hasWon, 'has-won': hasWon }"
+        :class="{ 'is-guessing': !hasWon, 'show-pokemon': hasWon || hasLost }"
       />
     </div>
     <span
@@ -18,9 +18,12 @@
       :model="playersGuess"
       @inputValueChanged="setPlayersGuess"
       :reset="reset"
+      :lazy="true"
+      :disabled="hasLost || hasWon"
     />
+    <span v-if="!hasWon" class="tries-left">{{ triesLeftText }}</span>
     <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
-      Guess New Pokemon
+      {{ baseButtonText }}
     </BaseButton>
   </CenteredColumn>
 </template>
@@ -38,6 +41,7 @@ export default {
     return {
       playersGuess: '',
       reset: false,
+      tries: 3,
     };
   },
   computed: {
@@ -47,15 +51,28 @@ export default {
     name() {
       return store.state.game.name;
     },
+    triesLeftText() {
+      return this.hasLost
+        ? `Pokemon was ${this.name}`
+        : `You have ${this.tries} ${this.tries === 1 ? 'try' : 'tries'} left`;
+    },
     gameResultsText() {
       return !this.playersGuess
         ? 'Guess the Pokemon!'
+        : this.hasLost
+        ? 'You Lost!'
         : this.playersGuess === this.name
         ? 'You won!'
         : "That's not it...";
     },
     hasWon() {
       return this.playersGuess === this.name;
+    },
+    hasLost() {
+      return this.tries === 0;
+    },
+    baseButtonText() {
+      return this.hasWon || this.hasLost ? 'New Pokemon!' : 'I Give Up!';
     },
   },
   async created() {
@@ -66,8 +83,11 @@ export default {
       await store.getNewMysteryPokemon();
       this.reset = true;
       this.playersGuess = '';
+      this.tries = 3;
+      console.log(this.name);
     },
     setPlayersGuess(playersGuess) {
+      this.tries--;
       this.reset = false;
       this.playersGuess = playersGuess;
     },
@@ -97,7 +117,7 @@ export default {
         filter: brightness(0);
       }
 
-      &.has-won {
+      &.show-pokemon {
         filter: none;
       }
     }
@@ -115,6 +135,11 @@ export default {
     &.winning {
       color: green;
     }
+  }
+
+  .tries-left {
+    margin-top: -1.5rem;
+    margin-bottom: 1rem;
   }
 }
 </style>
