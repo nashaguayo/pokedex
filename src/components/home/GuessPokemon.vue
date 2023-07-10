@@ -125,6 +125,8 @@ export default {
         setTimeout(() => {
           this.timerCount--;
         }, 1000);
+      } else {
+        this.timerCount = 5;
       }
     },
     timerCount(count) {
@@ -134,7 +136,6 @@ export default {
         }, 1000);
         return;
       } else if (count === 0) {
-        this.timerCount = 5;
         this.timerEnabled = false;
         this.getNewMysteryPokemon();
       }
