@@ -35,10 +35,30 @@
         <div class="stars">
           <transition-group name="zoom-in" appear>
             <FontAwesomeIcon
-              v-for="guess in guessesInARow"
+              v-for="guess in goldStars"
               :key="`guess-${guess}`"
               icon="fa-solid fa-star"
-              class="star"
+              class="gold-star"
+            />
+          </transition-group>
+        </div>
+        <div class="stars">
+          <transition-group name="zoom-in" appear>
+            <FontAwesomeIcon
+              v-for="guess in silverStars"
+              :key="`guess-${guess}`"
+              icon="fa-solid fa-star"
+              class="silver-star"
+            />
+          </transition-group>
+        </div>
+        <div class="stars">
+          <transition-group name="zoom-in" appear>
+            <FontAwesomeIcon
+              v-for="guess in bronzeStars"
+              :key="`guess-${guess}`"
+              icon="fa-solid fa-star"
+              class="bronze-star"
             />
           </transition-group>
         </div>
@@ -73,6 +93,10 @@ export default {
       loading: false,
       timerCount: 5,
       timerEnabled: false,
+      bronzeStars: 0,
+      silverStars: 0,
+      goldStars: 0,
+      platinumStars: 0,
     };
   },
   computed: {
@@ -139,6 +163,22 @@ export default {
         this.timerEnabled = false;
         this.getNewMysteryPokemon();
       }
+    },
+    guessesInARow(guesses) {
+      if (guesses < 5) {
+        this.bronzeStars = guesses;
+        return;
+      }
+
+      if (guesses < 25) {
+        this.silverStars = Math.floor(guesses / 5);
+        this.bronzeStars = guesses % 5;
+        return;
+      }
+
+      this.goldStars = Math.floor(guesses / 25);
+      this.silverStars = Math.floor((guesses % 25) / 5);
+      this.bronzeStars = (guesses % 25) % 5;
     },
   },
   async created() {
@@ -215,9 +255,16 @@ export default {
 
   .guesses-in-a-row {
     margin-bottom: 1rem;
-
-    .star {
+    .gold-star {
       color: #edb200;
+      margin: 0 0.1rem;
+    }
+    .silver-star {
+      color: #b5b4b0;
+      margin: 0 0.1rem;
+    }
+    .bronze-star {
+      color: #73440f;
       margin: 0 0.1rem;
     }
   }
