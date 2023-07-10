@@ -100,6 +100,7 @@ export default {
       goldStars: 0,
       platinumStars: 0,
       focus: false,
+      isFirstTime: true,
     };
   },
   computed: {
@@ -195,7 +196,12 @@ export default {
       this.playersGuess = '';
       this.tries = 3;
       this.loading = false;
-      this.focus = true;
+
+      if (!this.isFirstTime) {
+        this.focus = true;
+      } else {
+        this.isFirstTime = false;
+      }
     },
     setPlayersGuess(playersGuess) {
       this.reset = false;
