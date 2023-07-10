@@ -1,11 +1,13 @@
 <template>
   <CenteredColumn class="guess-pokemon">
     <div class="background-image">
-      <img
-        :src="image"
-        alt="mysterious pokemon"
-        :class="{ 'is-guessing': !hasWon, 'show-pokemon': hasWon || hasLost }"
-      />
+      <BaseLoader :loading="loading">
+        <img
+          :src="image"
+          alt="mysterious pokemon"
+          :class="{ 'is-guessing': !hasWon, 'show-pokemon': hasWon || hasLost }"
+        />
+      </BaseLoader>
     </div>
     <span
       id="game-results"
@@ -40,6 +42,7 @@
 </template>
 
 <script>
+import BaseLoader from '@components/ui/BaseLoader';
 import CenteredColumn from '@components/ui/CenteredColumn';
 import BaseInput from '@components/ui/BaseInput';
 import BaseButton from '@components/ui/BaseButton';
@@ -47,13 +50,14 @@ import store from '@lib/store';
 
 export default {
   name: 'GuessPokemon',
-  components: { CenteredColumn, BaseButton, BaseInput },
+  components: { BaseLoader, CenteredColumn, BaseButton, BaseInput },
   data() {
     return {
       playersGuess: '',
       reset: false,
       tries: 3,
       guessesInARow: 0,
+      loading: false,
     };
   },
   computed: {
@@ -100,14 +104,18 @@ export default {
     },
   },
   async created() {
+    this.loading = true;
     await this.getNewMysteryPokemon();
+    this.loading = false;
   },
   methods: {
     async getNewMysteryPokemon() {
+      this.loading = true;
       await store.getNewMysteryPokemon();
       this.reset = true;
       this.playersGuess = '';
       this.tries = 3;
+      this.loading = false;
     },
     setPlayersGuess(playersGuess) {
       this.tries--;
