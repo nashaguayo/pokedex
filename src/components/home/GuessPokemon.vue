@@ -22,6 +22,17 @@
       :disabled="hasLost || hasWon"
     />
     <span v-if="!hasWon" class="tries-left">{{ triesLeftText }}</span>
+    <CenteredColumn v-if="guessesInARow > 0" class="guesses-in-a-row">
+      <span>Guesses in a row</span><br />
+      <div class="stars">
+        <FontAwesomeIcon
+          v-for="guess in guessesInARow"
+          :key="`guess-${guess}`"
+          icon="fa-solid fa-star"
+          class="star"
+        />
+      </div>
+    </CenteredColumn>
     <BaseButton :big="true" :onClickHandler="getNewMysteryPokemon">
       {{ baseButtonText }}
     </BaseButton>
@@ -42,6 +53,7 @@ export default {
       playersGuess: '',
       reset: false,
       tries: 3,
+      guessesInARow: 0,
     };
   },
   computed: {
@@ -73,6 +85,18 @@ export default {
     },
     baseButtonText() {
       return this.hasWon || this.hasLost ? 'New Pokemon!' : 'I Give Up!';
+    },
+  },
+  watch: {
+    hasWon(hasWon) {
+      if (hasWon) {
+        this.guessesInARow++;
+      }
+    },
+    hasLost(hasLost) {
+      if (hasLost) {
+        this.guessesInARow = 0;
+      }
     },
   },
   async created() {
@@ -140,6 +164,15 @@ export default {
   .tries-left {
     margin-top: -1.5rem;
     margin-bottom: 1rem;
+  }
+
+  .guesses-in-a-row {
+    margin-bottom: 1rem;
+
+    .star {
+      color: #edb200;
+      margin: 0 0.1rem;
+    }
   }
 }
 </style>
