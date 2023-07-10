@@ -33,4 +33,8 @@ describe('GuessPokemon', () => {
     wrapper.vm.setPlayersGuess(playersGuess);
     expect(wrapper.vm.playersGuess).toBe(playersGuess);
   });
+
+  it('computes the image property correctly', () => {
+    expect(wrapper.vm.image).toBe('pikachu.png');
+  });
 });
