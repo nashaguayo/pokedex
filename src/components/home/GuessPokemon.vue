@@ -25,6 +25,8 @@
       :reset="reset"
       :lazy="true"
       :disabled="hasLost || hasWon"
+      :focus="focus"
+      @focused="focus = false"
     />
     <transition name="flip" mode="out-in">
       <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
@@ -97,6 +99,7 @@ export default {
       silverStars: 0,
       goldStars: 0,
       platinumStars: 0,
+      focus: false,
     };
   },
   computed: {
@@ -192,6 +195,7 @@ export default {
       this.playersGuess = '';
       this.tries = 3;
       this.loading = false;
+      this.focus = true;
     },
     setPlayersGuess(playersGuess) {
       this.reset = false;

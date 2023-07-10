@@ -66,11 +66,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    focus: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {
     reset(reset) {
       if (reset) {
         this.$refs['input'].value = '';
+      }
+    },
+    focus(focus) {
+      if (focus) {
+        this.$refs['input'].focus();
+        this.$emit('focused');
       }
     },
   },
