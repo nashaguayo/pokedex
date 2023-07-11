@@ -7,6 +7,7 @@
 ##### Fixed
 
 - Pokemon list: no error message displays when loading
+- Pokemon list: no more duplicate keys on infinite scroll
 
 ---
 
