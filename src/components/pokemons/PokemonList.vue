@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-list">
-    <template v-if="!pokemons.length">
+    <template v-if="!pokemons.length && !loading">
       <h2>Something went wrong!</h2>
       <p>No pokemons to display.</p>
     </template>
@@ -88,6 +88,10 @@ export default {
 
   .search {
     margin-bottom: 1rem;
+
+    @media (min-width: $min-width-second-break) {
+      margin-bottom: 2rem;
+    }
   }
 
   .pokemons {
@@ -112,9 +116,6 @@ export default {
     @media (min-width: $min-width-fifth-break) {
       grid-template-columns: repeat(5, 1fr);
     }
-  }
-
-  .header {
   }
 }
 
