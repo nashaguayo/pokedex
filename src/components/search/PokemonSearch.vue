@@ -8,6 +8,12 @@
       :model="searchTerm"
       class="search-input"
     />
+    <span
+      class="no-results"
+      v-if="searchTerm.length >= 3 && !searchResults.length"
+    >
+      No results found
+    </span>
     <div class="results">
       <transition-group name="slide-from-right" appear>
         <span
@@ -82,6 +88,10 @@ export default {
 
   .search-input {
     border-bottom: 0.2rem solid var(--main-border-color);
+  }
+
+  .no-results {
+    margin-top: 1rem;
   }
 
   .results {
