@@ -13,6 +13,7 @@ import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
 const state = Vue.observable({
   allPokemons: [],
   isLoadingAllPokemons: false,
+  isLoadingMorePokemons: false,
   randomPokemons: [],
   scroll: {
     pokemons: [],
@@ -46,7 +47,7 @@ export default {
   },
 
   async getAllPokemons() {
-    if (!state.allPokemons.length || !state.isLoadingAllPokemons) {
+    if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
       state.isLoadingAllPokemons = true;
       const allPokemons = (await getAllPokemonsApi()).results;
       const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
@@ -58,6 +59,11 @@ export default {
   },
 
   async getMorePokemons() {
+    if (state.isLoadingMorePokemons) {
+      return;
+    }
+
+    state.isLoadingMorePokemons = true;
     const response = await getPokemonsApi(state.scroll.nextUrl);
     if (!response) {
       return;
@@ -72,6 +78,7 @@ export default {
 
     state.scroll.pokemons = [...state.scroll.pokemons, ...results];
     state.scroll.nextUrl = response.next;
+    state.isLoadingMorePokemons = false;
   },
 
   async getPokemon(pokemonId) {
@@ -111,8 +118,8 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    while (!state.allPokemons.length) {
-      this.getAllPokemons();
+    if (!state.allPokemons.length) {
+      return;
     }
     state.searchResults = state.allPokemons.filter((pokemon) =>
       pokemon.includes(searchTerm)
