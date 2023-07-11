@@ -4,6 +4,11 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.2...HEAD) (dd-mm-yyyy)
 
+##### Modified
+
+- Improved Search, yet again
+- Added no pokemons found message to search
+
 ---
 
 ## [V0.1.2](https://github.com/nashaguayo/pokedex/compare/V0.1.1...V0.1.2) (10-07-2023)
