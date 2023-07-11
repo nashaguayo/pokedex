@@ -1,6 +1,5 @@
 <template>
   <CenteredColumn>
-    <BaseHeader />
     <img class="logo-image" src="@assets/home/pokedex-logo.png" />
     <h1 v-if="subtitle">{{ subtitle }}</h1>
     <img class="banner" src="@assets/home/pokemons.jpg" />
@@ -9,11 +8,10 @@
 
 <script>
 import CenteredColumn from '@components/ui/CenteredColumn';
-import BaseHeader from '@components/ui/BaseHeader';
 
 export default {
   name: 'LogoAndBanner',
-  components: { CenteredColumn, BaseHeader },
+  components: { CenteredColumn },
   props: {
     subtitle: {
       type: String,
