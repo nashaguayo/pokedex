@@ -13,14 +13,14 @@
           class="search"
         />
       </router-link>
-      <div class="pokemons">
+      <transition-group name="slide-up" appear class="pokemons">
         <PokemonListCard
           v-for="pokemon in pokemons"
           :key="pokemon.name"
           :name="pokemon.name"
           :image="pokemon.image"
         />
-      </div>
+      </transition-group>
       <BaseLoader :loading="loading" />
     </template>
   </CenteredColumn>
@@ -121,16 +121,12 @@ export default {
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: opacity 0.3s;
+  transition: all 0.3s;
 }
 
 .slide-up-enter,
 .slide-up-leave-to {
-  opacity: 1;
-}
-
-.slide-up-enter-to,
-.slide-up-leave-from {
   opacity: 0;
+  transform: translateY(5rem);
 }
 </style>
