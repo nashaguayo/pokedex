@@ -46,7 +46,7 @@ export default {
   },
 
   async getAllPokemons() {
-    if (!state.allPokemons.length || !state.isLoadingAllPokemons) {
+    if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
       state.isLoadingAllPokemons = true;
       const allPokemons = (await getAllPokemonsApi()).results;
       const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
@@ -111,8 +111,8 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    while (!state.allPokemons.length) {
-      this.getAllPokemons();
+    if (!state.allPokemons.length) {
+      return;
     }
     state.searchResults = state.allPokemons.filter((pokemon) =>
       pokemon.includes(searchTerm)
