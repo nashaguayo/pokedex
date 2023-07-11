@@ -114,13 +114,9 @@ export default {
     while (!state.allPokemons.length) {
       this.getAllPokemons();
     }
-    const results = [];
-    state.allPokemons.forEach((pokemon) => {
-      if (pokemon.includes(searchTerm)) {
-        results.push(pokemon);
-      }
-    });
-    state.searchResults = results;
+    state.searchResults = state.allPokemons.filter((pokemon) =>
+      pokemon.includes(searchTerm)
+    );
   },
 
   async clearSearchResults() {

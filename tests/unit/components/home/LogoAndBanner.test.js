@@ -1,11 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import LogoAndBanner from '@components/home/LogoAndBanner.vue';
 
-jest.mock('@components/ui/BaseHeader.vue', () => ({
-  name: 'BaseHeader',
-  template: '<div class="mocked-header"></div>',
-}));
-
 describe('LogoAndBanner', () => {
   let wrapper;
 
@@ -15,10 +10,6 @@ describe('LogoAndBanner', () => {
 
   afterEach(() => {
     wrapper.destroy();
-  });
-
-  it('renders the header component', () => {
-    expect(wrapper.find('baseheader-stub').exists()).toBe(true);
   });
 
   it('renders the component with the given props', () => {

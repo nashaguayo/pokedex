@@ -2,7 +2,20 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.2...HEAD) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.3...HEAD) (dd-mm-yyyy)
+
+---
+
+## [V0.1.3](https://github.com/nashaguayo/pokedex/compare/V0.1.2...V0.1.3) (11-07-2023)
+
+##### Fixed
+
+- Home screen animation
+
+##### Modified
+
+- Improved Search, yet again
+- Added no pokemons found message to search
 
 ---
 
