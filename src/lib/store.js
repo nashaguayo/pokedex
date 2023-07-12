@@ -26,6 +26,7 @@ const state = Vue.observable({
     image: '',
     name: '',
   },
+  isSearchingPokemon: false,
 });
 
 export default {
@@ -118,12 +119,18 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
+    if (state.isSearchingPokemon) {
+      return;
+    }
+
+    state.isSearchingPokemon = true;
     if (!state.allPokemons.length) {
       return;
     }
     state.searchResults = state.allPokemons.filter((pokemon) =>
       pokemon.includes(searchTerm)
     );
+    state.isSearchingPokemon = false;
   },
 
   async clearSearchResults() {
