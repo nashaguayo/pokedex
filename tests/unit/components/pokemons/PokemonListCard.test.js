@@ -13,6 +13,7 @@ describe('PokemonListCard', () => {
       propsData: {
         name: 'pikachu',
         image: 'pokemon-image.png',
+        types: ['fire'],
       },
       mocks: {
         $router,

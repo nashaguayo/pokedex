@@ -23,7 +23,7 @@ describe('PokemonItemType', () => {
 
       expect(typeNameElement.textContent).toBe(type);
       expect(lightsElement.style.backgroundColor).toBe(
-        wrapper.vm.backgroundColorTypes.get(type)
+        wrapper.vm.pokemonColorTypes.get(type)
       );
       expect(shineElement).toBeTruthy();
     });
