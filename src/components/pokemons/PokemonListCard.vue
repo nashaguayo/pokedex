@@ -5,6 +5,7 @@
     @click="showPokemonInfo"
     @animationend="wasClicked = false"
   >
+    <span class="id">#{{ id }}</span>
     <img :src="image" alt="pokemon front default" class="screen" />
     <span class="name">{{ image === silouette ? '???' : name }}</span>
     <div class="types">
@@ -34,6 +35,10 @@ export default {
     };
   },
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -67,6 +72,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .id {
+    margin-bottom: 0.5rem;
+    font-size: 1.7rem;
+  }
 
   .screen {
     background: var(--screen-background-gradient);

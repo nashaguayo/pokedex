@@ -11,6 +11,7 @@ describe('PokemonListCard', () => {
 
     wrapper = shallowMount(PokemonListCard, {
       propsData: {
+        id: 1,
         name: 'pikachu',
         image: 'pokemon-image.png',
         types: ['fire'],
@@ -35,8 +36,13 @@ describe('PokemonListCard', () => {
     expect(image.attributes('alt')).toBe('pokemon front default');
   });
 
+  it('displays the correct id', () => {
+    const span = wrapper.find('.id');
+    expect(span.text()).toBe('#1');
+  });
+
   it('displays the correct pokemon name', () => {
-    const span = wrapper.find('span');
+    const span = wrapper.find('.name');
     expect(span.text()).toBe('pikachu');
   });
 
