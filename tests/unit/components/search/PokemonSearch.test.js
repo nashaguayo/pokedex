@@ -17,6 +17,7 @@ jest.mock('@lib/store', () => ({
   searchPokemons: jest.fn(),
   state: {
     searchResults: ['Pikachu', 'Charizard'],
+    isSearchingPokemon: false,
   },
 }));
 

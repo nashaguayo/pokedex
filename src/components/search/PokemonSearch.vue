@@ -7,6 +7,7 @@
       @inputValueChanged="setSearchTerm"
       :model="searchTerm"
       class="search-input"
+      :lazy="true"
     />
     <span
       class="no-results"
@@ -14,18 +15,20 @@
     >
       No results found
     </span>
-    <div class="results">
-      <transition-group name="slide-from-right" appear>
-        <span
-          v-for="pokemon in searchResults"
-          :key="pokemon"
-          class="search-result"
-          @click="goToPokemonPage(pokemon)"
-        >
-          {{ pokemon }}
-        </span>
-      </transition-group>
-    </div>
+    <BaseLoader :loading="loading">
+      <div class="results">
+        <transition-group name="slide-from-right" appear>
+          <span
+            v-for="pokemon in searchResults"
+            :key="pokemon"
+            class="search-result"
+            @click="goToPokemonPage(pokemon)"
+          >
+            {{ pokemon }}
+          </span>
+        </transition-group>
+      </div>
+    </BaseLoader>
     <div class="go-back">
       <BaseButton
         :onClickHandler="goToPokemonsPage"
@@ -39,6 +42,7 @@
 </template>
 
 <script>
+import BaseLoader from '@components/ui/BaseLoader';
 import BaseButton from '@components/ui/BaseButton';
 import BaseInput from '@components/ui/BaseInput';
 import CenteredColumn from '@components/ui/CenteredColumn';
@@ -46,7 +50,7 @@ import store from '@lib/store';
 
 export default {
   name: 'PokemonSearch',
-  components: { BaseButton, BaseInput, CenteredColumn },
+  components: { BaseLoader, BaseButton, BaseInput, CenteredColumn },
   data() {
     return {
       searchTerm: '',
@@ -64,6 +68,9 @@ export default {
   computed: {
     searchResults() {
       return store.state.searchResults;
+    },
+    loading() {
+      return store.state.isSearchingPokemon;
     },
   },
   methods: {

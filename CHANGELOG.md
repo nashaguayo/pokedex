@@ -4,6 +4,11 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.3...HEAD) (dd-mm-yyyy)
 
+##### Modified
+
+- Optimized search again
+- Added loader to search page
+
 ##### Fixed
 
 - Pokemon list: no error message displays when loading
