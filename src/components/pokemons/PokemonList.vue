@@ -19,6 +19,7 @@
           :key="pokemon.name"
           :name="pokemon.name"
           :image="pokemon.image"
+          :types="pokemon.types"
         />
       </transition-group>
       <BaseLoader :loading="loading" />

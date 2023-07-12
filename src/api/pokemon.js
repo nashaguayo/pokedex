@@ -1,14 +1,16 @@
 import pokemonApi from '@config/pokemonApi';
 import { logError } from '@lib/logger';
 
-export async function getImageForPokemon(pokemonName) {
+export async function getDataForPokemon(pokemonName) {
   try {
     const response = await pokemonApi.get(`pokemon/${pokemonName}`);
-    return response.data.sprites.front_default;
+    const image = response.data.sprites.front_default;
+    const types = response.data.types.map((t) => t.type.name);
+    return { image, types };
   } catch (error) {
     logError(
-      getImageForPokemon.name,
-      'Unable to retrieve image for pokemon',
+      getDataForPokemon.name,
+      'Unable to retrieve data for pokemon',
       error
     );
   }
