@@ -5,13 +5,25 @@
     @click="showPokemonInfo"
     @animationend="wasClicked = false"
   >
+    <span class="id">#{{ id }}</span>
     <img :src="image" alt="pokemon front default" class="screen" />
-    <span>{{ image === silouette ? '???' : name }}</span>
+    <span class="name">{{ image === silouette ? '???' : name }}</span>
+    <div class="types">
+      <span
+        v-for="t in types"
+        :key="`type-${t}`"
+        :style="{ backgroundColor: pokemonColorTypes.get(t) }"
+        class="type"
+      >
+        {{ t }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import silouette from '@assets/pokemons/silouette.png';
+import { pokemonColorTypes } from '@constants/pokemonTypesColor';
 
 export default {
   name: 'PokemonListCard',
@@ -19,14 +31,23 @@ export default {
     return {
       wasClicked: false,
       silouette,
+      pokemonColorTypes,
     };
   },
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
     image: {
+      required: true,
+    },
+    types: {
+      type: Array,
       required: true,
     },
   },
@@ -52,6 +73,11 @@ export default {
   flex-direction: column;
   align-items: center;
 
+  .id {
+    margin-bottom: 0.5rem;
+    font-size: 1.7rem;
+  }
+
   .screen {
     background: var(--screen-background-gradient);
     background-size: cover;
@@ -62,8 +88,18 @@ export default {
     height: 6.25rem;
   }
 
-  span {
-    color: var(--secondary-text-color);
+  .types {
+    display: flex;
+    margin: 0.5rem 0;
+    gap: 0.5rem;
+
+    .type {
+      color: var(--secondary-text-color) !important;
+      font-size: 0.75rem;
+      padding: 0.2rem;
+      border-radius: 1rem;
+      box-shadow: var(--main-box-shadow);
+    }
   }
 }
 

@@ -17,8 +17,10 @@
         <PokemonListCard
           v-for="pokemon in pokemons"
           :key="pokemon.name"
+          :id="pokemon.id"
           :name="pokemon.name"
           :image="pokemon.image"
+          :types="pokemon.types"
         />
       </transition-group>
       <BaseLoader :loading="loading" />
