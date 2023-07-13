@@ -13,7 +13,7 @@
         v-for="t in types"
         :key="`type-${t}`"
         :style="{ backgroundColor: pokemonColorTypes.get(t) }"
-        class="type"
+        id="type"
       >
         {{ t }}
       </span>
@@ -61,6 +61,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@css/media-queries';
+
 .pokemon-list-card {
   background-color: var(--cards-background-color);
   box-shadow: var(--main-box-shadow);
@@ -93,12 +95,16 @@ export default {
     margin: 0.5rem 0;
     gap: 0.5rem;
 
-    .type {
-      color: var(--secondary-text-color) !important;
+    #type {
+      color: var(--secondary-text-color);
       font-size: 0.75rem;
       padding: 0.2rem;
       border-radius: 1rem;
       box-shadow: var(--main-box-shadow);
+
+      @media (min-width: $min-width-second-break) {
+        font-size: 1rem;
+      }
     }
   }
 }
