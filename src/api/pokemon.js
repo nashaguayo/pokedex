@@ -74,3 +74,23 @@ export async function getRandomPokemons(amount) {
     );
   }
 }
+
+export async function getFlavorTextsForSpecies(url) {
+  try {
+    const response = await pokemonApi.get(url);
+    const result = response.data.flavor_text_entries.filter(
+      (flavorText) => flavorText.language.name === 'en'
+    );
+    const flavorTexts = result.map((text) =>
+      text.flavor_text.replace(/\n/g, ' ').replace(/\f/g, ' ')
+    );
+    const flavorTextsWithoutRepetition = [...new Set(flavorTexts)];
+    return flavorTextsWithoutRepetition;
+  } catch (error) {
+    logError(
+      getFlavorTextsForSpecies.name,
+      'Unable to retrieve flavor texts',
+      error
+    );
+  }
+}

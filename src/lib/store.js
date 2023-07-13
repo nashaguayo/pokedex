@@ -5,6 +5,7 @@ import {
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
+  getFlavorTextsForSpecies as getFlavorTextsForSpeciesApi,
 } from '@api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@api/evolutions';
 import { isDarkModeEnabled } from '@lib/localStorage';
@@ -89,6 +90,9 @@ export default {
     }
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
+    const flavorTexts = pokemon.species.url
+      ? await getFlavorTextsForSpeciesApi(pokemon.species.url)
+      : [];
     const stats = pokemon.stats.map((s) => {
       return { name: s.stat.name, value: s.base_stat };
     });
@@ -98,8 +102,24 @@ export default {
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
-    state.pokemon.set(name, { id, name, image, stats, types, evolutions });
-    state.pokemon.set(id, { id, name, image, stats, types, evolutions });
+    state.pokemon.set(name, {
+      id,
+      name,
+      image,
+      stats,
+      types,
+      evolutions,
+      flavorTexts,
+    });
+    state.pokemon.set(id, {
+      id,
+      name,
+      image,
+      stats,
+      types,
+      evolutions,
+      flavorTexts,
+    });
   },
 
   async getRandomPokemons(amountOfRandomPokemons) {
