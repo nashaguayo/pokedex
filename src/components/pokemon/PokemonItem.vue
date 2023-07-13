@@ -22,6 +22,7 @@
         :pokemonId="id"
         :pokemonName="name"
       />
+      <PokemonItemDescription :flavorTexts="flavorTexts" />
       <BaseButton
         class="go-back-button"
         :onClickHandler="goBack"
@@ -43,6 +44,7 @@ import PokemonItemHeader from '@components/pokemon/PokemonItemHeader.vue';
 import PokemonItemStat from '@components/pokemon/PokemonItemStat.vue';
 import PokemonItemType from '@components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
+import PokemonItemDescription from '@components/pokemon/PokemonItemDescription.vue';
 import { getPokemonPageBackgroundElement } from '@lib/helpers';
 import store from '@lib/store';
 import { capitalizeWord } from '@lib/helpers';
@@ -58,6 +60,7 @@ export default {
     PokemonItemStat,
     PokemonItemType,
     PokemonItemEvolutions,
+    PokemonItemDescription,
   },
   data() {
     return {
@@ -109,6 +112,10 @@ export default {
     },
     evolutions() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
+    },
+    flavorTexts() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)
+        ?.flavorTexts;
     },
   },
   async created() {
