@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.3...HEAD) (dd-mm-yyyy)
 
+##### Added
+
+- Displaying Pokemon Types and IDs
+
 ##### Modified
 
 - Optimized search again
