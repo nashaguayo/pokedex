@@ -7,6 +7,7 @@
 ##### Added
 
 - Displaying Pokemon Types and IDs
+- Pokemon Fun Facts
 
 ##### Modified
 
