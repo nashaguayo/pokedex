@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import BaseLoader from '@components/ui/BaseLoader.vue';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
 
 describe('BaseLoader', () => {
   let wrapper;

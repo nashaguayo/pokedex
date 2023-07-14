@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
-import GuessPokemon from '@components/home/GuessPokemon.vue';
+import GuessPokemon from '@/components/home/GuessPokemon.vue';
 
-jest.mock('@components/ui/BaseInput', () => ({
+jest.mock('@/components/ui/BaseInput', () => ({
   name: 'BaseInput',
   template: '<div class="mock-base-input"></div>',
 }));
 
-jest.mock('@lib/store', () => ({
+jest.mock('@/lib/store', () => ({
   state: { game: { name: 'pikachu', image: 'pikachu.png' } },
   getNewMysteryPokemon: jest.fn(),
 }));

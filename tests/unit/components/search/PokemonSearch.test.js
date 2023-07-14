@@ -1,19 +1,19 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonSearch from '@components/search/PokemonSearch';
-import CenteredColumn from '@components/ui/CenteredColumn';
-import store from '@lib/store';
+import PokemonSearch from '@/components/search/PokemonSearch';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import store from '@/lib/store';
 
-jest.mock('@components/ui/BaseInput.vue', () => ({
+jest.mock('@/components/ui/BaseInput.vue', () => ({
   name: 'BaseInput',
   template: '<div class="mocked-base-input"></div>',
 }));
 
-jest.mock('@components/ui/BaseButton.vue', () => ({
+jest.mock('@/components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
   template: '<div class="mocked-base-button"></div>',
 }));
 
-jest.mock('@lib/store', () => ({
+jest.mock('@/lib/store', () => ({
   searchPokemons: jest.fn(),
   state: {
     searchResults: ['Pikachu', 'Charizard'],

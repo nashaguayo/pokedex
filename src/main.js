@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
+import App from '@/App.vue';
+import router from '@/router';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -17,7 +17,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 
-import titleMixin from '@lib/titleMixin';
+import titleMixin from '@/lib/titleMixin';
 
 library.add(faToggleOn);
 library.add(faToggleOff);

@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonItemDescription from '@components/pokemon/PokemonItemDescription.vue';
+import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 
-jest.mock('@components/ui/CenteredColumn.vue', () => ({
+jest.mock('@/components/ui/CenteredColumn.vue', () => ({
   name: 'CenteredColumn',
   template: '<div class="mocked-centered-column"></div>',
 }));

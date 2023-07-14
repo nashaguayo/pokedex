@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonListCard from '@components/pokemons/PokemonListCard';
+import PokemonListCard from '@/components/pokemons/PokemonListCard';
 
 describe('PokemonListCard', () => {
   let wrapper;

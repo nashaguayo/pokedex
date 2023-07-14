@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PokemonItemType from '@components/pokemon/PokemonItemType.vue';
+import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 
 describe('PokemonItemType', () => {
   it('renders the component with the correct props', () => {

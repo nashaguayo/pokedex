@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
-import SearchView from '@views/SearchView.vue';
+import SearchView from '@/views/SearchView.vue';
 
-jest.mock('@components/ui/CenteredColumn.vue', () => ({
+jest.mock('@/components/ui/CenteredColumn.vue', () => ({
   name: 'CenteredColumn',
   template: '<div class="mocked-centered-column"></div>',
 }));
 
-jest.mock('@components/search/PokemonSearch.vue', () => ({
+jest.mock('@/components/search/PokemonSearch.vue', () => ({
   name: 'PokemonSearch',
   template: '<div class="mocked-pokemon-search"></div>',
 }));

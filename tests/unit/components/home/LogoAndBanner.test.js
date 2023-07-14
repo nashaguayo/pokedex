@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import LogoAndBanner from '@components/home/LogoAndBanner.vue';
+import LogoAndBanner from '@/components/home/LogoAndBanner.vue';
 
 describe('LogoAndBanner', () => {
   let wrapper;

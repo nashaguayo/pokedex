@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
-import PageNotFoundView from '@views/PageNotFoundView.vue';
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import PageNotFoundView from '@/views/PageNotFoundView.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 describe('PageNotFoundView', () => {
   it('renders the BasePage component with correct title and content', () => {

@@ -6,10 +6,10 @@ import {
   getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
   getFlavorTextsForSpecies as getFlavorTextsForSpeciesApi,
-} from '@api/pokemon';
-import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@api/evolutions';
-import { isDarkModeEnabled } from '@lib/localStorage';
-import { toggleDarkMode as toggleDarkModeInLocalStorage } from './localStorage';
+} from '@/api/pokemon';
+import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
+import { isDarkModeEnabled } from '@/lib/localStorage';
+import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
 const state = Vue.observable({
   allPokemons: [],

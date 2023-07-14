@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import silouette from '@assets/pokemons/silouette.png';
-import { pokemonColorTypes } from '@constants/pokemonTypesColor';
+import silouette from '@/assets/pokemons/silouette.png';
+import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
 
 export default {
   name: 'PokemonListCard',
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries';
+@import '@/css/media-queries';
 
 .pokemon-list-card {
   background-color: var(--cards-background-color);

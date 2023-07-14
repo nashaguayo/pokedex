@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import BaseLoader from '@components/ui/BaseLoader';
-import BaseButton from '@components/ui/BaseButton';
-import BaseInput from '@components/ui/BaseInput';
-import CenteredColumn from '@components/ui/CenteredColumn';
-import store from '@lib/store';
+import BaseLoader from '@/components/ui/BaseLoader';
+import BaseButton from '@/components/ui/BaseButton';
+import BaseInput from '@/components/ui/BaseInput';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import store from '@/lib/store';
 
 export default {
   name: 'PokemonSearch',
@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-search {
   width: 100%;

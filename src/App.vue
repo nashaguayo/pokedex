@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import CenteredColumn from './components/ui/CenteredColumn.vue';
-import BaseHeader from './components/ui/BaseHeader.vue';
-import BaseFooter from './components/ui/BaseFooter.vue';
-import store from '@lib/store';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import BaseHeader from '@/components/ui/BaseHeader.vue';
+import BaseFooter from '@/components/ui/BaseFooter.vue';
+import store from '@/lib/store';
 
 export default {
   name: 'App',
@@ -63,24 +63,24 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@css/themes.scss';
-@import '@css/media-queries.scss';
+@import '@/css/themes.scss';
+@import '@/css/media-queries.scss';
 
 @font-face {
   font-family: 'Pokemon Solid';
   src: local('Pokemon Solid'),
-    url(@assets/fonts/pokemon-solid.ttf) format('truetype');
+    url(@/assets/fonts/pokemon-solid.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Pokemon Hollow';
   src: local('Pokemon Hollow'),
-    url(@assets/fonts/pokemon-hollow.ttf) format('truetype');
+    url(@/assets/fonts/pokemon-hollow.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Upheaval';
-  src: local('Upheaval'), url(@assets/fonts/upheaval.ttf) format('truetype');
+  src: local('Upheaval'), url(@/assets/fonts/upheaval.ttf) format('truetype');
 }
 
 html[data-theme='light'] {
@@ -163,7 +163,7 @@ a:active {
 
 #app {
   height: 100vh;
-  background-image: url(@assets/ui/wallpaper.jpg);
+  background-image: url(@/assets/ui/wallpaper.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 

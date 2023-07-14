@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn';
-import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
-import PokemonSearch from '@components/search/PokemonSearch';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
+import PokemonSearch from '@/components/search/PokemonSearch';
 
 export default {
   name: 'SearchView',

@@ -1,5 +1,5 @@
-import pokemonApi from '@config/pokemonApi';
-import { logError } from '@lib/logger';
+import pokemonApi from '@/config/pokemonApi';
+import { logError } from '@/lib/logger';
 
 export async function getPokemonEvolutions(pokemonId) {
   try {

@@ -3,7 +3,7 @@
     <div class="navigation">
       <router-link to="/">
         <img
-          src="@assets/ui/pokeball.svg.png"
+          src="@/assets/ui/pokeball.svg.png"
           alt="menu"
           class="url home-icon-link"
         />
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import store from '@lib/store';
+import store from '@/lib/store';
 
 export default {
   name: 'GeneralNavigation',
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .general-navigation {
   background-color: var(--secondary-background-color);

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 export default {
   name: 'PokemonItemDescription',
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-item-description {
   @media (min-width: $min-width-fourth-break) {

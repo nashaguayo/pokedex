@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import BaseChevron from '@components/ui/BaseChevron.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import BaseChevron from '@/components/ui/BaseChevron.vue';
 
 export default {
   name: 'PokemonItemEvolutions',
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-item-evolutions {
   margin: 1rem 0;

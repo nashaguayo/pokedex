@@ -1,44 +1,44 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonItem from '@components/pokemon/PokemonItem.vue';
+import PokemonItem from '@/components/pokemon/PokemonItem.vue';
 import Vue from 'vue';
 
-jest.mock('@components/ui/BaseButton.vue', () => ({
+jest.mock('@/components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
   template: '<div class="mocked-base-button"></div>',
 }));
 
-jest.mock('@components/ui/CenteredColumn.vue', () => ({
+jest.mock('@/components/ui/CenteredColumn.vue', () => ({
   name: 'CenteredColumn',
   template: '<div class="mocked-centered-column"></div>',
 }));
 
-jest.mock('@components/pokemon/PokemonItemHeader.vue', () => ({
+jest.mock('@/components/pokemon/PokemonItemHeader.vue', () => ({
   name: 'PokemonItemHeader',
   template: '<div class="mocked-pokemon-item-header"></div>',
 }));
 
-jest.mock('@components/pokemon/PokemonItemStat.vue', () => ({
+jest.mock('@/components/pokemon/PokemonItemStat.vue', () => ({
   name: 'PokemonItemStat',
   template: '<div class="mocked-pokemon-item-stat"></div>',
 }));
 
-jest.mock('@components/pokemon/PokemonItemType.vue', () => ({
+jest.mock('@/components/pokemon/PokemonItemType.vue', () => ({
   name: 'PokemonItemType',
   template: '<div class="mocked-pokemon-item-type"></div>',
 }));
 
-jest.mock('@components/pokemon/PokemonItemEvolutions.vue', () => ({
+jest.mock('@/components/pokemon/PokemonItemEvolutions.vue', () => ({
   name: 'PokemonItemEvolutions',
   template: '<div class="mocked-pokemon-item-evolutions"></div>',
 }));
 
-jest.mock('@components/pokemon/PokemonItemDescription.vue', () => ({
+jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   name: 'PokemonItemDescription',
   template: '<div class="mocked-pokemon-item-description"></div>',
 }));
 
 jest.mock(
-  '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
+  '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
   () => ({
     firstBreak: '1px',
     secondBreak: 'px',
@@ -48,7 +48,7 @@ jest.mock(
   })
 );
 
-jest.mock('@api/pokemon', () => ({
+jest.mock('@/api/pokemon', () => ({
   getPokemon: jest.fn(() =>
     Promise.resolve({
       name: 'Charizard',
@@ -74,7 +74,7 @@ jest.mock('@api/pokemon', () => ({
   ),
 }));
 
-jest.mock('@lib/store', () => ({
+jest.mock('@/lib/store', () => ({
   state: {
     pokemon: new Map([
       ['id', 1],
@@ -88,7 +88,7 @@ jest.mock('@lib/store', () => ({
   getPokemon: jest.fn(),
 }));
 
-jest.mock('@lib/helpers', () => ({
+jest.mock('@/lib/helpers', () => ({
   getPokemonPageBackgroundElement: jest.fn(() => ({
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),

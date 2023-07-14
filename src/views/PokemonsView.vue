@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
-import PokemonList from '@components/pokemons/PokemonList.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
+import PokemonList from '@/components/pokemons/PokemonList.vue';
 
 export default {
   name: 'PokemonsView',

@@ -1,8 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
-import GeneralNavigation from '@components/header/GeneralNavigation.vue';
-import store from '@lib/store';
+import GeneralNavigation from '@/components/header/GeneralNavigation.vue';
+import store from '@/lib/store';
 
-jest.mock('@lib/store', () => ({
+jest.mock('@/lib/store', () => ({
   state: { isDarkModeEnabled: true },
   toggleDarkMode: jest.fn(),
 }));

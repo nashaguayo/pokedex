@@ -1,5 +1,5 @@
 import { shallowMount, mount } from '@vue/test-utils';
-import FooterLinks from '@components/footer/FooterLinks.vue';
+import FooterLinks from '@/components/footer/FooterLinks.vue';
 import Vue from 'vue';
 
 describe('FooterLinks', () => {
@@ -75,7 +75,7 @@ describe('FooterLinks', () => {
     });
 
     const githubLogo = wrapper.find('#repository img');
-    expect(githubLogo.attributes('src')).toBe('@assets/ui/github-logo.jpeg');
+    expect(githubLogo.attributes('src')).toBe('@/assets/ui/github-logo.jpeg');
     expect(githubLogo.attributes('alt')).toBe('github logo');
 
     const githubLogoWrapper = wrapper.find('#repository');
