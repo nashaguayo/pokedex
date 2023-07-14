@@ -52,13 +52,20 @@ export default {
   ul {
     padding: 0;
     margin: 0 1rem;
+    background-color: var(--main-background-color);
+    padding: 0 1rem;
+    border-radius: 2rem;
+    border: 0.2rem solid var(--main-border-color);
+    box-shadow: var(--main-box-shadow);
 
     @media (min-width: $min-width-second-break) {
       margin: 0 2rem;
+      padding: 1rem 2rem;
     }
 
     @media (min-width: $min-width-third-break) {
       margin: 0 3rem;
+      padding: 1rem 3rem;
     }
 
     li {
