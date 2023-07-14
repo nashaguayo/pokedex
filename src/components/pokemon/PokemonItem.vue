@@ -1,11 +1,12 @@
 <template>
-  <BaseLoader :loading="loading" :coverPage="true" mode="in-out">
+  <BaseLoader :loading="loading" :coverPage="true">
     <CenteredColumn class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         id="header"
         :name="name"
         :image="image"
         :topPosition="topPosition"
+        v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
       <CenteredColumn class="pokemon-info-container">
         <h1 id="pokemon-name">{{ capitalizeWord(name) }}</h1>
@@ -73,23 +74,6 @@ export default {
     name() {
       document.title = `Pokedex - ${capitalizeWord(this.name)}`;
     },
-    async loading() {
-      if (this.loading) {
-        return;
-      }
-      await this.$nextTick();
-
-      if (
-        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
-      ) {
-        return;
-      }
-      this.throttledParallax = throttle(this.parallax, 20);
-      getPokemonPageBackgroundElement().addEventListener(
-        'scroll',
-        this.throttledParallax
-      );
-    },
   },
   computed: {
     urlId() {
@@ -147,6 +131,19 @@ export default {
     parallax() {
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
+    },
+    headerIsVisible() {
+      if (
+        this.loading ||
+        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
+      ) {
+        return;
+      }
+      this.throttledParallax = throttle(this.parallax, 20);
+      getPokemonPageBackgroundElement().addEventListener(
+        'scroll',
+        this.throttledParallax
+      );
     },
   },
 };
