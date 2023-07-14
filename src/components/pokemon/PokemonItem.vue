@@ -226,4 +226,8 @@ export default {
     }
   }
 }
+
+.pokemon-item::-webkit-scrollbar {
+  display: none;
+}
 </style>
