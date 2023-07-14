@@ -1,6 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import ScrollToTop from '@components/footer/ScrollToTop.vue';
 
+jest.mock('@lib/logger', () => ({
+  logError: jest.fn(),
+}));
+
 describe('ScrollToTop', () => {
   let wrapper;
 
