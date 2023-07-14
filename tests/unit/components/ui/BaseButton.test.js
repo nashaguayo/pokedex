@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import BaseButton from '@components/ui/BaseButton';
+import BaseButton from '@/components/ui/BaseButton';
 
 describe('BaseButton', () => {
   let wrapper;

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PokemonItemStat from '@components/pokemon/PokemonItemStat.vue';
+import PokemonItemStat from '@/components/pokemon/PokemonItemStat.vue';
 
 describe('PokemonItemStat', () => {
   let wrapper;

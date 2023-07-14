@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonList from '@components/pokemons/PokemonList';
+import PokemonList from '@/components/pokemons/PokemonList';
 
-jest.mock('@lib/helpers', () => ({
+jest.mock('@/lib/helpers', () => ({
   scrollToTopOfBackgroundPage: jest.fn(),
 }));
 
-jest.mock('@api/pokemon', () => ({
+jest.mock('@/api/pokemon', () => ({
   getPokemons: jest.fn().mockImplementation(() => {
     return {
       count: 1,
@@ -20,7 +20,7 @@ jest.mock('@api/pokemon', () => ({
   }),
 }));
 
-jest.mock('@lib/helpers', () => ({
+jest.mock('@/lib/helpers', () => ({
   scrollToTopOfBackgroundPage: jest.fn(),
   getPageBackgroundElement: jest.fn().mockReturnValue({
     addEventListener: jest.fn(),
@@ -28,17 +28,17 @@ jest.mock('@lib/helpers', () => ({
   }),
 }));
 
-jest.mock('@components/pokemons/PokemonListCard.vue', () => ({
+jest.mock('@/components/pokemons/PokemonListCard.vue', () => ({
   name: 'PokemonListCard',
   template: '<div class="mocked-pokemon-list-card"></div>',
 }));
 
-jest.mock('@components/ui/BaseLoader.vue', () => ({
+jest.mock('@/components/ui/BaseLoader.vue', () => ({
   name: 'BaseLoader',
   template: '<div class="mocked-base-loader"></div>',
 }));
 
-jest.mock('@lib/store', () => ({
+jest.mock('@/lib/store', () => ({
   state: { scroll: { pokemons: [{ name: 'pikachu' }] } },
   getPokemons: jest.fn(),
 }));

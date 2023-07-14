@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 describe('CenteredColumn', () => {
   let wrapper;

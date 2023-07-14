@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
+import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
 
-jest.mock('@components/ui/BaseChevron.vue', () => ({
+jest.mock('@/components/ui/BaseChevron.vue', () => ({
   name: 'BaseChevron',
   template: '<div class="mocked-base-chevron"></div>',
 }));
 
-jest.mock('@components/ui/CenteredColumn.vue', () => ({
+jest.mock('@/components/ui/CenteredColumn.vue', () => ({
   name: 'CenteredColumn',
   template: '<div class="mocked-centered-column"></div>',
 }));

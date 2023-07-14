@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
-import BaseFooter from '@components/ui/BaseFooter';
+import BaseFooter from '@/components/ui/BaseFooter';
 
-jest.mock('@components/footer/ScrollToTop.vue', () => ({
+jest.mock('@/components/footer/ScrollToTop.vue', () => ({
   name: 'ScrollToTop',
   template: '<div class="mocked-scroll-to-top"></div>',
 }));
 
-jest.mock('@components/footer/FooterLinks.vue', () => ({
+jest.mock('@/components/footer/FooterLinks.vue', () => ({
   name: 'FooterLinks',
   template: '<div class="mocked-footer-links"></div>',
 }));

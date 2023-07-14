@@ -7,7 +7,7 @@ module.exports = {
     '.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub',
   },
   moduleNameMapper: {
-    '^@src/(.*)': '<rootDir>/src/$1',
+    '^@/(.*)': '<rootDir>/src/$1',
   },
   testEnvironment: 'jsdom',
 };

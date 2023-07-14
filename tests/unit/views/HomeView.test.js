@@ -1,22 +1,22 @@
 import { shallowMount } from '@vue/test-utils';
-import HomeView from '@views/HomeView.vue';
+import HomeView from '@/views/HomeView.vue';
 
-jest.mock('@components/ui/CenteredColumn.vue', () => ({
+jest.mock('@/components/ui/CenteredColumn.vue', () => ({
   name: 'CenteredColumn',
   template: '<div class="mocked-centered-column"></div>',
 }));
 
-jest.mock('@components/home/LogoAndBanner.vue', () => ({
+jest.mock('@/components/home/LogoAndBanner.vue', () => ({
   name: 'LogoAndBanner',
   template: '<div class="mocked-logo-and-banner"></div>',
 }));
 
-jest.mock('@components/home/GuessPokemon.vue', () => ({
+jest.mock('@/components/home/GuessPokemon.vue', () => ({
   name: 'GuessPokemon',
   template: '<div class="mocked-guess-pokemon"></div>',
 }));
 
-jest.mock('@components/home/RandomPokemon.vue', () => ({
+jest.mock('@/components/home/RandomPokemon.vue', () => ({
   name: 'RandomPokemon',
   template: '<div class="mocked-random-pokemon"></div>',
 }));
