@@ -25,7 +25,7 @@ describe('BaseFooter', () => {
   it('sets the margin when setMargin method is called', () => {
     const height = 100;
     wrapper.vm.setMargin(height);
-    expect(wrapper.vm.marginBottom).toBe(height + 20);
+    expect(wrapper.vm.marginBottom).toBe(height + 30);
     expect(wrapper.vm.hasToUpdateMargin).toBe(false);
   });
 
