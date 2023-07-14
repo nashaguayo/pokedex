@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import BaseLoader from '@components/ui/BaseLoader.vue';
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import store from '@lib/store';
-import mediaQueries from '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import store from '@/lib/store';
+import mediaQueries from '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
 
 export default {
   name: 'RandomPokemon',
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .random-pokemon {
   box-shadow: var(--main-box-shadow);

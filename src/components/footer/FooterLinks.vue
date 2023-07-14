@@ -14,12 +14,12 @@
       <CenteredColumn id="fueled-by">
         <span>Fueled by</span>
         <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
-          <img src="@assets/ui/pokeapi.png" alt="pokeapi logo" />
+          <img src="@/assets/ui/pokeapi.png" alt="pokeapi logo" />
         </a>
       </CenteredColumn>
       <a :href="githubRepoUrl" id="repository" target="_blank" ref="noreferrer">
         <img
-          src="@assets/ui/github-logo.jpeg"
+          src="@/assets/ui/github-logo.jpeg"
           id="github-logo"
           alt="github logo"
         />
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CenteredColumn from '../ui/CenteredColumn.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 export default {
   name: 'FooterLinks',
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .footer-links {
   background-color: var(--variant-background-color);

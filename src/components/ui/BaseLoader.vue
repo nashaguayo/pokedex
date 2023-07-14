@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .spinner-icon {
   margin: 3rem;
   width: 5rem;

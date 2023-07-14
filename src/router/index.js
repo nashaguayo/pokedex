@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '@/views/HomeView.vue';
 
 Vue.use(VueRouter);
 
@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/404',
     name: 'pageNotFound',
-    component: () => import('@views/PageNotFoundView.vue'),
+    component: () => import('@/views/PageNotFoundView.vue'),
   },
   {
     path: '*',
@@ -26,7 +26,7 @@ const routes = [
   {
     path: '/pokemons',
     name: 'pokemons',
-    component: () => import('@views/PokemonsView.vue'),
+    component: () => import('@/views/PokemonsView.vue'),
     meta: {
       footer: false,
     },
@@ -34,7 +34,7 @@ const routes = [
   {
     path: '/pokemons/search',
     name: 'search',
-    component: () => import('@views/SearchView.vue'),
+    component: () => import('@/views/SearchView.vue'),
     meta: {
       header: false,
       footer: false,
@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/pokemons/:id',
     name: 'pokemon',
-    component: () => import('@views/PokemonView.vue'),
+    component: () => import('@/views/PokemonView.vue'),
     meta: {
       header: false,
       footer: false,

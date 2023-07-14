@@ -38,18 +38,17 @@
 
 <script>
 import { throttle } from 'lodash';
-import BaseLoader from '@components/ui/BaseLoader.vue';
-import BaseButton from '@components/ui/BaseButton.vue';
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import PokemonItemHeader from '@components/pokemon/PokemonItemHeader.vue';
-import PokemonItemStat from '@components/pokemon/PokemonItemStat.vue';
-import PokemonItemType from '@components/pokemon/PokemonItemType.vue';
-import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
-import PokemonItemDescription from '@components/pokemon/PokemonItemDescription.vue';
-import { getPokemonPageBackgroundElement } from '@lib/helpers';
-import store from '@lib/store';
-import { capitalizeWord } from '@lib/helpers';
-import mediaQueries from '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
+import BaseButton from '@/components/ui/BaseButton.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
+import PokemonItemStat from '@/components/pokemon/PokemonItemStat.vue';
+import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
+import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
+import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
+import { getPokemonPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
+import store from '@/lib/store';
+import mediaQueries from '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
 
 export default {
   name: 'PokemonItem',
@@ -150,7 +149,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-item {
   position: absolute;

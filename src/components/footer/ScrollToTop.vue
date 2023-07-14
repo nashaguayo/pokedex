@@ -20,8 +20,8 @@ import {
   getPageBackgroundElement,
   getPokemonPageBackgroundElement,
   scrollToTopOfBackgroundPokemonPage,
-} from '@lib/helpers';
-import { logError } from '@lib/logger';
+} from '@/lib/helpers';
+import { logError } from '@/lib/logger';
 
 export default {
   name: 'ScrollToTop',

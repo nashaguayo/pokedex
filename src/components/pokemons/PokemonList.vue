@@ -30,11 +30,11 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import PokemonListCard from '@components/pokemons/PokemonListCard';
-import BaseLoader from '@components/ui/BaseLoader.vue';
-import CenteredColumn from '@components/ui/CenteredColumn';
-import { getPageBackgroundElement } from '@lib/helpers';
-import store from '@lib/store';
+import PokemonListCard from '@/components/pokemons/PokemonListCard';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import { getPageBackgroundElement } from '@/lib/helpers';
+import store from '@/lib/store';
 
 export default {
   name: 'PokemonList',
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-list {
   margin-bottom: 2rem;

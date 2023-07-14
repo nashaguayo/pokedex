@@ -6,7 +6,7 @@
   >
     <img
       class="location"
-      src="@assets/pokemons/location.jpg"
+      src="@/assets/pokemons/location.jpg"
       :height="locationHeight"
       :width="locationWidth"
     />
@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import silouette from '@assets/pokemons/silouette.png';
-import { capitalizeWord } from '@lib/helpers';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import silouette from '@/assets/pokemons/silouette.png';
+import { capitalizeWord } from '@/lib/helpers';
 
 export default {
   name: 'PokemonItemHeader',
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-item-header {
   width: 100%;

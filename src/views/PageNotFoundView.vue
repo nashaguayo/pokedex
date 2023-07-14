@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 export default {
   components: { CenteredColumn },

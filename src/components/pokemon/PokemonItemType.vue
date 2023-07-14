@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import { pokemonColorTypes } from '@constants/pokemonTypesColor';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
 
 export default {
   name: 'PokemonItemType',
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
+@import '@/css/media-queries.scss';
 
 .pokemon-item-type {
   background-color: var(--variant-background-color);

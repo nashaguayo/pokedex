@@ -77,11 +77,11 @@
 </template>
 
 <script>
-import BaseLoader from '@components/ui/BaseLoader';
-import CenteredColumn from '@components/ui/CenteredColumn';
-import BaseInput from '@components/ui/BaseInput';
-import BaseButton from '@components/ui/BaseButton';
-import store from '@lib/store';
+import BaseLoader from '@/components/ui/BaseLoader';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import BaseInput from '@/components/ui/BaseInput';
+import BaseButton from '@/components/ui/BaseButton';
+import store from '@/lib/store';
 
 export default {
   name: 'GuessPokemon',
@@ -224,7 +224,7 @@ export default {
 
   max-width: 25rem;
   .background-image {
-    background-image: url(@assets/home/mystery-pokemon.jpg);
+    background-image: url(@/assets/home/mystery-pokemon.jpg);
     background-size: cover;
     width: 20rem;
     height: 12rem;

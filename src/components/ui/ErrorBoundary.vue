@@ -1,5 +1,5 @@
 <script>
-import { logError } from '@lib/logger';
+import { logError } from '@/lib/logger';
 
 export default {
   name: 'ErrorBoundary',

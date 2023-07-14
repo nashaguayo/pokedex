@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import ScrollToTop from '@components/footer/ScrollToTop.vue';
-import FooterLinks from '@components/footer/FooterLinks.vue';
+import ScrollToTop from '@/components/footer/ScrollToTop.vue';
+import FooterLinks from '@/components/footer/FooterLinks.vue';
 
 export default {
   name: 'BaseFooter',
