@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonItem from '@components/pokemon/PokemonItem.vue';
+import Vue from 'vue';
 
 jest.mock('@components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
@@ -100,6 +101,7 @@ describe('PokemonItem', () => {
   let wrapper;
 
   beforeEach(() => {
+    Vue.directive('observe-visibility', {});
     wrapper = shallowMount(PokemonItem, {
       mocks: {
         $route: {
