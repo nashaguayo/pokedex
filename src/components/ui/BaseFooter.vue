@@ -28,12 +28,12 @@ export default {
   data() {
     return {
       hasToUpdateMargin: false,
-      marginBottom: 30,
+      marginBottom: 50,
     };
   },
   methods: {
     setMargin(height) {
-      this.marginBottom = height + 20;
+      this.marginBottom = height + 30;
       this.hasToUpdateMargin = false;
     },
     updateMargin() {

@@ -21,6 +21,7 @@ import {
   getPokemonPageBackgroundElement,
   scrollToTopOfBackgroundPokemonPage,
 } from '@lib/helpers';
+import { logError } from '@/lib/logger';
 
 export default {
   name: 'ScrollToTop',
@@ -36,12 +37,24 @@ export default {
       showScrollToTopButton: false,
     };
   },
-  mounted() {
+  created() {
+    this.throttledHandleScroll = throttle(this.handleScroll, 300);
+  },
+  async mounted() {
     getPageBackgroundElement().addEventListener(
       'scroll',
       this.throttledHandleScroll
     );
-    getPokemonPageBackgroundElement()?.addEventListener(
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    if (!getPokemonPageBackgroundElement()) {
+      logError(
+        'mounted',
+        'Unable to load Scroll to Top Button',
+        new Error('.pokemon-item element was not found')
+      );
+      return;
+    }
+    getPokemonPageBackgroundElement().addEventListener(
       'scroll',
       this.throttledHandleScroll
     );
@@ -51,13 +64,13 @@ export default {
       'scroll',
       this.throttledHandleScroll
     );
-    getPokemonPageBackgroundElement()?.removeEventListener(
+    if (!getPokemonPageBackgroundElement()) {
+      return;
+    }
+    getPokemonPageBackgroundElement().removeEventListener(
       'scroll',
       this.throttledHandleScroll
     );
-  },
-  created() {
-    this.throttledHandleScroll = throttle(this.handleScroll, 300);
   },
   methods: {
     handleScroll(event) {
