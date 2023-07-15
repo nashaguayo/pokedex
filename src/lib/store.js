@@ -22,12 +22,14 @@ const state = Vue.observable({
   },
   pokemon: new Map(),
   isDarkModeEnabled: isDarkModeEnabled(),
-  searchResults: [],
   game: {
     image: '',
     name: '',
   },
-  isSearchingPokemon: false,
+  search: {
+    results: [],
+    isSearchingPokemon: false,
+  },
 });
 
 export default {
@@ -137,22 +139,22 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    if (state.isSearchingPokemon) {
+    if (state.search.isSearchingPokemon) {
       return;
     }
 
-    state.isSearchingPokemon = true;
+    state.search.isSearchingPokemon = true;
     if (!state.allPokemons.length) {
       return;
     }
-    state.searchResults = state.allPokemons.filter((pokemon) =>
+    state.search.results = state.allPokemons.filter((pokemon) =>
       pokemon.includes(searchTerm)
     );
-    state.isSearchingPokemon = false;
+    state.search.isSearchingPokemon = false;
   },
 
   async clearSearchResults() {
-    state.searchResults = [];
+    state.search.results = [];
   },
 
   async getNewMysteryPokemon() {

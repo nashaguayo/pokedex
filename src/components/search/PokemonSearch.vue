@@ -67,10 +67,10 @@ export default {
   },
   computed: {
     searchResults() {
-      return store.state.searchResults;
+      return store.state.search.results;
     },
     loading() {
-      return store.state.isSearchingPokemon;
+      return store.state.search.isSearchingPokemon;
     },
   },
   methods: {
