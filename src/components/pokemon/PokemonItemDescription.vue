@@ -24,8 +24,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .pokemon-item-description {
   @media (min-width: $min-width-fourth-break) {
     grid-column-start: 1;

@@ -64,8 +64,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .pokemon-item-header {
   width: 100%;
   position: relative;

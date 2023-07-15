@@ -93,8 +93,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .pokemon-item-evolutions {
   margin: 1rem 0;
 

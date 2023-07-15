@@ -37,17 +37,6 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   template: '<div class="mocked-pokemon-item-description"></div>',
 }));
 
-jest.mock(
-  '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
-  () => ({
-    firstBreak: '1px',
-    secondBreak: 'px',
-    thirdBreak: 'px',
-    fourthBreak: 'px',
-    fifthBreak: 'px',
-  })
-);
-
 jest.mock('@/api/pokemon', () => ({
   getPokemon: jest.fn(() =>
     Promise.resolve({

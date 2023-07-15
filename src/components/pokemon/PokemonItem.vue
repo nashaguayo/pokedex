@@ -48,7 +48,7 @@ import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vu
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 import { getPokemonPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
 import store from '@/lib/store';
-import mediaQueries from '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
+import { fourthBreak } from '@/constants/resolutions';
 
 export default {
   name: 'PokemonItem',
@@ -108,9 +108,7 @@ export default {
     this.loading = false;
   },
   beforeDestroy() {
-    if (
-      window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
-    ) {
+    if (window.innerWidth >= fourthBreak) {
       return;
     }
     getPokemonPageBackgroundElement().removeEventListener(
@@ -132,10 +130,7 @@ export default {
       this.topPosition = yPosition;
     },
     headerIsVisible() {
-      if (
-        this.loading ||
-        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
-      ) {
+      if (this.loading || window.innerWidth >= fourthBreak) {
         return;
       }
       this.throttledParallax = throttle(this.parallax, 20);
@@ -149,8 +144,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .pokemon-item {
   position: absolute;
   z-index: 1;

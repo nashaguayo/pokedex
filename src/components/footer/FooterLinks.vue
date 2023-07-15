@@ -71,8 +71,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .footer-links {
   background-color: var(--variant-background-color);
   box-shadow: var(--main-box-shadow);

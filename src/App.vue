@@ -63,8 +63,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/themes.scss';
-@import '@/css/media-queries.scss';
+@import '@/assets/css/themes.scss';
 
 @font-face {
   font-family: 'Pokemon Solid';
