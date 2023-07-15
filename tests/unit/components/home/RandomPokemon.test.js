@@ -19,17 +19,6 @@ jest.mock('@/lib/store', () => ({
   getRandomPokemons: jest.fn(),
 }));
 
-jest.mock(
-  '@/assets/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
-  () => ({
-    firstBreak: '1px',
-    secondBreak: '2px',
-    thirdBreak: '3px',
-    fourthBreak: '4px',
-    fifthBreak: '5px',
-  })
-);
-
 describe('RandomPokemon', () => {
   let wrapper;
 

@@ -3,11 +3,3 @@ $min-width-second-break: 600px;
 $min-width-third-break: 900px;
 $min-width-fourth-break: 1200px;
 $min-width-fifth-break: 1400px;
-
-:export {
-  firstBreak: $min-width-first-break;
-  secondBreak: $min-width-second-break;
-  thirdBreak: $min-width-third-break;
-  fourthBreak: $min-width-fourth-break;
-  fifthBreak: $min-width-fifth-break;
-}

@@ -27,6 +27,12 @@
 import BaseLoader from '@/components/ui/BaseLoader.vue';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import store from '@/lib/store';
+import {
+  firstBreak,
+  thirdBreak,
+  fourthBreak,
+  fifthBreak,
+} from '@/constants/resolutions';
 
 export default {
   name: 'RandomPokemon',
@@ -56,13 +62,13 @@ export default {
   methods: {
     async getRandomPokemons() {
       let amountOfRandomPokemons = 1;
-      if (window.innerWidth >= 1400) {
+      if (window.innerWidth >= fifthBreak) {
         amountOfRandomPokemons = 5;
-      } else if (window.innerWidth >= 1200) {
+      } else if (window.innerWidth >= fourthBreak) {
         amountOfRandomPokemons = 4;
-      } else if (window.innerWidth >= 900) {
+      } else if (window.innerWidth >= thirdBreak) {
         amountOfRandomPokemons = 3;
-      } else if (window.innerWidth >= 380) {
+      } else if (window.innerWidth >= firstBreak) {
         amountOfRandomPokemons = 2;
       }
 
