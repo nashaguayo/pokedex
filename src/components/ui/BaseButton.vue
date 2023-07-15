@@ -6,6 +6,7 @@
       'shrink-animation': wasClicked,
       'background-variant': variant,
       big: big,
+      small: small,
     }"
     class="base-button"
     @animationend="wasClicked = false"
@@ -31,6 +32,10 @@ export default {
       default: false,
     },
     big: {
+      type: Boolean,
+      default: false,
+    },
+    small: {
       type: Boolean,
       default: false,
     },
@@ -72,6 +77,14 @@ export default {
     padding: 0.8rem;
     min-width: 15rem;
     font-size: 1.5rem;
+  }
+
+  &.small {
+    @media (min-width: $min-width-third-break) {
+      padding: 0.5rem;
+      min-width: 10rem;
+      font-size: 1rem;
+    }
   }
 
   &.background-variant {

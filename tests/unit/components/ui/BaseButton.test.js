@@ -56,4 +56,22 @@ describe('BaseButton', () => {
     await wrapper.setProps({ disabled: true });
     expect(wrapper.attributes('disabled')).toBe('disabled');
   });
+
+  it('calls the onClickHandler method when the button is clicked', async () => {
+    await wrapper.find('button').trigger('click');
+    expect(onClickHandler).toHaveBeenCalled();
+  });
+
+  it('renders the default slot content', () => {
+    const buttonText = 'Click Me';
+    wrapper = shallowMount(BaseButton, {
+      slots: {
+        default: buttonText,
+      },
+      propsData: {
+        onClickHandler,
+      },
+    });
+    expect(wrapper.text()).toBe(buttonText);
+  });
 });

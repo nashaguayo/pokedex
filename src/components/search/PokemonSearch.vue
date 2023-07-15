@@ -10,18 +10,20 @@
         :reset="reset"
         class="search-input"
       />
-      <div class="display-types">
+      <div class="buttons">
         <BaseButton
-          class="display-types-text"
+          class="button"
           :onClickHandler="toggleDisplayTypes"
           :variant="true"
+          :small="true"
         >
           {{ displayTypesText }}
         </BaseButton>
         <BaseButton
-          class="display-types-text"
+          class="button"
           :onClickHandler="clearSearch"
           :variant="true"
+          :small="true"
         >
           Clear Search
         </BaseButton>
@@ -166,9 +168,20 @@ export default {
     width: 100%;
     background-color: var(--main-background-color);
     z-index: 5;
+
+    @media (min-width: $min-width-third-break) {
+      display: flex;
+      justify-content: center;
+    }
   }
 
-  .display-types {
+  .search-input {
+    @media (min-width: $min-width-third-break) {
+      border-bottom: 0.2rem solid var(--main-border-color);
+    }
+  }
+
+  .buttons {
     margin-top: -2rem;
     border-bottom: 0.2rem solid var(--main-border-color);
     padding-bottom: 1rem;
@@ -176,8 +189,29 @@ export default {
     display: flex;
     justify-content: center;
 
-    .display-types-text {
+    @media (min-width: $min-width-first-break) {
+      gap: 1rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      gap: 2rem;
+    }
+
+    @media (min-width: $min-width-third-break) {
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 0rem;
+      margin-top: 0rem;
+      padding-right: 1rem;
+    }
+
+    .button {
       margin-top: 1rem;
+
+      @media (min-width: $min-width-third-break) {
+        margin-top: 0rem;
+        height: 2rem;
+      }
     }
   }
 
