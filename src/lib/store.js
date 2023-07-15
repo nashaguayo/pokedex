@@ -8,7 +8,10 @@ import {
   getFlavorTextsForSpecies as getFlavorTextsForSpeciesApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
-import { getAllTypes as getAllTypesApi } from '@/api/types';
+import {
+  getAllTypes as getAllTypesApi,
+  getPokemonsByType as getPokemonsByTypeApi,
+} from '@/api/types';
 import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
@@ -33,6 +36,7 @@ const state = Vue.observable({
     types: [],
   },
   allTypes: [],
+  pokemonsByType: new Map(),
 });
 
 export default {
@@ -146,10 +150,22 @@ export default {
       return;
     }
 
-    state.search.isSearchingPokemon = true;
-    if (!state.allPokemons.length) {
+    if (!state.allPokemons.length || !state.pokemonsByType.size) {
       return;
     }
+
+    state.search.isSearchingPokemon = true;
+
+    if (state.search.types.length) {
+      state.search.types.forEach((type) => {
+        state.search.results = state.pokemonsByType
+          .get(type)
+          .filter((pokemon) => pokemon.includes(searchTerm));
+      });
+      state.search.isSearchingPokemon = false;
+      return;
+    }
+
     state.search.results = state.allPokemons.filter((pokemon) =>
       pokemon.includes(searchTerm)
     );
@@ -168,6 +184,15 @@ export default {
 
   async getAllTypes() {
     state.allTypes = await getAllTypesApi();
+    await Promise.all(
+      state.allTypes.map(async (type) => {
+        const pokemons = await getPokemonsByTypeApi(type);
+        const filteredPokemonNames = pokemons.filter(
+          (pokemon) => !pokemon.includes('-')
+        );
+        state.pokemonsByType.set(type, filteredPokemonNames);
+      })
+    );
   },
 
   async toggleTypeFilter(type) {

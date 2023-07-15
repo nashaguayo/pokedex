@@ -78,6 +78,13 @@ export default {
       }
       await store.searchPokemons(searchTerm);
     },
+    async filteringTypes(filteringTypes) {
+      if (!filteringTypes.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
   },
   computed: {
     searchResults() {
