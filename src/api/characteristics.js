@@ -17,7 +17,13 @@ export async function getAllCharacteristicsDescriptions() {
     );
     const result = new Map();
     fleshedOutResults.forEach((r) => {
-      result.set(r.key, r.value);
+      result.set(r.value.name, [
+        ...(result.get(r.value.name) ?? []),
+        {
+          description: r.value.description,
+          possibleValues: r.value.possibleValues,
+        },
+      ]);
     });
     return result;
   } catch (error) {
@@ -39,6 +45,7 @@ export async function getCharacteristicDescription(characteristicUrl) {
       (description) => description.language.name == 'en'
     );
     return {
+      name: results.data.highest_stat.name,
       description: filteredResult[0].description,
       possibleValues: results.data.possible_values,
     };

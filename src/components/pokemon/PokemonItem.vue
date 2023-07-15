@@ -9,6 +9,7 @@
         v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
     </transition>
+    <PokemonItemCharacteristics />
     <CenteredColumn class="pokemon-info-container">
       <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
       <transition name="flip-open" appear>
@@ -48,6 +49,7 @@ import { throttle } from 'lodash';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
+import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacteristics.vue';
 import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
@@ -62,6 +64,7 @@ export default {
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
+    PokemonItemCharacteristics,
     PokemonItemStats,
     PokemonItemType,
     PokemonItemEvolutions,
