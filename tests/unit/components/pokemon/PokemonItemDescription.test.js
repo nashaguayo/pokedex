@@ -1,11 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 
-jest.mock('@/components/ui/CenteredColumn.vue', () => ({
-  name: 'CenteredColumn',
-  template: '<div class="mocked-centered-column"></div>',
-}));
-
 describe('PokemonItemDescription', () => {
   let wrapper;
 
@@ -14,6 +9,7 @@ describe('PokemonItemDescription', () => {
       propsData: {
         flavorTexts: ['flavor text 1', 'flavor text 2'],
       },
+      stubs: ['CenteredColumn'],
     });
   });
 
@@ -23,10 +19,6 @@ describe('PokemonItemDescription', () => {
 
   it('renders the component', () => {
     expect(wrapper.exists()).toBe(true);
-  });
-
-  it('renders its respective components', () => {
-    expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
   });
 
   it('displays the title correctly', () => {

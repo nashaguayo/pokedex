@@ -1,9 +1,9 @@
-<template>
+<template functional>
   <CenteredColumn class="pokemon-item-description">
     <hr />
     <span class="title">Fun Facts</span>
     <ul>
-      <li v-for="text in flavorTexts" :key="text">{{ text }}</li>
+      <li v-for="text in props.flavorTexts" :key="text">{{ text }}</li>
     </ul>
   </CenteredColumn>
 </template>
