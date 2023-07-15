@@ -35,8 +35,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .pokemon-item-type {
   background-color: var(--variant-background-color);
   width: 100%;

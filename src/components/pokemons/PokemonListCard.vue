@@ -61,8 +61,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries';
-
 .pokemon-list-card {
   background-color: var(--cards-background-color);
   box-shadow: var(--main-box-shadow);

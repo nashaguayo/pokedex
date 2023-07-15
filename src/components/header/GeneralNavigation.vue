@@ -55,8 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .general-navigation {
   background-color: var(--secondary-background-color);
   width: 100%;

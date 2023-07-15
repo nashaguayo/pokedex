@@ -20,13 +20,13 @@ jest.mock('@/lib/store', () => ({
 }));
 
 jest.mock(
-  '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
+  '@/assets/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
   () => ({
     firstBreak: '1px',
-    secondBreak: 'px',
-    thirdBreak: 'px',
-    fourthBreak: 'px',
-    fifthBreak: 'px',
+    secondBreak: '2px',
+    thirdBreak: '3px',
+    fourthBreak: '4px',
+    fifthBreak: '5px',
   })
 );
 

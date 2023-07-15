@@ -50,8 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .base-button {
   background-color: var(--secondary-background-color);
   border-radius: 3rem;

@@ -27,7 +27,6 @@
 import BaseLoader from '@/components/ui/BaseLoader.vue';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import store from '@/lib/store';
-import mediaQueries from '@/css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
 
 export default {
   name: 'RandomPokemon',
@@ -57,19 +56,13 @@ export default {
   methods: {
     async getRandomPokemons() {
       let amountOfRandomPokemons = 1;
-      if (window.innerWidth >= this.getResolution(mediaQueries.fifthBreak)) {
+      if (window.innerWidth >= 1400) {
         amountOfRandomPokemons = 5;
-      } else if (
-        window.innerWidth >= this.getResolution(mediaQueries.fourthBreak)
-      ) {
+      } else if (window.innerWidth >= 1200) {
         amountOfRandomPokemons = 4;
-      } else if (
-        window.innerWidth >= this.getResolution(mediaQueries.thirdBreak)
-      ) {
+      } else if (window.innerWidth >= 900) {
         amountOfRandomPokemons = 3;
-      } else if (
-        window.innerWidth >= this.getResolution(mediaQueries.firstBreak)
-      ) {
+      } else if (window.innerWidth >= 380) {
         amountOfRandomPokemons = 2;
       }
 
@@ -87,8 +80,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/css/media-queries.scss';
-
 .random-pokemon {
   box-shadow: var(--main-box-shadow);
   background-color: var(--secondary-background-color);
