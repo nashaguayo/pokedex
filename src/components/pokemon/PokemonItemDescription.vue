@@ -1,7 +1,7 @@
 <template>
   <CenteredColumn class="pokemon-item-description">
     <hr />
-    <span id="title">Fun Facts</span>
+    <span class="title">Fun Facts</span>
     <ul>
       <li v-for="text in flavorTexts" :key="text">{{ text }}</li>
     </ul>
@@ -38,7 +38,7 @@ export default {
     height: 1rem;
   }
 
-  #title {
+  .title {
     font-size: 2rem;
     margin: 1rem 0;
 

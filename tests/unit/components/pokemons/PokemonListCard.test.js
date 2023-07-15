@@ -47,7 +47,7 @@ describe('PokemonListCard', () => {
   });
 
   it('displays the correct pokemon type', () => {
-    const span = wrapper.find('#type');
+    const span = wrapper.find('.type');
     expect(span.text()).toBe('fire');
   });
 

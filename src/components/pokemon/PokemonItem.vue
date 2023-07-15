@@ -2,14 +2,13 @@
   <BaseLoader :loading="loading" :coverPage="true">
     <CenteredColumn class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
-        id="header"
         :name="name"
         :image="image"
         :topPosition="topPosition"
         v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
       <CenteredColumn class="pokemon-info-container">
-        <h1 id="pokemon-name">{{ capitalizeWord(name) }}</h1>
+        <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
         <PokemonItemStat
           :key="'stat'"
           :stat="{ name: 'stat', value: 'value' }"
@@ -192,7 +191,7 @@ export default {
       grid-row-end: 3;
     }
 
-    #pokemon-name {
+    .pokemon-name {
       display: none;
 
       @media (min-width: $min-width-fourth-break) {

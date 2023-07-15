@@ -17,25 +17,25 @@ describe('FooterLinks', () => {
   });
 
   it('renders the disclaimer', () => {
-    expect(wrapper.find('#disclaimer').exists()).toBe(true);
-    expect(wrapper.find('#disclaimer span').text()).toBe(
+    expect(wrapper.find('.disclaimer').exists()).toBe(true);
+    expect(wrapper.find('.disclaimer span').text()).toBe(
       'This is a project built for learning.'
     );
   });
 
   it('renders the "Fueled by" logo and link', () => {
-    expect(wrapper.find('#fueled-by').exists()).toBe(true);
-    expect(wrapper.find('#fueled-by span').text()).toBe('Fueled by');
-    expect(wrapper.find('#fueled-by a').attributes('href')).toBe(
+    expect(wrapper.find('.fueled-by').exists()).toBe(true);
+    expect(wrapper.find('.fueled-by span').text()).toBe('Fueled by');
+    expect(wrapper.find('.fueled-by a').attributes('href')).toBe(
       'https://pokeapi.co/docs/v2'
     );
-    expect(wrapper.find('#fueled-by a img').attributes('alt')).toBe(
+    expect(wrapper.find('.fueled-by a img').attributes('alt')).toBe(
       'pokeapi logo'
     );
   });
 
   it('renders the GitHub logo and link with the correct URL', () => {
-    const githubLogoLink = wrapper.find('#repository');
+    const githubLogoLink = wrapper.find('.repository');
     expect(githubLogoLink.exists()).toBe(true);
     expect(githubLogoLink.attributes('href')).toBe(
       process.env.VUE_APP_GITHUB_REPO_URL
@@ -74,11 +74,11 @@ describe('FooterLinks', () => {
       },
     });
 
-    const githubLogo = wrapper.find('#repository img');
+    const githubLogo = wrapper.find('.repository img');
     expect(githubLogo.attributes('src')).toBe('@/assets/ui/github-logo.jpeg');
     expect(githubLogo.attributes('alt')).toBe('github logo');
 
-    const githubLogoWrapper = wrapper.find('#repository');
+    const githubLogoWrapper = wrapper.find('.repository');
     expect(githubLogoWrapper.attributes('href')).toBe(
       env.VUE_APP_GITHUB_REPO_URL
     );

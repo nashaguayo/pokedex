@@ -11,7 +11,7 @@
     </div>
     <transition name="flip" mode="out-in">
       <span
-        id="game-results"
+        class="game-results"
         :key="gameResultsText"
         :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
         >{{ gameResultsText }}</span
@@ -246,7 +246,7 @@ export default {
     }
   }
 
-  #game-results {
+  .game-results {
     margin-top: 1rem;
     margin-bottom: -1rem;
     text-align: center;

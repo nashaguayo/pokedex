@@ -160,65 +160,65 @@ a:active {
   text-decoration: none;
 }
 
+h1,
+h2,
+span,
+p {
+  color: var(--main-text-color);
+}
+
+span,
+p {
+  font-family: 'Upheaval';
+  color: var(--main-text-color);
+
+  @media (min-width: $min-width-first-break) {
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    font-size: 1.5rem;
+  }
+}
+
+h1 {
+  font-family: 'Pokemon Solid';
+  font-size: 1.5rem;
+
+  @media (min-width: $min-width-first-break) {
+    font-size: 1.8rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    font-size: 2.5rem;
+  }
+}
+
+h2 {
+  font-family: 'Pokemon Hollow';
+  font-size: 1.2rem;
+
+  @media (min-width: $min-width-first-break) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    font-size: 2rem;
+  }
+}
+
+h1,
+h2 {
+  text-shadow: var(--variant-background-color) 0 0 0.2rem;
+  letter-spacing: 0.25rem;
+  text-align: center;
+}
+
 #app {
   height: 100vh;
   background-image: url(@/assets/ui/wallpaper.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-
-  h1,
-  h2,
-  span,
-  p {
-    color: var(--main-text-color);
-  }
-
-  span,
-  p {
-    font-family: 'Upheaval';
-    color: var(--main-text-color);
-
-    @media (min-width: $min-width-first-break) {
-      font-size: 1.2rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      font-size: 1.5rem;
-    }
-  }
-
-  h1 {
-    font-family: 'Pokemon Solid';
-    font-size: 1.5rem;
-
-    @media (min-width: $min-width-first-break) {
-      font-size: 1.8rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      font-size: 2.5rem;
-    }
-  }
-
-  h2 {
-    font-family: 'Pokemon Hollow';
-    font-size: 1.2rem;
-
-    @media (min-width: $min-width-first-break) {
-      font-size: 1.5rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      font-size: 2rem;
-    }
-  }
-
-  h1,
-  h2 {
-    text-shadow: var(--variant-background-color) 0 0 0.2rem;
-    letter-spacing: 0.25rem;
-    text-align: center;
-  }
 
   .base-page {
     overflow-y: scroll;
