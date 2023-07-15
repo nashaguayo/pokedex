@@ -170,6 +170,15 @@ export default {
     state.allTypes = await getAllTypesApi();
   },
 
+  async toggleTypeFilter(type) {
+    if (state.search.types.includes(type)) {
+      const index = state.search.types.findIndex((t) => type === t);
+      state.search.types.splice(index, 1);
+      return;
+    }
+    state.search.types.push(type);
+  },
+
   getPokemonData(pokemon) {
     return { name: pokemon.name, image: pokemon.sprites.front_default };
   },

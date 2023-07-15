@@ -10,7 +10,16 @@
       :lazy="true"
     />
     <div class="types">
-      <div class="type" v-for="t in types" :key="`type-${t}`">
+      <div
+        class="type"
+        :class="{
+          active: filteringTypes.includes(t),
+          inactive: !filteringTypes.includes(t),
+        }"
+        v-for="t in allTypes"
+        :key="`type-${t}`"
+        @click="toggleTypeFilter(t)"
+      >
         {{ t }}
       </div>
     </div>
@@ -74,8 +83,11 @@ export default {
     searchResults() {
       return store.state.search.results;
     },
-    types() {
+    allTypes() {
       return store.state.allTypes;
+    },
+    filteringTypes() {
+      return store.state.search.types;
     },
     loading() {
       return store.state.search.isSearchingPokemon;
@@ -90,6 +102,9 @@ export default {
     },
     setSearchTerm(searchTerm) {
       this.searchTerm = searchTerm;
+    },
+    toggleTypeFilter(type) {
+      store.toggleTypeFilter(type);
     },
   },
 };
