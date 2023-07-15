@@ -4,17 +4,22 @@ import { logError } from '@/lib/logger';
 export async function getAllCharacteristicsDescriptions() {
   try {
     const oneResult = await pokemonApi.get(`/characteristic?limit=1`);
-    const results = await pokemonApi.get(
+    const allResults = await pokemonApi.get(
       `/characteristic?limit=${oneResult.data.count}`
     );
-    return await Promise.all(
-      results.data.results.map(async (result) => {
+    const fleshedOutResults = await Promise.all(
+      allResults.data.results.map(async (result) => {
         return {
           key: result.url,
-          description: await getCharacteristicDescription(result.url),
+          value: await getCharacteristicDescription(result.url),
         };
       })
     );
+    const result = new Map();
+    fleshedOutResults.forEach((r) => {
+      result.set(r.key, r.value);
+    });
+    return result;
   } catch (error) {
     logError(
       getAllCharacteristicsDescriptions.name,
@@ -33,7 +38,10 @@ export async function getCharacteristicDescription(characteristicUrl) {
     const filteredResult = results.data.descriptions.filter(
       (description) => description.language.name == 'en'
     );
-    return filteredResult[0].description;
+    return {
+      description: filteredResult[0].description,
+      possibleValues: results.data.possible_values,
+    };
   } catch (error) {
     logError(
       getCharacteristicDescription.name,

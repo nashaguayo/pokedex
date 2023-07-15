@@ -234,13 +234,6 @@ export default {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
 
-  async getCharacteristicDescription(url) {
-    const result = state.allCharacteristics.filter(
-      (characteristic) => characteristic.key === url
-    );
-    return result[0].description;
-  },
-
   clearFilters() {
     state.search.types = [];
   },
