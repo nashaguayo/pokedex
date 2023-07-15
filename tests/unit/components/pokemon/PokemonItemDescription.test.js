@@ -30,7 +30,7 @@ describe('PokemonItemDescription', () => {
   });
 
   it('displays the title correctly', () => {
-    const titleElement = wrapper.find('#title');
+    const titleElement = wrapper.find('.title');
     expect(titleElement.text()).toBe('Fun Facts');
   });
 
