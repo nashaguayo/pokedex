@@ -232,7 +232,13 @@ export default {
 
   async getAllCharacteristicsDescriptions() {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
-    console.log(state.allCharacteristics);
+  },
+
+  async getCharacteristicDescription(url) {
+    const result = state.allCharacteristics.filter(
+      (characteristic) => characteristic.key === url
+    );
+    return result[0].description;
   },
 
   clearFilters() {

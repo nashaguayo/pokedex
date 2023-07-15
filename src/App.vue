@@ -32,11 +32,11 @@ import store from '@/lib/store';
 export default {
   name: 'App',
   components: { CenteredColumn, BaseHeader, BaseFooter },
-  created() {
+  async created() {
     this.setTheme(this.isDarkModeEnabled);
-    store.getAllPokemons();
-    store.getAllTypes();
-    store.getAllCharacteristicsDescriptions();
+    await store.getAllPokemons();
+    await store.getAllTypes();
+    await store.getAllCharacteristicsDescriptions();
   },
   computed: {
     isDarkModeEnabled() {

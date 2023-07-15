@@ -8,9 +8,12 @@ export async function getAllCharacteristicsDescriptions() {
       `/characteristic?limit=${oneResult.data.count}`
     );
     return await Promise.all(
-      results.data.results.map((result) =>
-        getCharacteristicDescription(result.url)
-      )
+      results.data.results.map(async (result) => {
+        return {
+          key: result.url,
+          description: await getCharacteristicDescription(result.url),
+        };
+      })
     );
   } catch (error) {
     logError(
