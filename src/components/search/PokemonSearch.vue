@@ -25,7 +25,10 @@
     </div>
     <span
       class="no-results"
-      v-if="searchTerm.length >= 3 && !searchResults.length"
+      v-if="
+        (searchTerm.length >= 3 || filteringTypes.length) &&
+        !searchResults.length
+      "
     >
       No results found
     </span>
