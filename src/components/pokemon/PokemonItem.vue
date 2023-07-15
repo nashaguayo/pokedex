@@ -9,12 +9,7 @@
       />
       <CenteredColumn class="pokemon-info-container">
         <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
-        <PokemonItemStat
-          :key="'stat'"
-          :stat="{ name: 'stat', value: 'value' }"
-          :big="true"
-        />
-        <PokemonItemStat v-for="stat in stats" :key="stat.name" :stat="stat" />
+        <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
       </CenteredColumn>
       <PokemonItemEvolutions
@@ -41,13 +36,14 @@ import BaseLoader from '@/components/ui/BaseLoader.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
-import PokemonItemStat from '@/components/pokemon/PokemonItemStat.vue';
+import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 import { getPokemonPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
+import silouette from '@/assets/pokemons/silouette.png';
 
 export default {
   name: 'PokemonItem',
@@ -56,7 +52,7 @@ export default {
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
-    PokemonItemStat,
+    PokemonItemStats,
     PokemonItemType,
     PokemonItemEvolutions,
     PokemonItemDescription,
@@ -78,26 +74,39 @@ export default {
       return this.$route.params.id;
     },
     id() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id;
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
     },
     name() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name ?? '???'
+      );
     },
     image() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image ??
+        silouette
+      );
     },
     stats() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats ?? []
+      );
     },
     types() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types ?? []
+      );
     },
     evolutions() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions ?? []
+      );
     },
     flavorTexts() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)
-        ?.flavorTexts;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
+        []
+      );
     },
   },
   async created() {
