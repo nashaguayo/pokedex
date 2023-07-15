@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: Add loader -->
   <div id="app">
     <CenteredColumn class="base-page">
       <CenteredColumn
@@ -35,6 +36,7 @@ export default {
     this.setTheme(this.isDarkModeEnabled);
     store.getAllPokemons();
     store.getAllTypes();
+    store.getAllCharacteristicsDescriptions();
   },
   computed: {
     isDarkModeEnabled() {

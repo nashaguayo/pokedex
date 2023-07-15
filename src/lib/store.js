@@ -12,6 +12,7 @@ import {
   getAllTypes as getAllTypesApi,
   getPokemonsByType as getPokemonsByTypeApi,
 } from '@/api/types';
+import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
@@ -37,6 +38,7 @@ const state = Vue.observable({
   },
   allTypes: [],
   pokemonsByType: new Map(),
+  allCharacteristics: [],
 });
 
 export default {
@@ -226,6 +228,11 @@ export default {
       return;
     }
     state.search.types.push(type);
+  },
+
+  async getAllCharacteristicsDescriptions() {
+    state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
+    console.log(state.allCharacteristics);
   },
 
   clearFilters() {
