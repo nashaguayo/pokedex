@@ -176,7 +176,7 @@ export default {
     state.search.isSearchingPokemon = false;
   },
 
-  async clearSearchResults() {
+  clearSearchResults() {
     state.search.results = [];
   },
 
@@ -206,6 +206,10 @@ export default {
       return;
     }
     state.search.types.push(type);
+  },
+
+  clearFilters() {
+    state.search.types = [];
   },
 
   getPokemonData(pokemon) {

@@ -1,27 +1,48 @@
 <template>
   <CenteredColumn class="pokemon-search">
-    <BaseInput
-      name="search"
-      placeholder="search for pokemon"
-      icon="fa-solid fa-magnifying-glass"
-      @inputValueChanged="setSearchTerm"
-      :model="searchTerm"
-      class="search-input"
-    />
-    <div class="types">
-      <div
-        class="type"
-        :class="{
-          active: filteringTypes.includes(t),
-          inactive: !filteringTypes.includes(t),
-        }"
-        v-for="t in allTypes"
-        :key="`type-${t}`"
-        @click="toggleTypeFilter(t)"
-      >
-        {{ t }}
+    <div class="controls">
+      <BaseInput
+        name="search"
+        placeholder="search for pokemon"
+        icon="fa-solid fa-magnifying-glass"
+        @inputValueChanged="setSearchTerm"
+        :model="searchTerm"
+        :reset="reset"
+        class="search-input"
+      />
+      <div class="display-types">
+        <BaseButton
+          class="display-types-text"
+          :onClickHandler="toggleDisplayTypes"
+          :variant="true"
+        >
+          {{ displayTypesText }}
+        </BaseButton>
+        <BaseButton
+          class="display-types-text"
+          :onClickHandler="clearSearch"
+          :variant="true"
+        >
+          Clear Search
+        </BaseButton>
       </div>
     </div>
+    <transition name="slide-from-above">
+      <div v-if="displayTypes" class="types">
+        <div
+          class="type"
+          :class="{
+            active: filteringTypes.includes(t),
+            inactive: !filteringTypes.includes(t),
+          }"
+          v-for="t in allTypes"
+          :key="`type-${t}`"
+          @click="toggleTypeFilter(t)"
+        >
+          {{ t }}
+        </div>
+      </div>
+    </transition>
     <transition name="slide-from-above" mode="out-in" appear>
       <span
         class="no-results"
@@ -73,6 +94,8 @@ export default {
   data() {
     return {
       searchTerm: '',
+      displayTypes: false,
+      reset: false,
     };
   },
   watch: {
@@ -104,6 +127,9 @@ export default {
     loading() {
       return store.state.search.isSearchingPokemon;
     },
+    displayTypesText() {
+      return `${this.displayTypes ? 'Hide' : 'Show'} Types`;
+    },
   },
   methods: {
     goToPokemonPage(pokemon) {
@@ -113,10 +139,20 @@ export default {
       this.$router.push({ name: 'pokemons' });
     },
     setSearchTerm(searchTerm) {
+      this.reset = false;
       this.searchTerm = searchTerm;
     },
     toggleTypeFilter(type) {
       store.toggleTypeFilter(type);
+    },
+    toggleDisplayTypes() {
+      this.displayTypes = !this.displayTypes;
+    },
+    clearSearch() {
+      this.reset = true;
+      store.clearSearchResults();
+      store.clearFilters();
+      this.displayTypes = false;
     },
   },
 };
@@ -126,8 +162,23 @@ export default {
 .pokemon-search {
   width: 100%;
 
-  .search-input {
+  .controls {
+    width: 100%;
+    background-color: var(--main-background-color);
+    z-index: 5;
+  }
+
+  .display-types {
+    margin-top: -2rem;
     border-bottom: 0.2rem solid var(--main-border-color);
+    padding-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .display-types-text {
+      margin-top: 1rem;
+    }
   }
 
   .no-results {
@@ -188,7 +239,6 @@ export default {
       display: flex;
       padding: 1rem;
       border-bottom: 0.2rem solid var(--main-border-color);
-      width: 100%;
       cursor: pointer;
 
       @media (min-width: $min-width-third-break) {
@@ -222,12 +272,11 @@ export default {
 
 .slide-from-above-enter-active,
 .slide-from-above-leave-active {
-  transition: all 0.3s;
+  transition: transform 0.3s;
 }
 
 .slide-from-above-enter,
 .slide-from-above-leave-to {
   transform: translateY(-100%);
-  opacity: 0;
 }
 </style>
