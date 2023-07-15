@@ -13,6 +13,7 @@
 
 - Optimized search again
 - Added loader to search page
+- Using functional components across the app
 
 ##### Fixed
 

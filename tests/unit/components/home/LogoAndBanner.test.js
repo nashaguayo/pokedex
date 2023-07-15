@@ -5,7 +5,7 @@ describe('LogoAndBanner', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(LogoAndBanner);
+    wrapper = shallowMount(LogoAndBanner, { stubs: ['CenteredColumn'] });
   });
 
   afterEach(() => {
@@ -16,6 +16,7 @@ describe('LogoAndBanner', () => {
     const subtitle = 'Welcome to the Pokedex';
     wrapper = shallowMount(LogoAndBanner, {
       propsData: { subtitle },
+      stubs: ['CenteredColumn'],
     });
     expect(wrapper.find('h1').text()).toBe(subtitle);
     expect(wrapper.find('.logo-image').exists()).toBe(true);

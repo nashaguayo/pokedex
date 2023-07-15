@@ -17,9 +17,9 @@ jest.mock('@/components/pokemon/PokemonItemHeader.vue', () => ({
   template: '<div class="mocked-pokemon-item-header"></div>',
 }));
 
-jest.mock('@/components/pokemon/PokemonItemStat.vue', () => ({
-  name: 'PokemonItemStat',
-  template: '<div class="mocked-pokemon-item-stat"></div>',
+jest.mock('@/components/pokemon/PokemonItemStats.vue', () => ({
+  name: 'PokemonItemStats',
+  template: '<div class="mocked-pokemon-item-stats"></div>',
 }));
 
 jest.mock('@/components/pokemon/PokemonItemType.vue', () => ({
@@ -37,39 +37,19 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   template: '<div class="mocked-pokemon-item-description"></div>',
 }));
 
-jest.mock('@/api/pokemon', () => ({
-  getPokemon: jest.fn(() =>
-    Promise.resolve({
-      name: 'Charizard',
-      sprites: {
-        other: {
-          dream_world: {
-            front_default: 'charizard.png',
-          },
-        },
-      },
-      stats: [
-        {
-          stat: { name: 'hp' },
-          base_stat: 78,
-        },
-        {
-          stat: { name: 'attack' },
-          base_stat: 84,
-        },
-      ],
-      types: [{ type: { name: 'fire' } }, { type: { name: 'flying' } }],
-    })
-  ),
-}));
-
 jest.mock('@/lib/store', () => ({
   state: {
     pokemon: new Map([
       ['id', 1],
       ['name', 'pikachu'],
       ['image', 'pikachu.png'],
-      ['stats', [{ name: 'hp', value: '50' }]],
+      [
+        'stats',
+        [
+          { name: 'hp', value: '50' },
+          { name: 'attack', value: '20' },
+        ],
+      ],
       ['types', ['fire']],
       ['evolutions', [{ name: 'pika', image: 'pika.png' }]],
     ]),
@@ -114,7 +94,7 @@ describe('PokemonItem', () => {
     expect(wrapper.find('basebutton-stub').exists()).toBe(true);
     expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemstat-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
