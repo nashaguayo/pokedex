@@ -67,6 +67,9 @@ export default {
   padding: 0.5rem;
   min-width: 10rem;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &[disabled] {
     background-color: var(--disabled-button-background-color);
