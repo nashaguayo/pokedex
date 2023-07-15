@@ -157,22 +157,36 @@ export default {
     state.search.isSearchingPokemon = true;
 
     if (state.search.types.length) {
+      let repeatedResults = [];
       state.search.types.forEach((type) => {
-        state.search.results = [
-          ...new Set(
-            state.pokemonsByType
-              .get(type)
-              .filter((pokemon) => pokemon.includes(searchTerm))
-          ),
-        ];
+        const filteredPokemonNamesByType = state.pokemonsByType
+          .get(type)
+          .filter((pokemon) => pokemon.includes(searchTerm));
+        repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
       });
-      state.search.isSearchingPokemon = false;
-      return;
+
+      if (state.search.types.length === 1) {
+        state.search.isSearchingPokemon = false;
+        state.search.results = repeatedResults;
+        return;
+      }
+
+      const namesCount = {};
+      repeatedResults.forEach(function (name) {
+        namesCount[name] = (namesCount[name] ?? 0) + 1;
+      });
+
+      const results = Object.entries(namesCount).filter(
+        (nameCount) => nameCount[1] === state.search.types.length
+      );
+
+      state.search.results = results.map((nameCount) => nameCount[0]);
+    } else {
+      state.search.results = state.allPokemons.filter((pokemon) =>
+        pokemon.includes(searchTerm)
+      );
     }
 
-    state.search.results = state.allPokemons.filter((pokemon) =>
-      pokemon.includes(searchTerm)
-    );
     state.search.isSearchingPokemon = false;
   },
 
