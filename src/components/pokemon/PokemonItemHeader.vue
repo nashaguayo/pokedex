@@ -20,7 +20,7 @@
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
-    <h2 id="pokemon-name">{{ capitalizeWord(name) }}</h2>
+    <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
   </CenteredColumn>
 </template>
 
@@ -135,7 +135,7 @@ export default {
     }
   }
 
-  #pokemon-name {
+  .pokemon-name {
     margin-top: -2rem;
     z-index: 10;
     color: var(--variant-text-color);

@@ -1,8 +1,8 @@
 <template>
   <CenteredColumn class="pokemon-item-type">
-    <span id="title">Types</span>
+    <span class="title">Types</span>
     <div v-for="t in types" :key="`type-${t}`" class="type">
-      <span id="type-text">{{ t }}</span>
+      <span class="type-text">{{ t }}</span>
       <div
         class="lights"
         :style="{ backgroundColor: pokemonColorTypes.get(t) }"
@@ -48,7 +48,7 @@ export default {
     margin-bottom: 2rem;
   }
 
-  #title {
+  .title {
     font-size: 2rem;
     color: var(--secondary-text-color);
   }
@@ -60,7 +60,7 @@ export default {
     gap: 1rem;
     align-items: center;
 
-    #type-text {
+    .type-text {
       color: var(--variant-text-color);
     }
 

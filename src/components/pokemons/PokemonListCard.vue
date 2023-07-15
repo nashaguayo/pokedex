@@ -13,7 +13,7 @@
         v-for="t in types"
         :key="`type-${t}`"
         :style="{ backgroundColor: pokemonColorTypes.get(t) }"
-        id="type"
+        class="type"
       >
         {{ t }}
       </span>
@@ -93,7 +93,7 @@ export default {
     margin: 0.5rem 0;
     gap: 0.5rem;
 
-    #type {
+    .type {
       color: var(--secondary-text-color);
       font-size: 0.75rem;
       padding: 0.2rem;
