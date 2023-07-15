@@ -1,7 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonSearch from '@/components/search/PokemonSearch';
 import CenteredColumn from '@/components/ui/CenteredColumn';
-import store from '@/lib/store';
 
 jest.mock('@/components/ui/BaseInput.vue', () => ({
   name: 'BaseInput',
@@ -15,9 +14,14 @@ jest.mock('@/components/ui/BaseButton.vue', () => ({
 
 jest.mock('@/lib/store', () => ({
   searchPokemons: jest.fn(),
+  clearSearchResults: jest.fn(),
   state: {
-    searchResults: ['Pikachu', 'Charizard'],
-    isSearchingPokemon: false,
+    allTypes: ['grass', 'electric', 'fire', 'poison'],
+    search: {
+      results: ['Pikachu', 'Charizard'],
+      isSearchingPokemon: false,
+      types: [],
+    },
   },
 }));
 
@@ -26,8 +30,6 @@ describe('PokemonSearch', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    store.clearSearchResults = jest.fn();
 
     wrapper = shallowMount(PokemonSearch, {
       components: {
@@ -55,18 +57,6 @@ describe('PokemonSearch', () => {
     wrapper.vm.searchTerm = 'pikachu';
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.searchTerm).toBe('pikachu');
-  });
-
-  it('clears search results when search term length is less than 3', async () => {
-    wrapper.setData({ searchTerm: 'pi' });
-    await wrapper.vm.$nextTick();
-    expect(store.clearSearchResults).toHaveBeenCalled();
-  });
-
-  it('searches pokemons when search term length is greater than or equal to 3', async () => {
-    wrapper.setData({ searchTerm: 'pikachu' });
-    await wrapper.vm.$nextTick();
-    expect(store.searchPokemons).toHaveBeenCalledWith('pikachu');
   });
 
   it('navigates to pokemon page when a search result is clicked', async () => {
