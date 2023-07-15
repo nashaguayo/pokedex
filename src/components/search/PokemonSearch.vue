@@ -9,6 +9,11 @@
       class="search-input"
       :lazy="true"
     />
+    <div class="types">
+      <div class="type" v-for="t in types" :key="`type-${t}`">
+        {{ t }}
+      </div>
+    </div>
     <span
       class="no-results"
       v-if="searchTerm.length >= 3 && !searchResults.length"
@@ -69,6 +74,9 @@ export default {
     searchResults() {
       return store.state.search.results;
     },
+    types() {
+      return store.state.allTypes;
+    },
     loading() {
       return store.state.search.isSearchingPokemon;
     },
@@ -97,6 +105,43 @@ export default {
 
   .no-results {
     margin-top: 1rem;
+  }
+
+  .types {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    font-family: 'Upheaval';
+    gap: 0.5rem;
+    padding: 1rem 0;
+    border-bottom: 0.2rem solid var(--main-border-color);
+    width: 100%;
+
+    @media (min-width: $min-width-third-break) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (min-width: $min-width-fifth-break) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .type {
+      border-radius: 1rem;
+      padding: 0.3rem;
+
+      &.inactive {
+        background-color: var(--disabled-button-background-color);
+      }
+
+      &.active {
+        background-color: var(--secondary-background-color);
+        color: var(--secondary-text-color);
+      }
+    }
   }
 
   .results {

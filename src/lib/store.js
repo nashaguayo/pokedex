@@ -8,6 +8,7 @@ import {
   getFlavorTextsForSpecies as getFlavorTextsForSpeciesApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
+import { getAllTypes as getAllTypesApi } from '@/api/types';
 import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
@@ -29,7 +30,9 @@ const state = Vue.observable({
   search: {
     results: [],
     isSearchingPokemon: false,
+    types: [],
   },
+  allTypes: [],
 });
 
 export default {
@@ -161,6 +164,10 @@ export default {
     const newMysteryPokemon = (await getRandomPokemonsApi(1))[0];
     state.game.image = newMysteryPokemon.sprites.front_default;
     state.game.name = newMysteryPokemon.name;
+  },
+
+  async getAllTypes() {
+    state.allTypes = await getAllTypesApi();
   },
 
   getPokemonData(pokemon) {
