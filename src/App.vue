@@ -34,6 +34,7 @@ export default {
   created() {
     this.setTheme(this.isDarkModeEnabled);
     store.getAllPokemons();
+    store.getAllTypes();
   },
   computed: {
     isDarkModeEnabled() {

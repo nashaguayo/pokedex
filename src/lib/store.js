@@ -8,6 +8,10 @@ import {
   getFlavorTextsForSpecies as getFlavorTextsForSpeciesApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
+import {
+  getAllTypes as getAllTypesApi,
+  getPokemonsByType as getPokemonsByTypeApi,
+} from '@/api/types';
 import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
@@ -22,12 +26,17 @@ const state = Vue.observable({
   },
   pokemon: new Map(),
   isDarkModeEnabled: isDarkModeEnabled(),
-  searchResults: [],
   game: {
     image: '',
     name: '',
   },
-  isSearchingPokemon: false,
+  search: {
+    results: [],
+    isSearchingPokemon: false,
+    types: [],
+  },
+  allTypes: [],
+  pokemonsByType: new Map(),
 });
 
 export default {
@@ -137,28 +146,90 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    if (state.isSearchingPokemon) {
+    if (state.search.isSearchingPokemon) {
       return;
     }
 
-    state.isSearchingPokemon = true;
-    if (!state.allPokemons.length) {
+    if (!state.allPokemons.length || !state.pokemonsByType.size) {
       return;
     }
-    state.searchResults = state.allPokemons.filter((pokemon) =>
-      pokemon.includes(searchTerm)
-    );
-    state.isSearchingPokemon = false;
+
+    state.search.isSearchingPokemon = true;
+
+    if (state.search.types.length) {
+      let repeatedResults = [];
+      state.search.types.forEach((type) => {
+        const filteredPokemonNamesByType = state.pokemonsByType
+          .get(type)
+          .filter((pokemon) => pokemon.includes(searchTerm));
+        repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
+      });
+
+      if (state.search.types.length === 1) {
+        state.search.isSearchingPokemon = false;
+        state.search.results = repeatedResults;
+        return;
+      }
+
+      const namesCount = {};
+      repeatedResults.forEach(function (name) {
+        namesCount[name] = (namesCount[name] ?? 0) + 1;
+      });
+
+      const results = Object.entries(namesCount).filter(
+        (nameCount) => nameCount[1] === state.search.types.length
+      );
+
+      state.search.results = results.map((nameCount) => nameCount[0]);
+    } else {
+      state.search.results = state.allPokemons.filter((pokemon) =>
+        pokemon.includes(searchTerm)
+      );
+    }
+
+    state.search.isSearchingPokemon = false;
   },
 
-  async clearSearchResults() {
-    state.searchResults = [];
+  clearSearchResults() {
+    state.search.results = [];
   },
 
   async getNewMysteryPokemon() {
     const newMysteryPokemon = (await getRandomPokemonsApi(1))[0];
     state.game.image = newMysteryPokemon.sprites.front_default;
     state.game.name = newMysteryPokemon.name;
+  },
+
+  async getAllTypes() {
+    const allTypes = await getAllTypesApi();
+    state.allTypes = allTypes;
+    await Promise.all(
+      allTypes.map(async (type) => {
+        const pokemons = await getPokemonsByTypeApi(type);
+        const filteredPokemonNames = pokemons.filter(
+          (pokemon) => !pokemon.includes('-')
+        );
+        if (filteredPokemonNames.length) {
+          state.pokemonsByType.set(type, filteredPokemonNames);
+          return;
+        }
+        const index = state.allTypes.findIndex((t) => t === type);
+        state.allTypes.splice(index, 1);
+      })
+    );
+  },
+
+  async toggleTypeFilter(type) {
+    if (state.search.types.includes(type)) {
+      const index = state.search.types.findIndex((t) => type === t);
+      state.search.types.splice(index, 1);
+      return;
+    }
+    state.search.types.push(type);
+  },
+
+  clearFilters() {
+    state.search.types = [];
   },
 
   getPokemonData(pokemon) {

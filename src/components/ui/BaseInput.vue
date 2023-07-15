@@ -75,6 +75,7 @@ export default {
     reset(reset) {
       if (reset) {
         this.$refs['input'].value = '';
+        this.$emit('inputValueChanged', '');
       }
     },
     focus(focus) {

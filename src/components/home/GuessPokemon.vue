@@ -193,7 +193,6 @@ export default {
       this.loading = true;
       await store.getNewMysteryPokemon();
       this.reset = true;
-      this.playersGuess = '';
       this.tries = 3;
       this.loading = false;
 
