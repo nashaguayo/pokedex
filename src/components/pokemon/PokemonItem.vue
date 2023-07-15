@@ -1,38 +1,50 @@
 <template>
-  <BaseLoader :loading="loading" :coverPage="true">
-    <CenteredColumn class="pokemon-item" ref="pokemonItem">
+  <CenteredColumn class="pokemon-item" ref="pokemonItem">
+    <transition name="flip-open" appear>
       <PokemonItemHeader
+        v-if="hasHeader"
         :name="name"
         :image="image"
         :topPosition="topPosition"
         v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
-      <CenteredColumn class="pokemon-info-container">
-        <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
-        <PokemonItemStats :stats="stats" />
-        <PokemonItemType :types="types" />
-      </CenteredColumn>
+    </transition>
+    <CenteredColumn class="pokemon-info-container">
+      <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
+      <transition name="flip-open" appear>
+        <PokemonItemStats v-if="hasStats" :stats="stats" />
+      </transition>
+      <transition name="flip-open" appear>
+        <PokemonItemType v-if="hasTypes" :types="types"
+      /></transition>
+    </CenteredColumn>
+    <transition name="flip-open" appear>
       <PokemonItemEvolutions
+        v-if="hasEvolutions"
         :evolutions="evolutions"
         :pokemonId="id"
         :pokemonName="name"
       />
-      <PokemonItemDescription :flavorTexts="flavorTexts" />
-      <BaseButton
-        class="go-back-button"
-        :onClickHandler="goBack"
-        :variant="true"
-        :big="true"
-      >
-        Go Back
-      </BaseButton>
-    </CenteredColumn>
-  </BaseLoader>
+    </transition>
+    <transition name="flip-open" appear>
+      <PokemonItemDescription
+        v-if="hasFlavorTexts"
+        :flavorTexts="flavorTexts"
+      />
+    </transition>
+    <BaseButton
+      class="go-back-button"
+      :onClickHandler="goBack"
+      :variant="true"
+      :big="true"
+    >
+      Go Back
+    </BaseButton>
+  </CenteredColumn>
 </template>
 
 <script>
 import { throttle } from 'lodash';
-import BaseLoader from '@/components/ui/BaseLoader.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
@@ -43,12 +55,10 @@ import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.
 import { getPokemonPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
-import silouette from '@/assets/pokemons/silouette.png';
 
 export default {
   name: 'PokemonItem',
   components: {
-    BaseLoader,
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
@@ -74,39 +84,41 @@ export default {
       return this.$route.params.id;
     },
     id() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id;
     },
     name() {
-      return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name ?? '???'
-      );
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name;
     },
     image() {
-      return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image ??
-        silouette
-      );
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
     },
     stats() {
-      return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats ?? []
-      );
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats;
     },
     types() {
-      return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types ?? []
-      );
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types;
     },
     evolutions() {
-      return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions ?? []
-      );
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
     },
     flavorTexts() {
-      return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
-        []
-      );
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)
+        ?.flavorTexts;
+    },
+    hasHeader() {
+      return !!this.name && !!this.image;
+    },
+    hasStats() {
+      return !!this.stats?.length;
+    },
+    hasTypes() {
+      return !!this.types?.length;
+    },
+    hasEvolutions() {
+      return !!this.evolutions?.length;
+    },
+    hasFlavorTexts() {
+      return !!this.flavorTexts?.length;
     },
   },
   async created() {
@@ -229,5 +241,15 @@ export default {
 
 .pokemon-item::-webkit-scrollbar {
   display: none;
+}
+
+.flip-open-enter-active,
+.flip-open-leave-active {
+  transition: transform 0.3s linear;
+}
+
+.flip-open-enter,
+.flip-open-leave-to {
+  transform: scaleY(0);
 }
 </style>

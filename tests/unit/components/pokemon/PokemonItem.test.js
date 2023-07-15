@@ -39,20 +39,7 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
-    pokemon: new Map([
-      ['id', 1],
-      ['name', 'pikachu'],
-      ['image', 'pikachu.png'],
-      [
-        'stats',
-        [
-          { name: 'hp', value: '50' },
-          { name: 'attack', value: '20' },
-        ],
-      ],
-      ['types', ['fire']],
-      ['evolutions', [{ name: 'pika', image: 'pika.png' }]],
-    ]),
+    pokemon: new Map([]),
   },
   getPokemon: jest.fn(),
 }));
@@ -91,12 +78,13 @@ describe('PokemonItem', () => {
   });
 
   it('renders its respective components', () => {
+    console.log('aaaaaaa', wrapper.html());
     expect(wrapper.find('basebutton-stub').exists()).toBe(true);
     expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(false);
+    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(false);
+    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(false);
+    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(false);
+    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(false);
   });
 });
