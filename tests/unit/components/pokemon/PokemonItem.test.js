@@ -91,7 +91,6 @@ describe('PokemonItem', () => {
   });
 
   it('renders its respective components', () => {
-    console.log('aaaaa', wrapper.html());
     expect(wrapper.find('basebutton-stub').exists()).toBe(true);
     expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);

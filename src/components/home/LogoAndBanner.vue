@@ -1,7 +1,7 @@
-<template>
+<template functional>
   <CenteredColumn>
     <img class="logo-image" src="@/assets/home/pokedex-logo.png" />
-    <h1 v-if="subtitle">{{ subtitle }}</h1>
+    <h1 v-if="props.subtitle">{{ props.subtitle }}</h1>
     <img class="banner" src="@/assets/home/pokemons.jpg" />
   </CenteredColumn>
 </template>
