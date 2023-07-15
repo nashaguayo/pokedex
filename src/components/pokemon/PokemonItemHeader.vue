@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import silouette from '@/assets/pokemons/silouette.png';
 import { capitalizeWord } from '@/lib/helpers';
@@ -52,6 +53,13 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  mounted() {
+    this.debouncedSetLocationHeight = debounce(this.setLocationHeight, 50);
+    window.addEventListener('resize', this.debouncedSetLocationHeight);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.debouncedSetLocationHeight);
   },
   methods: {
     capitalizeWord,
