@@ -22,16 +22,18 @@
         {{ t }}
       </div>
     </div>
-    <span
-      class="no-results"
-      v-if="
-        (searchTerm.length >= 3 ||
-          (searchTerm.length < 3 && filteringTypes.length)) &&
-        !searchResults.length
-      "
-    >
-      No results found
-    </span>
+    <transition name="slide-from-above" mode="out-in" appear>
+      <span
+        class="no-results"
+        v-if="
+          (searchTerm.length >= 3 ||
+            (searchTerm.length < 3 && filteringTypes.length)) &&
+          !searchResults.length
+        "
+      >
+        No results found
+      </span>
+    </transition>
     <BaseLoader :loading="loading">
       <div class="results">
         <transition-group name="slide-from-right" appear>
@@ -214,6 +216,17 @@ export default {
 .slide-from-right-enter,
 .slide-from-right-leave-to {
   transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-from-above-enter-active,
+.slide-from-above-leave-active {
+  transition: all 0.3s;
+}
+
+.slide-from-above-enter,
+.slide-from-above-leave-to {
+  transform: translateY(-100%);
   opacity: 0;
 }
 </style>
