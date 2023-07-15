@@ -7,7 +7,6 @@
       @inputValueChanged="setSearchTerm"
       :model="searchTerm"
       class="search-input"
-      :lazy="true"
     />
     <div class="types">
       <div
@@ -26,7 +25,8 @@
     <span
       class="no-results"
       v-if="
-        (searchTerm.length >= 3 || filteringTypes.length) &&
+        (searchTerm.length >= 3 ||
+          (searchTerm.length < 3 && filteringTypes.length)) &&
         !searchResults.length
       "
     >
