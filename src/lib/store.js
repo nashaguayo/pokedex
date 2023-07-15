@@ -158,9 +158,13 @@ export default {
 
     if (state.search.types.length) {
       state.search.types.forEach((type) => {
-        state.search.results = state.pokemonsByType
-          .get(type)
-          .filter((pokemon) => pokemon.includes(searchTerm));
+        state.search.results = [
+          ...new Set(
+            state.pokemonsByType
+              .get(type)
+              .filter((pokemon) => pokemon.includes(searchTerm))
+          ),
+        ];
       });
       state.search.isSearchingPokemon = false;
       return;
