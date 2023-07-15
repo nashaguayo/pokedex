@@ -187,14 +187,20 @@ export default {
   },
 
   async getAllTypes() {
-    state.allTypes = await getAllTypesApi();
+    const allTypes = await getAllTypesApi();
+    state.allTypes = allTypes;
     await Promise.all(
-      state.allTypes.map(async (type) => {
+      allTypes.map(async (type) => {
         const pokemons = await getPokemonsByTypeApi(type);
         const filteredPokemonNames = pokemons.filter(
           (pokemon) => !pokemon.includes('-')
         );
-        state.pokemonsByType.set(type, filteredPokemonNames);
+        if (filteredPokemonNames.length) {
+          state.pokemonsByType.set(type, filteredPokemonNames);
+          return;
+        }
+        const index = state.allTypes.findIndex((t) => t === type);
+        state.allTypes.splice(index, 1);
       })
     );
   },
