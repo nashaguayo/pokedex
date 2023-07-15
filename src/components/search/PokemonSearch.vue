@@ -159,6 +159,7 @@ export default {
     .type {
       border-radius: 1rem;
       padding: 0.3rem;
+      transition: all 0.3s;
 
       &.inactive {
         background-color: var(--disabled-button-background-color);
