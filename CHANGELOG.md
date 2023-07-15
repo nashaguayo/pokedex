@@ -14,6 +14,7 @@
 - Optimized search again
 - Added loader to search page
 - Using functional components across the app
+- Added stat bars on pokemon details page
 
 ##### Fixed
 
