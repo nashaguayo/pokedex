@@ -48,6 +48,18 @@ export default {
     padding: 1rem;
     box-shadow: var(--main-box-shadow);
 
+    @media (min-width: $min-width-second-break) {
+      width: 23rem;
+    }
+
+    @media (min-width: $min-width-third-break) {
+      width: 33rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      width: auto;
+    }
+
     span {
       color: var(--secondary-text-color);
 

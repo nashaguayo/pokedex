@@ -232,7 +232,7 @@ export default {
       margin-top: 0;
       margin-left: 3rem;
       grid-row-start: 1;
-      grid-row-end: 3;
+      grid-row-end: 4;
     }
 
     .pokemon-name {
@@ -256,6 +256,7 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
+      grid-row-start: 19;
       justify-self: center;
       width: calc(100% - 6rem);
     }
