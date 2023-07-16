@@ -99,12 +99,20 @@ export default {
   }
 
   .home-icon-link {
-    height: 4rem;
-    margin-left: 1.5rem;
+    margin: 0.5rem 1rem;
+    height: 3rem;
+
+    @media (min-width: $min-width-first-break) {
+      margin: 1rem 2rem;
+    }
+
+    @media (min-width: $min-width-third-break) {
+      height: 4rem;
+    }
   }
 
   .pokemons-link {
-    margin-left: 1rem;
+    margin-right: 2rem;
   }
 
   .darkmode {
@@ -113,7 +121,7 @@ export default {
 
   .icon {
     cursor: pointer;
-    margin-left: 2rem;
+    margin-right: 2rem;
   }
 
   .flip-enter-active,
