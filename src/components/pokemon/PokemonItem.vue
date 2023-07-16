@@ -11,6 +11,11 @@
     </transition>
     <CenteredColumn class="pokemon-info-container">
       <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
+      <PokemonItemCharacteristics
+        :characteristic="characteristic"
+        :height="height"
+        :weight="weight"
+      />
       <transition name="flip-open" appear>
         <PokemonItemStats v-if="hasStats" :stats="stats" />
       </transition>
@@ -48,6 +53,7 @@ import { throttle } from 'lodash';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
+import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacteristics.vue';
 import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
@@ -62,6 +68,7 @@ export default {
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
+    PokemonItemCharacteristics,
     PokemonItemStats,
     PokemonItemType,
     PokemonItemEvolutions,
@@ -104,6 +111,22 @@ export default {
     flavorTexts() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)
         ?.flavorTexts;
+    },
+    characteristic() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)
+          ?.characteristic ?? ''
+      );
+    },
+    weight() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.weight ?? 0
+      );
+    },
+    height() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.height ?? 0
+      );
     },
     hasHeader() {
       return !!this.name && !!this.image;
@@ -209,7 +232,7 @@ export default {
       margin-top: 0;
       margin-left: 3rem;
       grid-row-start: 1;
-      grid-row-end: 3;
+      grid-row-end: 4;
     }
 
     .pokemon-name {
@@ -233,6 +256,7 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
+      grid-row-start: 19;
       justify-self: center;
       width: calc(100% - 6rem);
     }

@@ -12,6 +12,7 @@ import {
   getAllTypes as getAllTypesApi,
   getPokemonsByType as getPokemonsByTypeApi,
 } from '@/api/types';
+import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
@@ -37,6 +38,7 @@ const state = Vue.observable({
   },
   allTypes: [],
   pokemonsByType: new Map(),
+  allCharacteristics: [],
 });
 
 export default {
@@ -102,8 +104,20 @@ export default {
     const flavorTexts = pokemon.species.url
       ? await getFlavorTextsForSpeciesApi(pokemon.species.url)
       : [];
+    let highestStatName = '';
+    let highestStatValue = 0;
     const stats = pokemon.stats.map((s) => {
+      if (s.base_stat > highestStatValue) {
+        highestStatName = s.stat.name;
+        highestStatValue = s.base_stat;
+      }
       return { name: s.stat.name, value: s.base_stat };
+    });
+    let characteristic = '';
+    state.allCharacteristics.get(highestStatName).map((c) => {
+      if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {
+        characteristic = c.description;
+      }
     });
     const image =
       pokemon.sprites.other.dream_world.front_default ??
@@ -111,6 +125,9 @@ export default {
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
+    const height = pokemon.height;
+    const weight = pokemon.weight;
+
     state.pokemon.set(name, {
       id,
       name,
@@ -119,6 +136,9 @@ export default {
       types,
       evolutions,
       flavorTexts,
+      characteristic,
+      height,
+      weight,
     });
     state.pokemon.set(id, {
       id,
@@ -128,6 +148,9 @@ export default {
       types,
       evolutions,
       flavorTexts,
+      characteristic,
+      height,
+      weight,
     });
   },
 
@@ -226,6 +249,10 @@ export default {
       return;
     }
     state.search.types.push(type);
+  },
+
+  async getAllCharacteristicsDescriptions() {
+    state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
 
   clearFilters() {
