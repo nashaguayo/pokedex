@@ -9,6 +9,7 @@
 - Displaying Pokemon Types and IDs
 - Pokemon Fun Facts
 - Filtering pokemons by type in search
+- Pokemon characteristics
 
 ##### Modified
 
