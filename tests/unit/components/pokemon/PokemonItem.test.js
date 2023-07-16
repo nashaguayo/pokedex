@@ -17,6 +17,11 @@ jest.mock('@/components/pokemon/PokemonItemHeader.vue', () => ({
   template: '<div class="mocked-pokemon-item-header"></div>',
 }));
 
+jest.mock('@/components/pokemon/PokemonItemCharacteristics.vue', () => ({
+  name: 'PokemonItemCharacteristics',
+  template: '<div class="mocked-pokemon-item-characteristics"></div>',
+}));
+
 jest.mock('@/components/pokemon/PokemonItemStats.vue', () => ({
   name: 'PokemonItemStats',
   template: '<div class="mocked-pokemon-item-stats"></div>',
