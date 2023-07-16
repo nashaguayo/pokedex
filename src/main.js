@@ -14,6 +14,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 
@@ -29,6 +30,7 @@ library.add(faChevronRight);
 library.add(faChevronLeft);
 library.add(faMagnifyingGlass);
 library.add(faStar);
+library.add(faBookOpen);
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 

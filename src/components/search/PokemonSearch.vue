@@ -72,11 +72,7 @@
       </div>
     </BaseLoader>
     <div class="go-back">
-      <BaseButton
-        :onClickHandler="goToPokemonsPage"
-        :big="true"
-        :variant="true"
-      >
+      <BaseButton :onClickHandler="goBack" :big="true" :variant="true">
         Go Back
       </BaseButton>
     </div>
@@ -137,8 +133,8 @@ export default {
     goToPokemonPage(pokemon) {
       this.$router.push({ name: 'pokemon', params: { id: pokemon } });
     },
-    goToPokemonsPage() {
-      this.$router.push({ name: 'pokemons' });
+    goBack() {
+      this.$router.back();
     },
     setSearchTerm(searchTerm) {
       this.reset = false;

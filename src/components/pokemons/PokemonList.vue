@@ -6,13 +6,6 @@
     </template>
     <template v-else>
       <h1>Pokemons</h1>
-      <router-link :to="{ name: 'search' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-magnifying-glass"
-          size="3x"
-          class="search"
-        />
-      </router-link>
       <transition-group name="slide-up" appear class="pokemons">
         <PokemonListCard
           v-for="pokemon in pokemons"
@@ -85,14 +78,6 @@ export default {
 <style lang="scss" scoped>
 .pokemon-list {
   margin-bottom: 2rem;
-
-  .search {
-    margin-bottom: 1rem;
-
-    @media (min-width: $min-width-second-break) {
-      margin-bottom: 2rem;
-    }
-  }
 
   .pokemons {
     display: grid;
