@@ -8,8 +8,27 @@
           class="url home-icon-link"
         />
       </router-link>
-      <router-link to="/pokemons">
+      <router-link class="desktop" :to="{ name: 'pokemons' }">
         <h2 class="url pokemons-link">Pokemons</h2>
+      </router-link>
+      <router-link class="mobile" :to="{ name: 'pokemons' }">
+        <FontAwesomeIcon
+          icon="fa-solid fa-book-open"
+          :color="isDarkModeEnabled ? 'white' : 'black'"
+          size="2x"
+          class="icon"
+        />
+      </router-link>
+      <router-link class="desktop" :to="{ name: 'search' }">
+        <h2 class="url pokemons-link">Search</h2>
+      </router-link>
+      <router-link class="mobile" :to="{ name: 'search' }">
+        <FontAwesomeIcon
+          icon="fa-solid fa-magnifying-glass"
+          :color="isDarkModeEnabled ? 'white' : 'black'"
+          size="2x"
+          class="icon"
+        />
       </router-link>
     </div>
     <div class="darkmode">
@@ -94,6 +113,7 @@ export default {
 
   .icon {
     cursor: pointer;
+    margin-left: 2rem;
   }
 
   .flip-enter-active,
@@ -104,6 +124,20 @@ export default {
   .flip-enter,
   .flip-leave-to {
     transform: scaleX(0);
+  }
+
+  .desktop {
+    display: none;
+
+    @media (min-width: $min-width-third-break) {
+      display: block;
+    }
+  }
+
+  .mobile {
+    @media (min-width: $min-width-third-break) {
+      display: none;
+    }
   }
 }
 </style>
