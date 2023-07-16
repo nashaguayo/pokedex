@@ -40,7 +40,6 @@ export async function getCharacteristicDescription(characteristicUrl) {
     const results = await pokemonApi.get(
       characteristicUrl.replace(process.env.VUE_APP_POKEAPI_URL, '')
     );
-    // TODO: Create constant for language
     const filteredResult = results.data.descriptions.filter(
       (description) => description.language.name == 'en'
     );

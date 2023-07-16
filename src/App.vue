@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: Add loader -->
   <div id="app">
     <CenteredColumn class="base-page">
       <CenteredColumn
