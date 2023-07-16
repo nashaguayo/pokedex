@@ -9,9 +9,13 @@
         v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
     </transition>
-    <PokemonItemCharacteristics />
     <CenteredColumn class="pokemon-info-container">
       <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
+      <PokemonItemCharacteristics
+        :characteristic="characteristic"
+        :height="height"
+        :weight="weight"
+      />
       <transition name="flip-open" appear>
         <PokemonItemStats v-if="hasStats" :stats="stats" />
       </transition>
@@ -107,6 +111,22 @@ export default {
     flavorTexts() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)
         ?.flavorTexts;
+    },
+    characteristic() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)
+          ?.characteristic ?? ''
+      );
+    },
+    weight() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.weight ?? 0
+      );
+    },
+    height() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.height ?? 0
+      );
     },
     hasHeader() {
       return !!this.name && !!this.image;

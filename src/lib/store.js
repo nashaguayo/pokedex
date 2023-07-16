@@ -113,12 +113,20 @@ export default {
       }
       return { name: s.stat.name, value: s.base_stat };
     });
+    let characteristic = '';
+    state.allCharacteristics.get(highestStatName).map((c) => {
+      if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {
+        characteristic = c.description;
+      }
+    });
     const image =
       pokemon.sprites.other.dream_world.front_default ??
       pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
+    const height = pokemon.height;
+    const weight = pokemon.weight;
 
     state.pokemon.set(name, {
       id,
@@ -128,8 +136,9 @@ export default {
       types,
       evolutions,
       flavorTexts,
-      highestStatName,
-      highestStatValue,
+      characteristic,
+      height,
+      weight,
     });
     state.pokemon.set(id, {
       id,
@@ -139,8 +148,9 @@ export default {
       types,
       evolutions,
       flavorTexts,
-      highestStatName,
-      highestStatValue,
+      characteristic,
+      height,
+      weight,
     });
   },
 
