@@ -10,6 +10,7 @@
 - Pokemon Fun Facts
 - Filtering pokemons by type in search
 - Pokemon characteristics
+- Added links on header
 
 ##### Modified
 
@@ -17,6 +18,7 @@
 - Added loader to search page
 - Using functional components across the app
 - Added stat bars on pokemon details page
+- Header looks on mobile
 
 ##### Fixed
 
