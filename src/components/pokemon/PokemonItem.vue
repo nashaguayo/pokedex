@@ -11,11 +11,14 @@
     </transition>
     <CenteredColumn class="pokemon-info-container">
       <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
-      <PokemonItemCharacteristics
-        :characteristic="characteristic"
-        :height="height"
-        :weight="weight"
-      />
+      <transition name="flip-open" appear>
+        <PokemonItemCharacteristics
+          v-if="hasCharactristics"
+          :characteristic="characteristic"
+          :height="height"
+          :weight="weight"
+        />
+      </transition>
       <transition name="flip-open" appear>
         <PokemonItemStats v-if="hasStats" :stats="stats" />
       </transition>
@@ -130,6 +133,9 @@ export default {
     },
     hasHeader() {
       return !!this.name && !!this.image;
+    },
+    hasCharactristics() {
+      return !!this.weight && !!this.height && !!this.characteristic;
     },
     hasStats() {
       return !!this.stats?.length;
