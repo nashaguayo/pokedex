@@ -5,6 +5,8 @@
       <span>{{ props.weight }} pounds</span>
       <span class="right">Height</span>
       <span>{{ props.height }}"</span>
+      <span class="right">Color</span>
+      <span :style="{ color: props.color }">{{ props.color }}</span>
       <span class="characteristic">
         {{ props.characteristic }}
       </span>
@@ -29,6 +31,10 @@ export default {
     },
     height: {
       type: Number,
+      required: true,
+    },
+    color: {
+      type: String,
       required: true,
     },
   },

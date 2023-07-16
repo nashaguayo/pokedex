@@ -75,7 +75,7 @@ export async function getRandomPokemons(amount) {
   }
 }
 
-export async function getFlavorTextsForSpecies(url) {
+export async function getFlavorTextsAndColorForSpecies(url) {
   try {
     const response = await pokemonApi.get(url);
     const result = response.data.flavor_text_entries.filter(
@@ -85,11 +85,14 @@ export async function getFlavorTextsForSpecies(url) {
       text.flavor_text.replace(/\n/g, ' ').replace(/\f/g, ' ')
     );
     const flavorTextsWithoutRepetition = [...new Set(flavorTexts)];
-    return flavorTextsWithoutRepetition;
+    return {
+      flavorTexts: flavorTextsWithoutRepetition,
+      color: response.data.color.name,
+    };
   } catch (error) {
     logError(
-      getFlavorTextsForSpecies.name,
-      'Unable to retrieve flavor texts',
+      getFlavorTextsAndColorForSpecies.name,
+      'Unable to retrieve flavor texts or color',
       error
     );
   }

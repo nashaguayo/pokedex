@@ -17,6 +17,7 @@
           :characteristic="characteristic"
           :height="height"
           :weight="weight"
+          :color="color"
         />
       </transition>
       <transition name="flip-open" appear>
@@ -129,6 +130,11 @@ export default {
     height() {
       return (
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.height ?? 0
+      );
+    },
+    color() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
       );
     },
     hasHeader() {
