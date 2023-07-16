@@ -5,7 +5,7 @@ import {
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
-  getFlavorTextsForSpecies as getFlavorTextsForSpeciesApi,
+  getFlavorTextsAndColorForSpecies as getFlavorTextsAndColorForSpeciesApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
 import {
@@ -101,8 +101,8 @@ export default {
     }
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
-    const flavorTexts = pokemon.species.url
-      ? await getFlavorTextsForSpeciesApi(pokemon.species.url)
+    const { flavorTexts, color } = pokemon.species.url
+      ? await getFlavorTextsAndColorForSpeciesApi(pokemon.species.url)
       : [];
     let highestStatName = '';
     let highestStatValue = 0;
@@ -139,6 +139,7 @@ export default {
       characteristic,
       height,
       weight,
+      color,
     });
     state.pokemon.set(id, {
       id,
@@ -151,6 +152,7 @@ export default {
       characteristic,
       height,
       weight,
+      color,
     });
   },
 
@@ -169,11 +171,11 @@ export default {
   },
 
   async searchPokemons(searchTerm) {
-    if (state.search.isSearchingPokemon) {
-      return;
-    }
-
-    if (!state.allPokemons.length || !state.pokemonsByType.size) {
+    if (
+      state.search.isSearchingPokemon ||
+      !state.allPokemons.length ||
+      !state.pokemonsByType.size
+    ) {
       return;
     }
 
