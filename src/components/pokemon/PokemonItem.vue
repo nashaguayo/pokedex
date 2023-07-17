@@ -213,7 +213,6 @@ export default {
   @media (min-width: $min-width-fourth-break) {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
     margin: 0rem 3rem 0;
     padding-top: 3rem;
     align-items: start;
@@ -268,7 +267,6 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
-      grid-row-start: 19;
       justify-self: center;
       width: calc(100% - 6rem);
     }
