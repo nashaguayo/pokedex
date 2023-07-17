@@ -2,7 +2,17 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.3...HEAD) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.0...HEAD) (dd-mm-yyyy)
+
+##### Added
+
+##### Modified
+
+##### Fixed
+
+---
+
+## [V0.2.0](https://github.com/nashaguayo/pokedex/compare/V0.1.3...V0.2.0) (17-07-2023)
 
 ##### Added
 
