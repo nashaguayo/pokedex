@@ -140,6 +140,7 @@ export default {
     hasWon(hasWon) {
       if (hasWon) {
         this.timerEnabled = true;
+        this.tries = 3;
         this.guessesInARow++;
       }
     },
