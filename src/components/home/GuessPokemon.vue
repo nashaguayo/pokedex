@@ -206,7 +206,7 @@ export default {
     setPlayersGuess(playersGuess) {
       this.reset = false;
       this.playersGuess = playersGuess;
-      if (!this.hasWon) {
+      if (!this.hasWon && playersGuess.length) {
         this.tries--;
       }
     },
