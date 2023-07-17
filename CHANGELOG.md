@@ -10,6 +10,8 @@
 
 ##### Fixed
 
+- User has three tries again at Guess the Pokemon Game
+
 ---
 
 ## [V0.2.0](https://github.com/nashaguayo/pokedex/compare/V0.1.3...V0.2.0) (17-07-2023)
