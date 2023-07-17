@@ -6,7 +6,7 @@
   >
     <img
       class="location"
-      src="@assets/pokemons/location.jpg"
+      src="@/assets/pokemons/location.jpg"
       :height="locationHeight"
       :width="locationWidth"
     />
@@ -20,14 +20,15 @@
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
-    <h2 id="pokemon-name">{{ capitalizeWord(name) }}</h2>
+    <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
   </CenteredColumn>
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import silouette from '@assets/pokemons/silouette.png';
-import { capitalizeWord } from '@lib/helpers';
+import debounce from 'lodash/debounce';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import silouette from '@/assets/pokemons/silouette.png';
+import { capitalizeWord } from '@/lib/helpers';
 
 export default {
   name: 'PokemonItemHeader',
@@ -53,6 +54,13 @@ export default {
       required: true,
     },
   },
+  mounted() {
+    this.debouncedSetLocationHeight = debounce(this.setLocationHeight, 50);
+    window.addEventListener('resize', this.debouncedSetLocationHeight);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.debouncedSetLocationHeight);
+  },
   methods: {
     capitalizeWord,
     setLocationHeight() {
@@ -64,8 +72,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .pokemon-item-header {
   width: 100%;
   position: relative;
@@ -137,7 +143,7 @@ export default {
     }
   }
 
-  #pokemon-name {
+  .pokemon-name {
     margin-top: -2rem;
     z-index: 10;
     color: var(--variant-text-color);

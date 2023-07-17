@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonsView from '@views/PokemonsView.vue';
+import PokemonsView from '@/views/PokemonsView.vue';
 
-jest.mock('@components/pokemons/PokemonList.vue', () => ({
+jest.mock('@/components/pokemons/PokemonList.vue', () => ({
   name: 'PokemonList',
   template: '<div class="mocked-pokemon-list"></div>',
 }));

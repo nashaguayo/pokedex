@@ -1,6 +1,6 @@
 <template>
   <CenteredColumn class="pokemon-item-evolutions">
-    <span id="title">Evolutions</span>
+    <span class="title">Evolutions</span>
     <div class="card">
       <CenteredColumn class="evolution">
         <transition name="fade" mode="out-in">
@@ -8,7 +8,7 @@
             {{ species }}
           </span>
         </transition>
-        <span v-if="evolutions.length === 1" id="no-evolutions">
+        <span v-if="evolutions.length === 1" class="no-evolutions">
           This pokemon has no evolutions!
         </span>
         <router-link v-else :to="`/pokemons/${species}`">
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import BaseChevron from '@components/ui/BaseChevron.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import BaseChevron from '@/components/ui/BaseChevron.vue';
 
 export default {
   name: 'PokemonItemEvolutions',
@@ -93,8 +93,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .pokemon-item-evolutions {
   margin: 1rem 0;
 
@@ -102,7 +100,7 @@ export default {
     margin: 0;
   }
 
-  #title {
+  .title {
     font-size: 2rem;
 
     @media (min-width: $min-width-fourth-break) {
@@ -112,7 +110,7 @@ export default {
     }
   }
 
-  #no-evolutions {
+  .no-evolutions {
     margin-bottom: 1rem;
     text-align: center;
     color: var(--secondary-text-color);

@@ -1,26 +1,21 @@
 <template>
   <CenteredColumn class="pokemon-list">
-    <template v-if="!pokemons.length">
+    <template v-if="!pokemons.length && !loading">
       <h2>Something went wrong!</h2>
       <p>No pokemons to display.</p>
     </template>
     <template v-else>
       <h1>Pokemons</h1>
-      <router-link :to="{ name: 'search' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-magnifying-glass"
-          size="3x"
-          class="search"
-        />
-      </router-link>
-      <div class="pokemons">
+      <transition-group name="slide-up" appear class="pokemons">
         <PokemonListCard
           v-for="pokemon in pokemons"
           :key="pokemon.name"
+          :id="pokemon.id"
           :name="pokemon.name"
           :image="pokemon.image"
+          :types="pokemon.types"
         />
-      </div>
+      </transition-group>
       <BaseLoader :loading="loading" />
     </template>
   </CenteredColumn>
@@ -28,11 +23,11 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import PokemonListCard from '@components/pokemons/PokemonListCard';
-import BaseLoader from '@components/ui/BaseLoader.vue';
-import CenteredColumn from '@components/ui/CenteredColumn';
-import { getPageBackgroundElement } from '@lib/helpers';
-import store from '@lib/store';
+import PokemonListCard from '@/components/pokemons/PokemonListCard';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import { getPageBackgroundElement } from '@/lib/helpers';
+import store from '@/lib/store';
 
 export default {
   name: 'PokemonList',
@@ -81,14 +76,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .pokemon-list {
   margin-bottom: 2rem;
-
-  .search {
-    margin-bottom: 1rem;
-  }
 
   .pokemons {
     display: grid;
@@ -113,23 +102,16 @@ export default {
       grid-template-columns: repeat(5, 1fr);
     }
   }
-
-  .header {
-  }
 }
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: opacity 0.3s;
+  transition: all 0.3s;
 }
 
 .slide-up-enter,
 .slide-up-leave-to {
-  opacity: 1;
-}
-
-.slide-up-enter-to,
-.slide-up-leave-from {
   opacity: 0;
+  transform: translateY(5rem);
 }
 </style>

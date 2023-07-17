@@ -11,7 +11,7 @@
     </div>
     <transition name="flip" mode="out-in">
       <span
-        id="game-results"
+        class="game-results"
         :key="gameResultsText"
         :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
         >{{ gameResultsText }}</span
@@ -77,11 +77,11 @@
 </template>
 
 <script>
-import BaseLoader from '@components/ui/BaseLoader';
-import CenteredColumn from '@components/ui/CenteredColumn';
-import BaseInput from '@components/ui/BaseInput';
-import BaseButton from '@components/ui/BaseButton';
-import store from '@lib/store';
+import BaseLoader from '@/components/ui/BaseLoader';
+import CenteredColumn from '@/components/ui/CenteredColumn';
+import BaseInput from '@/components/ui/BaseInput';
+import BaseButton from '@/components/ui/BaseButton';
+import store from '@/lib/store';
 
 export default {
   name: 'GuessPokemon',
@@ -193,7 +193,6 @@ export default {
       this.loading = true;
       await store.getNewMysteryPokemon();
       this.reset = true;
-      this.playersGuess = '';
       this.tries = 3;
       this.loading = false;
 
@@ -224,7 +223,7 @@ export default {
 
   max-width: 25rem;
   .background-image {
-    background-image: url(@assets/home/mystery-pokemon.jpg);
+    background-image: url(@/assets/home/mystery-pokemon.jpg);
     background-size: cover;
     width: 20rem;
     height: 12rem;
@@ -246,7 +245,7 @@ export default {
     }
   }
 
-  #game-results {
+  .game-results {
     margin-top: 1rem;
     margin-bottom: -1rem;
     text-align: center;

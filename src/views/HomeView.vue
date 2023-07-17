@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import ErrorBoundary from '@components/ui/ErrorBoundary.vue';
-import LogoAndBanner from '@components/home/LogoAndBanner.vue';
-import RandomPokemon from '@components/home/RandomPokemon.vue';
-import GuessPokemon from '@components/home/GuessPokemon.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
+import LogoAndBanner from '@/components/home/LogoAndBanner.vue';
+import RandomPokemon from '@/components/home/RandomPokemon.vue';
+import GuessPokemon from '@/components/home/GuessPokemon.vue';
 
 export default {
   name: 'HomeView',

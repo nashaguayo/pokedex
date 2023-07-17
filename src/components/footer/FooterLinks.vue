@@ -7,20 +7,25 @@
       throttle: 300,
     }"
   >
-    <div id="disclaimer">
+    <div class="disclaimer">
       <span>This is a project built for learning.</span>
     </div>
     <div class="logos">
-      <CenteredColumn id="fueled-by">
+      <CenteredColumn class="fueled-by">
         <span>Fueled by</span>
         <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
-          <img src="@assets/ui/pokeapi.png" alt="pokeapi logo" />
+          <img src="@/assets/ui/pokeapi.png" alt="pokeapi logo" />
         </a>
       </CenteredColumn>
-      <a :href="githubRepoUrl" id="repository" target="_blank" ref="noreferrer">
+      <a
+        :href="githubRepoUrl"
+        class="repository"
+        target="_blank"
+        ref="noreferrer"
+      >
         <img
-          src="@assets/ui/github-logo.jpeg"
-          id="github-logo"
+          src="@/assets/ui/github-logo.jpeg"
+          class="github-logo"
           alt="github logo"
         />
       </a>
@@ -29,7 +34,7 @@
 </template>
 
 <script>
-import CenteredColumn from '../ui/CenteredColumn.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 export default {
   name: 'FooterLinks',
@@ -71,8 +76,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .footer-links {
   background-color: var(--variant-background-color);
   box-shadow: var(--main-box-shadow);
@@ -83,7 +86,7 @@ export default {
     justify-content: space-around;
   }
 
-  #disclaimer {
+  .disclaimer {
     margin: 0 1rem;
     display: flex;
     flex-direction: column;
@@ -109,7 +112,7 @@ export default {
   .logos {
     display: flex;
 
-    #fueled-by {
+    .fueled-by {
       justify-content: center;
 
       span {
@@ -121,7 +124,7 @@ export default {
       }
     }
 
-    #github-logo {
+    .github-logo {
       width: 4.2rem;
       margin: 1rem;
     }

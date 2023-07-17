@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import ScrollToTop from '@components/footer/ScrollToTop.vue';
-import FooterLinks from '@components/footer/FooterLinks.vue';
+import ScrollToTop from '@/components/footer/ScrollToTop.vue';
+import FooterLinks from '@/components/footer/FooterLinks.vue';
 
 export default {
   name: 'BaseFooter',
@@ -28,12 +28,12 @@ export default {
   data() {
     return {
       hasToUpdateMargin: false,
-      marginBottom: 30,
+      marginBottom: 50,
     };
   },
   methods: {
     setMargin(height) {
-      this.marginBottom = height + 20;
+      this.marginBottom = height + 30;
       this.hasToUpdateMargin = false;
     },
     updateMargin() {

@@ -23,17 +23,19 @@
 </template>
 
 <script>
-import CenteredColumn from './components/ui/CenteredColumn.vue';
-import BaseHeader from './components/ui/BaseHeader.vue';
-import BaseFooter from './components/ui/BaseFooter.vue';
-import store from '@lib/store';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import BaseHeader from '@/components/ui/BaseHeader.vue';
+import BaseFooter from '@/components/ui/BaseFooter.vue';
+import store from '@/lib/store';
 
 export default {
   name: 'App',
   components: { CenteredColumn, BaseHeader, BaseFooter },
-  created() {
+  async created() {
     this.setTheme(this.isDarkModeEnabled);
-    store.getAllPokemons();
+    await store.getAllPokemons();
+    await store.getAllTypes();
+    await store.getAllCharacteristicsDescriptions();
   },
   computed: {
     isDarkModeEnabled() {
@@ -63,24 +65,23 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@css/themes.scss';
-@import '@css/media-queries.scss';
+@import '@/assets/css/themes.scss';
 
 @font-face {
   font-family: 'Pokemon Solid';
   src: local('Pokemon Solid'),
-    url(@assets/fonts/pokemon-solid.ttf) format('truetype');
+    url(@/assets/fonts/pokemon-solid.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Pokemon Hollow';
   src: local('Pokemon Hollow'),
-    url(@assets/fonts/pokemon-hollow.ttf) format('truetype');
+    url(@/assets/fonts/pokemon-hollow.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Upheaval';
-  src: local('Upheaval'), url(@assets/fonts/upheaval.ttf) format('truetype');
+  src: local('Upheaval'), url(@/assets/fonts/upheaval.ttf) format('truetype');
 }
 
 html[data-theme='light'] {
@@ -161,65 +162,65 @@ a:active {
   text-decoration: none;
 }
 
+h1,
+h2,
+span,
+p {
+  color: var(--main-text-color);
+}
+
+span,
+p {
+  font-family: 'Upheaval';
+  color: var(--main-text-color);
+
+  @media (min-width: $min-width-first-break) {
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    font-size: 1.5rem;
+  }
+}
+
+h1 {
+  font-family: 'Pokemon Solid';
+  font-size: 1.5rem;
+
+  @media (min-width: $min-width-first-break) {
+    font-size: 1.8rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    font-size: 2.5rem;
+  }
+}
+
+h2 {
+  font-family: 'Pokemon Hollow';
+  font-size: 1.2rem;
+
+  @media (min-width: $min-width-first-break) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: $min-width-second-break) {
+    font-size: 2rem;
+  }
+}
+
+h1,
+h2 {
+  text-shadow: var(--variant-background-color) 0 0 0.2rem;
+  letter-spacing: 0.25rem;
+  text-align: center;
+}
+
 #app {
   height: 100vh;
-  background-image: url(@assets/ui/wallpaper.jpg);
+  background-image: url(@/assets/ui/wallpaper.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-
-  h1,
-  h2,
-  span,
-  p {
-    color: var(--main-text-color);
-  }
-
-  span,
-  p {
-    font-family: 'Upheaval';
-    color: var(--main-text-color);
-
-    @media (min-width: $min-width-first-break) {
-      font-size: 1.2rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      font-size: 1.5rem;
-    }
-  }
-
-  h1 {
-    font-family: 'Pokemon Solid';
-    font-size: 1.5rem;
-
-    @media (min-width: $min-width-first-break) {
-      font-size: 1.8rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      font-size: 2.5rem;
-    }
-  }
-
-  h2 {
-    font-family: 'Pokemon Hollow';
-    font-size: 1.2rem;
-
-    @media (min-width: $min-width-first-break) {
-      font-size: 1.5rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      font-size: 2rem;
-    }
-  }
-
-  h1,
-  h2 {
-    text-shadow: var(--variant-background-color) 0 0 0.2rem;
-    letter-spacing: 0.25rem;
-    text-align: center;
-  }
 
   .base-page {
     overflow-y: scroll;

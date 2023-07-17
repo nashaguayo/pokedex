@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import RandomPokemon from '@components/home/RandomPokemon.vue';
+import RandomPokemon from '@/components/home/RandomPokemon.vue';
 
-jest.mock('@api/pokemon', () => ({
+jest.mock('@/api/pokemon', () => ({
   getRandomPokemons: jest
     .fn()
     .mockResolvedValue([
@@ -9,7 +9,7 @@ jest.mock('@api/pokemon', () => ({
     ]),
 }));
 
-jest.mock('@lib/store', () => ({
+jest.mock('@/lib/store', () => ({
   state: {
     randomPokemons: [
       { name: 'pikachu', image: 'pikachu.png' },
@@ -18,17 +18,6 @@ jest.mock('@lib/store', () => ({
   },
   getRandomPokemons: jest.fn(),
 }));
-
-jest.mock(
-  '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1',
-  () => ({
-    firstBreak: '1px',
-    secondBreak: 'px',
-    thirdBreak: 'px',
-    fourthBreak: 'px',
-    fifthBreak: 'px',
-  })
-);
 
 describe('RandomPokemon', () => {
   let wrapper;

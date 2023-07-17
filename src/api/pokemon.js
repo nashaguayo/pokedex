@@ -1,14 +1,17 @@
-import pokemonApi from '@config/pokemonApi';
-import { logError } from '@lib/logger';
+import pokemonApi from '@/config/pokemonApi';
+import { logError } from '@/lib/logger';
 
-export async function getImageForPokemon(pokemonName) {
+export async function getDataForPokemon(pokemonName) {
   try {
     const response = await pokemonApi.get(`pokemon/${pokemonName}`);
-    return response.data.sprites.front_default;
+    const id = response.data.id;
+    const image = response.data.sprites.front_default;
+    const types = response.data.types.map((t) => t.type.name);
+    return { id, image, types };
   } catch (error) {
     logError(
-      getImageForPokemon.name,
-      'Unable to retrieve image for pokemon',
+      getDataForPokemon.name,
+      'Unable to retrieve data for pokemon',
       error
     );
   }
@@ -67,6 +70,29 @@ export async function getRandomPokemons(amount) {
     logError(
       getRandomPokemons.name,
       'Unable to retrieve Random Pokemon',
+      error
+    );
+  }
+}
+
+export async function getFlavorTextsAndColorForSpecies(url) {
+  try {
+    const response = await pokemonApi.get(url);
+    const result = response.data.flavor_text_entries.filter(
+      (flavorText) => flavorText.language.name === 'en'
+    );
+    const flavorTexts = result.map((text) =>
+      text.flavor_text.replace(/\n/g, ' ').replace(/\f/g, ' ')
+    );
+    const flavorTextsWithoutRepetition = [...new Set(flavorTexts)];
+    return {
+      flavorTexts: flavorTextsWithoutRepetition,
+      color: response.data.color.name,
+    };
+  } catch (error) {
+    logError(
+      getFlavorTextsAndColorForSpecies.name,
+      'Unable to retrieve flavor texts or color',
       error
     );
   }

@@ -1,63 +1,82 @@
 <template>
-  <BaseLoader :loading="loading" :coverPage="true" mode="in-out">
-    <CenteredColumn class="pokemon-item" ref="pokemonItem">
+  <CenteredColumn class="pokemon-item" ref="pokemonItem">
+    <transition name="flip-open" appear>
       <PokemonItemHeader
-        id="header"
+        v-if="hasHeader"
         :name="name"
         :image="image"
         :topPosition="topPosition"
+        v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
-      <CenteredColumn class="pokemon-info-container">
-        <h1 id="pokemon-name">{{ capitalizeWord(name) }}</h1>
-        <PokemonItemStat
-          :key="'stat'"
-          :stat="{ name: 'stat', value: 'value' }"
-          :big="true"
+    </transition>
+    <CenteredColumn class="pokemon-info-container">
+      <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
+      <transition name="flip-open" appear>
+        <PokemonItemCharacteristics
+          v-if="hasCharactristics"
+          :characteristic="characteristic"
+          :height="height"
+          :weight="weight"
+          :color="color"
         />
-        <PokemonItemStat v-for="stat in stats" :key="stat.name" :stat="stat" />
-        <PokemonItemType :types="types" />
-      </CenteredColumn>
+      </transition>
+      <transition name="flip-open" appear>
+        <PokemonItemStats v-if="hasStats" :stats="stats" />
+      </transition>
+      <transition name="flip-open" appear>
+        <PokemonItemType v-if="hasTypes" :types="types"
+      /></transition>
+    </CenteredColumn>
+    <transition name="flip-open" appear>
       <PokemonItemEvolutions
+        v-if="hasEvolutions"
         :evolutions="evolutions"
         :pokemonId="id"
         :pokemonName="name"
       />
-      <BaseButton
-        class="go-back-button"
-        :onClickHandler="goBack"
-        :variant="true"
-        :big="true"
-      >
-        Go Back
-      </BaseButton>
-    </CenteredColumn>
-  </BaseLoader>
+    </transition>
+    <transition name="flip-open" appear>
+      <PokemonItemDescription
+        v-if="hasFlavorTexts"
+        :flavorTexts="flavorTexts"
+      />
+    </transition>
+    <BaseButton
+      class="go-back-button"
+      :onClickHandler="goBack"
+      :variant="true"
+      :big="true"
+    >
+      Go Back
+    </BaseButton>
+  </CenteredColumn>
 </template>
 
 <script>
 import { throttle } from 'lodash';
-import BaseLoader from '@components/ui/BaseLoader.vue';
-import BaseButton from '@components/ui/BaseButton.vue';
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-import PokemonItemHeader from '@components/pokemon/PokemonItemHeader.vue';
-import PokemonItemStat from '@components/pokemon/PokemonItemStat.vue';
-import PokemonItemType from '@components/pokemon/PokemonItemType.vue';
-import PokemonItemEvolutions from '@components/pokemon/PokemonItemEvolutions.vue';
-import { getPokemonPageBackgroundElement } from '@lib/helpers';
-import store from '@lib/store';
-import { capitalizeWord } from '@lib/helpers';
-import mediaQueries from '@css/media-queries.scss?vue&type=style&index=0&lang=scss&module=1';
+import BaseButton from '@/components/ui/BaseButton.vue';
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
+import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacteristics.vue';
+import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
+import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
+import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
+import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
+import { getPokemonPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
+import store from '@/lib/store';
+import { fourthBreak } from '@/constants/resolutions';
 
 export default {
   name: 'PokemonItem',
   components: {
-    BaseLoader,
     BaseButton,
     CenteredColumn,
     PokemonItemHeader,
-    PokemonItemStat,
+    PokemonItemCharacteristics,
+    PokemonItemStats,
     PokemonItemType,
     PokemonItemEvolutions,
+    PokemonItemDescription,
   },
   data() {
     return {
@@ -69,23 +88,6 @@ export default {
   watch: {
     name() {
       document.title = `Pokedex - ${capitalizeWord(this.name)}`;
-    },
-    async loading() {
-      if (this.loading) {
-        return;
-      }
-      await this.$nextTick();
-
-      if (
-        window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
-      ) {
-        return;
-      }
-      this.throttledParallax = throttle(this.parallax, 20);
-      getPokemonPageBackgroundElement().addEventListener(
-        'scroll',
-        this.throttledParallax
-      );
     },
   },
   computed: {
@@ -110,6 +112,49 @@ export default {
     evolutions() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
     },
+    flavorTexts() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)
+        ?.flavorTexts;
+    },
+    characteristic() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)
+          ?.characteristic ?? ''
+      );
+    },
+    weight() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.weight ?? 0
+      );
+    },
+    height() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.height ?? 0
+      );
+    },
+    color() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
+      );
+    },
+    hasHeader() {
+      return !!this.name && !!this.image;
+    },
+    hasCharactristics() {
+      return !!this.weight && !!this.height && !!this.characteristic;
+    },
+    hasStats() {
+      return !!this.stats?.length;
+    },
+    hasTypes() {
+      return !!this.types?.length;
+    },
+    hasEvolutions() {
+      return !!this.evolutions?.length;
+    },
+    hasFlavorTexts() {
+      return !!this.flavorTexts?.length;
+    },
   },
   async created() {
     if (!store.state.pokemon.has(this.urlId)) {
@@ -118,9 +163,7 @@ export default {
     this.loading = false;
   },
   beforeDestroy() {
-    if (
-      window.innerWidth >= Number(mediaQueries.fourthBreak.replace('px', ''))
-    ) {
+    if (window.innerWidth >= fourthBreak) {
       return;
     }
     getPokemonPageBackgroundElement().removeEventListener(
@@ -141,13 +184,21 @@ export default {
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
+    headerIsVisible() {
+      if (this.loading || window.innerWidth >= fourthBreak) {
+        return;
+      }
+      this.throttledParallax = throttle(this.parallax, 20);
+      getPokemonPageBackgroundElement().addEventListener(
+        'scroll',
+        this.throttledParallax
+      );
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .pokemon-item {
   position: absolute;
   z-index: 1;
@@ -162,7 +213,6 @@ export default {
   @media (min-width: $min-width-fourth-break) {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
     margin: 0rem 3rem 0;
     padding-top: 3rem;
     align-items: start;
@@ -193,10 +243,10 @@ export default {
       margin-top: 0;
       margin-left: 3rem;
       grid-row-start: 1;
-      grid-row-end: 3;
+      grid-row-end: 4;
     }
 
-    #pokemon-name {
+    .pokemon-name {
       display: none;
 
       @media (min-width: $min-width-fourth-break) {
@@ -221,5 +271,19 @@ export default {
       width: calc(100% - 6rem);
     }
   }
+}
+
+.pokemon-item::-webkit-scrollbar {
+  display: none;
+}
+
+.flip-open-enter-active,
+.flip-open-leave-active {
+  transition: transform 0.3s linear;
+}
+
+.flip-open-enter,
+.flip-open-leave-to {
+  transform: scaleY(0);
 }
 </style>

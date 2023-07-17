@@ -6,6 +6,7 @@
       'shrink-animation': wasClicked,
       'background-variant': variant,
       big: big,
+      small: small,
     }"
     class="base-button"
     @animationend="wasClicked = false"
@@ -34,6 +35,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    small: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -50,8 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .base-button {
   background-color: var(--secondary-background-color);
   border-radius: 3rem;
@@ -64,6 +67,9 @@ export default {
   padding: 0.5rem;
   min-width: 10rem;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &[disabled] {
     background-color: var(--disabled-button-background-color);
@@ -74,6 +80,14 @@ export default {
     padding: 0.8rem;
     min-width: 15rem;
     font-size: 1.5rem;
+  }
+
+  &.small {
+    @media (min-width: $min-width-third-break) {
+      padding: 0.5rem;
+      min-width: 10rem;
+      font-size: 1rem;
+    }
   }
 
   &.background-variant {

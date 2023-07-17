@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import BaseHeader from '@components/ui/BaseHeader';
+import BaseHeader from '@/components/ui/BaseHeader';
 
-jest.mock('@components/header/GeneralNavigation.vue', () => ({
+jest.mock('@/components/header/GeneralNavigation.vue', () => ({
   name: 'GeneralNavigation',
   template: '<div class="mocked-general-navigation"></div>',
 }));

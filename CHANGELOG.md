@@ -2,7 +2,38 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.1.3...HEAD) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.0...HEAD) (dd-mm-yyyy)
+
+##### Added
+
+##### Modified
+
+##### Fixed
+
+---
+
+## [V0.2.0](https://github.com/nashaguayo/pokedex/compare/V0.1.3...V0.2.0) (17-07-2023)
+
+##### Added
+
+- Displaying Pokemon Types and IDs
+- Pokemon Fun Facts
+- Filtering pokemons by type in search
+- Pokemon characteristics
+- Added links on header
+
+##### Modified
+
+- Optimized search again
+- Added loader to search page
+- Using functional components across the app
+- Added stat bars on pokemon details page
+- Header looks on mobile
+
+##### Fixed
+
+- Pokemon list: no error message displays when loading
+- Pokemon list: no more duplicate keys on infinite scroll
 
 ---
 

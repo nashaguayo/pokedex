@@ -1,10 +1,10 @@
-<template>
-  <transition name="fade-in-out" :mode="mode" appear>
+<template functional>
+  <transition name="fade-in-out" :mode="props.mode" appear>
     <FontAwesomeIcon
-      v-if="loading"
+      v-if="props.loading"
       icon="fa-solid fa-spinner"
       class="fa-spin-pulse spinner-icon"
-      :class="{ 'cover-page': coverPage }"
+      :class="{ 'cover-page': props.coverPage }"
       size="6x"
     />
     <slot v-else></slot>
@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .spinner-icon {
   margin: 3rem;
   width: 5rem;

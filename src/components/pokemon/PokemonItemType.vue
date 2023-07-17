@@ -1,11 +1,11 @@
 <template>
   <CenteredColumn class="pokemon-item-type">
-    <span id="title">Types</span>
+    <span class="title">Types</span>
     <div v-for="t in types" :key="`type-${t}`" class="type">
-      <span id="type-text">{{ t }}</span>
+      <span class="type-text">{{ t }}</span>
       <div
         class="lights"
-        :style="{ backgroundColor: backgroundColorTypes.get(t) }"
+        :style="{ backgroundColor: pokemonColorTypes.get(t) }"
       >
         <div class="shine" />
       </div>
@@ -14,37 +14,15 @@
 </template>
 
 <script>
-import CenteredColumn from '@components/ui/CenteredColumn.vue';
-
-const backgroundColorTypes = new Map([
-  ['normal', 'black'],
-  ['fighting', 'white'],
-  ['flying', 'blue'],
-  ['poison', 'violet'],
-  ['ground', 'brown'],
-  ['rock', 'darkgrey'],
-  ['bug', 'fuchsia'],
-  ['ghost', 'coral'],
-  ['steel', 'grey'],
-  ['fire', 'red'],
-  ['water', 'aquamarine'],
-  ['grass', 'lime'],
-  ['electric', 'antiquewhite'],
-  ['psychic', 'blueviolet'],
-  ['ice', 'blanchedalmond'],
-  ['dragon', 'chocolate'],
-  ['dark', 'darkolivegreen'],
-  ['fairy', 'darkorange'],
-  ['unknown', 'black'],
-  ['shadow', 'darksalmon'],
-]);
+import CenteredColumn from '@/components/ui/CenteredColumn.vue';
+import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
 
 export default {
   name: 'PokemonItemType',
   components: { CenteredColumn },
   data() {
     return {
-      backgroundColorTypes,
+      pokemonColorTypes,
     };
   },
   props: {
@@ -57,8 +35,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@css/media-queries.scss';
-
 .pokemon-item-type {
   background-color: var(--variant-background-color);
   width: 100%;
@@ -72,7 +48,7 @@ export default {
     margin-bottom: 2rem;
   }
 
-  #title {
+  .title {
     font-size: 2rem;
     color: var(--secondary-text-color);
   }
@@ -84,7 +60,7 @@ export default {
     gap: 1rem;
     align-items: center;
 
-    #type-text {
+    .type-text {
       color: var(--variant-text-color);
     }
 

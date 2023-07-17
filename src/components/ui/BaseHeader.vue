@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import GeneralNavigation from '@components/header/GeneralNavigation.vue';
+import GeneralNavigation from '@/components/header/GeneralNavigation.vue';
 
 export default {
   name: 'BaseHeader',
