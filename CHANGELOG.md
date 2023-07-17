@@ -10,6 +10,7 @@
 
 ##### Fixed
 
+- User has resets tries when winning
 - User has three tries again at Guess the Pokemon Game
 
 ---
