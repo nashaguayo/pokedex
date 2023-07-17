@@ -171,11 +171,14 @@ export default {
     },
     guessesInARow(guesses) {
       if (guesses < 5) {
+        this.goldStars = 0;
+        this.silverStars = 0;
         this.bronzeStars = guesses;
         return;
       }
 
       if (guesses < 25) {
+        this.goldStars = 0;
         this.silverStars = Math.floor(guesses / 5);
         this.bronzeStars = guesses % 5;
         return;
@@ -196,6 +199,7 @@ export default {
       this.reset = true;
       this.tries = 3;
       this.loading = false;
+      console.log(this.name);
 
       if (!this.isFirstTime) {
         this.focus = true;
