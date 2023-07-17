@@ -12,6 +12,7 @@
 
 - User has resets tries when winning
 - User has three tries again at Guess the Pokemon Game
+- Stars reset when you lose or give up at the pokemon game
 
 ---
 
