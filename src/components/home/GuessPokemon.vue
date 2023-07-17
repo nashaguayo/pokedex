@@ -140,6 +140,7 @@ export default {
     hasWon(hasWon) {
       if (hasWon) {
         this.timerEnabled = true;
+        this.tries = 3;
         this.guessesInARow++;
       }
     },
@@ -170,11 +171,14 @@ export default {
     },
     guessesInARow(guesses) {
       if (guesses < 5) {
+        this.goldStars = 0;
+        this.silverStars = 0;
         this.bronzeStars = guesses;
         return;
       }
 
       if (guesses < 25) {
+        this.goldStars = 0;
         this.silverStars = Math.floor(guesses / 5);
         this.bronzeStars = guesses % 5;
         return;
@@ -205,7 +209,7 @@ export default {
     setPlayersGuess(playersGuess) {
       this.reset = false;
       this.playersGuess = playersGuess;
-      if (!this.hasWon) {
+      if (!this.hasWon && playersGuess.length) {
         this.tries--;
       }
     },

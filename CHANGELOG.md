@@ -2,13 +2,17 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.0...HEAD) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.1...HEAD) (dd-mm-yyyy)
 
-##### Added
+---
 
-##### Modified
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.0...V0.2.1) (17-07-2023)
 
 ##### Fixed
+
+- User has resets tries when winning
+- User has three tries again at Guess the Pokemon Game
+- Stars reset when you lose or give up at the pokemon game
 
 ---
 
