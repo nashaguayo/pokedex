@@ -165,7 +165,15 @@ export default {
   },
 
   async getNewRandomPokemon() {
-    const newPokemon = (await getRandomPokemonsApi(1))[0];
+    let newPokemon;
+    let repeatedPokemons;
+    do {
+      newPokemon = (await getRandomPokemonsApi(1))[0];
+      repeatedPokemons = [...state.randomPokemons].filter(
+        (pokemon) => pokemon.name === newPokemon.name
+      );
+    } while (repeatedPokemons.length === 1);
+
     state.randomPokemons.pop();
     state.randomPokemons.unshift(this.getPokemonData(newPokemon));
   },

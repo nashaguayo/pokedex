@@ -7,6 +7,7 @@
 ##### Fixed
 
 - Changing loader color on darkmode
+- No more duplicate pokemons on random pokemon
 
 ---
 
