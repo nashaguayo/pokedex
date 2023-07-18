@@ -6,9 +6,7 @@
       class="fa-spin-pulse spinner-icon"
       :class="{ 'cover-page': coverPage }"
       size="6x"
-      :color="
-        isDarkModeEnabled && enableDarkmodeColorSwitch ? 'white' : 'black'
-      "
+      :color="shouldChangeColor ? 'white' : 'black'"
     />
     <slot v-else></slot>
   </transition>
@@ -40,6 +38,9 @@ export default {
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
+    },
+    shouldChangeColor() {
+      return this.isDarkModeEnabled && this.enableDarkmodeColorSwitch;
     },
   },
 };
