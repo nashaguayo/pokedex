@@ -6,7 +6,7 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.0...V0.2.1) (17-07-2023)
+## [V0.2.1](https://github.com/nashaguayo/pokedex/compare/V0.2.0...V0.2.1) (17-07-2023)
 
 ##### Fixed
 

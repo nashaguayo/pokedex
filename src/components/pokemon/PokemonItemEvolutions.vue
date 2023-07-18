@@ -1,8 +1,8 @@
 <template>
-  <CenteredColumn class="pokemon-item-evolutions">
+  <div class="pokemon-item-evolutions">
     <span class="title">Evolutions</span>
     <div class="card">
-      <CenteredColumn class="evolution">
+      <div class="evolution">
         <transition name="fade" mode="out-in">
           <span :key="species">
             {{ species }}
@@ -19,7 +19,7 @@
             }"
           ></div>
         </router-link>
-      </CenteredColumn>
+      </div>
       <div class="buttons">
         <BaseChevron
           ref="previousEvolutionButton"
@@ -35,11 +35,10 @@
         />
       </div>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import BaseChevron from '@/components/ui/BaseChevron.vue';
 
 export default {
@@ -58,10 +57,7 @@ export default {
       required: true,
     },
   },
-  components: {
-    CenteredColumn,
-    BaseChevron,
-  },
+  components: { BaseChevron },
   data() {
     return {
       evolution: 0,
@@ -94,6 +90,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-evolutions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin: 1rem 0;
 
   @media (min-width: $min-width-fourth-break) {
@@ -146,8 +146,15 @@ export default {
       }
     }
 
-    .evolution span {
-      margin-top: 1rem;
+    .evolution {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      span {
+        margin-top: 1rem;
+      }
     }
   }
 

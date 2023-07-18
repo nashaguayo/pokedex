@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="pokemon-list">
+  <div class="pokemon-list">
     <template v-if="!pokemons.length && !loading">
       <h2>Something went wrong!</h2>
       <p>No pokemons to display.</p>
@@ -18,14 +18,13 @@
       </transition-group>
       <BaseLoader :loading="loading" />
     </template>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
 import debounce from 'lodash/debounce';
 import PokemonListCard from '@/components/pokemons/PokemonListCard';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import CenteredColumn from '@/components/ui/CenteredColumn';
 import { getPageBackgroundElement } from '@/lib/helpers';
 import store from '@/lib/store';
 
@@ -34,7 +33,6 @@ export default {
   components: {
     BaseLoader,
     PokemonListCard,
-    CenteredColumn,
   },
   data() {
     return {
@@ -77,6 +75,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin-bottom: 2rem;
 
   .pokemons {

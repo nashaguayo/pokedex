@@ -1,19 +1,16 @@
 <template functional>
-  <CenteredColumn class="pokemon-item-description">
+  <div class="pokemon-item-description">
     <hr />
     <span class="title">Fun Facts</span>
     <ul>
       <li v-for="text in props.flavorTexts" :key="text">{{ text }}</li>
     </ul>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
-
 export default {
   name: 'PokemonItemDescription',
-  components: { CenteredColumn },
   props: {
     flavorTexts: {
       type: Array,
@@ -25,6 +22,11 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
   @media (min-width: $min-width-fourth-break) {
     grid-column-start: 1;
     grid-column-end: 3;
