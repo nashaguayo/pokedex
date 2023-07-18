@@ -1,17 +1,20 @@
-<template functional>
-  <transition name="fade-in-out" :mode="props.mode" appear>
+<template>
+  <transition name="fade-in-out" :mode="mode" appear>
     <FontAwesomeIcon
-      v-if="props.loading"
+      v-if="loading"
       icon="fa-solid fa-spinner"
       class="fa-spin-pulse spinner-icon"
-      :class="{ 'cover-page': props.coverPage }"
+      :class="{ 'cover-page': coverPage }"
       size="6x"
+      :color="shouldChangeColor ? 'white' : 'black'"
     />
     <slot v-else></slot>
   </transition>
 </template>
 
 <script>
+import store from '@/lib/store';
+
 export default {
   name: 'BaseLoader',
   props: {
@@ -26,6 +29,18 @@ export default {
     coverPage: {
       type: Boolean,
       default: false,
+    },
+    enableDarkmodeColorSwitch: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    isDarkModeEnabled() {
+      return store.state.isDarkModeEnabled;
+    },
+    shouldChangeColor() {
+      return this.isDarkModeEnabled && this.enableDarkmodeColorSwitch;
     },
   },
 };

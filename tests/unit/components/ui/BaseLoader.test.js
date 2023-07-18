@@ -1,6 +1,12 @@
 import { mount } from '@vue/test-utils';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
 
+jest.mock('@/lib/store', () => ({
+  state: {
+    isDarkModeEnabled: false,
+  },
+}));
+
 describe('BaseLoader', () => {
   let wrapper;
 
