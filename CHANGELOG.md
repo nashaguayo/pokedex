@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.1...HEAD) (dd-mm-yyyy)
 
+##### Modified
+
+- Go back button on pokemon detail page now always goes back to pokemons
+
 ##### Fixed
 
 - Changing loader color on darkmode
