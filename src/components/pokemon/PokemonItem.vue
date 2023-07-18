@@ -43,7 +43,7 @@
     </transition>
     <BaseButton
       class="go-back-button"
-      :onClickHandler="goBack"
+      :onClickHandler="goToPokemonsPage"
       :variant="true"
       :big="true"
     >
@@ -171,12 +171,8 @@ export default {
   },
   methods: {
     capitalizeWord,
-    goBack() {
-      if (this.$router.history?._startLocation === this.$route.path) {
-        this.$router.push({ name: 'pokemons' });
-        return;
-      }
-      this.$router.back();
+    goToPokemonsPage() {
+      this.$router.push({ name: 'pokemons' });
     },
     parallax() {
       const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
