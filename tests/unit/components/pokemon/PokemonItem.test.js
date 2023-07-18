@@ -79,10 +79,10 @@ describe('PokemonItem', () => {
 
   it('renders its respective components', () => {
     expect(wrapper.find('basebutton-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(false);
+    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
   });
 });
