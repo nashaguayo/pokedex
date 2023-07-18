@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.1...HEAD) (dd-mm-yyyy)
 
+##### Fixed
+
+- Changing loader color on darkmode
+
 ---
 
 ## [V0.2.1](https://github.com/nashaguayo/pokedex/compare/V0.2.0...V0.2.1) (17-07-2023)
