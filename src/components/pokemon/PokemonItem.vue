@@ -1,46 +1,28 @@
 <template>
   <div class="pokemon-item" ref="pokemonItem">
-    <transition name="flip-open" appear>
-      <PokemonItemHeader
-        v-if="hasHeader"
-        :name="name"
-        :image="image"
-        :topPosition="topPosition"
-        v-observe-visibility="{ callback: headerIsVisible, once: true }"
-      />
-    </transition>
+    <PokemonItemHeader
+      :name="name"
+      :image="image"
+      :topPosition="topPosition"
+      v-observe-visibility="{ callback: headerIsVisible, once: true }"
+    />
     <div class="pokemon-info-container">
       <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
-      <transition name="flip-open" appear>
-        <PokemonItemCharacteristics
-          v-if="hasCharactristics"
-          :characteristic="characteristic"
-          :height="height"
-          :weight="weight"
-          :color="color"
-        />
-      </transition>
-      <transition name="flip-open" appear>
-        <PokemonItemStats v-if="hasStats" :stats="stats" />
-      </transition>
-      <transition name="flip-open" appear>
-        <PokemonItemType v-if="hasTypes" :types="types"
-      /></transition>
+      <PokemonItemCharacteristics
+        :characteristic="characteristic"
+        :height="height"
+        :weight="weight"
+        :color="color"
+      />
+      <PokemonItemStats :stats="stats" />
+      <PokemonItemType :types="types" />
     </div>
-    <transition name="flip-open" appear>
-      <PokemonItemEvolutions
-        v-if="hasEvolutions"
-        :evolutions="evolutions"
-        :pokemonId="id"
-        :pokemonName="name"
-      />
-    </transition>
-    <transition name="flip-open" appear>
-      <PokemonItemDescription
-        v-if="hasFlavorTexts"
-        :flavorTexts="flavorTexts"
-      />
-    </transition>
+    <PokemonItemEvolutions
+      :evolutions="evolutions"
+      :pokemonId="id"
+      :pokemonName="name"
+    />
+    <PokemonItemDescription :flavorTexts="flavorTexts" />
     <BaseButton
       class="go-back-button"
       :onClickHandler="goToPokemonsPage"
@@ -64,6 +46,7 @@ import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.
 import { getPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
+import silouette from '@/assets/pokemons/silouette.png';
 
 export default {
   name: 'PokemonItem',
@@ -93,26 +76,39 @@ export default {
       return this.$route.params.id;
     },
     id() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id;
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
     },
     name() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name ?? '???'
+      );
     },
     image() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image ??
+        silouette
+      );
     },
     stats() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats ?? []
+      );
     },
     types() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types ?? []
+      );
     },
     evolutions() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions ?? []
+      );
     },
     flavorTexts() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)
-        ?.flavorTexts;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
+        []
+      );
     },
     characteristic() {
       return (
@@ -134,24 +130,6 @@ export default {
       return (
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
       );
-    },
-    hasHeader() {
-      return !!this.name && !!this.image;
-    },
-    hasCharactristics() {
-      return !!this.weight && !!this.height && !!this.characteristic;
-    },
-    hasStats() {
-      return !!this.stats?.length;
-    },
-    hasTypes() {
-      return !!this.types?.length;
-    },
-    hasEvolutions() {
-      return !!this.evolutions?.length;
-    },
-    hasFlavorTexts() {
-      return !!this.flavorTexts?.length;
     },
   },
   async created() {

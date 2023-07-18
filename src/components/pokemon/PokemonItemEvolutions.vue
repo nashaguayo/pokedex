@@ -68,11 +68,13 @@ export default {
       return this.evolutions[this.evolution]?.image;
     },
   },
-  async created() {
-    this.evolution =
-      this.evolutions.findIndex(
-        (evolution) => evolution.species === this.pokemonName.toLowerCase()
-      ) ?? 0;
+  watch: {
+    evolutions(evolutions) {
+      this.evolution =
+        evolutions.findIndex(
+          (evolution) => evolution.species === this.pokemonName.toLowerCase()
+        ) ?? 0;
+    },
   },
   methods: {
     getPreviousEvolution() {
