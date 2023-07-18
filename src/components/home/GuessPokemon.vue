@@ -1,7 +1,7 @@
 <template>
   <div class="guess-pokemon">
     <div class="background-image">
-      <BaseLoader :loading="loading">
+      <BaseLoader :loading="loading" :enableDarkmodeColorSwitch="false">
         <img
           :src="image"
           alt="mysterious pokemon"
@@ -227,8 +227,8 @@ export default {
   align-items: center;
   width: 100%;
   margin: 2rem 0;
-
   max-width: 25rem;
+
   .background-image {
     background-image: url(@/assets/home/mystery-pokemon.jpg);
     background-size: cover;
