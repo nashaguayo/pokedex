@@ -70,11 +70,11 @@ export default {
   },
   watch: {
     evolutions(evolutions) {
-      this.evolution =
-        evolutions.findIndex(
-          (evolution) => evolution.species === this.pokemonName.toLowerCase()
-        ) ?? 0;
+      this.findEvolution(evolutions);
     },
+  },
+  created() {
+    this.findEvolution();
   },
   methods: {
     getPreviousEvolution() {
@@ -82,6 +82,12 @@ export default {
     },
     getNextEvolution() {
       this.evolution = this.evolution + 1;
+    },
+    findEvolution(evolutions) {
+      this.evolution =
+        (evolutions ?? this.evolutions).findIndex(
+          (evolution) => evolution.species === this.pokemonName.toLowerCase()
+        ) ?? 0;
     },
   },
 };
