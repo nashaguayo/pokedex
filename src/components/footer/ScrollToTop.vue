@@ -18,10 +18,7 @@ import throttle from 'lodash/throttle';
 import {
   scrollToTopOfBackgroundPage,
   getPageBackgroundElement,
-  getPokemonPageBackgroundElement,
-  scrollToTopOfBackgroundPokemonPage,
 } from '@/lib/helpers';
-import { logError } from '@/lib/logger';
 
 export default {
   name: 'ScrollToTop',
@@ -46,28 +43,9 @@ export default {
       this.throttledHandleScroll
     );
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    if (!getPokemonPageBackgroundElement()) {
-      logError(
-        'mounted',
-        'Unable to load Scroll to Top Button',
-        new Error('.pokemon-item element was not found')
-      );
-      return;
-    }
-    getPokemonPageBackgroundElement().addEventListener(
-      'scroll',
-      this.throttledHandleScroll
-    );
   },
   beforeDestroy() {
     getPageBackgroundElement().removeEventListener(
-      'scroll',
-      this.throttledHandleScroll
-    );
-    if (!getPokemonPageBackgroundElement()) {
-      return;
-    }
-    getPokemonPageBackgroundElement().removeEventListener(
       'scroll',
       this.throttledHandleScroll
     );
@@ -80,7 +58,6 @@ export default {
     scrollToTop() {
       this.wasClicked = true;
       scrollToTopOfBackgroundPage();
-      scrollToTopOfBackgroundPokemonPage();
     },
   },
 };
