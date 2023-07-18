@@ -14,6 +14,7 @@
 - No more duplicate pokemons on random pokemon
 - Hiding pokemon evolutions when there aren't any
 - Pokemon names that break on pokemon list no longer align to the left
+- No longer moving background on pokemon details page
 
 ---
 

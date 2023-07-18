@@ -61,7 +61,7 @@ import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
-import { getPokemonPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
+import { getPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
 
@@ -164,7 +164,7 @@ export default {
     if (window.innerWidth >= fourthBreak) {
       return;
     }
-    getPokemonPageBackgroundElement().removeEventListener(
+    getPageBackgroundElement().removeEventListener(
       'scroll',
       this.throttledParallax
     );
@@ -175,7 +175,7 @@ export default {
       this.$router.push({ name: 'pokemons' });
     },
     parallax() {
-      const yPosition = getPokemonPageBackgroundElement().scrollTop / 2;
+      const yPosition = getPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
     headerIsVisible() {
@@ -183,7 +183,7 @@ export default {
         return;
       }
       this.throttledParallax = throttle(this.parallax, 20);
-      getPokemonPageBackgroundElement().addEventListener(
+      getPageBackgroundElement().addEventListener(
         'scroll',
         this.throttledParallax
       );
@@ -198,10 +198,8 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  position: absolute;
   z-index: 1;
   background-image: var(--popup-background-color);
-  height: 100%;
   overflow-x: hidden;
 
   @media (min-width: $min-width-second-break) {

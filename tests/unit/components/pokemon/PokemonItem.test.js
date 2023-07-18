@@ -45,7 +45,7 @@ jest.mock('@/lib/store', () => ({
 }));
 
 jest.mock('@/lib/helpers', () => ({
-  getPokemonPageBackgroundElement: jest.fn(() => ({
+  getPageBackgroundElement: jest.fn(() => ({
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
     scrollTop: 0,
