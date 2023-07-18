@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonSearch from '@/components/search/PokemonSearch';
-import CenteredColumn from '@/components/ui/CenteredColumn';
 
 jest.mock('@/components/ui/BaseInput.vue', () => ({
   name: 'BaseInput',
@@ -32,9 +31,6 @@ describe('PokemonSearch', () => {
     jest.clearAllMocks();
 
     wrapper = shallowMount(PokemonSearch, {
-      components: {
-        CenteredColumn,
-      },
       stubs: ['FontAwesomeIcon'],
     });
   });

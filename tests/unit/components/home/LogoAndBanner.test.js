@@ -5,7 +5,7 @@ describe('LogoAndBanner', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(LogoAndBanner, { stubs: ['CenteredColumn'] });
+    wrapper = shallowMount(LogoAndBanner);
   });
 
   afterEach(() => {

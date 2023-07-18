@@ -12,7 +12,6 @@ describe('LogoAndBanner', () => {
         height: 17,
         color: 'yellow',
       },
-      stubs: ['CenteredColumn'],
     });
   });
 

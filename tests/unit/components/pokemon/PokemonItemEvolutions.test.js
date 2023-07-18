@@ -6,11 +6,6 @@ jest.mock('@/components/ui/BaseChevron.vue', () => ({
   template: '<div class="mocked-base-chevron"></div>',
 }));
 
-jest.mock('@/components/ui/CenteredColumn.vue', () => ({
-  name: 'CenteredColumn',
-  template: '<div class="mocked-centered-column"></div>',
-}));
-
 describe('PokemonItemEvolutions', () => {
   let wrapper;
 
@@ -44,7 +39,6 @@ describe('PokemonItemEvolutions', () => {
   });
 
   it('renders stub components', () => {
-    expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
     expect(wrapper.find('basechevron-stub').exists()).toBe(true);
   });
 });

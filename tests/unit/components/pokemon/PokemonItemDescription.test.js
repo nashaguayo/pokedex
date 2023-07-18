@@ -9,7 +9,6 @@ describe('PokemonItemDescription', () => {
       propsData: {
         flavorTexts: ['flavor text 1', 'flavor text 2'],
       },
-      stubs: ['CenteredColumn'],
     });
   });
 

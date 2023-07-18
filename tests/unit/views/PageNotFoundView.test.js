@@ -1,12 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
 import PageNotFoundView from '@/views/PageNotFoundView.vue';
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 
 describe('PageNotFoundView', () => {
   it('renders the BasePage component with correct title and content', () => {
     const wrapper = shallowMount(PageNotFoundView);
 
-    const basePage = wrapper.findComponent(CenteredColumn);
+    const basePage = wrapper.find('.page-not-found-view');
     expect(basePage.exists()).toBe(true);
 
     const heading1 = basePage.find('h1');
