@@ -1,41 +1,44 @@
 <template>
-  <div class="pokemon-item" ref="pokemonItem">
-    <PokemonItemHeader
-      :name="name"
-      :image="image"
-      :topPosition="topPosition"
-      v-observe-visibility="{ callback: headerIsVisible, once: true }"
-    />
-    <div class="pokemon-info-container">
-      <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
-      <PokemonItemCharacteristics
-        :characteristic="characteristic"
-        :height="height"
-        :weight="weight"
-        :color="color"
+  <BaseLoader :loading="loading" :coverPage="true" mode="in-out">
+    <div class="pokemon-item" ref="pokemonItem">
+      <PokemonItemHeader
+        :name="name"
+        :image="image"
+        :topPosition="topPosition"
+        v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
-      <PokemonItemStats :stats="stats" />
-      <PokemonItemType :types="types" />
+      <div class="pokemon-info-container">
+        <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
+        <PokemonItemCharacteristics
+          :characteristic="characteristic"
+          :height="height"
+          :weight="weight"
+          :color="color"
+        />
+        <PokemonItemStats :stats="stats" />
+        <PokemonItemType :types="types" />
+      </div>
+      <PokemonItemEvolutions
+        :evolutions="evolutions"
+        :pokemonId="id"
+        :pokemonName="name"
+      />
+      <PokemonItemDescription :flavorTexts="flavorTexts" />
+      <BaseButton
+        class="go-back-button"
+        :onClickHandler="goToPokemonsPage"
+        :variant="true"
+        :big="true"
+      >
+        Go Back
+      </BaseButton>
     </div>
-    <PokemonItemEvolutions
-      :evolutions="evolutions"
-      :pokemonId="id"
-      :pokemonName="name"
-    />
-    <PokemonItemDescription :flavorTexts="flavorTexts" />
-    <BaseButton
-      class="go-back-button"
-      :onClickHandler="goToPokemonsPage"
-      :variant="true"
-      :big="true"
-    >
-      Go Back
-    </BaseButton>
-  </div>
+  </BaseLoader>
 </template>
 
 <script>
 import { throttle } from 'lodash';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
 import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacteristics.vue';
@@ -51,6 +54,7 @@ import silouette from '@/assets/pokemons/silouette.png';
 export default {
   name: 'PokemonItem',
   components: {
+    BaseLoader,
     BaseButton,
     PokemonItemHeader,
     PokemonItemCharacteristics,
@@ -179,10 +183,6 @@ export default {
   z-index: 1;
   background-image: var(--popup-background-color);
   overflow-x: hidden;
-
-  @media (min-width: $min-width-second-break) {
-    width: 75%;
-  }
 
   @media (min-width: $min-width-fourth-break) {
     display: grid;
