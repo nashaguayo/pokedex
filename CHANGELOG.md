@@ -8,6 +8,7 @@
 
 - Changing loader color on darkmode
 - No more duplicate pokemons on random pokemon
+- Hiding pokemon evolutions when there aren't any
 
 ---
 

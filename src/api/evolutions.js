@@ -45,7 +45,14 @@ export async function getPokemonEvolutions(pokemonId) {
       chain = chain.evolves_to[0];
     }
 
-    return evolutions;
+    const isPokemonOnResult = evolutions.filter(
+      (evolution) => evolution.species === pokemonId
+    );
+    if (isPokemonOnResult.length) {
+      return evolutions;
+    }
+
+    return [];
   } catch (error) {
     logError(
       getPokemonEvolutions.name,
