@@ -1,22 +1,30 @@
 <template>
-  <CenteredColumn>
+  <div class="search-view">
     <ErrorBoundary
       componentName="PokemonSearch"
       errorMessage="Unable to load search"
     >
       <PokemonSearch />
     </ErrorBoundary>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn';
 import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
 import PokemonSearch from '@/components/search/PokemonSearch';
 
 export default {
   name: 'SearchView',
   title: 'Search for Pokemons',
-  components: { CenteredColumn, ErrorBoundary, PokemonSearch },
+  components: { ErrorBoundary, PokemonSearch },
 };
 </script>
+
+<style lang="scss" scoped>
+.search-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+</style>

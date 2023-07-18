@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="pokemon-item" ref="pokemonItem">
+  <div class="pokemon-item" ref="pokemonItem">
     <transition name="flip-open" appear>
       <PokemonItemHeader
         v-if="hasHeader"
@@ -9,7 +9,7 @@
         v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
     </transition>
-    <CenteredColumn class="pokemon-info-container">
+    <div class="pokemon-info-container">
       <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
       <transition name="flip-open" appear>
         <PokemonItemCharacteristics
@@ -26,7 +26,7 @@
       <transition name="flip-open" appear>
         <PokemonItemType v-if="hasTypes" :types="types"
       /></transition>
-    </CenteredColumn>
+    </div>
     <transition name="flip-open" appear>
       <PokemonItemEvolutions
         v-if="hasEvolutions"
@@ -49,13 +49,12 @@
     >
       Go Back
     </BaseButton>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
 import { throttle } from 'lodash';
 import BaseButton from '@/components/ui/BaseButton.vue';
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
 import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacteristics.vue';
 import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
@@ -70,7 +69,6 @@ export default {
   name: 'PokemonItem',
   components: {
     BaseButton,
-    CenteredColumn,
     PokemonItemHeader,
     PokemonItemCharacteristics,
     PokemonItemStats,
@@ -200,6 +198,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   position: absolute;
   z-index: 1;
   background-image: var(--popup-background-color);
@@ -221,6 +223,10 @@ export default {
   }
 
   .pokemon-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     margin-top: 2rem;
     z-index: 10;
     background-color: var(--main-background-color);

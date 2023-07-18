@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <CenteredColumn class="base-page">
-      <CenteredColumn
+    <div class="base-page">
+      <div
         class="page-background"
         :class="{
           'add-margins': displayHeader,
@@ -17,20 +17,19 @@
         <transition name="drawer-down">
           <BaseFooter :displayFooter="displayFooter" />
         </transition>
-      </CenteredColumn>
-    </CenteredColumn>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'App',
-  components: { CenteredColumn, BaseHeader, BaseFooter },
+  components: { BaseHeader, BaseFooter },
   async created() {
     this.setTheme(this.isDarkModeEnabled);
     await store.getAllPokemons();
@@ -223,10 +222,17 @@ h2 {
   background-repeat: no-repeat;
 
   .base-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     overflow-y: scroll;
     height: 100vh;
 
     .page-background {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       background-color: var(--main-background-color);
       width: 100vw;
       height: 100vh;

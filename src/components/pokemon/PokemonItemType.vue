@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="pokemon-item-type">
+  <div class="pokemon-item-type">
     <span class="title">Types</span>
     <div v-for="t in types" :key="`type-${t}`" class="type">
       <span class="type-text">{{ t }}</span>
@@ -10,16 +10,14 @@
         <div class="shine" />
       </div>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
 
 export default {
   name: 'PokemonItemType',
-  components: { CenteredColumn },
   data() {
     return {
       pokemonColorTypes,
@@ -36,6 +34,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   background-color: var(--variant-background-color);
   width: 100%;
   margin-top: 2rem;

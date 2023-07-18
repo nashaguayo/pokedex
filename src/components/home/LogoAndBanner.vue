@@ -1,17 +1,14 @@
 <template functional>
-  <CenteredColumn>
+  <div class="logo-and-banner">
     <img class="logo-image" src="@/assets/home/pokedex-logo.png" />
     <h1 v-if="props.subtitle">{{ props.subtitle }}</h1>
     <img class="banner" src="@/assets/home/pokemons.jpg" />
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn';
-
 export default {
   name: 'LogoAndBanner',
-  components: { CenteredColumn },
   props: {
     subtitle: {
       type: String,
@@ -22,25 +19,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.logo-image {
-  width: 80%;
+.logo-and-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 
-  @media (min-width: $min-width-first-break) {
-    width: 20rem;
+  .logo-image {
+    width: 80%;
+
+    @media (min-width: $min-width-first-break) {
+      width: 20rem;
+    }
+
+    @media (min-width: $min-width-second-break) {
+      width: 25rem;
+    }
   }
 
-  @media (min-width: $min-width-second-break) {
-    width: 25rem;
-  }
-}
+  .banner {
+    display: none;
+    box-shadow: var(--main-box-shadow);
 
-.banner {
-  display: none;
-  box-shadow: var(--main-box-shadow);
-
-  @media (min-width: $min-width-second-break) {
-    display: block;
-    width: 100%;
+    @media (min-width: $min-width-second-break) {
+      display: block;
+      width: 100%;
+    }
   }
 }
 </style>

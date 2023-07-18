@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="guess-pokemon">
+  <div class="guess-pokemon">
     <div class="background-image">
       <BaseLoader :loading="loading">
         <img
@@ -32,7 +32,7 @@
       <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
     </transition>
     <transition name="flip" appear>
-      <CenteredColumn v-if="guessesInARow > 0" class="guesses-in-a-row">
+      <div v-if="guessesInARow > 0" class="guesses-in-a-row">
         <span>Guesses in a row</span><br />
         <div class="stars">
           <transition-group name="zoom-in" appear>
@@ -64,7 +64,7 @@
             />
           </transition-group>
         </div>
-      </CenteredColumn>
+      </div>
     </transition>
     <BaseButton
       :big="true"
@@ -73,19 +73,18 @@
     >
       {{ baseButtonText }}
     </BaseButton>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
 import BaseLoader from '@/components/ui/BaseLoader';
-import CenteredColumn from '@/components/ui/CenteredColumn';
 import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
 import store from '@/lib/store';
 
 export default {
   name: 'GuessPokemon',
-  components: { BaseLoader, CenteredColumn, BaseButton, BaseInput },
+  components: { BaseLoader, BaseButton, BaseInput },
   data() {
     return {
       playersGuess: '',
@@ -223,6 +222,10 @@ export default {
 
 <style lang="scss" scoped>
 .guess-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin: 2rem 0;
 
   max-width: 25rem;
@@ -269,6 +272,10 @@ export default {
   }
 
   .guesses-in-a-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     margin-bottom: 1rem;
     .gold-star {
       color: #edb200;
