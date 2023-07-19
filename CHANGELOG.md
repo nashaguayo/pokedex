@@ -8,6 +8,7 @@
 
 - Go back button on pokemon detail page now always goes back to pokemons
 - Animation on Pokemon details page
+- Styles on overall page
 
 ##### Fixed
 

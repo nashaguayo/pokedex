@@ -1,7 +1,11 @@
 <template>
   <div class="base-input">
     <label for="search" v-if="icon || label">
-      <FontAwesomeIcon v-if="icon" :icon="icon" />
+      <FontAwesomeIcon
+        v-if="icon"
+        :icon="icon"
+        :color="isDarkModeEnabled ? 'white' : 'black'"
+      />
       <span v-if="label">{{ label }}</span>
     </label>
     <input
@@ -28,6 +32,8 @@
 </template>
 
 <script>
+import store from '@/lib/store';
+
 export default {
   name: 'BaseInput',
   props: {
@@ -93,6 +99,9 @@ export default {
       set(value) {
         this.$emit('inputValueChanged', value);
       },
+    },
+    isDarkModeEnabled() {
+      return store.state.isDarkModeEnabled;
     },
   },
 };

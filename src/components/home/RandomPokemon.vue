@@ -100,7 +100,7 @@ export default {
 
   .pokemons {
     display: flex;
-    direction: row-reverse;
+    flex-direction: row-reverse;
     gap: 1rem;
   }
 
@@ -153,12 +153,12 @@ export default {
 }
 
 .slide-to-right-enter {
-  transform: translateX(-5rem);
+  transform: translateX(5rem);
   opacity: 0;
 }
 
 .slide-to-right-leave-to {
-  transform: translateX(5rem);
+  transform: translateX(-5rem);
   opacity: 0;
 }
 </style>

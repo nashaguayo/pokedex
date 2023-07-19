@@ -57,7 +57,7 @@ export default {
     background-color: var(--main-background-color);
     padding: 0 1rem;
     border-radius: 2rem;
-    border: 0.2rem solid var(--main-border-color);
+    border: 0.2rem solid var(--secondary-border-color);
     box-shadow: var(--main-box-shadow);
 
     @media (min-width: $min-width-second-break) {
@@ -75,6 +75,8 @@ export default {
       font-family: 'Upheaval';
       text-align: center;
       margin: 0.5rem 0;
+      font-weight: lighter;
+      color: var(--main-text-color);
 
       @media (min-width: $min-width-second-break) {
         margin: 1rem 0;
