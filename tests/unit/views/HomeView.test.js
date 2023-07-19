@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import HomeView from '@/views/HomeView.vue';
 
+
 jest.mock('@/components/home/LogoAndBanner.vue', () => ({
   name: 'LogoAndBanner',
   template: '<div class="mocked-logo-and-banner"></div>',
