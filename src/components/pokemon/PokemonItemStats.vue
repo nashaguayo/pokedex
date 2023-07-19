@@ -1,5 +1,5 @@
 <template functional>
-  <CenteredColumn class="pokemon-item-stats">
+  <div class="pokemon-item-stats">
     <span class="title">Stats</span>
     <div
       v-for="stat in props.stats"
@@ -39,12 +39,10 @@
       </div>
       <span class="property-values">{{ stat.value }}</span>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
-
 export default {
   name: 'PokemonItemStat',
   props: {
@@ -53,12 +51,16 @@ export default {
       required: true,
     },
   },
-  components: { CenteredColumn },
 };
 </script>
 
 <style lang="scss" scoped>
 .pokemon-item-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
   .title {
     text-align: center;
     font-size: 2rem;

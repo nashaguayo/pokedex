@@ -2,11 +2,29 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.1...HEAD) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.2...develop) (dd-mm-yyyy)
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.0...V0.2.1) (17-07-2023)
+## [V0.2.2](https://github.com/nashaguayo/pokedex/compare/V0.2.1...V0.2.2) (18-07-2023)
+
+##### Modified
+
+- Go back button on pokemon detail page now always goes back to pokemons
+- Animation on Pokemon details page
+- Styles on overall page
+
+##### Fixed
+
+- Changing loader color on darkmode
+- No more duplicate pokemons on random pokemon
+- Hiding pokemon evolutions when there aren't any
+- Pokemon names that break on pokemon list no longer align to the left
+- No longer moving background on pokemon details page
+
+---
+
+## [V0.2.1](https://github.com/nashaguayo/pokedex/compare/V0.2.0...V0.2.1) (17-07-2023)
 
 ##### Fixed
 

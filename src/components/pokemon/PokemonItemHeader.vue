@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn
+  <div
     class="pokemon-item-header"
     :style="{ top: `${topPosition}px` }"
     ref="pokemonItemHeader"
@@ -21,18 +21,16 @@
     />
     <div class="pokemon-backdrop-filter"></div>
     <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
 import debounce from 'lodash/debounce';
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import silouette from '@/assets/pokemons/silouette.png';
 import { capitalizeWord } from '@/lib/helpers';
 
 export default {
   name: 'PokemonItemHeader',
-  components: { CenteredColumn },
   data() {
     return {
       locationHeight: 0,
@@ -73,6 +71,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   width: 100%;
   position: relative;
 
@@ -147,12 +149,16 @@ export default {
     margin-top: -2rem;
     z-index: 10;
     color: var(--variant-text-color);
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: var(--variant-title-border-color);
+    color: var(--variant-title-color);
 
     @media (min-width: $min-width-first-break) {
       margin-top: -3rem;
     }
 
     @media (min-width: $min-width-second-break) {
+      -webkit-text-stroke-width: 0.2rem;
       margin-top: -3.5rem;
     }
 

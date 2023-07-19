@@ -88,6 +88,10 @@ export default {
     height: 6.25rem;
   }
 
+  .name {
+    text-align: center;
+  }
+
   .types {
     display: flex;
     margin: 0.5rem 0;

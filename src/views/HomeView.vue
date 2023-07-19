@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn>
+  <div class="home-view">
     <ErrorBoundary
       componentName="LogoAndBanner"
       errorMessage="Logo and Banner unable to load"
@@ -18,11 +18,10 @@
     >
       <GuessPokemon />
     </ErrorBoundary>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
 import LogoAndBanner from '@/components/home/LogoAndBanner.vue';
 import RandomPokemon from '@/components/home/RandomPokemon.vue';
@@ -32,7 +31,6 @@ export default {
   name: 'HomeView',
   title: 'Learn all about Pokemons!',
   components: {
-    CenteredColumn,
     ErrorBoundary,
     LogoAndBanner,
     RandomPokemon,
@@ -40,3 +38,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.home-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+</style>

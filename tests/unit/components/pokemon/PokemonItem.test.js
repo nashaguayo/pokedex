@@ -7,11 +7,6 @@ jest.mock('@/components/ui/BaseButton.vue', () => ({
   template: '<div class="mocked-base-button"></div>',
 }));
 
-jest.mock('@/components/ui/CenteredColumn.vue', () => ({
-  name: 'CenteredColumn',
-  template: '<div class="mocked-centered-column"></div>',
-}));
-
 jest.mock('@/components/pokemon/PokemonItemHeader.vue', () => ({
   name: 'PokemonItemHeader',
   template: '<div class="mocked-pokemon-item-header"></div>',
@@ -50,7 +45,7 @@ jest.mock('@/lib/store', () => ({
 }));
 
 jest.mock('@/lib/helpers', () => ({
-  getPokemonPageBackgroundElement: jest.fn(() => ({
+  getPageBackgroundElement: jest.fn(() => ({
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
     scrollTop: 0,
@@ -84,11 +79,10 @@ describe('PokemonItem', () => {
 
   it('renders its respective components', () => {
     expect(wrapper.find('basebutton-stub').exists()).toBe(true);
-    expect(wrapper.find('centeredcolumn-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(false);
-    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(false);
+    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
   });
 });

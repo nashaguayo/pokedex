@@ -92,9 +92,7 @@ describe('FooterLinks', () => {
   it('sets height correctly when isVisible is true', () => {
     wrapper.vm.isVisible = true;
     wrapper.vm.setHeight();
-    expect(wrapper.vm.height).toBe(
-      wrapper.vm.$refs.footerLinks.$el.offsetHeight
-    );
+    expect(wrapper.vm.height).toBe(wrapper.vm.$refs.footerLinks.offsetHeight);
     expect(wrapper.emitted('setMargin')).toBeTruthy();
     expect(wrapper.emitted('setMargin')[0][0]).toBe(wrapper.vm.height);
   });

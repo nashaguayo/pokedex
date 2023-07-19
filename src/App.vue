@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <CenteredColumn class="base-page">
-      <CenteredColumn
+    <div class="base-page">
+      <div
         class="page-background"
         :class="{
           'add-margins': displayHeader,
@@ -17,20 +17,19 @@
         <transition name="drawer-down">
           <BaseFooter :displayFooter="displayFooter" />
         </transition>
-      </CenteredColumn>
-    </CenteredColumn>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'App',
-  components: { CenteredColumn, BaseHeader, BaseFooter },
+  components: { BaseHeader, BaseFooter },
   async created() {
     this.setTheme(this.isDarkModeEnabled);
     await store.getAllPokemons();
@@ -85,6 +84,13 @@ export default {
 }
 
 html[data-theme='light'] {
+  --main-title-border-color: #{$light-main-title-border-color};
+  --main-title-color: #{$light-main-title-color};
+  --secondary-title-border-color: #{$light-secondary-title-border-color};
+  --secondary-title-color: #{$light-secondary-title-color};
+  --variant-title-border-color: #{$light-variant-title-border-color};
+  --variant-title-color: #{$light-variant-title-color};
+
   --main-background-color: #{$light-main-background-color};
   --secondary-background-color: #{$light-secondary-background-color};
   --variant-background-color: #{$light-variant-background-color};
@@ -114,6 +120,13 @@ html[data-theme='light'] {
 }
 
 html[data-theme='dark'] {
+  --main-title-border-color: #{$dark-main-title-border-color};
+  --main-title-color: #{$dark-main-title-color};
+  --secondary-title-border-color: #{$dark-secondary-title-border-color};
+  --secondary-title-color: #{$dark-secondary-title-color};
+  --variant-title-border-color: #{$dark-variant-title-border-color};
+  --variant-title-color: #{$dark-variant-title-color};
+
   --main-background-color: #{$dark-main-background-color};
   --secondary-background-color: #{$dark-secondary-background-color};
   --variant-background-color: #{$dark-variant-background-color};
@@ -162,7 +175,6 @@ a:active {
   text-decoration: none;
 }
 
-h1,
 h2,
 span,
 p {
@@ -184,8 +196,10 @@ p {
 }
 
 h1 {
-  font-family: 'Pokemon Solid';
   font-size: 1.5rem;
+  -webkit-text-stroke-width: 0.25rem;
+  -webkit-text-stroke-color: var(--main-title-border-color);
+  color: var(--main-title-color);
 
   @media (min-width: $min-width-first-break) {
     font-size: 1.8rem;
@@ -197,8 +211,10 @@ h1 {
 }
 
 h2 {
-  font-family: 'Pokemon Hollow';
   font-size: 1.2rem;
+  -webkit-text-stroke-width: 0.2rem;
+  -webkit-text-stroke-color: var(--secondary-title-border-color);
+  color: var(--secondary-title-color);
 
   @media (min-width: $min-width-first-break) {
     font-size: 1.5rem;
@@ -211,7 +227,7 @@ h2 {
 
 h1,
 h2 {
-  text-shadow: var(--variant-background-color) 0 0 0.2rem;
+  font-family: 'Pokemon Solid';
   letter-spacing: 0.25rem;
   text-align: center;
 }
@@ -223,10 +239,17 @@ h2 {
   background-repeat: no-repeat;
 
   .base-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     overflow-y: scroll;
     height: 100vh;
 
     .page-background {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       background-color: var(--main-background-color);
       width: 100vw;
       height: 100vh;

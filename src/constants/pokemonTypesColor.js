@@ -1,6 +1,6 @@
 export const pokemonColorTypes = new Map([
   ['normal', 'black'],
-  ['fighting', 'azure'],
+  ['fighting', 'purple'],
   ['flying', 'blue'],
   ['poison', 'violet'],
   ['ground', 'brown'],
@@ -11,7 +11,7 @@ export const pokemonColorTypes = new Map([
   ['fire', 'red'],
   ['water', 'aquamarine'],
   ['grass', 'lime'],
-  ['electric', 'antiquewhite'],
+  ['electric', 'orange'],
   ['psychic', 'blueviolet'],
   ['ice', 'blanchedalmond'],
   ['dragon', 'chocolate'],

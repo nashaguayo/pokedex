@@ -1,9 +1,9 @@
 <template>
   <BaseLoader :loading="loading">
-    <CenteredColumn class="random-pokemon">
+    <div class="random-pokemon">
       <h2>Random Pokemon</h2>
       <transition-group name="slide-to-right" class="pokemons">
-        <CenteredColumn
+        <div
           class="pokedex"
           v-for="pokemon in randomPokemons"
           :key="pokemon.name"
@@ -17,15 +17,14 @@
             </div>
             <span class="pokemon-name">{{ pokemon.name }}</span>
           </router-link>
-        </CenteredColumn>
+        </div>
       </transition-group>
-    </CenteredColumn>
+    </div>
   </BaseLoader>
 </template>
 
 <script>
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import store from '@/lib/store';
 import {
   firstBreak,
@@ -36,7 +35,7 @@ import {
 
 export default {
   name: 'RandomPokemon',
-  components: { BaseLoader, CenteredColumn },
+  components: { BaseLoader },
   data() {
     return {
       timer: null,
@@ -87,6 +86,10 @@ export default {
 
 <style lang="scss" scoped>
 .random-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   box-shadow: var(--main-box-shadow);
   background-color: var(--secondary-background-color);
   width: 100%;
@@ -97,11 +100,15 @@ export default {
 
   .pokemons {
     display: flex;
-    direction: row-reverse;
+    flex-direction: row-reverse;
     gap: 1rem;
   }
 
   .pokedex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     width: 9rem;
 
     .link {
@@ -146,12 +153,12 @@ export default {
 }
 
 .slide-to-right-enter {
-  transform: translateX(-5rem);
+  transform: translateX(5rem);
   opacity: 0;
 }
 
 .slide-to-right-leave-to {
-  transform: translateX(5rem);
+  transform: translateX(-5rem);
   opacity: 0;
 }
 </style>

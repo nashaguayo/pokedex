@@ -1,17 +1,14 @@
 <template>
-  <CenteredColumn class="pokemon-item-evolutions">
+  <div class="pokemon-item-evolutions">
     <span class="title">Evolutions</span>
     <div class="card">
-      <CenteredColumn class="evolution">
+      <div class="evolution">
         <transition name="fade" mode="out-in">
           <span :key="species">
             {{ species }}
           </span>
         </transition>
-        <span v-if="evolutions.length === 1" class="no-evolutions">
-          This pokemon has no evolutions!
-        </span>
-        <router-link v-else :to="`/pokemons/${species}`">
+        <router-link :to="`/pokemons/${species}`">
           <div
             class="screen"
             :style="{
@@ -19,7 +16,7 @@
             }"
           ></div>
         </router-link>
-      </CenteredColumn>
+      </div>
       <div class="buttons">
         <BaseChevron
           ref="previousEvolutionButton"
@@ -35,11 +32,10 @@
         />
       </div>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
 import BaseChevron from '@/components/ui/BaseChevron.vue';
 
 export default {
@@ -58,10 +54,7 @@ export default {
       required: true,
     },
   },
-  components: {
-    CenteredColumn,
-    BaseChevron,
-  },
+  components: { BaseChevron },
   data() {
     return {
       evolution: 0,
@@ -75,11 +68,13 @@ export default {
       return this.evolutions[this.evolution]?.image;
     },
   },
-  async created() {
-    this.evolution =
-      this.evolutions.findIndex(
-        (evolution) => evolution.species === this.pokemonName.toLowerCase()
-      ) ?? 0;
+  watch: {
+    evolutions(evolutions) {
+      this.findEvolution(evolutions);
+    },
+  },
+  created() {
+    this.findEvolution();
   },
   methods: {
     getPreviousEvolution() {
@@ -88,12 +83,22 @@ export default {
     getNextEvolution() {
       this.evolution = this.evolution + 1;
     },
+    findEvolution(evolutions) {
+      this.evolution =
+        (evolutions ?? this.evolutions).findIndex(
+          (evolution) => evolution.species === this.pokemonName.toLowerCase()
+        ) ?? 0;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .pokemon-item-evolutions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin: 1rem 0;
 
   @media (min-width: $min-width-fourth-break) {
@@ -120,7 +125,7 @@ export default {
     margin-top: 1rem;
     background-color: var(--cards-background-color);
     border-radius: 1rem;
-    border: 0.2rem solid var(--main-border-color);
+    border: 0.2rem solid var(--secondary-border-color);
     min-width: 10rem;
     box-shadow: var(--main-box-shadow);
 
@@ -146,8 +151,15 @@ export default {
       }
     }
 
-    .evolution span {
-      margin-top: 1rem;
+    .evolution {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      span {
+        margin-top: 1rem;
+      }
     }
   }
 

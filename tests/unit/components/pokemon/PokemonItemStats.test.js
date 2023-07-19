@@ -24,7 +24,6 @@ describe('PokemonItemStats', () => {
       propsData: {
         stats,
       },
-      stubs: ['CenteredColumn'],
     });
   });
 

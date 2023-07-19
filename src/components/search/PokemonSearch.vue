@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn class="pokemon-search">
+  <div class="pokemon-search">
     <div class="controls">
       <BaseInput
         name="search"
@@ -76,19 +76,18 @@
         Go Back
       </BaseButton>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
 import BaseLoader from '@/components/ui/BaseLoader';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseInput from '@/components/ui/BaseInput';
-import CenteredColumn from '@/components/ui/CenteredColumn';
 import store from '@/lib/store';
 
 export default {
   name: 'PokemonSearch',
-  components: { BaseLoader, BaseButton, BaseInput, CenteredColumn },
+  components: { BaseLoader, BaseButton, BaseInput },
   data() {
     return {
       searchTerm: '',
@@ -158,6 +157,9 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 
   .controls {

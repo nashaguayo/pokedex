@@ -1,5 +1,5 @@
 <template functional>
-  <CenteredColumn class="pokemon-item-characteristics">
+  <div class="pokemon-item-characteristics">
     <div class="status">
       <span class="right">Weight</span>
       <span>{{ props.weight }} pounds</span>
@@ -11,15 +11,12 @@
         {{ props.characteristic }}
       </span>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
-
 export default {
   name: 'PokemonItemCharacteristics',
-  components: { CenteredColumn },
   props: {
     characteristic: {
       type: String,
@@ -43,6 +40,11 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-item-characteristics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
   .status {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

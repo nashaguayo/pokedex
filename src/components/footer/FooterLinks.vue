@@ -1,5 +1,5 @@
 <template>
-  <CenteredColumn
+  <div
     class="footer-links"
     ref="footerLinks"
     v-observe-visibility="{
@@ -11,12 +11,12 @@
       <span>This is a project built for learning.</span>
     </div>
     <div class="logos">
-      <CenteredColumn class="fueled-by">
+      <div class="fueled-by">
         <span>Fueled by</span>
         <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
           <img src="@/assets/ui/pokeapi.png" alt="pokeapi logo" />
         </a>
-      </CenteredColumn>
+      </div>
       <a
         :href="githubRepoUrl"
         class="repository"
@@ -30,15 +30,12 @@
         />
       </a>
     </div>
-  </CenteredColumn>
+  </div>
 </template>
 
 <script>
-import CenteredColumn from '@/components/ui/CenteredColumn.vue';
-
 export default {
   name: 'FooterLinks',
-  components: { CenteredColumn },
   data() {
     return {
       isVisible: false,
@@ -62,9 +59,7 @@ export default {
   },
   methods: {
     setHeight() {
-      this.height = this.isVisible
-        ? this.$refs.footerLinks.$el.offsetHeight
-        : 0;
+      this.height = this.isVisible ? this.$refs.footerLinks.offsetHeight : 0;
       this.$emit('setMargin', this.height);
     },
     visibilityChanged(isVisible) {
@@ -77,6 +72,10 @@ export default {
 
 <style lang="scss" scoped>
 .footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   background-color: var(--variant-background-color);
   box-shadow: var(--main-box-shadow);
 
@@ -113,6 +112,10 @@ export default {
     display: flex;
 
     .fueled-by {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
       justify-content: center;
 
       span {
