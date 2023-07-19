@@ -43,7 +43,6 @@ export default {
       this.throttledHandleScroll
     );
     await new Promise((resolve) => setTimeout(resolve, 3000));
-
   },
   beforeDestroy() {
     getPageBackgroundElement().removeEventListener(
