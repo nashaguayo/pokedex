@@ -8,7 +8,7 @@
         v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
       <div class="pokemon-info-container">
-        <h1 class="pokemon-name">{{ capitalizeWord(name) }}</h1>
+        <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
         <PokemonItemCharacteristics
           :characteristic="characteristic"
           :height="height"
@@ -230,6 +230,8 @@ export default {
       @media (min-width: $min-width-fourth-break) {
         display: block;
         color: var(--secondary-text-color);
+        -webkit-text-stroke-color: var(--variant-title-border-color);
+        color: var(--variant-title-color);
       }
     }
   }

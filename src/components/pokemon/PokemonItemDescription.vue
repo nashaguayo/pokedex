@@ -75,6 +75,7 @@ export default {
       font-family: 'Upheaval';
       text-align: center;
       margin: 0.5rem 0;
+      font-weight: lighter;
 
       @media (min-width: $min-width-second-break) {
         margin: 1rem 0;
