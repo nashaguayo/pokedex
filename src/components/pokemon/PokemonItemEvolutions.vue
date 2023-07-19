@@ -125,7 +125,7 @@ export default {
     margin-top: 1rem;
     background-color: var(--cards-background-color);
     border-radius: 1rem;
-    border: 0.2rem solid var(--main-border-color);
+    border: 0.2rem solid var(--secondary-border-color);
     min-width: 10rem;
     box-shadow: var(--main-box-shadow);
 

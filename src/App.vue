@@ -121,9 +121,9 @@ html[data-theme='light'] {
 
 html[data-theme='dark'] {
   --main-title-border-color: #{$dark-main-title-border-color};
-  --main-title-color: #{dark-main-title-color};
+  --main-title-color: #{$dark-main-title-color};
   --secondary-title-border-color: #{$dark-secondary-title-border-color};
-  --secondary-title-color: #{dark-secondary-title-color};
+  --secondary-title-color: #{$dark-secondary-title-color};
   --variant-title-border-color: #{$dark-variant-title-border-color};
   --variant-title-color: #{$dark-variant-title-color};
 

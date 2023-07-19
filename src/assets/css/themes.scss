@@ -42,15 +42,15 @@ $light-winning-color: green;
 $light-losing-color: red;
 
 // Dark mode
-$dark-main-title-border-color: #292a83;
-$dark-main-title-color: #ffdf1b;
+$dark-main-title-border-color: #ffdf1b;
+$dark-main-title-color: #292a83;
 $dark-secondary-title-border-color: black;
 $dark-secondary-title-color: white;
-$dark-variant-title-border-color: black;
-$dark-variant-title-color: white;
+$dark-variant-title-border-color: white;
+$dark-variant-title-color: transparent;
 
-$dark-main-background-color: rgb(44, 44, 44);
-$dark-secondary-background-color: rgb(78, 16, 52);
+$dark-main-background-color: rgb(10, 10, 10);
+$dark-secondary-background-color: rgb(71, 0, 0);
 $dark-variant-background-color: rgb(0, 0, 0);
 
 $dark-main-shadow-color: rgba(255, 255, 255, 0.6);
@@ -60,16 +60,16 @@ $dark-main-text-color: white;
 $dark-secondary-text-color: white;
 $dark-variant-text-color: white;
 
-$dark-main-border-color: rgb(34, 34, 34);
-$dark-secondary-border-color: black;
+$dark-main-border-color: rgb(255, 255, 255);
+$dark-secondary-border-color: white;
 
-$dark-main-box-shadow: 0 0 0.3rem 0.1rem $dark-secondary-shadow-color;
+$dark-main-box-shadow: 0 0 0.2rem 0.2rem $dark-secondary-shadow-color;
 
-$dark-cards-background-color: rgb(9, 54, 0);
+$dark-cards-background-color: rgb(53, 52, 0);
 $dark-screen-background-gradient: linear-gradient(
   0deg,
-  rgba(166, 0, 255, 1) 0%,
-  rgba(0, 0, 0, 1) 100%
+  rgb(44, 44, 44) 0%,
+  rgb(0, 0, 0) 100%
 );
 $dark-disabled-button-background-color: #535353;
 $dark-disabled-button-color: #cccccc;
