@@ -264,6 +264,10 @@ h2 {
       &.add-margins {
         padding-top: 5rem;
 
+        @media (min-width: $min-width-first-break) {
+          padding-top: 6rem;
+        }
+
         @media (min-width: $min-width-second-break) {
           padding-top: 7rem;
         }
