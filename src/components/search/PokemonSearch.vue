@@ -243,6 +243,7 @@ export default {
       border-radius: 1rem;
       padding: 0.3rem;
       transition: all 0.3s;
+      cursor: pointer;
 
       &.inactive {
         background-color: var(--disabled-button-background-color);
