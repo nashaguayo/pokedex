@@ -7,6 +7,7 @@
 ##### Modified
 
 - Changed search url
+- Using hash mode on router
 
 ##### Fixed
 

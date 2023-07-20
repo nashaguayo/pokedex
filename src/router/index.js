@@ -53,7 +53,7 @@ const routes = [
 
 const router = new VueRouter({
   base: '/pokedex',
-  mode: 'history',
+  mode: 'hash',
   routes,
 });
 
