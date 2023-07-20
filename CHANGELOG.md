@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.2...develop) (dd-mm-yyyy)
 
+##### Modified
+
+- Changed search url
+
 ##### Fixed
 
 - Buttons in search now have a pointer cursor

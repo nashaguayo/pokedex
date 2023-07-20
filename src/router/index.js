@@ -32,7 +32,7 @@ const routes = [
     },
   },
   {
-    path: '/pokemons/search',
+    path: '/search',
     name: 'search',
     component: () => import('@/views/SearchView.vue'),
     meta: {
