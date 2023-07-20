@@ -57,7 +57,7 @@ export default {
     },
     scrollToTop() {
       this.wasClicked = true;
-      scrollToTopOfBackgroundPage();
+      scrollToTopOfBackgroundPage('smooth');
     },
   },
 };

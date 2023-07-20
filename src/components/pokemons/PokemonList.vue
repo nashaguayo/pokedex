@@ -25,7 +25,10 @@
 import debounce from 'lodash/debounce';
 import PokemonListCard from '@/components/pokemons/PokemonListCard';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import { getPageBackgroundElement } from '@/lib/helpers';
+import {
+  getPageBackgroundElement,
+  scrollToTopOfBackgroundPage,
+} from '@/lib/helpers';
 import store from '@/lib/store';
 
 export default {
@@ -48,6 +51,7 @@ export default {
     await this.getPokemons();
   },
   mounted() {
+    scrollToTopOfBackgroundPage();
     this.debouncedScroll = debounce(this.handleScroll, 100);
     getPageBackgroundElement().addEventListener('scroll', this.debouncedScroll);
   },
