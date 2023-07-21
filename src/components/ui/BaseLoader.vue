@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade-in-out" :mode="mode" appear>
+  <transition name="fade-in-out" :mode="mode" @after-enter="afterEnter" appear>
     <FontAwesomeIcon
       v-if="loading"
       icon="fa-solid fa-spinner"
@@ -33,6 +33,10 @@ export default {
     enableDarkmodeColorSwitch: {
       type: Boolean,
       default: true,
+    },
+    afterEnter: {
+      type: Function,
+      default: () => {},
     },
   },
   computed: {
