@@ -88,6 +88,7 @@ export async function getFlavorTextsAndColorForSpecies(url) {
     return {
       flavorTexts: flavorTextsWithoutRepetition,
       color: response.data.color.name,
+      shape: response.data.shape.name,
     };
   } catch (error) {
     logError(
