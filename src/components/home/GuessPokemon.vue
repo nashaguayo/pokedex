@@ -199,6 +199,8 @@ export default {
       this.tries = 3;
       this.loading = false;
 
+      console.log(this.name);
+
       if (!this.isFirstTime) {
         this.focus = true;
       } else {
