@@ -15,6 +15,7 @@
 - Pokemons page always loads on top, not on saved position
 - Header no longer overlaps title
 - Transition on pokemon details page... again
+- Scroll to top button bottom margin when navigating away from a page with footer
 
 ---
 
