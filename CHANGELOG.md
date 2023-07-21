@@ -14,6 +14,7 @@
 - Buttons in search now have a pointer cursor
 - Pokemons page always loads on top, not on saved position
 - Header no longer overlaps title
+- Transition on pokemon details page... again
 
 ---
 
