@@ -11,6 +11,7 @@ describe('LogoAndBanner', () => {
         weight: 80,
         height: 17,
         color: 'yellow',
+        shape: 'upright',
       },
     });
   });
@@ -38,5 +39,10 @@ describe('LogoAndBanner', () => {
     const color = wrapper.find('.status span:nth-child(6)');
     expect(color.text()).toBe('yellow');
     expect(color.attributes('style')).toContain('color: yellow');
+  });
+
+  it('displays the correct shape', () => {
+    const color = wrapper.find('.status span:nth-child(8)');
+    expect(color.text()).toBe('upright');
   });
 });
