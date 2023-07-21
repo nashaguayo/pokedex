@@ -7,6 +7,7 @@
 ##### Added
 
 - Shape to pokemon details
+- Generation to pokemon details
 
 ##### Modified
 
