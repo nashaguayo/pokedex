@@ -88,6 +88,8 @@ export async function getFlavorTextsAndColorForSpecies(url) {
     return {
       flavorTexts: flavorTextsWithoutRepetition,
       color: response.data.color.name,
+      shape: response.data.shape.name,
+      generation: response.data.generation.name.replace('generation-', ''),
     };
   } catch (error) {
     logError(

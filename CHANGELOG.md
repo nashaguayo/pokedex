@@ -4,6 +4,11 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.2...develop) (dd-mm-yyyy)
 
+##### Added
+
+- Shape to pokemon details
+- Generation to pokemon details
+
 ##### Modified
 
 - Changed search url

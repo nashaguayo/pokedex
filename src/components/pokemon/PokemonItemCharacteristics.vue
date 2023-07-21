@@ -7,6 +7,10 @@
       <span>{{ props.height }}"</span>
       <span class="right">Color</span>
       <span :style="{ color: props.color }">{{ props.color }}</span>
+      <span class="right">Shape</span>
+      <span>{{ props.shape }}</span>
+      <span class="right">Generation</span>
+      <span>{{ props.generation.toUpperCase() }}</span>
       <span class="characteristic">
         {{ props.characteristic }}
       </span>
@@ -31,6 +35,14 @@ export default {
       required: true,
     },
     color: {
+      type: String,
+      required: true,
+    },
+    shape: {
+      type: String,
+      required: true,
+    },
+    generation: {
       type: String,
       required: true,
     },

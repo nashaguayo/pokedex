@@ -17,6 +17,8 @@
           :height="height"
           :weight="weight"
           :color="color"
+          :shape="shape"
+          :generation="generation"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
@@ -136,6 +138,16 @@ export default {
     color() {
       return (
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
+      );
+    },
+    shape() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.shape ?? ''
+      );
+    },
+    generation() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
       );
     },
   },
