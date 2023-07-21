@@ -101,7 +101,7 @@ export default {
     }
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
-    const { flavorTexts, color, shape } = pokemon.species.url
+    const { flavorTexts, color, shape, generation } = pokemon.species.url
       ? await getFlavorTextsAndColorForSpeciesApi(pokemon.species.url)
       : [];
     let highestStatName = '';
@@ -141,6 +141,7 @@ export default {
       weight,
       color,
       shape,
+      generation,
     });
     state.pokemon.set(id, {
       id,
@@ -155,6 +156,7 @@ export default {
       weight,
       color,
       shape,
+      generation,
     });
   },
 
