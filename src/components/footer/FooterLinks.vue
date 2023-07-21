@@ -57,6 +57,9 @@ export default {
   mounted() {
     this.setHeight();
   },
+  beforeDestroy() {
+    this.setHeight();
+  },
   methods: {
     setHeight() {
       this.height = this.isVisible ? this.$refs.footerLinks.offsetHeight : 0;
