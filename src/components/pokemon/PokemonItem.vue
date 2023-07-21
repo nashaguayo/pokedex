@@ -1,11 +1,14 @@
 <template>
-  <BaseLoader :loading="loading" :coverPage="true" mode="in-out">
+  <BaseLoader
+    :loading="loading"
+    :afterEnter="headerIsVisible"
+    :coverPage="true"
+  >
     <div class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         :name="name"
         :image="image"
         :topPosition="topPosition"
-        v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
