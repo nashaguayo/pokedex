@@ -32,4 +32,18 @@ describe('GeneralNavigation', () => {
       'fa-solid fa-toggle-on'
     );
   });
+
+  it('displays the dark mode off icon when isDarkModeEnabled is false', () => {
+    const wrapper = shallowMount(GeneralNavigation, {
+      computed: {
+        isDarkModeEnabled() {
+          return false;
+        },
+      },
+      stubs: ['router-link', 'FontAwesomeIcon'],
+    });
+    expect(wrapper.findAll('.icon').at(2).attributes().icon).toBe(
+      'fa-solid fa-toggle-off'
+    );
+  });
 });
