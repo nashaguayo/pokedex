@@ -45,10 +45,6 @@ export default {
       type: Array,
       required: true,
     },
-    pokemonId: {
-      type: Number,
-      required: true,
-    },
     pokemonName: {
       type: String,
       required: true,
