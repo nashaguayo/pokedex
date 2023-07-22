@@ -189,7 +189,7 @@ export default {
     },
   },
   async created() {
-    await this.getNewMysteryPokemon('created');
+    await this.getNewMysteryPokemon();
   },
   methods: {
     async getNewMysteryPokemon() {
