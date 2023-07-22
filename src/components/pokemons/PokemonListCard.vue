@@ -3,7 +3,7 @@
     class="pokemon-list-card"
     :class="{ 'shrink-animation': wasClicked }"
     @click="showPokemonInfo"
-    @animationend="wasClicked = false"
+    @animationend="onAnimationEnd"
   >
     <span class="id">#{{ id }}</span>
     <img :src="image" alt="pokemon front default" class="screen" />
@@ -55,6 +55,9 @@ export default {
     showPokemonInfo() {
       this.wasClicked = true;
       this.$router.push({ name: 'pokemon', params: { id: this.name } });
+    },
+    onAnimationEnd() {
+      this.wasClicked = false;
     },
   },
 };
