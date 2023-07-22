@@ -2,15 +2,22 @@ import { mount } from '@vue/test-utils';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 
 describe('PokemonItemType', () => {
-  it('renders the component with the correct props', () => {
-    const types = ['fire', 'water', 'grass'];
+  let wrapper;
+  const types = ['fire', 'water', 'grass'];
 
-    const wrapper = mount(PokemonItemType, {
+  beforeEach(() => {
+    wrapper = mount(PokemonItemType, {
       propsData: {
         types,
       },
     });
+  });
 
+  afterEach(() => {
+    wrapper.destroy();
+  });
+
+  it('renders the component with the correct props', () => {
     const typeElements = wrapper.findAll('.type');
     expect(typeElements.length).toBe(3);
 
@@ -27,7 +34,15 @@ describe('PokemonItemType', () => {
       );
       expect(shineElement).toBeTruthy();
     });
+  });
 
-    wrapper.destroy();
+  it('renders the component with default props when no types are provided', () => {
+    wrapper = mount(PokemonItemType, {
+      propsData: {
+        types: [],
+      },
+    });
+    const typeElements = wrapper.findAll('.type');
+    expect(typeElements.length).toBe(0);
   });
 });
