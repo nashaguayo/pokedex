@@ -187,47 +187,35 @@ export default {
       this.searchTerm = searchTerm;
     },
     toggleDisplayTypes() {
+      this.clearDisplayVariables();
       if (this.component === 'PokemonSearchTypes') {
         this.component = null;
-        this.displayTypes = false;
-        this.displayShapes = false;
-        this.displayColors = false;
         return;
       }
       this.component = 'PokemonSearchTypes';
       this.displayTypes = true;
-      this.displayColors = false;
-      this.displayShapes = false;
       store.clearColorFilters();
       store.clearShapeFilters();
     },
     toggleDisplayColors() {
+      this.clearDisplayVariables();
       if (this.component === 'PokemonSearchColors') {
         this.component = null;
-        this.displayColors = false;
-        this.displayShapes = false;
-        this.displayTypes = false;
         return;
       }
       this.component = 'PokemonSearchColors';
       this.displayColors = true;
-      this.displayTypes = false;
-      this.displayShapes = false;
       store.clearTypeFilters();
       store.clearShapeFilters();
     },
     toggleDisplayShapes() {
+      this.clearDisplayVariables();
       if (this.component === 'PokemonSearchShapes') {
         this.component = null;
-        this.displayColors = false;
-        this.displayTypes = false;
-        this.displayShapes = false;
         return;
       }
       this.component = 'PokemonSearchShapes';
       this.displayShapes = true;
-      this.displayColors = false;
-      this.displayTypes = false;
       store.clearTypeFilters();
       store.clearColorFilters();
     },
@@ -236,6 +224,9 @@ export default {
       store.clearSearchResults();
       store.clearFilters();
       this.component = null;
+      this.clearDisplayVariables();
+    },
+    clearDisplayVariables() {
       this.displayTypes = false;
       this.displayColors = false;
       this.displayShapes = false;
