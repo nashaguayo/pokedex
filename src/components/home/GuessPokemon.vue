@@ -29,6 +29,7 @@
         :focus="focus"
         @focused="focus = false"
         ref="playersGuess"
+        class="guess-input"
       />
       <BaseChevron
         direction="right"
@@ -303,14 +304,22 @@ export default {
   }
 
   .players-guess {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 90%;
     align-items: center;
-    width: 100%;
-    justify-content: space-evenly;
+    gap: 1rem;
+
+    .guess-input {
+      grid-column-start: 1;
+      grid-column-end: 5;
+    }
 
     .send-guess {
-      margin-right: 1.5rem;
       margin-left: -1rem;
+      grid-column-start: 5;
+      grid-column-end: 6;
+      max-width: 1.2rem;
     }
   }
 

@@ -1,6 +1,8 @@
 <template functional>
   <div class="pokemon-item-characteristics">
     <div class="status">
+      <span class="right">ID</span>
+      <span>#{{ props.id }}</span>
       <span class="right">Weight</span>
       <span>{{ props.weight }} pounds</span>
       <span class="right">Height</span>
@@ -24,6 +26,10 @@
 export default {
   name: 'PokemonItemCharacteristics',
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     characteristic: {
       type: String,
       required: true,
@@ -66,7 +72,7 @@ export default {
     margin: 1rem 0;
     background-color: var(--secondary-background-color);
     width: 16rem;
-    align-items: end;
+    align-items: center;
     padding: 1rem;
     box-shadow: var(--main-box-shadow);
 
