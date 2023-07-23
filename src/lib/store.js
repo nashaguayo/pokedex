@@ -61,11 +61,13 @@ export default {
   },
 
   async initializeStore() {
-    await this.getAllPokemons();
-    await this.getAllTypes();
-    await this.getAllColors();
-    await this.getAllShapes();
-    await this.getAllCharacteristicsDescriptions();
+    await Promise.all([
+      this.getAllPokemons(),
+      this.getAllTypes(),
+      this.getAllColors(),
+      this.getAllShapes(),
+      this.getAllCharacteristicsDescriptions(),
+    ]);
   },
 
   async getPokemonListCardData(pokemon) {
