@@ -32,11 +32,8 @@
         </BaseButton>
       </div>
     </div>
-    <transition name="slide-from-above">
-      <PokemonSearchTypes v-if="displayTypes" />
-    </transition>
-    <transition name="slide-from-above">
-      <PokemonSearchColors v-if="displayColors" />
+    <transition name="slide-from-above" mode="out-in" appear>
+      <component :is="component" />
     </transition>
     <transition name="slide-from-above" mode="out-in" appear>
       <span
@@ -91,6 +88,7 @@ export default {
   },
   data() {
     return {
+      component: null,
       searchTerm: '',
       displayTypes: false,
       displayColors: false,
@@ -155,18 +153,32 @@ export default {
       this.searchTerm = searchTerm;
     },
     toggleDisplayTypes() {
+      if (this.component === 'PokemonSearchTypes') {
+        this.component = null;
+        this.displayTypes = false;
+        return;
+      }
+      this.component = 'PokemonSearchTypes';
+      this.displayTypes = true;
       this.displayColors = false;
-      this.displayTypes = !this.displayTypes;
     },
     toggleDisplayColors() {
+      if (this.component === 'PokemonSearchColors') {
+        this.component = null;
+        this.displayColors = false;
+        return;
+      }
+      this.component = 'PokemonSearchColors';
+      this.displayColors = true;
       this.displayTypes = false;
-      this.displayColors = !this.displayColors;
     },
     clearSearch() {
       this.reset = true;
       store.clearSearchResults();
       store.clearFilters();
+      this.component = null;
       this.displayTypes = false;
+      this.displayColors = false;
     },
   },
 };
