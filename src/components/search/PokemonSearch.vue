@@ -105,7 +105,11 @@ export default {
   },
   watch: {
     async searchTerm(searchTerm) {
-      if (searchTerm.length < 3 && !this.filteringTypes.length) {
+      if (
+        searchTerm.length < 3 &&
+        !this.filteringTypes.length &&
+        !this.filteringColors.length
+      ) {
         store.clearSearchResults();
         return;
       }
