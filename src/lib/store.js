@@ -190,13 +190,14 @@ export default {
     }
 
     state.search.isSearchingPokemon = true;
+    const searchTermLowerCase = searchTerm.toLowerCase();
 
     if (state.search.types.length) {
       let repeatedResults = [];
       state.search.types.forEach((type) => {
         const filteredPokemonNamesByType = state.pokemonsByType
           .get(type)
-          .filter((pokemon) => pokemon.includes(searchTerm));
+          .filter((pokemon) => pokemon.includes(searchTermLowerCase));
         repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
       });
 
@@ -218,7 +219,7 @@ export default {
       state.search.results = results.map((nameCount) => nameCount[0]);
     } else {
       state.search.results = state.allPokemons.filter((pokemon) =>
-        pokemon.includes(searchTerm)
+        pokemon.includes(searchTermLowerCase)
       );
     }
 
