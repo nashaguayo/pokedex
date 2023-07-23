@@ -28,6 +28,14 @@
           {{ displayColorsText }}
         </BaseButton>
         <BaseButton
+          class="button"
+          :onClickHandler="toggleDisplayShapes"
+          :variant="true"
+          :small="true"
+        >
+          {{ displayShapesText }}
+        </BaseButton>
+        <BaseButton
           class="button clear-search"
           :onClickHandler="clearSearch"
           :small="true"
@@ -80,6 +88,7 @@ import BaseButton from '@/components/ui/BaseButton';
 import BaseInput from '@/components/ui/BaseInput';
 import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
 import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
+import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import store from '@/lib/store';
 
 export default {
@@ -90,6 +99,7 @@ export default {
     BaseInput,
     PokemonSearchTypes,
     PokemonSearchColors,
+    PokemonSearchShapes,
   },
   data() {
     return {
@@ -97,6 +107,7 @@ export default {
       searchTerm: '',
       displayTypes: false,
       displayColors: false,
+      displayShapes: false,
       reset: false,
     };
   },
@@ -108,7 +119,8 @@ export default {
       if (
         searchTerm.length < 3 &&
         !this.filteringTypes.length &&
-        !this.filteringColors.length
+        !this.filteringColors.length &&
+        !this.filteringShapes.length
       ) {
         store.clearSearchResults();
         return;
@@ -129,6 +141,13 @@ export default {
       }
       await store.searchPokemons(this.searchTerm);
     },
+    async filteringShapes(filteringShapes) {
+      if (!filteringShapes.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
   },
   computed: {
     searchResults() {
@@ -140,6 +159,9 @@ export default {
     filteringColors() {
       return store.state.search.colors;
     },
+    filteringShapes() {
+      return store.state.search.shapes;
+    },
     loading() {
       return store.state.search.isSearchingPokemon;
     },
@@ -148,6 +170,9 @@ export default {
     },
     displayColorsText() {
       return `${this.displayColors ? 'Hide' : 'Show'} Colors`;
+    },
+    displayShapesText() {
+      return `${this.displayShapes ? 'Hide' : 'Show'} Shapes`;
     },
   },
   methods: {
@@ -162,34 +187,49 @@ export default {
       this.searchTerm = searchTerm;
     },
     toggleDisplayTypes() {
+      this.clearDisplayVariables();
       if (this.component === 'PokemonSearchTypes') {
         this.component = null;
-        this.displayTypes = false;
         return;
       }
       this.component = 'PokemonSearchTypes';
       this.displayTypes = true;
-      this.displayColors = false;
       store.clearColorFilters();
+      store.clearShapeFilters();
     },
     toggleDisplayColors() {
+      this.clearDisplayVariables();
       if (this.component === 'PokemonSearchColors') {
         this.component = null;
-        this.displayColors = false;
         return;
       }
       this.component = 'PokemonSearchColors';
       this.displayColors = true;
-      this.displayTypes = false;
       store.clearTypeFilters();
+      store.clearShapeFilters();
+    },
+    toggleDisplayShapes() {
+      this.clearDisplayVariables();
+      if (this.component === 'PokemonSearchShapes') {
+        this.component = null;
+        return;
+      }
+      this.component = 'PokemonSearchShapes';
+      this.displayShapes = true;
+      store.clearTypeFilters();
+      store.clearColorFilters();
     },
     clearSearch() {
       this.reset = true;
       store.clearSearchResults();
       store.clearFilters();
       this.component = null;
+      this.clearDisplayVariables();
+    },
+    clearDisplayVariables() {
       this.displayTypes = false;
       this.displayColors = false;
+      this.displayShapes = false;
     },
   },
 };
@@ -201,6 +241,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100vh;
 
   .controls {
     width: 100%;
