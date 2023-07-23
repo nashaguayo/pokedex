@@ -119,7 +119,7 @@ export default {
       border-radius: 50%;
       margin-bottom: 0.5rem;
       box-shadow: var(--main-box-shadow);
-      border: 0.2rem solid var(--main-border-color);
+      border: 0.2rem solid var(--secondary-border-color);
       padding: 1rem;
       width: 6rem;
       height: 6rem;
@@ -139,6 +139,7 @@ export default {
     .pokemon-name {
       margin-bottom: 2rem;
       text-align: center;
+      color: var(--secondary-text-color);
     }
   }
 }
