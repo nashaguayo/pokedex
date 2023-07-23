@@ -72,8 +72,8 @@ export default {
   justify-content: center;
 
   &[disabled] {
-    background-color: var(--disabled-button-background-color);
-    color: var(--disabled-button-color);
+    background-color: var(--disabled-button-background-color) !important;
+    color: var(--disabled-button-color) !important;
   }
 
   @media (min-width: $min-width-third-break) {

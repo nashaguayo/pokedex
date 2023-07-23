@@ -27,8 +27,20 @@
       <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
       <div class="navigation">
-        <BaseButton :variant="true"> Previous </BaseButton>
-        <BaseButton :variant="true">Next </BaseButton>
+        <BaseButton
+          :onClickHandler="goToPreviousPokemon"
+          :disabled="id === 1"
+          :variant="true"
+        >
+          Previous
+        </BaseButton>
+        <BaseButton
+          :onClickHandler="goToNextPokemon"
+          :disabled="id === allPokemons[allPokemons.length - 1].id"
+          :variant="true"
+        >
+          Next
+        </BaseButton>
       </div>
       <BaseButton
         class="go-back-button"
@@ -51,7 +63,11 @@ import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
-import { getPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
+import {
+  getPageBackgroundElement,
+  capitalizeWord,
+  scrollToTopOfBackgroundPage,
+} from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/pokemons/silouette.png';
@@ -83,6 +99,9 @@ export default {
   computed: {
     urlId() {
       return this.$route.params.id;
+    },
+    allPokemons() {
+      return store.state.allPokemons;
     },
     id() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
@@ -184,6 +203,22 @@ export default {
         'scroll',
         this.throttledParallax
       );
+    },
+    goToPreviousPokemon() {
+      const index = this.allPokemons.findIndex(
+        (pokemon) => pokemon.id === this.id
+      );
+      this.navigateToPokemon(this.allPokemons[index - 1].name);
+    },
+    goToNextPokemon() {
+      const index = this.allPokemons.findIndex(
+        (pokemon) => pokemon.id === this.id
+      );
+      this.navigateToPokemon(this.allPokemons[index + 1].name);
+    },
+    navigateToPokemon(id) {
+      this.$router.push({ name: 'pokemon', params: { id } });
+      scrollToTopOfBackgroundPage('smooth');
     },
   },
 };

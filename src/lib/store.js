@@ -97,7 +97,15 @@ export default {
     if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
       state.isLoadingAllPokemons = true;
       const allPokemons = (await getAllPokemonsApi()).results;
-      state.allPokemons = allPokemons.map((pokemon) => pokemon.name);
+      state.allPokemons = allPokemons.map((pokemon) => ({
+        id: Number(
+          pokemon.url
+            .replace(process.env.VUE_APP_POKEAPI_URL, '')
+            .replace('pokemon/', '')
+            .replace('/', '')
+        ),
+        name: pokemon.name,
+      }));
       state.isLoadingAllPokemons = false;
     }
   },
@@ -234,12 +242,17 @@ export default {
     } else if (state.search.generations.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
     } else {
-      state.search.results = state.allPokemons.filter((pokemon) =>
-        pokemon.includes(searchTermLowerCase)
-      );
+      this.searchPokemonJustByTerm(searchTermLowerCase);
     }
 
     state.search.isSearchingPokemon = false;
+  },
+
+  searchPokemonJustByTerm(searchTermLowerCase) {
+    const results = state.allPokemons.filter((pokemon) =>
+      pokemon.name.includes(searchTermLowerCase)
+    );
+    state.search.results = results.map((pokemon) => pokemon.name);
   },
 
   searchPokemonsByType(searchTermLowerCase) {
