@@ -74,4 +74,53 @@ describe('BaseButton', () => {
     });
     expect(wrapper.text()).toBe(buttonText);
   });
+
+  it('applies the "big" class when "big" prop is true', async () => {
+    wrapper = shallowMount(BaseButton, {
+      propsData: {
+        big: true,
+      },
+    });
+    expect(wrapper.classes('big')).toBe(true);
+  });
+
+  it('applies the "small" class when "small" prop is true', async () => {
+    wrapper = shallowMount(BaseButton, {
+      propsData: {
+        small: true,
+      },
+    });
+    expect(wrapper.classes('small')).toBe(true);
+  });
+
+  it('sets "wasClicked" to false after the shrink animation ends', async () => {
+    wrapper.setData({ wasClicked: true });
+    await wrapper.trigger('animationend');
+    expect(wrapper.vm.wasClicked).toBe(false);
+  });
+
+  it('has correct default props', () => {
+    expect(wrapper.props('disabled')).toBe(false);
+    expect(wrapper.props('variant')).toBe(false);
+    expect(wrapper.props('big')).toBe(false);
+    expect(wrapper.props('small')).toBe(false);
+  });
+
+  it('renders the default slot content with default text', () => {
+    const defaultButtonText = 'Click Me';
+    expect(wrapper.text()).toBe(defaultButtonText);
+  });
+
+  it('renders the default slot content with custom text', () => {
+    const customButtonText = 'Custom Text';
+    wrapper = shallowMount(BaseButton, {
+      slots: {
+        default: customButtonText,
+      },
+      propsData: {
+        onClickHandler,
+      },
+    });
+    expect(wrapper.text()).toBe(customButtonText);
+  });
 });

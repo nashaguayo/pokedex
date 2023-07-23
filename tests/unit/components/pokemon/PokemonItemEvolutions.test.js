@@ -13,11 +13,11 @@ describe('PokemonItemEvolutions', () => {
     wrapper = shallowMount(PokemonItemEvolutions, {
       propsData: {
         evolutions: [
-          { name: 'pokemon1', image: 'pokemon1.png' },
-          { name: 'pokemon2', image: 'pokemon2.png' },
+          { species: 'pokemon1', image: 'pokemon1.png' },
+          { species: 'pokemon2', image: 'pokemon2.png' },
         ],
         pokemonId: 1,
-        pokemonName: 'pokemonId1',
+        pokemonName: 'pokemon1',
       },
       stubs: ['router-link'],
     });
@@ -40,5 +40,77 @@ describe('PokemonItemEvolutions', () => {
 
   it('renders stub components', () => {
     expect(wrapper.find('basechevron-stub').exists()).toBe(true);
+  });
+
+  it('correctly displays the first evolution species and image', () => {
+    expect(wrapper.find('.evolution span').text()).toBe('pokemon1');
+  });
+
+  it('disables the previous evolution button when viewing the first evolution', () => {
+    expect(
+      wrapper.findAll('basechevron-stub').at(0).attributes().disabled
+    ).toBe('true');
+    expect(
+      wrapper.findAll('basechevron-stub').at(1).attributes().disabled
+    ).toBeFalsy();
+  });
+
+  it('disables the next evolution button when viewing the last evolution', () => {
+    wrapper = shallowMount(PokemonItemEvolutions, {
+      propsData: {
+        evolutions: [
+          { species: 'pokemon1', image: 'pokemon1.png' },
+          { species: 'pokemon2', image: 'pokemon2.png' },
+        ],
+        pokemonId: 2,
+        pokemonName: 'pokemon2',
+      },
+      stubs: ['router-link'],
+    });
+    expect(
+      wrapper.findAll('basechevron-stub').at(0).attributes().disabled
+    ).toBeFalsy();
+    expect(
+      wrapper.findAll('basechevron-stub').at(1).attributes().disabled
+    ).toBe('true');
+  });
+
+  it('updates the displayed evolution species and image when clicking next', async () => {
+    wrapper.vm.getNextEvolution();
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find('.evolution span').text()).toBe('pokemon2');
+  });
+
+  it('enables the previous evolution button when clicking next', async () => {
+    wrapper.vm.getNextEvolution();
+    await wrapper.vm.$nextTick();
+    expect(
+      wrapper.findAll('basechevron-stub').at(0).attributes().disabled
+    ).toBeFalsy();
+    expect(
+      wrapper.findAll('basechevron-stub').at(1).attributes().disabled
+    ).toBe('true');
+  });
+
+  it('enables the next evolution button when clicking previous', async () => {
+    wrapper = shallowMount(PokemonItemEvolutions, {
+      propsData: {
+        evolutions: [
+          { species: 'pokemon1', image: 'pokemon1.png' },
+          { species: 'pokemon2', image: 'pokemon2.png' },
+        ],
+        pokemonId: 2,
+        pokemonName: 'pokemon2',
+      },
+      stubs: ['router-link'],
+    });
+    wrapper.vm.getPreviousEvolution();
+    await wrapper.vm.$nextTick();
+    expect(
+      wrapper.findAll('basechevron-stub').at(0).attributes().disabled
+    ).toBe('true');
+    expect(
+      wrapper.findAll('basechevron-stub').at(1).attributes().disabled
+    ).toBeFalsy();
   });
 });

@@ -23,11 +23,7 @@
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
       </div>
-      <PokemonItemEvolutions
-        :evolutions="evolutions"
-        :pokemonId="id"
-        :pokemonName="name"
-      />
+      <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
       <BaseButton
         class="go-back-button"
@@ -83,9 +79,6 @@ export default {
   computed: {
     urlId() {
       return this.$route.params.id;
-    },
-    id() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
     },
     name() {
       return (

@@ -77,9 +77,6 @@ export default {
     async getNewRandomPokemon() {
       await store.getNewRandomPokemon();
     },
-    getResolution(resolution) {
-      return Number(resolution.replace('px', ''));
-    },
   },
 };
 </script>

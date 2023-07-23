@@ -17,7 +17,8 @@ describe('PokemonView', () => {
     wrapper.destroy();
   });
 
-  it('renders PokemonsView with PokemonList component', () => {
+  it('renders PokemonsView with PokemonItem component', () => {
+    expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('pokemonitem-stub').exists()).toBe(true);
   });
 });

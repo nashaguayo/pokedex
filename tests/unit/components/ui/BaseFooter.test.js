@@ -42,4 +42,23 @@ describe('BaseFooter', () => {
     wrapper.setProps({ displayFooter: true });
     expect(wrapper.find('footerlinks-stub').exists()).toBe(true);
   });
+
+  it('does not render FooterLinks component if displayFooter prop is false', () => {
+    wrapper = shallowMount(BaseFooter, { props: { displayFooter: false } });
+    expect(wrapper.find('footerlinks-stub').exists()).toBe(false);
+  });
+
+  it('passes the correct props to FooterLinks component', async () => {
+    wrapper.vm.updateMargin();
+    await wrapper.vm.$nextTick();
+    expect(
+      wrapper.find('footerlinks-stub').attributes().hastoupdateheight
+    ).toBe('true');
+  });
+
+  it('updates marginBottom when setMargin event is emitted from FooterLinks component', () => {
+    const newMargin = 80;
+    wrapper.find('footerlinks-stub').vm.$emit('setMargin', newMargin);
+    expect(wrapper.vm.marginBottom).toBe(newMargin + 30);
+  });
 });

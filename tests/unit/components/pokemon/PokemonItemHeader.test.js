@@ -33,4 +33,33 @@ describe('PokemonItemHeader', () => {
     image.trigger('load');
     expect(wrapper.vm.locationHeight).toBe(200);
   });
+
+  it('sets the location height and width when the component is mounted', () => {
+    Object.defineProperty(wrapper.vm.$refs.image, 'offsetHeight', {
+      value: 200,
+    });
+    Object.defineProperty(wrapper.vm.$refs.pokemonItemHeader, 'offsetWidth', {
+      value: 100,
+    });
+    wrapper.vm.setLocationHeight();
+    global.innerWidth = 500;
+    global.dispatchEvent(new Event('resize'));
+    expect(wrapper.vm.locationHeight).toBe(200);
+    expect(wrapper.vm.locationWidth).toBe(100);
+  });
+
+  it('sets the location height on window resize', async () => {
+    Object.defineProperty(wrapper.vm.$refs.image, 'offsetHeight', {
+      value: 200,
+    });
+    Object.defineProperty(wrapper.vm.$refs.pokemonItemHeader, 'offsetWidth', {
+      value: 100,
+    });
+    wrapper.vm.setLocationHeight();
+    global.innerWidth = 500;
+    global.dispatchEvent(new Event('resize'));
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.locationHeight).toBe(200);
+    expect(wrapper.vm.locationWidth).toBe(100);
+  });
 });

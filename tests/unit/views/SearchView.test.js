@@ -9,6 +9,7 @@ jest.mock('@/components/search/PokemonSearch.vue', () => ({
 describe('SearchView', () => {
   it('renders all components components', () => {
     const wrapper = shallowMount(SearchView);
+    expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('pokemonsearch-stub').exists()).toBe(true);
   });
 });
