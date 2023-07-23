@@ -95,6 +95,9 @@ export default {
       reset: false,
     };
   },
+  beforeDestroy() {
+    this.clearSearch();
+  },
   watch: {
     async searchTerm(searchTerm) {
       if (searchTerm.length < 3 && !this.filteringTypes.length) {
