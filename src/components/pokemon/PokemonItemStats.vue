@@ -92,7 +92,7 @@ export default {
 
   .pokemon-item-stat {
     display: grid;
-    grid-template-columns: 6rem auto 4rem;
+    grid-template-columns: 5rem auto 5rem;
     grid-gap: 1rem;
     padding: 0.5rem 2rem;
     border-bottom: 0.2rem solid var(--main-border-color);
@@ -100,17 +100,16 @@ export default {
     align-items: center;
 
     @media (min-width: $min-width-first-break) {
-      grid-template-columns: 5rem auto 3rem;
       width: 70%;
     }
 
     @media (min-width: $min-width-second-break) {
-      grid-template-columns: 7rem auto 4rem;
+      grid-template-columns: 7rem auto 7rem;
       width: 70%;
     }
 
     @media (min-width: $min-width-fourth-break) {
-      grid-template-columns: 6rem auto 2rem;
+      grid-template-columns: 6rem auto 6rem;
       border-bottom: 0.2rem solid rgb(78, 78, 78);
       padding: 0.5rem 0;
     }
@@ -130,8 +129,7 @@ export default {
     }
 
     .bars {
-      display: grid;
-      grid-template-columns: repeat(13, 1fr);
+      display: flex;
       gap: 0.2rem;
       justify-content: center;
 
