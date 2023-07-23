@@ -5,7 +5,7 @@ import {
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
-  getFlavorTextsAndColorForSpecies as getFlavorTextsAndColorForSpeciesApi,
+  getSpeciesData as getSpeciesDataApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
 import {
@@ -99,7 +99,7 @@ export default {
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
     const { flavorTexts, color, shape, generation } = pokemon.species.url
-      ? await getFlavorTextsAndColorForSpeciesApi(pokemon.species.url)
+      ? await getSpeciesDataApi(pokemon.species.url)
       : [];
     let highestStatName = '';
     let highestStatValue = 0;
