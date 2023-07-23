@@ -65,7 +65,7 @@ export default {
   border: 0.2rem solid var(--secondary-border-color);
   cursor: pointer;
   padding: 0.5rem;
-  min-width: 10rem;
+  min-width: 9rem;
   font-size: 1rem;
   display: flex;
   align-items: center;

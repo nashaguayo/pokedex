@@ -158,6 +158,7 @@ export default {
     const weight = pokemon.weight;
 
     state.pokemon.set(name, {
+      id,
       name,
       image,
       stats,
@@ -172,6 +173,7 @@ export default {
       generation,
     });
     state.pokemon.set(id, {
+      id,
       name,
       image,
       stats,

@@ -13,6 +13,7 @@
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
         <PokemonItemCharacteristics
+          :id="id"
           :characteristic="characteristic"
           :height="height"
           :weight="weight"
@@ -25,10 +26,13 @@
       </div>
       <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
+      <div class="navigation">
+        <BaseButton :variant="true"> Previous </BaseButton>
+        <BaseButton :variant="true">Next </BaseButton>
+      </div>
       <BaseButton
         class="go-back-button"
         :onClickHandler="goToPokemonsPage"
-        :variant="true"
         :big="true"
       >
         Go Back
@@ -79,6 +83,9 @@ export default {
   computed: {
     urlId() {
       return this.$route.params.id;
+    },
+    id() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
     },
     name() {
       return (
@@ -241,6 +248,28 @@ export default {
         -webkit-text-stroke-color: var(--variant-title-border-color);
         color: var(--variant-title-color);
       }
+    }
+  }
+
+  .navigation {
+    display: grid;
+    width: 90%;
+    margin-top: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (min-width: $min-width-first-break) {
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      grid-row-start: 5;
+      grid-row-end: 6;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      margin: 0 auto;
+      margin-top: 2rem;
+      gap: 2rem;
     }
   }
 
