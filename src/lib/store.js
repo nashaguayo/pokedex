@@ -46,6 +46,12 @@ export default {
     return state;
   },
 
+  async initializeStore() {
+    await this.getAllPokemons();
+    await this.getAllTypes();
+    await this.getAllCharacteristicsDescriptions();
+  },
+
   async getPokemonListCardData(pokemon) {
     const name = pokemon.name;
     const { id, image, types } = await getDataForPokemonApi(name);
