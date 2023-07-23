@@ -6,7 +6,9 @@
       <span class="right">Height</span>
       <span>{{ props.height }}"</span>
       <span class="right">Color</span>
-      <span :style="{ color: props.color }">{{ props.color }}</span>
+      <span :style="{ color: props.color }" class="color">{{
+        props.color
+      }}</span>
       <span class="right">Shape</span>
       <span>{{ props.shape }}</span>
       <span class="right">Generation</span>
@@ -99,6 +101,11 @@ export default {
         text-align: center;
         padding: 1rem;
       }
+    }
+
+    .color {
+      -webkit-text-stroke-width: 0.05rem;
+      -webkit-text-stroke-color: var(--main-text-color);
     }
   }
 }
