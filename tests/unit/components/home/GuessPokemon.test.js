@@ -34,6 +34,15 @@ describe('GuessPokemon', () => {
     expect(wrapper.vm.playersGuess).toBe(playersGuess);
   });
 
+  it("should send player's guess when clicking send button", () => {
+    const spy = jest.spyOn(document.body, 'dispatchEvent');
+    wrapper = shallowMount(GuessPokemon, {
+      propsData: { playersGuess: 'pikachu' },
+    });
+    wrapper.vm.sendPlayersGuess();
+    expect(spy).toHaveBeenCalled();
+  });
+
   it('computes the image property correctly', () => {
     expect(wrapper.vm.image).toBe('pikachu.png');
   });
@@ -58,11 +67,17 @@ describe('GuessPokemon', () => {
   });
 
   it("should tell you how many tries you've got left", () => {
-    expect(wrapper.vm.triesLeftText).toBe('You have 3 tries left');
+    expect(wrapper.vm.triesLeftText).toBe(
+      'You have <strong>3 TRIES</strong> left'
+    );
     wrapper.vm.setPlayersGuess('charmander');
-    expect(wrapper.vm.triesLeftText).toBe('You have 2 tries left');
+    expect(wrapper.vm.triesLeftText).toBe(
+      'You have <strong>2 TRIES</strong> left'
+    );
     wrapper.vm.setPlayersGuess('bulbasaur');
-    expect(wrapper.vm.triesLeftText).toBe('You have 1 try left');
+    expect(wrapper.vm.triesLeftText).toBe(
+      'You have <strong>1 TRY</strong> left'
+    );
     wrapper.vm.setPlayersGuess('squirtle');
     expect(wrapper.vm.triesLeftText).toBe('Pokemon was pikachu');
   });
@@ -94,7 +109,9 @@ describe('GuessPokemon', () => {
     expect(wrapper.vm.triesLeftText).toBe('Getting new Pokemon in 1...');
     await new Promise((resolve) => setTimeout(resolve, 1001));
     wrapper.vm.setPlayersGuess('');
-    expect(wrapper.vm.triesLeftText).toBe('You have 3 tries left');
+    expect(wrapper.vm.triesLeftText).toBe(
+      'You have <strong>3 TRIES</strong> left'
+    );
   }, 6000);
 
   it('should have the correct amount of stars when less than 5 guesses in a row', async () => {
