@@ -5,7 +5,7 @@ import {
   getAllPokemons as getAllPokemonsApi,
   getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
-  getFlavorTextsAndColorForSpecies as getFlavorTextsAndColorForSpeciesApi,
+  getSpeciesData as getSpeciesDataApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
 import {
@@ -38,7 +38,7 @@ const state = Vue.observable({
   },
   allTypes: [],
   pokemonsByType: new Map(),
-  allCharacteristics: [],
+  allCharacteristics: new Map(),
 });
 
 export default {
@@ -99,7 +99,7 @@ export default {
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
     const { flavorTexts, color, shape, generation } = pokemon.species.url
-      ? await getFlavorTextsAndColorForSpeciesApi(pokemon.species.url)
+      ? await getSpeciesDataApi(pokemon.species.url)
       : [];
     let highestStatName = '';
     let highestStatValue = 0;
@@ -111,7 +111,7 @@ export default {
       return { name: s.stat.name, value: s.base_stat };
     });
     let characteristic = '';
-    state.allCharacteristics.get(highestStatName).map((c) => {
+    (state.allCharacteristics.get(highestStatName) ?? []).map((c) => {
       if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {
         characteristic = c.description;
       }
