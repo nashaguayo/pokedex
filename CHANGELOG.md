@@ -11,6 +11,7 @@
 - Filter by Color
 - Filter by Shape
 - Filter by Generation
+- Previous and next buttons on pokemon details page
 
 ##### Modified
 
