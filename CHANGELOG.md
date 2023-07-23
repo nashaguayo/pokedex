@@ -28,6 +28,7 @@
 - Scroll to top button bottom margin when navigating away from a page with footer
 - Search on mobile
 - Undefined characteristics for species
+- Added missing empty stat bars when exceeding bars appear
 
 ---
 
