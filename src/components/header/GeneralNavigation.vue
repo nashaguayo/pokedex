@@ -115,10 +115,6 @@ export default {
     margin-right: 2rem;
   }
 
-  .darkmode {
-    margin-right: 2rem;
-  }
-
   .icon {
     cursor: pointer;
     margin-right: 2rem;
