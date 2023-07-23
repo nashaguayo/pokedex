@@ -86,9 +86,7 @@
       </div>
     </BaseLoader>
     <div class="go-back">
-      <BaseButton :onClickHandler="goBack" :big="true" :variant="true">
-        Go Back
-      </BaseButton>
+      <BaseButton :onClickHandler="goBack" :big="true"> Go Back </BaseButton>
     </div>
   </div>
 </template>
@@ -293,8 +291,7 @@ export default {
     z-index: 5;
 
     @media (min-width: $min-width-third-break) {
-      display: flex;
-      justify-content: center;
+      display: grid;
     }
   }
 
@@ -314,16 +311,23 @@ export default {
     justify-content: center;
 
     @media (min-width: $min-width-first-break) {
-      gap: 1rem;
+      grid-gap: 0.2rem 1rem;
     }
 
     @media (min-width: $min-width-third-break) {
       grid-template-columns: repeat(3, 1fr);
       align-items: center;
       gap: 0.5rem;
-      padding-bottom: 0rem;
+      padding: 1.3rem 0;
       margin-top: 0rem;
-      padding-right: 1rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem 0;
+      margin-top: 0rem;
     }
 
     .button {
@@ -338,13 +342,14 @@ export default {
         grid-column-start: 1;
         grid-column-end: 3;
 
-        @media (min-width: $min-width-first-break) {
-          margin-top: 0;
+        @media (min-width: $min-width-third-break) {
+          grid-column-start: 2;
+          grid-column-end: 4;
         }
 
-        @media (min-width: $min-width-third-break) {
-          grid-column-start: 3;
-          grid-column-end: 4;
+        @media (min-width: $min-width-fourth-break) {
+          grid-column-start: 5;
+          grid-column-end: 6;
         }
       }
     }
