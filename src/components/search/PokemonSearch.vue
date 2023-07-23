@@ -72,18 +72,21 @@
       </span>
     </transition>
     <BaseLoader :loading="loading">
-      <div class="results">
-        <transition-group name="slide-from-right" mode="out-in" appear>
-          <span
-            v-for="pokemon in searchResults"
-            :key="pokemon"
-            class="search-result"
-            @click="goToPokemonPage(pokemon)"
-          >
-            {{ pokemon }}
-          </span>
-        </transition-group>
-      </div>
+      <transition-group
+        class="results"
+        name="slide-from-right"
+        mode="out-in"
+        appear
+      >
+        <span
+          v-for="pokemon in searchResults"
+          :key="pokemon"
+          class="search-result"
+          @click="goToPokemonPage(pokemon)"
+        >
+          {{ pokemon }}
+        </span>
+      </transition-group>
     </BaseLoader>
     <div class="go-back">
       <BaseButton :onClickHandler="goBack" :big="true"> Go Back </BaseButton>
@@ -361,14 +364,14 @@ export default {
 
   .results {
     min-width: 100%;
-    margin-bottom: 5rem;
+    padding-bottom: 4rem;
 
     @media (min-width: $min-width-second-break) {
-      margin-bottom: 6rem;
+      padding-bottom: 6rem;
     }
 
     @media (min-width: $min-width-third-break) {
-      margin-bottom: 7rem;
+      padding-bottom: 7rem;
     }
 
     .search-result {
