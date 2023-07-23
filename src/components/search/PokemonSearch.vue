@@ -44,7 +44,8 @@
         class="no-results"
         v-if="
           (searchTerm.length >= 3 ||
-            (searchTerm.length < 3 && filteringTypes.length)) &&
+            (searchTerm.length < 3 &&
+              (filteringTypes.length || filteringColors.length))) &&
           !searchResults.length
         "
       >
