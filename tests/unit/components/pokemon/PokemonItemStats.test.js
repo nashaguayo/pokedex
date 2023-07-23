@@ -62,7 +62,7 @@ describe('PokemonItemStats', () => {
     const exceededBars = wrapper.findAll('.exceeded');
 
     expect(filledBars.length).toBe(17);
-    expect(emptyBars.length).toBe(13);
+    expect(emptyBars.length).toBe(15);
     expect(exceededBars.length).toBe(1);
   });
 
@@ -83,8 +83,8 @@ describe('PokemonItemStats', () => {
     });
 
     expect(statBarsData).toEqual([
-      { filledBars: 5, emptyBars: 5, exceededBars: 0 },
-      { filledBars: 2, emptyBars: 8, exceededBars: 0 },
+      { filledBars: 5, emptyBars: 6, exceededBars: 0 },
+      { filledBars: 2, emptyBars: 9, exceededBars: 0 },
       { filledBars: 10, emptyBars: 0, exceededBars: 1 },
     ]);
   });
