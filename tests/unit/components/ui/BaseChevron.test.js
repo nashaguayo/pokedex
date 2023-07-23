@@ -9,9 +9,10 @@ describe('BaseChevron', () => {
     onClickHandlerMock = jest.fn();
     wrapper = shallowMount(BaseChevron, {
       propsData: {
-        direction: 'up', // Replace with your desired direction
+        direction: 'up',
         onClickHandler: onClickHandlerMock,
       },
+      stubs: ['FontAwesomeIcon'],
     });
   });
 
