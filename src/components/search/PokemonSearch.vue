@@ -27,7 +27,11 @@
         >
           {{ displayColorsText }}
         </BaseButton>
-        <BaseButton class="button" :onClickHandler="clearSearch" :small="true">
+        <BaseButton
+          class="button clear-search"
+          :onClickHandler="clearSearch"
+          :small="true"
+        >
           Clear Search
         </BaseButton>
       </div>
@@ -215,20 +219,18 @@ export default {
     border-bottom: 0.2rem solid var(--main-border-color);
     padding-bottom: 1rem;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
 
     @media (min-width: $min-width-first-break) {
       gap: 1rem;
     }
 
-    @media (min-width: $min-width-second-break) {
-      gap: 2rem;
-    }
-
     @media (min-width: $min-width-third-break) {
+      grid-template-columns: repeat(3, 1fr);
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
       padding-bottom: 0rem;
       margin-top: 0rem;
       padding-right: 1rem;
@@ -240,6 +242,20 @@ export default {
       @media (min-width: $min-width-third-break) {
         margin-top: 0rem;
         height: 2rem;
+      }
+
+      &.clear-search {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        @media (min-width: $min-width-first-break) {
+          margin-top: 0;
+        }
+
+        @media (min-width: $min-width-third-break) {
+          grid-column-start: 3;
+          grid-column-end: 4;
+        }
       }
     }
   }
