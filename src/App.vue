@@ -33,9 +33,7 @@ export default {
   components: { BaseHeader, BaseFooter },
   async created() {
     this.setTheme(this.isDarkModeEnabled);
-    await store.getAllPokemons();
-    await store.getAllTypes();
-    await store.getAllCharacteristicsDescriptions();
+    await store.initializeStore();
   },
   computed: {
     isDarkModeEnabled() {

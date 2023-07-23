@@ -16,9 +16,7 @@ jest.mock('@/lib/store', () => ({
   state: {
     isDarkModeEnabled: false,
   },
-  getAllPokemons: jest.fn().mockResolvedValue(),
-  getAllTypes: jest.fn().mockResolvedValue(),
-  getAllCharacteristicsDescriptions: jest.fn().mockResolvedValue(),
+  initializeStore: jest.fn().mockResolvedValue(),
 }));
 
 describe('App', () => {
@@ -45,12 +43,7 @@ describe('App', () => {
   });
 
   it('should call store methods on created hook', async () => {
-    const getAllPokemonsSpy = jest.spyOn(store, 'getAllPokemons');
-    const getAllTypesSpy = jest.spyOn(store, 'getAllTypes');
-    const getAllCharacteristicsDescriptionsSpy = jest.spyOn(
-      store,
-      'getAllCharacteristicsDescriptions'
-    );
+    const initializeStoreSpy = jest.spyOn(store, 'initializeStore');
     wrapper = shallowMount(App, {
       store,
       mocks: {
@@ -58,9 +51,7 @@ describe('App', () => {
       },
       stubs: ['router-view'],
     });
-    expect(getAllPokemonsSpy).toHaveBeenCalled();
-    expect(getAllTypesSpy).toHaveBeenCalled();
-    expect(getAllCharacteristicsDescriptionsSpy).toHaveBeenCalled();
+    expect(initializeStoreSpy).toHaveBeenCalled();
   });
 
   it('should set the theme based on isDarkModeEnabled', async () => {

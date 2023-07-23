@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import PokemonSearchTypes from '@/components/search/PokemonSearchTypes';
+import PokemonSearchColors from '@/components/search/PokemonSearchColors';
 
 jest.mock('@/components/search/PokemonSearchFilters.vue', () => ({
   name: 'PokemonSearchFilters',
@@ -7,22 +7,22 @@ jest.mock('@/components/search/PokemonSearchFilters.vue', () => ({
 }));
 
 jest.mock('@/lib/store', () => ({
-  toggleTypeFilter: jest.fn(),
+  toggleColorFilter: jest.fn(),
   state: {
-    allTypes: [],
+    allColors: [],
     search: {
-      types: [],
+      colors: [],
     },
   },
 }));
 
-describe('PokemonSearchTypes', () => {
+describe('PokemonSearchColors', () => {
   let wrapper;
 
   beforeEach(() => {
     jest.clearAllMocks();
 
-    wrapper = shallowMount(PokemonSearchTypes);
+    wrapper = shallowMount(PokemonSearchColors);
   });
 
   afterAll(() => {
