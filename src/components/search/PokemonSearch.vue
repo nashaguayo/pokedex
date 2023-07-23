@@ -200,7 +200,7 @@ export default {
       return `${this.displayShapes ? 'Hide' : 'Show'} Shapes`;
     },
     displayGenerationsText() {
-      return `${this.displayGenerations ? 'Hide' : 'Show'} Generations`;
+      return `${this.displayGenerations ? 'Hide' : 'Show'} Gens`;
     },
   },
   methods: {
