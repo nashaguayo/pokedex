@@ -190,30 +190,7 @@ export default {
     const searchTermLowerCase = searchTerm.toLowerCase();
 
     if (state.search.types.length) {
-      let repeatedResults = [];
-      state.search.types.forEach((type) => {
-        const filteredPokemonNamesByType = state.pokemonsByType
-          .get(type)
-          .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-        repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
-      });
-
-      if (state.search.types.length === 1) {
-        state.search.isSearchingPokemon = false;
-        state.search.results = repeatedResults;
-        return;
-      }
-
-      const namesCount = {};
-      repeatedResults.forEach(function (name) {
-        namesCount[name] = (namesCount[name] ?? 0) + 1;
-      });
-
-      const results = Object.entries(namesCount).filter(
-        (nameCount) => nameCount[1] === state.search.types.length
-      );
-
-      state.search.results = results.map((nameCount) => nameCount[0]);
+      this.searchPokemonsByType(searchTermLowerCase);
     } else {
       state.search.results = state.allPokemons.filter((pokemon) =>
         pokemon.includes(searchTermLowerCase)
@@ -221,6 +198,33 @@ export default {
     }
 
     state.search.isSearchingPokemon = false;
+  },
+
+  searchPokemonsByType(searchTermLowerCase) {
+    let repeatedResults = [];
+    state.search.types.forEach((type) => {
+      const filteredPokemonNamesByType = state.pokemonsByType
+        .get(type)
+        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
+      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
+    });
+
+    if (state.search.types.length === 1) {
+      state.search.isSearchingPokemon = false;
+      state.search.results = repeatedResults;
+      return;
+    }
+
+    const namesCount = {};
+    repeatedResults.forEach(function (name) {
+      namesCount[name] = (namesCount[name] ?? 0) + 1;
+    });
+
+    const results = Object.entries(namesCount).filter(
+      (nameCount) => nameCount[1] === state.search.types.length
+    );
+
+    state.search.results = results.map((nameCount) => nameCount[0]);
   },
 
   clearSearchResults() {
