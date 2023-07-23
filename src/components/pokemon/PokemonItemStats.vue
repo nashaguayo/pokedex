@@ -84,6 +84,7 @@ export default {
     padding: 0.5rem 2rem;
     border-bottom: 0.2rem solid var(--main-border-color);
     width: 100%;
+    align-items: center;
 
     @media (min-width: $min-width-first-break) {
       grid-template-columns: 5rem auto 3rem;
@@ -97,7 +98,8 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       grid-template-columns: 6rem auto 2rem;
-      border-bottom: 0.2rem solid var(--secondary-border-color);
+      border-bottom: 0.2rem solid rgb(78, 78, 78);
+      padding: 0.5rem 0;
     }
 
     .property-names,
@@ -106,6 +108,7 @@ export default {
 
       @media (min-width: $min-width-fourth-break) {
         color: var(--secondary-text-color);
+        font-size: 1rem;
       }
     }
 
@@ -114,21 +117,34 @@ export default {
     }
 
     .bars {
-      display: flex;
-      gap: 0.1rem;
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      gap: 0.2rem;
+      justify-content: center;
 
       .bar {
         height: 1.5rem;
-        width: 0.2rem;
-        border: 0.2rem solid var(--main-border-color);
-        border-radius: 0.5rem;
+        width: 0.5rem;
+        border-radius: 0.3rem;
+
+        @media (min-width: $min-width-third-break) {
+          width: 1.3rem;
+        }
+
+        @media (min-width: $min-width-fourth-break) {
+          width: 0.5rem;
+        }
+
+        @media (min-width: $min-width-sixth-break) {
+          width: 1.3rem;
+        }
 
         &.filled {
           background-color: green;
         }
 
         &.empty {
-          background-color: silver;
+          background-color: rgb(78, 78, 78);
         }
 
         &.exceeded {

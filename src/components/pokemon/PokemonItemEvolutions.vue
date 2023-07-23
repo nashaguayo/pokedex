@@ -129,7 +129,7 @@ export default {
       margin-top: 0;
       width: 80%;
       margin-right: 3rem;
-      border-radius: 5rem;
+      border-radius: 2rem;
     }
 
     .screen {

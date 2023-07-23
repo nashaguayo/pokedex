@@ -79,6 +79,11 @@ export default {
   src: local('Upheaval'), url(@/assets/fonts/upheaval.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Kanit';
+  src: local('Kanit'), url(@/assets/fonts/kanit.ttf) format('truetype');
+}
+
 html[data-theme='light'] {
   --main-title-border-color: #{$light-main-title-border-color};
   --main-title-color: #{$light-main-title-color};
@@ -193,30 +198,34 @@ p {
 
 h1 {
   font-size: 1.5rem;
-  -webkit-text-stroke-width: 0.25rem;
+  -webkit-text-stroke-width: 0.15rem;
   -webkit-text-stroke-color: var(--main-title-border-color);
   color: var(--main-title-color);
 
   @media (min-width: $min-width-first-break) {
+    -webkit-text-stroke-width: 0.18rem;
     font-size: 1.8rem;
   }
 
   @media (min-width: $min-width-second-break) {
+    -webkit-text-stroke-width: 0.2rem;
     font-size: 2.5rem;
   }
 }
 
 h2 {
   font-size: 1.2rem;
-  -webkit-text-stroke-width: 0.2rem;
+  -webkit-text-stroke-width: 0.08rem;
   -webkit-text-stroke-color: var(--secondary-title-border-color);
   color: var(--secondary-title-color);
 
   @media (min-width: $min-width-first-break) {
+    -webkit-text-stroke-width: 0.1rem;
     font-size: 1.5rem;
   }
 
   @media (min-width: $min-width-second-break) {
+    -webkit-text-stroke-width: 0.15rem;
     font-size: 2rem;
   }
 }

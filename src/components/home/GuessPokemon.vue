@@ -17,19 +17,33 @@
         >{{ gameResultsText }}</span
       >
     </transition>
-    <BaseInput
-      name="guess"
-      placeholder="Insert pokemon name here..."
-      :model="playersGuess"
-      @inputValueChanged="setPlayersGuess"
-      :reset="reset"
-      :lazy="true"
-      :disabled="hasLost || hasWon"
-      :focus="focus"
-      @focused="focus = false"
-    />
+    <div class="players-guess">
+      <BaseInput
+        name="guess"
+        placeholder="Insert pokemon name here..."
+        :model="playersGuess"
+        @inputValueChanged="setPlayersGuess"
+        :reset="reset"
+        :lazy="true"
+        :disabled="hasLost || hasWon"
+        :focus="focus"
+        @focused="focus = false"
+        ref="playersGuess"
+      />
+      <BaseChevron
+        direction="right"
+        class="send-guess"
+        :small="true"
+        :onClickHandler="sendPlayersGuess"
+      />
+    </div>
     <transition name="flip" mode="out-in">
-      <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
+      <span
+        :key="triesLeftText"
+        class="tries-left"
+        :class="{ 'last-try': tries === 1 }"
+        v-html="triesLeftText"
+      ></span>
     </transition>
     <transition name="flip" appear>
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
@@ -70,6 +84,8 @@
       :big="true"
       :onClickHandler="getNewMysteryPokemonAndRefreshGuessesInARow"
       :disabled="hasWon"
+      :variant="true"
+      :small="true"
     >
       {{ baseButtonText }}
     </BaseButton>
@@ -80,11 +96,17 @@
 import BaseLoader from '@/components/ui/BaseLoader';
 import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
+import BaseChevron from '@/components/ui/BaseChevron';
 import store from '@/lib/store';
 
 export default {
   name: 'GuessPokemon',
-  components: { BaseLoader, BaseButton, BaseInput },
+  components: {
+    BaseLoader,
+    BaseButton,
+    BaseInput,
+    BaseChevron,
+  },
   data() {
     return {
       playersGuess: '',
@@ -114,7 +136,9 @@ export default {
         ? `Getting new Pokemon in ${this.timerCount}...`
         : this.hasLost
         ? `Pokemon was ${this.name}`
-        : `You have ${this.tries} ${this.tries === 1 ? 'try' : 'tries'} left`;
+        : `You have <strong>${this.tries} ${
+            this.tries === 1 ? 'TRY' : 'TRIES'
+          }</strong> left`;
     },
     gameResultsText() {
       return !this.playersGuess
@@ -218,6 +242,16 @@ export default {
       this.guessesInARow = 0;
       this.getNewMysteryPokemon();
     },
+    sendPlayersGuess() {
+      this.focus = true;
+      document.body.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          keyCode: 13,
+        })
+      );
+    },
   },
 };
 </script>
@@ -268,9 +302,26 @@ export default {
     }
   }
 
+  .players-guess {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+
+    .send-guess {
+      margin-right: 1.5rem;
+      margin-left: -1rem;
+    }
+  }
+
   .tries-left {
     margin-top: -1.5rem;
     margin-bottom: 1rem;
+    font-family: 'Kanit';
+
+    &.last-try {
+      color: red;
+    }
   }
 
   .guesses-in-a-row {

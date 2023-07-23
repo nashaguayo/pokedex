@@ -90,7 +90,7 @@ export default {
     object-fit: cover;
 
     @media (min-width: $min-width-fourth-break) {
-      border-radius: 5rem;
+      border-radius: 2rem;
       max-width: 24rem;
     }
 
@@ -135,7 +135,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       border: 0.2rem solid var(--secondary-border-color);
-      border-radius: 5rem;
+      border-radius: 2rem;
       box-shadow: var(--main-box-shadow);
       max-width: 20rem;
     }

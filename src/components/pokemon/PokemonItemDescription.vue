@@ -72,11 +72,10 @@ export default {
 
     li {
       list-style: none;
-      font-family: 'Upheaval';
       text-align: center;
       margin: 0.5rem 0;
-      font-weight: lighter;
       color: var(--main-text-color);
+      font-family: 'Kanit';
 
       @media (min-width: $min-width-second-break) {
         margin: 1rem 0;
