@@ -26,6 +26,7 @@
 import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
+import { toggleDarkMode } from '@/lib/helpers';
 
 export default {
   name: 'App',
@@ -54,10 +55,7 @@ export default {
   },
   methods: {
     setTheme(isDarkModeEnabled) {
-      document.documentElement.setAttribute(
-        'data-theme',
-        isDarkModeEnabled ? 'dark' : 'light'
-      );
+      toggleDarkMode(isDarkModeEnabled);
     },
   },
 };
