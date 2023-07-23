@@ -8,6 +8,8 @@
 
 - Shape to pokemon details
 - Generation to pokemon details
+- Filter by Color
+- Filter by Shape
 
 ##### Modified
 
