@@ -30,20 +30,7 @@
       </div>
     </div>
     <transition name="slide-from-above">
-      <div v-if="displayTypes" class="types">
-        <div
-          class="type"
-          :class="{
-            active: filteringTypes.includes(t),
-            inactive: !filteringTypes.includes(t),
-          }"
-          v-for="t in allTypes"
-          :key="`type-${t}`"
-          @click="toggleTypeFilter(t)"
-        >
-          {{ t }}
-        </div>
-      </div>
+      <PokemonSearchTypes v-if="displayTypes" />
     </transition>
     <transition name="slide-from-above" mode="out-in" appear>
       <span
@@ -83,11 +70,17 @@
 import BaseLoader from '@/components/ui/BaseLoader';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseInput from '@/components/ui/BaseInput';
+import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'PokemonSearch',
-  components: { BaseLoader, BaseButton, BaseInput },
+  components: {
+    BaseLoader,
+    BaseButton,
+    BaseInput,
+    PokemonSearchTypes,
+  },
   data() {
     return {
       searchTerm: '',
@@ -118,9 +111,6 @@ export default {
     searchResults() {
       return store.state.search.results;
     },
-    allTypes() {
-      return store.state.allTypes;
-    },
     filteringTypes() {
       return store.state.search.types;
     },
@@ -141,9 +131,6 @@ export default {
     setSearchTerm(searchTerm) {
       this.reset = false;
       this.searchTerm = searchTerm;
-    },
-    toggleTypeFilter(type) {
-      store.toggleTypeFilter(type);
     },
     toggleDisplayTypes() {
       this.displayTypes = !this.displayTypes;
@@ -218,45 +205,6 @@ export default {
 
   .no-results {
     margin-top: 1rem;
-  }
-
-  .types {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
-    font-family: 'Upheaval';
-    gap: 0.5rem;
-    padding: 1rem 0;
-    border-bottom: 0.2rem solid var(--main-border-color);
-    width: 100%;
-
-    @media (min-width: $min-width-third-break) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @media (min-width: $min-width-fourth-break) {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-    @media (min-width: $min-width-fifth-break) {
-      grid-template-columns: repeat(6, 1fr);
-    }
-
-    .type {
-      border-radius: 1rem;
-      padding: 0.3rem;
-      transition: all 0.3s;
-      cursor: pointer;
-
-      &.inactive {
-        background-color: var(--disabled-button-background-color);
-      }
-
-      &.active {
-        background-color: var(--secondary-background-color);
-        color: var(--secondary-text-color);
-      }
-    }
   }
 
   .results {

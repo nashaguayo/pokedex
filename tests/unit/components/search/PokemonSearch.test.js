@@ -16,7 +16,6 @@ jest.mock('@/lib/store', () => ({
   clearSearchResults: jest.fn(),
   clearFilters: jest.fn(),
   state: {
-    allTypes: ['grass', 'electric', 'fire', 'poison'],
     search: {
       results: ['Pikachu', 'Charizard'],
       isSearchingPokemon: false,
