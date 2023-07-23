@@ -336,7 +336,15 @@ export default {
   },
 
   clearFilters() {
+    this.clearTypeFilters();
+    this.clearColorFilters();
+  },
+
+  clearTypeFilters() {
     state.search.types = [];
+  },
+
+  clearColorFilters() {
     state.search.colors = [];
   },
 

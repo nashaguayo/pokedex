@@ -161,6 +161,7 @@ export default {
       this.component = 'PokemonSearchTypes';
       this.displayTypes = true;
       this.displayColors = false;
+      store.clearColorFilters();
     },
     toggleDisplayColors() {
       if (this.component === 'PokemonSearchColors') {
@@ -171,6 +172,7 @@ export default {
       this.component = 'PokemonSearchColors';
       this.displayColors = true;
       this.displayTypes = false;
+      store.clearTypeFilters();
     },
     clearSearch() {
       this.reset = true;
