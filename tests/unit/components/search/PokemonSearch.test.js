@@ -16,6 +16,21 @@ jest.mock('@/components/search/PokemonSearchTypes.vue', () => ({
   template: '<div class="mocked-pokemon-search-types"></div>',
 }));
 
+jest.mock('@/components/search/PokemonSearchColors.vue', () => ({
+  name: 'PokemonSearchColors',
+  template: '<div class="mocked-pokemon-search-colors"></div>',
+}));
+
+jest.mock('@/components/search/PokemonSearchShapes.vue', () => ({
+  name: 'PokemonSearchShapes',
+  template: '<div class="mocked-pokemon-search-shapes"></div>',
+}));
+
+jest.mock('@/components/search/PokemonSearchGenerations.vue', () => ({
+  name: 'PokemonSearchGenerations',
+  template: '<div class="mocked-pokemon-search-generations"></div>',
+}));
+
 jest.mock('@/lib/store', () => ({
   searchPokemons: jest.fn(),
   clearSearchResults: jest.fn(),
@@ -23,6 +38,7 @@ jest.mock('@/lib/store', () => ({
   clearTypeFilters: jest.fn(),
   clearColorFilters: jest.fn(),
   clearShapeFilters: jest.fn(),
+  clearGenerationFilters: jest.fn(),
   state: {
     search: {
       results: ['Pikachu', 'Charizard'],
@@ -30,6 +46,7 @@ jest.mock('@/lib/store', () => ({
       types: [],
       colors: [],
       shapes: [],
+      generations: [],
     },
   },
 }));
@@ -82,18 +99,27 @@ describe('PokemonSearch', () => {
     expect(wrapper.vm.displayTypes).toBe(false);
     expect(wrapper.vm.displayColors).toBe(false);
     expect(wrapper.vm.displayShapes).toBe(false);
+    expect(wrapper.vm.displayGenerations).toBe(false);
     wrapper.vm.toggleDisplayTypes();
     expect(wrapper.vm.displayTypes).toBe(true);
     expect(wrapper.vm.displayColors).toBe(false);
     expect(wrapper.vm.displayShapes).toBe(false);
+    expect(wrapper.vm.displayGenerations).toBe(false);
     wrapper.vm.toggleDisplayColors();
     expect(wrapper.vm.displayTypes).toBe(false);
     expect(wrapper.vm.displayColors).toBe(true);
     expect(wrapper.vm.displayShapes).toBe(false);
+    expect(wrapper.vm.displayGenerations).toBe(false);
     wrapper.vm.toggleDisplayShapes();
     expect(wrapper.vm.displayTypes).toBe(false);
     expect(wrapper.vm.displayColors).toBe(false);
     expect(wrapper.vm.displayShapes).toBe(true);
+    expect(wrapper.vm.displayGenerations).toBe(false);
+    wrapper.vm.toggleDisplayGenerations();
+    expect(wrapper.vm.displayTypes).toBe(false);
+    expect(wrapper.vm.displayColors).toBe(false);
+    expect(wrapper.vm.displayShapes).toBe(false);
+    expect(wrapper.vm.displayGenerations).toBe(true);
   });
 
   it('clears search results and filters when "Clear Search" button is clicked', async () => {
@@ -110,9 +136,11 @@ describe('PokemonSearch', () => {
     expect(wrapper.vm.displayTypes).toBe(false);
     expect(wrapper.vm.displayColors).toBe(false);
     expect(wrapper.vm.displayShapes).toBe(false);
+    expect(wrapper.vm.displayGenerations).toBe(false);
     expect(wrapper.vm.filteringTypes).toEqual([]);
     expect(wrapper.vm.filteringColors).toEqual([]);
     expect(wrapper.vm.filteringShapes).toEqual([]);
+    expect(wrapper.vm.filteringGenerations).toEqual([]);
   });
 
   it('toggles the display of types when "Show Types" or "Hide Types" button is clicked', async () => {
@@ -152,5 +180,18 @@ describe('PokemonSearch', () => {
     await wrapper.find('.button[variant=true][small=true]').trigger('click');
     expect(wrapper.vm.displayShapesText).toBe('Show Shapes');
     expect(wrapper.vm.displayShapes).toBe(false);
+  });
+
+  it('toggles the display of generations when "Show Generations" or "Hide Generations" button is clicked', async () => {
+    expect(wrapper.vm.displayGenerationsText).toBe('Show Gens');
+    expect(wrapper.vm.displayGenerations).toBe(false);
+    wrapper.vm.toggleDisplayGenerations();
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.displayGenerationsText).toBe('Hide Gens');
+    expect(wrapper.vm.displayGenerations).toBe(true);
+    wrapper.vm.toggleDisplayGenerations();
+    await wrapper.find('.button[variant=true][small=true]').trigger('click');
+    expect(wrapper.vm.displayGenerationsText).toBe('Show Gens');
+    expect(wrapper.vm.displayGenerations).toBe(false);
   });
 });

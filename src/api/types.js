@@ -17,7 +17,7 @@ export async function getPokemonsByType(type) {
   } catch (error) {
     logError(
       getPokemonsByType.name,
-      'Unable to retrieve pokemons by type',
+      `Unable to retrieve pokemons by type ${type}`,
       error
     );
   }

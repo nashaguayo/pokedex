@@ -10,6 +10,7 @@
 - Generation to pokemon details
 - Filter by Color
 - Filter by Shape
+- Filter by Generation
 
 ##### Modified
 
