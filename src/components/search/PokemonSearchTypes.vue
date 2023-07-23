@@ -1,25 +1,18 @@
 <template>
-  <div class="types">
-    <div
-      class="type"
-      :class="{
-        active: filteringTypes.includes(t),
-        inactive: !filteringTypes.includes(t),
-      }"
-      v-for="t in allTypes"
-      :key="`type-${t}`"
-      @click="toggleTypeFilter(t)"
-    >
-      {{ t }}
-    </div>
-  </div>
+  <PokemonSearchFilters
+    :allFilters="allTypes"
+    :filteringFilters="filteringTypes"
+    :toggleFilter="toggleTypeFilter"
+  />
 </template>
 
 <script>
+import PokemonSearchFilters from '@/components/search/PokemonSearchFilters';
 import store from '@/lib/store';
 
 export default {
   name: 'PokemonSearchTypes',
+  components: { PokemonSearchFilters },
   computed: {
     allTypes() {
       return store.state.allTypes;

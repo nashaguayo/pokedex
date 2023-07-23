@@ -1,36 +1,42 @@
-<template>
-  <PokemonSearchFilters
-    :allFilters="allColors"
-    :filteringFilters="filteringColors"
-    :toggleFilter="toggleColorFilter"
-  />
+<template functional>
+  <div class="filters">
+    <div
+      class="filter"
+      :class="{
+        active: props.filteringFilters.includes(f),
+        inactive: !props.filteringFilters.includes(f),
+      }"
+      v-for="f in props.allFilters"
+      :key="`filter-${f}`"
+      @click="props.toggleFilter(f)"
+    >
+      {{ f }}
+    </div>
+  </div>
 </template>
 
 <script>
-import PokemonSearchFilters from '@/components/search/PokemonSearchFilters';
-import store from '@/lib/store';
-
 export default {
-  name: 'PokemonSearchColors',
-  components: { PokemonSearchFilters },
-  computed: {
-    allColors() {
-      return store.state.allColors;
+  name: 'PokemonSearchFilters',
+  props: {
+    allFilters: {
+      type: Array,
+      required: true,
     },
-    filteringColors() {
-      return store.state.search.colors;
+    filteringFilters: {
+      type: Array,
+      required: true,
     },
-  },
-  methods: {
-    toggleColorFilter(color) {
-      store.toggleColorFilter(color);
+    toggleFilter: {
+      type: Function,
+      required: true,
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.colors {
+.filters {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
@@ -52,7 +58,7 @@ export default {
     grid-template-columns: repeat(6, 1fr);
   }
 
-  .color {
+  .filter {
     border-radius: 1rem;
     padding: 0.3rem;
     transition: all 0.3s;
