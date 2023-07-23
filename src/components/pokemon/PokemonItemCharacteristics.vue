@@ -77,11 +77,16 @@ export default {
     }
 
     @media (min-width: $min-width-fourth-break) {
+      border-radius: 1rem;
       width: auto;
     }
 
     span {
       color: var(--secondary-text-color);
+
+      @media (min-width: $min-width-fourth-break) {
+        border-radius: 1rem;
+      }
 
       &.right {
         justify-self: end;

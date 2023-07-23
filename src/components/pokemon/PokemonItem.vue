@@ -223,7 +223,7 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       width: auto;
       background-color: var(--variant-background-color);
-      border-radius: 5rem;
+      border-radius: 2rem;
       box-shadow: var(--marin-box-shadow);
       border: 0.2rem solid var(--secondary-border-color);
       margin-top: 0;
