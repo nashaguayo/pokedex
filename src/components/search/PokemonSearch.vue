@@ -36,6 +36,14 @@
           {{ displayShapesText }}
         </BaseButton>
         <BaseButton
+          class="button"
+          :onClickHandler="toggleDisplayGenerations"
+          :variant="true"
+          :small="true"
+        >
+          {{ displayGenerationsText }}
+        </BaseButton>
+        <BaseButton
           class="button clear-search"
           :onClickHandler="clearSearch"
           :small="true"
@@ -53,7 +61,10 @@
         v-if="
           (searchTerm.length >= 3 ||
             (searchTerm.length < 3 &&
-              (filteringTypes.length || filteringColors.length))) &&
+              (filteringTypes.length ||
+                filteringColors.length ||
+                filteringShapes.length ||
+                filteringGenerations.length))) &&
           !searchResults.length
         "
       >
@@ -89,6 +100,7 @@ import BaseInput from '@/components/ui/BaseInput';
 import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
 import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
+import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
 import store from '@/lib/store';
 
 export default {
@@ -100,6 +112,7 @@ export default {
     PokemonSearchTypes,
     PokemonSearchColors,
     PokemonSearchShapes,
+    PokemonSearchGenerations,
   },
   data() {
     return {
@@ -108,6 +121,7 @@ export default {
       displayTypes: false,
       displayColors: false,
       displayShapes: false,
+      displayGenerations: false,
       reset: false,
     };
   },
@@ -120,7 +134,8 @@ export default {
         searchTerm.length < 3 &&
         !this.filteringTypes.length &&
         !this.filteringColors.length &&
-        !this.filteringShapes.length
+        !this.filteringShapes.length &&
+        !this.filteringGenerations.length
       ) {
         store.clearSearchResults();
         return;
@@ -148,6 +163,13 @@ export default {
       }
       await store.searchPokemons(this.searchTerm);
     },
+    async filteringGenerations(filteringGenerations) {
+      if (!filteringGenerations.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
   },
   computed: {
     searchResults() {
@@ -162,6 +184,9 @@ export default {
     filteringShapes() {
       return store.state.search.shapes;
     },
+    filteringGenerations() {
+      return store.state.search.generations;
+    },
     loading() {
       return store.state.search.isSearchingPokemon;
     },
@@ -173,6 +198,9 @@ export default {
     },
     displayShapesText() {
       return `${this.displayShapes ? 'Hide' : 'Show'} Shapes`;
+    },
+    displayGenerationsText() {
+      return `${this.displayGenerations ? 'Hide' : 'Show'} Generations`;
     },
   },
   methods: {
@@ -196,6 +224,7 @@ export default {
       this.displayTypes = true;
       store.clearColorFilters();
       store.clearShapeFilters();
+      store.clearGenerationFilters();
     },
     toggleDisplayColors() {
       this.clearDisplayVariables();
@@ -207,6 +236,7 @@ export default {
       this.displayColors = true;
       store.clearTypeFilters();
       store.clearShapeFilters();
+      store.clearGenerationFilters();
     },
     toggleDisplayShapes() {
       this.clearDisplayVariables();
@@ -218,6 +248,19 @@ export default {
       this.displayShapes = true;
       store.clearTypeFilters();
       store.clearColorFilters();
+      store.clearGenerationFilters();
+    },
+    toggleDisplayGenerations() {
+      this.clearDisplayVariables();
+      if (this.component === 'PokemonSearchGenerations') {
+        this.component = null;
+        return;
+      }
+      this.component = 'PokemonSearchGenerations';
+      this.displayGenerations = true;
+      store.clearTypeFilters();
+      store.clearColorFilters();
+      store.clearShapeFilters();
     },
     clearSearch() {
       this.reset = true;
@@ -230,6 +273,7 @@ export default {
       this.displayTypes = false;
       this.displayColors = false;
       this.displayShapes = false;
+      this.displayGenerations = false;
     },
   },
 };

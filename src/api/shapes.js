@@ -17,7 +17,7 @@ export async function getPokemonsByShape(shape) {
   } catch (error) {
     logError(
       getPokemonsByShape.name,
-      'Unable to retrieve pokemons by shape',
+      `Unable to retrieve pokemons by shape ${shape}`,
       error
     );
   }

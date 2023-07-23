@@ -17,7 +17,7 @@ export async function getPokemonsByColor(color) {
   } catch (error) {
     logError(
       getPokemonsByColor.name,
-      'Unable to retrieve pokemons by color',
+      `Unable to retrieve pokemons by color ${color}`,
       error
     );
   }
