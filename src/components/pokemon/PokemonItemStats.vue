@@ -1,8 +1,8 @@
-<template functional>
+<template>
   <div class="pokemon-item-stats">
     <span class="title">Stats</span>
     <div
-      v-for="stat in props.stats"
+      v-for="stat in stats"
       :key="`stat-${stat.name}`"
       class="pokemon-item-stat"
     >
@@ -22,18 +22,18 @@
             :key="`bar-filled-${n}`"
           ></div>
         </template>
-        <template v-if="10 - Math.floor(stat.value / 10) > 0">
-          <div
-            class="bar empty"
-            v-for="n in 10 - Math.floor(stat.value / 10)"
-            :key="`bar-empty-${n}`"
-          ></div>
-        </template>
         <template v-if="Math.floor((stat.value - 100) / 10) > 0">
           <div
             class="bar exceeded"
             v-for="n in Math.floor((stat.value - 100) / 10)"
             :key="`bar-exceeded-${n}`"
+          ></div>
+        </template>
+        <template v-if="10 + exceedingBars - Math.floor(stat.value / 10) > 0">
+          <div
+            class="bar empty"
+            v-for="n in 10 + exceedingBars - Math.floor(stat.value / 10)"
+            :key="`bar-empty-${n}`"
           ></div>
         </template>
       </div>
@@ -49,6 +49,19 @@ export default {
     stats: {
       type: Array,
       required: true,
+    },
+  },
+  computed: {
+    exceedingBars() {
+      let exceedingBars = 0;
+      let highestValue = 0;
+      this.stats.map((stat) => {
+        if (stat.value > highestValue && stat.value > 110) {
+          highestValue = stat.value;
+          exceedingBars = Math.floor((stat.value - 100) / 10);
+        }
+      });
+      return exceedingBars;
     },
   },
 };
