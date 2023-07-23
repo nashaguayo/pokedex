@@ -183,15 +183,15 @@ describe('PokemonSearch', () => {
   });
 
   it('toggles the display of generations when "Show Generations" or "Hide Generations" button is clicked', async () => {
-    expect(wrapper.vm.displayGenerationsText).toBe('Show Generations');
+    expect(wrapper.vm.displayGenerationsText).toBe('Show Gens');
     expect(wrapper.vm.displayGenerations).toBe(false);
     wrapper.vm.toggleDisplayGenerations();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.displayGenerationsText).toBe('Hide Generations');
+    expect(wrapper.vm.displayGenerationsText).toBe('Hide Gens');
     expect(wrapper.vm.displayGenerations).toBe(true);
     wrapper.vm.toggleDisplayGenerations();
     await wrapper.find('.button[variant=true][small=true]').trigger('click');
-    expect(wrapper.vm.displayGenerationsText).toBe('Show Generations');
+    expect(wrapper.vm.displayGenerationsText).toBe('Show Gens');
     expect(wrapper.vm.displayGenerations).toBe(false);
   });
 });
