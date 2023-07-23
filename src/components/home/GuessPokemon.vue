@@ -28,8 +28,14 @@
         :disabled="hasLost || hasWon"
         :focus="focus"
         @focused="focus = false"
+        ref="playersGuess"
       />
-      <BaseChevron direction="right" class="send-guess" :small="true" />
+      <BaseChevron
+        direction="right"
+        class="send-guess"
+        :small="true"
+        :onClickHandler="sendPlayersGuess"
+      />
     </div>
     <transition name="flip" mode="out-in">
       <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
@@ -228,6 +234,16 @@ export default {
     getNewMysteryPokemonAndRefreshGuessesInARow() {
       this.guessesInARow = 0;
       this.getNewMysteryPokemon();
+    },
+    sendPlayersGuess() {
+      this.focus = true;
+      document.body.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          keyCode: 13,
+        })
+      );
     },
   },
 };
