@@ -17,17 +17,20 @@
         >{{ gameResultsText }}</span
       >
     </transition>
-    <BaseInput
-      name="guess"
-      placeholder="Insert pokemon name here..."
-      :model="playersGuess"
-      @inputValueChanged="setPlayersGuess"
-      :reset="reset"
-      :lazy="true"
-      :disabled="hasLost || hasWon"
-      :focus="focus"
-      @focused="focus = false"
-    />
+    <div class="players-guess">
+      <BaseInput
+        name="guess"
+        placeholder="Insert pokemon name here..."
+        :model="playersGuess"
+        @inputValueChanged="setPlayersGuess"
+        :reset="reset"
+        :lazy="true"
+        :disabled="hasLost || hasWon"
+        :focus="focus"
+        @focused="focus = false"
+      />
+      <BaseChevron direction="right" class="send-guess" :small="true" />
+    </div>
     <transition name="flip" mode="out-in">
       <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
     </transition>
@@ -70,6 +73,8 @@
       :big="true"
       :onClickHandler="getNewMysteryPokemonAndRefreshGuessesInARow"
       :disabled="hasWon"
+      :variant="true"
+      :small="true"
     >
       {{ baseButtonText }}
     </BaseButton>
@@ -80,11 +85,17 @@
 import BaseLoader from '@/components/ui/BaseLoader';
 import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
+import BaseChevron from '@/components/ui/BaseChevron';
 import store from '@/lib/store';
 
 export default {
   name: 'GuessPokemon',
-  components: { BaseLoader, BaseButton, BaseInput },
+  components: {
+    BaseLoader,
+    BaseButton,
+    BaseInput,
+    BaseChevron,
+  },
   data() {
     return {
       playersGuess: '',
@@ -265,6 +276,18 @@ export default {
 
     &.winning {
       color: green;
+    }
+  }
+
+  .players-guess {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+
+    .send-guess {
+      margin-right: 1rem;
+      margin-left: -1rem;
     }
   }
 

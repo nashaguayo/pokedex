@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{ 'bounce-animation': wasClicked, disabled }"
+    :class="{ 'bounce-animation': wasClicked, disabled, small }"
     class="base-chevron"
     @click="handleAndAnimate"
     @animationend="wasClicked = false"
@@ -8,7 +8,7 @@
     <FontAwesomeIcon
       :icon="`fa-solid fa-chevron-${direction}`"
       :color="disabled ? 'silver' : 'white'"
-      size="2x"
+      :size="small ? '1x' : '2x'"
     />
   </div>
 </template>
@@ -34,6 +34,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    small: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleAndAnimate() {
@@ -51,17 +55,25 @@ export default {
 <style lang="scss" scoped>
 .base-chevron {
   background-color: var(--variant-background-color);
-  width: 2rem;
-  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
   border-radius: 50%;
   padding: 0.5rem;
   text-align: center;
   box-shadow: var(--main-box-shadow);
   cursor: pointer;
   z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.disabled {
     background-color: var(--main-background-color);
+  }
+
+  &.small {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
   }
 }
 
