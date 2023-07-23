@@ -38,7 +38,12 @@
       />
     </div>
     <transition name="flip" mode="out-in">
-      <span :key="triesLeftText" class="tries-left">{{ triesLeftText }}</span>
+      <span
+        :key="triesLeftText"
+        class="tries-left"
+        :class="{ 'last-try': tries === 1 }"
+        v-html="triesLeftText"
+      ></span>
     </transition>
     <transition name="flip" appear>
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
@@ -131,7 +136,9 @@ export default {
         ? `Getting new Pokemon in ${this.timerCount}...`
         : this.hasLost
         ? `Pokemon was ${this.name}`
-        : `You have ${this.tries} ${this.tries === 1 ? 'try' : 'tries'} left`;
+        : `You have <strong>${this.tries} ${
+            this.tries === 1 ? 'TRY' : 'TRIES'
+          }</strong> left`;
     },
     gameResultsText() {
       return !this.playersGuess
@@ -310,6 +317,11 @@ export default {
   .tries-left {
     margin-top: -1.5rem;
     margin-bottom: 1rem;
+    font-family: 'Kanit';
+
+    &.last-try {
+      color: red;
+    }
   }
 
   .guesses-in-a-row {
