@@ -1,13 +1,15 @@
 <template>
   <div class="pokemon-item-type">
     <span class="title">Types</span>
-    <div v-for="t in types" :key="`type-${t}`" class="type">
-      <span class="type-text">{{ t }}</span>
-      <div
-        class="lights"
-        :style="{ backgroundColor: pokemonColorTypes.get(t) }"
-      >
-        <div class="shine" />
+    <div class="types">
+      <div v-for="t in types" :key="`type-${t}`" class="type">
+        <span class="type-text">{{ t }}</span>
+        <div
+          class="lights"
+          :style="{ backgroundColor: pokemonColorTypes.get(t) }"
+        >
+          <div class="shine" />
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +50,7 @@ export default {
     background-color: transparent;
     box-shadow: none;
     margin-bottom: 2rem;
+    padding: 0;
   }
 
   .title {
@@ -55,30 +58,33 @@ export default {
     color: var(--secondary-text-color);
   }
 
-  .type {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0.5rem;
+  .types {
+    display: flex;
     gap: 1rem;
-    align-items: center;
 
-    .type-text {
-      color: var(--variant-text-color);
-    }
+    .type {
+      display: flex;
+      padding: 0.5rem;
 
-    .lights {
-      border-radius: 50%;
-      box-shadow: var(--main-box-shadow);
-      height: 1rem;
-      width: 1rem;
-      border: 0.2rem solid var(--secondary-border-color);
+      .type-text {
+        color: var(--variant-text-color);
+        margin-right: 0.5rem;
+      }
 
-      .shine {
-        background-color: rgba(255, 255, 255, 0.5);
-        width: 0.1rem;
-        height: 0.1rem;
+      .lights {
         border-radius: 50%;
-        padding: 0.25rem;
+        box-shadow: var(--main-box-shadow);
+        height: 1rem;
+        width: 1rem;
+        border: 0.2rem solid var(--secondary-border-color);
+
+        .shine {
+          background-color: rgba(255, 255, 255, 0.5);
+          width: 0.1rem;
+          height: 0.1rem;
+          border-radius: 50%;
+          padding: 0.25rem;
+        }
       }
     }
   }
