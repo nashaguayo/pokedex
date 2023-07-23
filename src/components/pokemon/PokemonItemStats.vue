@@ -98,7 +98,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       grid-template-columns: 6rem auto 2rem;
-      border-bottom: 0.2rem solid var(--secondary-border-color);
+      border-bottom: 0.2rem solid rgb(78, 78, 78);
       padding: 0.5rem 0;
     }
 
