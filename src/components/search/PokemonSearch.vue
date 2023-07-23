@@ -21,16 +21,22 @@
         </BaseButton>
         <BaseButton
           class="button"
-          :onClickHandler="clearSearch"
+          :onClickHandler="toggleDisplayColors"
           :variant="true"
           :small="true"
         >
+          {{ displayColorsText }}
+        </BaseButton>
+        <BaseButton class="button" :onClickHandler="clearSearch" :small="true">
           Clear Search
         </BaseButton>
       </div>
     </div>
     <transition name="slide-from-above">
       <PokemonSearchTypes v-if="displayTypes" />
+    </transition>
+    <transition name="slide-from-above">
+      <PokemonSearchColors v-if="displayColors" />
     </transition>
     <transition name="slide-from-above" mode="out-in" appear>
       <span
@@ -46,7 +52,7 @@
     </transition>
     <BaseLoader :loading="loading">
       <div class="results">
-        <transition-group name="slide-from-right" appear>
+        <transition-group name="slide-from-right" mode="out-in" appear>
           <span
             v-for="pokemon in searchResults"
             :key="pokemon"
@@ -71,6 +77,7 @@ import BaseLoader from '@/components/ui/BaseLoader';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseInput from '@/components/ui/BaseInput';
 import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
+import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import store from '@/lib/store';
 
 export default {
@@ -80,11 +87,13 @@ export default {
     BaseButton,
     BaseInput,
     PokemonSearchTypes,
+    PokemonSearchColors,
   },
   data() {
     return {
       searchTerm: '',
       displayTypes: false,
+      displayColors: false,
       reset: false,
     };
   },
@@ -106,6 +115,13 @@ export default {
       }
       await store.searchPokemons(this.searchTerm);
     },
+    async filteringColors(filteringColors) {
+      if (!filteringColors.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
   },
   computed: {
     searchResults() {
@@ -114,11 +130,17 @@ export default {
     filteringTypes() {
       return store.state.search.types;
     },
+    filteringColors() {
+      return store.state.search.colors;
+    },
     loading() {
       return store.state.search.isSearchingPokemon;
     },
     displayTypesText() {
       return `${this.displayTypes ? 'Hide' : 'Show'} Types`;
+    },
+    displayColorsText() {
+      return `${this.displayColors ? 'Hide' : 'Show'} Colors`;
     },
   },
   methods: {
@@ -133,7 +155,12 @@ export default {
       this.searchTerm = searchTerm;
     },
     toggleDisplayTypes() {
+      this.displayColors = false;
       this.displayTypes = !this.displayTypes;
+    },
+    toggleDisplayColors() {
+      this.displayTypes = false;
+      this.displayColors = !this.displayColors;
     },
     clearSearch() {
       this.reset = true;

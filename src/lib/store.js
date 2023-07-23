@@ -39,6 +39,7 @@ const state = Vue.observable({
     results: [],
     isSearchingPokemon: false,
     types: [],
+    colors: [],
   },
   allTypes: [],
   pokemonsByType: new Map(),
@@ -204,6 +205,8 @@ export default {
 
     if (state.search.types.length) {
       this.searchPokemonsByType(searchTermLowerCase);
+    } else if (state.search.colors.length) {
+      this.searchPokemonsByColor(searchTermLowerCase);
     } else {
       state.search.results = state.allPokemons.filter((pokemon) =>
         pokemon.includes(searchTermLowerCase)
@@ -235,6 +238,33 @@ export default {
 
     const results = Object.entries(namesCount).filter(
       (nameCount) => nameCount[1] === state.search.types.length
+    );
+
+    state.search.results = results.map((nameCount) => nameCount[0]);
+  },
+
+  searchPokemonsByColor(searchTermLowerCase) {
+    let repeatedResults = [];
+    state.search.colors.forEach((color) => {
+      const filteredPokemonNamesByColor = state.pokemonsByColor
+        .get(color)
+        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
+      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByColor];
+    });
+
+    if (state.search.colors.length === 1) {
+      state.search.isSearchingPokemon = false;
+      state.search.results = repeatedResults;
+      return;
+    }
+
+    const namesCount = {};
+    repeatedResults.forEach(function (name) {
+      namesCount[name] = (namesCount[name] ?? 0) + 1;
+    });
+
+    const results = Object.entries(namesCount).filter(
+      (nameCount) => nameCount[1] === state.search.colors.length
     );
 
     state.search.results = results.map((nameCount) => nameCount[0]);
@@ -282,7 +312,7 @@ export default {
     );
   },
 
-  async toggleTypeFilter(type) {
+  toggleTypeFilter(type) {
     if (state.search.types.includes(type)) {
       const index = state.search.types.findIndex((t) => type === t);
       state.search.types.splice(index, 1);
@@ -291,12 +321,23 @@ export default {
     state.search.types.push(type);
   },
 
+  toggleColorFilter(color) {
+    if (state.search.colors.includes(color)) {
+      const index = state.search.colors.findIndex((t) => color === t);
+      state.search.colors.splice(index, 1);
+      return;
+    }
+    state.search.colors.pop();
+    state.search.colors.push(color);
+  },
+
   async getAllCharacteristicsDescriptions() {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
 
   clearFilters() {
     state.search.types = [];
+    state.search.colors = [];
   },
 
   getPokemonData(pokemon) {
