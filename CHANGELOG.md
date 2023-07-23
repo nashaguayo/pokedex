@@ -13,6 +13,7 @@
 
 - Changed search url
 - Using hash mode on router
+- Clearing search when navigating away from page
 
 ##### Fixed
 
