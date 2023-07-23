@@ -79,6 +79,11 @@ export default {
   src: local('Upheaval'), url(@/assets/fonts/upheaval.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Kanit';
+  src: local('Kanit'), url(@/assets/fonts/kanit.ttf) format('truetype');
+}
+
 html[data-theme='light'] {
   --main-title-border-color: #{$light-main-title-border-color};
   --main-title-color: #{$light-main-title-color};

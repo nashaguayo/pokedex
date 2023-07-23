@@ -126,7 +126,7 @@ export default {
     border-radius: 2rem;
     height: 2rem;
     padding: 0 1rem;
-    font-family: 'Upheaval';
+    font-family: 'Kanit';
     width: 70%;
   }
 }
