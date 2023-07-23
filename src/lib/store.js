@@ -12,6 +12,10 @@ import {
   getAllTypes as getAllTypesApi,
   getPokemonsByType as getPokemonsByTypeApi,
 } from '@/api/types';
+import {
+  getAllColors as getAllColorsApi,
+  getPokemonsByColor as getPokemonsByColorApi,
+} from '@/api/colors';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
@@ -38,6 +42,8 @@ const state = Vue.observable({
   },
   allTypes: [],
   pokemonsByType: new Map(),
+  allColors: [],
+  pokemonsByColor: new Map(),
   allCharacteristics: new Map(),
 });
 
@@ -49,6 +55,7 @@ export default {
   async initializeStore() {
     await this.getAllPokemons();
     await this.getAllTypes();
+    await this.getAllColors();
     await this.getAllCharacteristicsDescriptions();
   },
 
@@ -255,6 +262,22 @@ export default {
         }
         const index = state.allTypes.findIndex((t) => t === type);
         state.allTypes.splice(index, 1);
+      })
+    );
+  },
+
+  async getAllColors() {
+    const allColors = await getAllColorsApi();
+    state.allColors = allColors;
+    await Promise.all(
+      allColors.map(async (color) => {
+        const pokemons = await getPokemonsByColorApi(color);
+        if (pokemons.length) {
+          state.pokemonsByColor.set(color, pokemons);
+          return;
+        }
+        const index = state.allColors.findIndex((t) => t === color);
+        state.allColors.splice(index, 1);
       })
     );
   },
