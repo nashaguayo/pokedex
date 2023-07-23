@@ -14,6 +14,7 @@ jest.mock('@/components/ui/BaseButton.vue', () => ({
 jest.mock('@/lib/store', () => ({
   searchPokemons: jest.fn(),
   clearSearchResults: jest.fn(),
+  clearFilters: jest.fn(),
   state: {
     allTypes: ['grass', 'electric', 'fire', 'poison'],
     search: {
@@ -66,5 +67,33 @@ describe('PokemonSearch', () => {
       name: 'pokemon',
       params: { id: pokemon },
     });
+  });
+
+  it('clears search results and filters when "Clear Search" button is clicked', async () => {
+    wrapper.vm.setSearchTerm('pikachu');
+    wrapper.vm.toggleDisplayTypes();
+    expect(wrapper.vm.reset).toBe(false);
+    expect(wrapper.vm.displayTypes).toBe(true);
+    expect(wrapper.vm.filteringTypes).toEqual([]);
+    const spy = jest.spyOn(wrapper.vm, 'clearSearch');
+    await wrapper.vm.clearSearch();
+    await wrapper.vm.$nextTick();
+    expect(spy).toHaveBeenCalled();
+    expect(wrapper.vm.reset).toBe(true);
+    expect(wrapper.vm.displayTypes).toBe(false);
+    expect(wrapper.vm.filteringTypes).toEqual([]);
+  });
+
+  it('toggles the display of types when "Show Types" or "Hide Types" button is clicked', async () => {
+    expect(wrapper.vm.displayTypesText).toBe('Show Types');
+    expect(wrapper.vm.displayTypes).toBe(false);
+    wrapper.vm.toggleDisplayTypes();
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.displayTypesText).toBe('Hide Types');
+    expect(wrapper.vm.displayTypes).toBe(true);
+    wrapper.vm.toggleDisplayTypes();
+    await wrapper.find('.button[variant=true][small=true]').trigger('click');
+    expect(wrapper.vm.displayTypesText).toBe('Show Types');
+    expect(wrapper.vm.displayTypes).toBe(false);
   });
 });
