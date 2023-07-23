@@ -302,7 +302,7 @@ export default {
     justify-content: space-evenly;
 
     .send-guess {
-      margin-right: 1rem;
+      margin-right: 1.5rem;
       margin-left: -1rem;
     }
   }
