@@ -22,6 +22,7 @@
 - Header no longer overlaps title
 - Transition on pokemon details page... again
 - Scroll to top button bottom margin when navigating away from a page with footer
+- Search on mobile
 
 ---
 
