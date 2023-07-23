@@ -65,10 +65,7 @@ export default {
     if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
       state.isLoadingAllPokemons = true;
       const allPokemons = (await getAllPokemonsApi()).results;
-      const allPokemonNames = allPokemons.map((pokemon) => pokemon.name);
-      state.allPokemons = allPokemonNames.filter(
-        (pokemon) => !pokemon.includes('-')
-      );
+      state.allPokemons = allPokemons.map((pokemon) => pokemon.name);
       state.isLoadingAllPokemons = false;
     }
   },
@@ -242,11 +239,8 @@ export default {
     await Promise.all(
       allTypes.map(async (type) => {
         const pokemons = await getPokemonsByTypeApi(type);
-        const filteredPokemonNames = pokemons.filter(
-          (pokemon) => !pokemon.includes('-')
-        );
-        if (filteredPokemonNames.length) {
-          state.pokemonsByType.set(type, filteredPokemonNames);
+        if (pokemons.length) {
+          state.pokemonsByType.set(type, pokemons);
           return;
         }
         const index = state.allTypes.findIndex((t) => t === type);
