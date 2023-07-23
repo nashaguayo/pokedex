@@ -38,7 +38,7 @@ const state = Vue.observable({
   },
   allTypes: [],
   pokemonsByType: new Map(),
-  allCharacteristics: [],
+  allCharacteristics: new Map(),
 });
 
 export default {
@@ -111,7 +111,7 @@ export default {
       return { name: s.stat.name, value: s.base_stat };
     });
     let characteristic = '';
-    state.allCharacteristics.get(highestStatName).map((c) => {
+    (state.allCharacteristics.get(highestStatName) ?? []).map((c) => {
       if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {
         characteristic = c.description;
       }
