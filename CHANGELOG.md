@@ -18,6 +18,7 @@
 - Changed search url
 - Using hash mode on router
 - Clearing search when navigating away from page
+- Scroll to top button is now optional
 
 ##### Fixed
 
