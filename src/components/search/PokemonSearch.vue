@@ -299,6 +299,12 @@ export default {
     }
   }
 
+  .search-input {
+    @media (min-width: $min-width-third-break) {
+      border-bottom: 0.2rem solid var(--main-border-color);
+    }
+  }
+
   .buttons {
     margin-top: -2rem;
     border-bottom: 0.2rem solid var(--main-border-color);
