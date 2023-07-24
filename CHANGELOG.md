@@ -9,6 +9,7 @@
 - Random pokemon animation
 - Guess pokemon game is now case insensitive
 - Infinite scroll on mobile
+- Pokemon details no longer crashes on reload
 
 ---
 
