@@ -1,10 +1,10 @@
 <template>
   <transition name="fade-in-out" :mode="mode" @after-enter="afterEnter" appear>
     <FontAwesomeIcon
-      v-if="props.loading"
+      v-if="loading"
       icon="fa-solid fa-spinner"
       class="fa-spin-pulse spinner-icon"
-      :class="{ 'cover-page': props.coverPage }"
+      :class="{ 'cover-page': coverPage }"
       size="6x"
       :color="shouldChangeColor ? 'white' : 'black'"
     />

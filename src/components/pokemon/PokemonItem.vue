@@ -9,7 +9,6 @@
         :name="name"
         :image="image"
         :topPosition="topPosition"
-        v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
