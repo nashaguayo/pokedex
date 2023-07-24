@@ -1,6 +1,10 @@
 <template>
   <div class="base-footer">
-    <ScrollToTop :marginBottom="marginBottom" @userScrolled="updateMargin" />
+    <ScrollToTop
+      v-if="displayScrollToTopButton"
+      :marginBottom="marginBottom"
+      @userScrolled="updateMargin"
+    />
     <FooterLinks
       v-if="displayFooter"
       :hasToUpdateHeight="hasToUpdateMargin"
@@ -21,6 +25,10 @@ export default {
   },
   props: {
     displayFooter: {
+      type: Boolean,
+      default: true,
+    },
+    displayScrollToTopButton: {
       type: Boolean,
       default: true,
     },
