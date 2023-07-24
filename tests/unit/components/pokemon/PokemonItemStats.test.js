@@ -42,6 +42,12 @@ describe('PokemonItemStats', () => {
 
     expect(statNames.length).toBe(3);
     expect(statValues.length).toBe(3);
+
+    const statNamesText = statNames.wrappers.map((el) => el.text());
+    const statValuesText = statValues.wrappers.map((el) => el.text());
+
+    expect(statNamesText).toEqual(['HP', 'attack', 'speed']);
+    expect(statValuesText).toEqual(['50', '20', '112']);
   });
 
   it('displays the title', () => {
@@ -56,7 +62,30 @@ describe('PokemonItemStats', () => {
     const exceededBars = wrapper.findAll('.exceeded');
 
     expect(filledBars.length).toBe(17);
-    expect(emptyBars.length).toBe(13);
+    expect(emptyBars.length).toBe(15);
     expect(exceededBars.length).toBe(1);
+  });
+
+  it('correctly formats stat names with hyphens', () => {
+    const statNames = wrapper.findAll('.property-names');
+    const statNamesText = statNames.wrappers.map((el) => el.text());
+    expect(statNamesText).toEqual(['HP', 'attack', 'speed']);
+  });
+
+  it('displays the correct number of filled, empty, and exceeded bars for each stat', () => {
+    const statBars = wrapper.findAll('.bars');
+
+    const statBarsData = statBars.wrappers.map((el) => {
+      const filledBars = el.findAll('.bar.filled').length;
+      const emptyBars = el.findAll('.bar.empty').length;
+      const exceededBars = el.findAll('.bar.exceeded').length;
+      return { filledBars, emptyBars, exceededBars };
+    });
+
+    expect(statBarsData).toEqual([
+      { filledBars: 5, emptyBars: 6, exceededBars: 0 },
+      { filledBars: 2, emptyBars: 9, exceededBars: 0 },
+      { filledBars: 10, emptyBars: 0, exceededBars: 1 },
+    ]);
   });
 });

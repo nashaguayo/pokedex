@@ -39,7 +39,67 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
-    pokemon: new Map([]),
+    allPokemons: [
+      { id: 1, name: 'pikachu' },
+      { id: 2, name: 'squirtle' },
+      { id: 3, name: 'charmander' },
+    ],
+    pokemon: new Map([
+      [
+        1,
+        {
+          id: 1,
+          name: 'pikachu',
+          image: 'pikachu.png',
+          stats: [],
+          types: [],
+          evolutions: [],
+          flavorTexts: [],
+          characteristic: '',
+          weight: 0,
+          height: 0,
+          color: '',
+          shape: '',
+          generation: '',
+        },
+      ],
+      [
+        2,
+        {
+          id: 2,
+          name: 'squirtle',
+          image: 'squirtle.png',
+          stats: [],
+          types: [],
+          evolutions: [],
+          flavorTexts: [],
+          characteristic: '',
+          weight: 0,
+          height: 0,
+          color: '',
+          shape: '',
+          generation: '',
+        },
+      ],
+      [
+        3,
+        {
+          id: 3,
+          name: 'charmander',
+          image: 'charmander.png',
+          stats: [],
+          types: [],
+          evolutions: [],
+          flavorTexts: [],
+          characteristic: '',
+          weight: 0,
+          height: 0,
+          color: '',
+          shape: '',
+          generation: '',
+        },
+      ],
+    ]),
   },
   getPokemon: jest.fn(),
 }));
@@ -51,6 +111,7 @@ jest.mock('@/lib/helpers', () => ({
     scrollTop: 0,
   })),
   capitalizeWord: jest.fn(),
+  scrollToTopOfBackgroundPage: jest.fn(),
 }));
 
 describe('PokemonItem', () => {
@@ -59,11 +120,18 @@ describe('PokemonItem', () => {
   beforeEach(() => {
     Vue.directive('observe-visibility', {});
     wrapper = shallowMount(PokemonItem, {
+      propsData: {
+        loading: false,
+      },
       mocks: {
         $route: {
+          name: 'pokemon',
           params: {
-            id: 'pokemon-id',
+            id: 2,
           },
+        },
+        $router: {
+          push: jest.fn(),
         },
       },
     });
@@ -84,5 +152,77 @@ describe('PokemonItem', () => {
     expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
+  });
+
+  it('navigates to next pokemon page when clicked', () => {
+    const routerPushSpy = jest.spyOn(wrapper.vm.$router, 'push');
+    const navigateToPokemonSpy = jest.spyOn(wrapper.vm, 'navigateToPokemon');
+    wrapper.vm.goToPreviousPokemon();
+    expect(navigateToPokemonSpy).toHaveBeenCalledWith('pikachu');
+    expect(routerPushSpy).toHaveBeenCalledWith({
+      name: 'pokemon',
+      params: { id: 'pikachu' },
+    });
+  });
+
+  it('navigates to previous pokemon page when clicked', () => {
+    const routerPushSpy = jest.spyOn(wrapper.vm.$router, 'push');
+    const navigateToPokemonSpy = jest.spyOn(wrapper.vm, 'navigateToPokemon');
+    wrapper.vm.goToNextPokemon();
+    expect(navigateToPokemonSpy).toHaveBeenCalledWith('charmander');
+    expect(routerPushSpy).toHaveBeenCalledWith({
+      name: 'pokemon',
+      params: { id: 'charmander' },
+    });
+  });
+
+  it('disables previous button when there are no previous pokemons', () => {
+    wrapper = shallowMount(PokemonItem, {
+      propsData: {
+        loading: false,
+      },
+      mocks: {
+        $route: {
+          name: 'pokemon',
+          params: {
+            id: 1,
+          },
+        },
+        $router: {
+          push: jest.fn(),
+        },
+      },
+    });
+    expect(
+      wrapper.findAll('basebutton-stub').at(0).attributes().disabled
+    ).toBeTruthy();
+    expect(
+      wrapper.findAll('basebutton-stub').at(1).attributes().disabled
+    ).toBeFalsy();
+  });
+
+  it('disables next button when there are no previous pokemons', () => {
+    wrapper = shallowMount(PokemonItem, {
+      propsData: {
+        loading: false,
+      },
+      mocks: {
+        $route: {
+          name: 'pokemon',
+          params: {
+            id: 3,
+          },
+        },
+        $router: {
+          push: jest.fn(),
+        },
+      },
+    });
+    expect(
+      wrapper.findAll('basebutton-stub').at(0).attributes().disabled
+    ).toBeFalsy();
+    expect(
+      wrapper.findAll('basebutton-stub').at(1).attributes().disabled
+    ).toBeTruthy();
   });
 });

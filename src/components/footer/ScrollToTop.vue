@@ -5,7 +5,7 @@
       :style="{ 'margin-bottom': `${marginBottom * 0.063}rem` }"
       class="scroll-to-top"
       @click="scrollToTop"
-      @animationend="wasClicked = false"
+      @animationend="handleAnimationEnd"
       v-if="showScrollToTopButton"
     >
       <FontAwesomeIcon icon="fa-solid fa-arrow-up" color="white" size="2x" />
@@ -57,7 +57,10 @@ export default {
     },
     scrollToTop() {
       this.wasClicked = true;
-      scrollToTopOfBackgroundPage();
+      scrollToTopOfBackgroundPage('smooth');
+    },
+    handleAnimationEnd() {
+      this.wasClicked = false;
     },
   },
 };

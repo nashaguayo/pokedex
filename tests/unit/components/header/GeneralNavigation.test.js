@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import GeneralNavigation from '@/components/header/GeneralNavigation.vue';
-import store from '@/lib/store';
 
 jest.mock('@/lib/store', () => ({
   state: { isDarkModeEnabled: true },
@@ -24,8 +23,27 @@ describe('GeneralNavigation', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('calls the toggleDarkMode method from the store when toggleTheme is called', () => {
-    wrapper.vm.toggleTheme();
-    expect(store.toggleDarkMode).toHaveBeenCalled();
+  it('loads all routes from header', () => {
+    expect(wrapper.findAll('router-link-stub').length).toBe(5);
+  });
+
+  it('displays the dark mode on icon when isDarkModeEnabled is true', () => {
+    expect(wrapper.findAll('.icon').at(2).attributes().icon).toBe(
+      'fa-solid fa-toggle-on'
+    );
+  });
+
+  it('displays the dark mode off icon when isDarkModeEnabled is false', () => {
+    const wrapper = shallowMount(GeneralNavigation, {
+      computed: {
+        isDarkModeEnabled() {
+          return false;
+        },
+      },
+      stubs: ['router-link', 'FontAwesomeIcon'],
+    });
+    expect(wrapper.findAll('.icon').at(2).attributes().icon).toBe(
+      'fa-solid fa-toggle-off'
+    );
   });
 });

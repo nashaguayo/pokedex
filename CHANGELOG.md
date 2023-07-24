@@ -2,7 +2,38 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.2...develop) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.3...develop) (dd-mm-yyyy)
+
+---
+
+## [V0.2.3](https://github.com/nashaguayo/pokedex/compare/V0.2.2...V0.2.3) (23-07-2023)
+
+##### Added
+
+- Shape to pokemon details
+- Generation to pokemon details
+- Filter by Color
+- Filter by Shape
+- Filter by Generation
+- Previous and next buttons on pokemon details page
+
+##### Modified
+
+- Changed search url
+- Using hash mode on router
+- Clearing search when navigating away from page
+- Scroll to top button is now optional
+
+##### Fixed
+
+- Buttons in search now have a pointer cursor
+- Pokemons page always loads on top, not on saved position
+- Header no longer overlaps title
+- Transition on pokemon details page... again
+- Scroll to top button bottom margin when navigating away from a page with footer
+- Search on mobile
+- Undefined characteristics for species
+- Added missing empty stat bars when exceeding bars appear
 
 ---
 

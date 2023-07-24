@@ -15,7 +15,10 @@
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
-          <BaseFooter :displayFooter="displayFooter" />
+          <BaseFooter
+            :displayFooter="displayFooter"
+            :displayScrollToTopButton="displayScrollToTopButton"
+          />
         </transition>
       </div>
     </div>
@@ -26,15 +29,14 @@
 import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
+import { toggleDarkMode } from '@/lib/helpers';
 
 export default {
   name: 'App',
   components: { BaseHeader, BaseFooter },
   async created() {
     this.setTheme(this.isDarkModeEnabled);
-    await store.getAllPokemons();
-    await store.getAllTypes();
-    await store.getAllCharacteristicsDescriptions();
+    await store.initializeStore();
   },
   computed: {
     isDarkModeEnabled() {
@@ -46,6 +48,9 @@ export default {
     displayFooter() {
       return this.$route.meta.footer ?? true;
     },
+    displayScrollToTopButton() {
+      return this.$route.meta.scrollToTopButton ?? true;
+    },
   },
   watch: {
     isDarkModeEnabled(newValue) {
@@ -54,10 +59,7 @@ export default {
   },
   methods: {
     setTheme(isDarkModeEnabled) {
-      document.documentElement.setAttribute(
-        'data-theme',
-        isDarkModeEnabled ? 'dark' : 'light'
-      );
+      toggleDarkMode(isDarkModeEnabled);
     },
   },
 };
@@ -81,6 +83,11 @@ export default {
 @font-face {
   font-family: 'Upheaval';
   src: local('Upheaval'), url(@/assets/fonts/upheaval.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: local('Kanit'), url(@/assets/fonts/kanit.ttf) format('truetype');
 }
 
 html[data-theme='light'] {
@@ -197,30 +204,34 @@ p {
 
 h1 {
   font-size: 1.5rem;
-  -webkit-text-stroke-width: 0.25rem;
+  -webkit-text-stroke-width: 0.15rem;
   -webkit-text-stroke-color: var(--main-title-border-color);
   color: var(--main-title-color);
 
   @media (min-width: $min-width-first-break) {
+    -webkit-text-stroke-width: 0.18rem;
     font-size: 1.8rem;
   }
 
   @media (min-width: $min-width-second-break) {
+    -webkit-text-stroke-width: 0.2rem;
     font-size: 2.5rem;
   }
 }
 
 h2 {
   font-size: 1.2rem;
-  -webkit-text-stroke-width: 0.2rem;
+  -webkit-text-stroke-width: 0.08rem;
   -webkit-text-stroke-color: var(--secondary-title-border-color);
   color: var(--secondary-title-color);
 
   @media (min-width: $min-width-first-break) {
+    -webkit-text-stroke-width: 0.1rem;
     font-size: 1.5rem;
   }
 
   @media (min-width: $min-width-second-break) {
+    -webkit-text-stroke-width: 0.15rem;
     font-size: 2rem;
   }
 }
@@ -263,6 +274,10 @@ h2 {
 
       &.add-margins {
         padding-top: 5rem;
+
+        @media (min-width: $min-width-first-break) {
+          padding-top: 6rem;
+        }
 
         @media (min-width: $min-width-second-break) {
           padding-top: 7rem;

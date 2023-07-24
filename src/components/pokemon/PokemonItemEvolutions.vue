@@ -45,10 +45,6 @@ export default {
       type: Array,
       required: true,
     },
-    pokemonId: {
-      type: Number,
-      required: true,
-    },
     pokemonName: {
       type: String,
       required: true,
@@ -133,7 +129,7 @@ export default {
       margin-top: 0;
       width: 80%;
       margin-right: 3rem;
-      border-radius: 5rem;
+      border-radius: 2rem;
     }
 
     .screen {

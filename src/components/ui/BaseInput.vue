@@ -5,6 +5,7 @@
         v-if="icon"
         :icon="icon"
         :color="isDarkModeEnabled ? 'white' : 'black'"
+        class="icon"
       />
       <span v-if="label">{{ label }}</span>
     </label>
@@ -112,6 +113,7 @@ export default {
   margin-top: 2rem;
   padding-bottom: 2rem;
   display: flex;
+  gap: 1rem;
   align-items: center;
   width: 100%;
   justify-content: space-evenly;
@@ -126,8 +128,8 @@ export default {
     border-radius: 2rem;
     height: 2rem;
     padding: 0 1rem;
-    font-family: 'Upheaval';
-    width: 70%;
+    font-family: 'Kanit';
+    width: 100%;
   }
 }
 </style>

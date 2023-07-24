@@ -9,6 +9,7 @@
   >
     <div class="disclaimer">
       <span>This is a project built for learning.</span>
+      <span>Natasha Aguayo - 2023</span>
     </div>
     <div class="logos">
       <div class="fueled-by">
@@ -57,6 +58,9 @@ export default {
   mounted() {
     this.setHeight();
   },
+  beforeDestroy() {
+    this.setHeight();
+  },
   methods: {
     setHeight() {
       this.height = this.isVisible ? this.$refs.footerLinks.offsetHeight : 0;
@@ -101,6 +105,7 @@ export default {
       color: var(--variant-text-color);
       font-size: 1rem;
       text-align: center;
+      font-family: 'Kanit';
 
       @media (min-width: $min-width-first-break) {
         text-align: left;

@@ -21,36 +21,50 @@
         </BaseButton>
         <BaseButton
           class="button"
-          :onClickHandler="clearSearch"
+          :onClickHandler="toggleDisplayColors"
           :variant="true"
+          :small="true"
+        >
+          {{ displayColorsText }}
+        </BaseButton>
+        <BaseButton
+          class="button"
+          :onClickHandler="toggleDisplayShapes"
+          :variant="true"
+          :small="true"
+        >
+          {{ displayShapesText }}
+        </BaseButton>
+        <BaseButton
+          class="button"
+          :onClickHandler="toggleDisplayGenerations"
+          :variant="true"
+          :small="true"
+        >
+          {{ displayGenerationsText }}
+        </BaseButton>
+        <BaseButton
+          class="button clear-search"
+          :onClickHandler="clearSearch"
           :small="true"
         >
           Clear Search
         </BaseButton>
       </div>
     </div>
-    <transition name="slide-from-above">
-      <div v-if="displayTypes" class="types">
-        <div
-          class="type"
-          :class="{
-            active: filteringTypes.includes(t),
-            inactive: !filteringTypes.includes(t),
-          }"
-          v-for="t in allTypes"
-          :key="`type-${t}`"
-          @click="toggleTypeFilter(t)"
-        >
-          {{ t }}
-        </div>
-      </div>
+    <transition name="slide-from-above" mode="out-in" appear>
+      <component :is="component" />
     </transition>
     <transition name="slide-from-above" mode="out-in" appear>
       <span
         class="no-results"
         v-if="
           (searchTerm.length >= 3 ||
-            (searchTerm.length < 3 && filteringTypes.length)) &&
+            (searchTerm.length < 3 &&
+              (filteringTypes.length ||
+                filteringColors.length ||
+                filteringShapes.length ||
+                filteringGenerations.length))) &&
           !searchResults.length
         "
       >
@@ -58,23 +72,24 @@
       </span>
     </transition>
     <BaseLoader :loading="loading">
-      <div class="results">
-        <transition-group name="slide-from-right" appear>
-          <span
-            v-for="pokemon in searchResults"
-            :key="pokemon"
-            class="search-result"
-            @click="goToPokemonPage(pokemon)"
-          >
-            {{ pokemon }}
-          </span>
-        </transition-group>
-      </div>
+      <transition-group
+        class="results"
+        name="slide-from-right"
+        mode="out-in"
+        appear
+      >
+        <span
+          v-for="pokemon in searchResults"
+          :key="pokemon"
+          class="search-result"
+          @click="goToPokemonPage(pokemon)"
+        >
+          {{ pokemon }}
+        </span>
+      </transition-group>
     </BaseLoader>
     <div class="go-back">
-      <BaseButton :onClickHandler="goBack" :big="true" :variant="true">
-        Go Back
-      </BaseButton>
+      <BaseButton :onClickHandler="goBack" :big="true"> Go Back </BaseButton>
     </div>
   </div>
 </template>
@@ -83,21 +98,46 @@
 import BaseLoader from '@/components/ui/BaseLoader';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseInput from '@/components/ui/BaseInput';
+import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
+import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
+import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
+import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'PokemonSearch',
-  components: { BaseLoader, BaseButton, BaseInput },
+  components: {
+    BaseLoader,
+    BaseButton,
+    BaseInput,
+    PokemonSearchTypes,
+    PokemonSearchColors,
+    PokemonSearchShapes,
+    PokemonSearchGenerations,
+  },
   data() {
     return {
+      component: null,
       searchTerm: '',
       displayTypes: false,
+      displayColors: false,
+      displayShapes: false,
+      displayGenerations: false,
       reset: false,
     };
   },
+  beforeDestroy() {
+    this.clearSearch();
+  },
   watch: {
     async searchTerm(searchTerm) {
-      if (searchTerm.length < 3 && !this.filteringTypes.length) {
+      if (
+        searchTerm.length < 3 &&
+        !this.filteringTypes.length &&
+        !this.filteringColors.length &&
+        !this.filteringShapes.length &&
+        !this.filteringGenerations.length
+      ) {
         store.clearSearchResults();
         return;
       }
@@ -110,22 +150,58 @@ export default {
       }
       await store.searchPokemons(this.searchTerm);
     },
+    async filteringColors(filteringColors) {
+      if (!filteringColors.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
+    async filteringShapes(filteringShapes) {
+      if (!filteringShapes.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
+    async filteringGenerations(filteringGenerations) {
+      if (!filteringGenerations.length && !this.searchTerm) {
+        store.clearSearchResults();
+        return;
+      }
+      await store.searchPokemons(this.searchTerm);
+    },
   },
   computed: {
     searchResults() {
       return store.state.search.results;
     },
-    allTypes() {
-      return store.state.allTypes;
-    },
     filteringTypes() {
       return store.state.search.types;
+    },
+    filteringColors() {
+      return store.state.search.colors;
+    },
+    filteringShapes() {
+      return store.state.search.shapes;
+    },
+    filteringGenerations() {
+      return store.state.search.generations;
     },
     loading() {
       return store.state.search.isSearchingPokemon;
     },
     displayTypesText() {
       return `${this.displayTypes ? 'Hide' : 'Show'} Types`;
+    },
+    displayColorsText() {
+      return `${this.displayColors ? 'Hide' : 'Show'} Colors`;
+    },
+    displayShapesText() {
+      return `${this.displayShapes ? 'Hide' : 'Show'} Shapes`;
+    },
+    displayGenerationsText() {
+      return `${this.displayGenerations ? 'Hide' : 'Show'} Gens`;
     },
   },
   methods: {
@@ -139,17 +215,66 @@ export default {
       this.reset = false;
       this.searchTerm = searchTerm;
     },
-    toggleTypeFilter(type) {
-      store.toggleTypeFilter(type);
-    },
     toggleDisplayTypes() {
-      this.displayTypes = !this.displayTypes;
+      this.clearDisplayVariables();
+      if (this.component === 'PokemonSearchTypes') {
+        this.component = null;
+        return;
+      }
+      this.component = 'PokemonSearchTypes';
+      this.displayTypes = true;
+      store.clearColorFilters();
+      store.clearShapeFilters();
+      store.clearGenerationFilters();
+    },
+    toggleDisplayColors() {
+      this.clearDisplayVariables();
+      if (this.component === 'PokemonSearchColors') {
+        this.component = null;
+        return;
+      }
+      this.component = 'PokemonSearchColors';
+      this.displayColors = true;
+      store.clearTypeFilters();
+      store.clearShapeFilters();
+      store.clearGenerationFilters();
+    },
+    toggleDisplayShapes() {
+      this.clearDisplayVariables();
+      if (this.component === 'PokemonSearchShapes') {
+        this.component = null;
+        return;
+      }
+      this.component = 'PokemonSearchShapes';
+      this.displayShapes = true;
+      store.clearTypeFilters();
+      store.clearColorFilters();
+      store.clearGenerationFilters();
+    },
+    toggleDisplayGenerations() {
+      this.clearDisplayVariables();
+      if (this.component === 'PokemonSearchGenerations') {
+        this.component = null;
+        return;
+      }
+      this.component = 'PokemonSearchGenerations';
+      this.displayGenerations = true;
+      store.clearTypeFilters();
+      store.clearColorFilters();
+      store.clearShapeFilters();
     },
     clearSearch() {
       this.reset = true;
       store.clearSearchResults();
       store.clearFilters();
+      this.component = null;
+      this.clearDisplayVariables();
+    },
+    clearDisplayVariables() {
       this.displayTypes = false;
+      this.displayColors = false;
+      this.displayShapes = false;
+      this.displayGenerations = false;
     },
   },
 };
@@ -161,15 +286,16 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100vh;
 
   .controls {
-    width: 100%;
+    width: calc(100% - 4rem);
     background-color: var(--main-background-color);
     z-index: 5;
+    padding: 0 2rem;
 
     @media (min-width: $min-width-third-break) {
-      display: flex;
-      justify-content: center;
+      display: grid;
     }
   }
 
@@ -184,23 +310,28 @@ export default {
     border-bottom: 0.2rem solid var(--main-border-color);
     padding-bottom: 1rem;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
 
     @media (min-width: $min-width-first-break) {
-      gap: 1rem;
-    }
-
-    @media (min-width: $min-width-second-break) {
-      gap: 2rem;
+      grid-gap: 0.2rem 1rem;
     }
 
     @media (min-width: $min-width-third-break) {
+      grid-template-columns: repeat(3, 1fr);
       align-items: center;
-      gap: 1rem;
-      padding-bottom: 0rem;
+      gap: 0.5rem;
+      padding: 1.3rem 0;
       margin-top: 0rem;
-      padding-right: 1rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem 0;
+      margin-top: 0rem;
     }
 
     .button {
@@ -210,6 +341,21 @@ export default {
         margin-top: 0rem;
         height: 2rem;
       }
+
+      &.clear-search {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        @media (min-width: $min-width-third-break) {
+          grid-column-start: 2;
+          grid-column-end: 4;
+        }
+
+        @media (min-width: $min-width-fourth-break) {
+          grid-column-start: 5;
+          grid-column-end: 6;
+        }
+      }
     }
   }
 
@@ -217,54 +363,16 @@ export default {
     margin-top: 1rem;
   }
 
-  .types {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
-    font-family: 'Upheaval';
-    gap: 0.5rem;
-    padding: 1rem 0;
-    border-bottom: 0.2rem solid var(--main-border-color);
-    width: 100%;
-
-    @media (min-width: $min-width-third-break) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @media (min-width: $min-width-fourth-break) {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-    @media (min-width: $min-width-fifth-break) {
-      grid-template-columns: repeat(6, 1fr);
-    }
-
-    .type {
-      border-radius: 1rem;
-      padding: 0.3rem;
-      transition: all 0.3s;
-
-      &.inactive {
-        background-color: var(--disabled-button-background-color);
-      }
-
-      &.active {
-        background-color: var(--secondary-background-color);
-        color: var(--secondary-text-color);
-      }
-    }
-  }
-
   .results {
-    min-width: 100%;
-    margin-bottom: 5rem;
+    width: calc(100% - 4rem);
+    padding-bottom: 4rem;
 
     @media (min-width: $min-width-second-break) {
-      margin-bottom: 6rem;
+      padding-bottom: 6rem;
     }
 
     @media (min-width: $min-width-third-break) {
-      margin-bottom: 7rem;
+      padding-bottom: 7rem;
     }
 
     .search-result {

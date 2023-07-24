@@ -2,8 +2,8 @@ export function getPageBackgroundElement() {
   return document.getElementsByClassName('page-background')[0];
 }
 
-export function scrollToTopOfBackgroundPage() {
-  getPageBackgroundElement().scrollTo({ top: 0, behavior: 'smooth' });
+export function scrollToTopOfBackgroundPage(behavior) {
+  getPageBackgroundElement().scrollTo({ top: 0, behavior });
 }
 
 export function capitalizeWord(word = '') {

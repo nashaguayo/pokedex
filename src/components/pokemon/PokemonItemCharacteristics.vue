@@ -1,12 +1,20 @@
 <template functional>
   <div class="pokemon-item-characteristics">
     <div class="status">
+      <span class="right">ID</span>
+      <span>#{{ props.id }}</span>
       <span class="right">Weight</span>
       <span>{{ props.weight }} pounds</span>
       <span class="right">Height</span>
       <span>{{ props.height }}"</span>
       <span class="right">Color</span>
-      <span :style="{ color: props.color }">{{ props.color }}</span>
+      <span :style="{ color: props.color }" class="color">{{
+        props.color
+      }}</span>
+      <span class="right">Shape</span>
+      <span>{{ props.shape }}</span>
+      <span class="right">Generation</span>
+      <span>{{ props.generation.toUpperCase() }}</span>
       <span class="characteristic">
         {{ props.characteristic }}
       </span>
@@ -18,6 +26,10 @@
 export default {
   name: 'PokemonItemCharacteristics',
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     characteristic: {
       type: String,
       required: true,
@@ -31,6 +43,14 @@ export default {
       required: true,
     },
     color: {
+      type: String,
+      required: true,
+    },
+    shape: {
+      type: String,
+      required: true,
+    },
+    generation: {
       type: String,
       required: true,
     },
@@ -52,7 +72,7 @@ export default {
     margin: 1rem 0;
     background-color: var(--secondary-background-color);
     width: 16rem;
-    align-items: end;
+    align-items: center;
     padding: 1rem;
     box-shadow: var(--main-box-shadow);
 
@@ -65,11 +85,16 @@ export default {
     }
 
     @media (min-width: $min-width-fourth-break) {
+      border-radius: 1rem;
       width: auto;
     }
 
     span {
       color: var(--secondary-text-color);
+
+      @media (min-width: $min-width-fourth-break) {
+        border-radius: 1rem;
+      }
 
       &.right {
         justify-self: end;
@@ -82,6 +107,11 @@ export default {
         text-align: center;
         padding: 1rem;
       }
+    }
+
+    .color {
+      -webkit-text-stroke-width: 0.05rem;
+      -webkit-text-stroke-color: var(--main-text-color);
     }
   }
 }

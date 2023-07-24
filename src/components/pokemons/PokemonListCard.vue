@@ -3,7 +3,7 @@
     class="pokemon-list-card"
     :class="{ 'shrink-animation': wasClicked }"
     @click="showPokemonInfo"
-    @animationend="wasClicked = false"
+    @animationend="onAnimationEnd"
   >
     <span class="id">#{{ id }}</span>
     <img :src="image" alt="pokemon front default" class="screen" />
@@ -56,6 +56,9 @@ export default {
       this.wasClicked = true;
       this.$router.push({ name: 'pokemon', params: { id: this.name } });
     },
+    onAnimationEnd() {
+      this.wasClicked = false;
+    },
   },
 };
 </script>
@@ -67,7 +70,7 @@ export default {
   border: 0.15rem solid var(--main-border-color);
   border-radius: 1rem;
   padding: 0.5rem;
-  width: 8rem;
+  width: 8.5rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -103,6 +106,8 @@ export default {
       padding: 0.2rem;
       border-radius: 1rem;
       box-shadow: var(--main-box-shadow);
+      -webkit-text-stroke-width: 0.04rem;
+      -webkit-text-stroke-color: var(--main-text-color);
 
       @media (min-width: $min-width-second-break) {
         font-size: 1rem;

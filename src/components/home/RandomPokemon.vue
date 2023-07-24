@@ -77,9 +77,6 @@ export default {
     async getNewRandomPokemon() {
       await store.getNewRandomPokemon();
     },
-    getResolution(resolution) {
-      return Number(resolution.replace('px', ''));
-    },
   },
 };
 </script>
@@ -122,7 +119,7 @@ export default {
       border-radius: 50%;
       margin-bottom: 0.5rem;
       box-shadow: var(--main-box-shadow);
-      border: 0.2rem solid var(--main-border-color);
+      border: 0.15rem solid var(--main-border-color);
       padding: 1rem;
       width: 6rem;
       height: 6rem;
@@ -142,6 +139,9 @@ export default {
     .pokemon-name {
       margin-bottom: 2rem;
       text-align: center;
+      color: var(--secondary-text-color);
+      -webkit-text-stroke-width: 0.08rem;
+      -webkit-text-stroke-color: var(--secondary-title-border-color);
     }
   }
 }

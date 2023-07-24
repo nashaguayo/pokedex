@@ -1,33 +1,50 @@
 <template>
-  <BaseLoader :loading="loading" :coverPage="true" mode="in-out">
+  <BaseLoader
+    :loading="loading"
+    :afterEnter="headerIsVisible"
+    :coverPage="true"
+  >
     <div class="pokemon-item" ref="pokemonItem">
       <PokemonItemHeader
         :name="name"
         :image="image"
         :topPosition="topPosition"
-        v-observe-visibility="{ callback: headerIsVisible, once: true }"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
         <PokemonItemCharacteristics
+          :id="id"
           :characteristic="characteristic"
           :height="height"
           :weight="weight"
           :color="color"
+          :shape="shape"
+          :generation="generation"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
       </div>
-      <PokemonItemEvolutions
-        :evolutions="evolutions"
-        :pokemonId="id"
-        :pokemonName="name"
-      />
+      <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
+      <div class="navigation">
+        <BaseButton
+          :onClickHandler="goToPreviousPokemon"
+          :disabled="id === 1"
+          :variant="true"
+        >
+          Previous
+        </BaseButton>
+        <BaseButton
+          :onClickHandler="goToNextPokemon"
+          :disabled="id === allPokemons[allPokemons.length - 1].id"
+          :variant="true"
+        >
+          Next
+        </BaseButton>
+      </div>
       <BaseButton
         class="go-back-button"
         :onClickHandler="goToPokemonsPage"
-        :variant="true"
         :big="true"
       >
         Go Back
@@ -46,7 +63,11 @@ import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
-import { getPageBackgroundElement, capitalizeWord } from '@/lib/helpers';
+import {
+  getPageBackgroundElement,
+  capitalizeWord,
+  scrollToTopOfBackgroundPage,
+} from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/pokemons/silouette.png';
@@ -78,6 +99,9 @@ export default {
   computed: {
     urlId() {
       return this.$route.params.id;
+    },
+    allPokemons() {
+      return store.state.allPokemons;
     },
     id() {
       return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
@@ -135,6 +159,16 @@ export default {
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
       );
     },
+    shape() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.shape ?? ''
+      );
+    },
+    generation() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
+      );
+    },
   },
   async created() {
     if (!store.state.pokemon.has(this.urlId)) {
@@ -169,6 +203,22 @@ export default {
         'scroll',
         this.throttledParallax
       );
+    },
+    goToPreviousPokemon() {
+      const index = this.allPokemons.findIndex(
+        (pokemon) => pokemon.id === this.id
+      );
+      this.navigateToPokemon(this.allPokemons[index - 1].name);
+    },
+    goToNextPokemon() {
+      const index = this.allPokemons.findIndex(
+        (pokemon) => pokemon.id === this.id
+      );
+      this.navigateToPokemon(this.allPokemons[index + 1].name);
+    },
+    navigateToPokemon(id) {
+      this.$router.push({ name: 'pokemon', params: { id } });
+      scrollToTopOfBackgroundPage('smooth');
     },
   },
 };
@@ -215,7 +265,7 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       width: auto;
       background-color: var(--variant-background-color);
-      border-radius: 5rem;
+      border-radius: 2rem;
       box-shadow: var(--marin-box-shadow);
       border: 0.2rem solid var(--secondary-border-color);
       margin-top: 0;
@@ -233,6 +283,28 @@ export default {
         -webkit-text-stroke-color: var(--variant-title-border-color);
         color: var(--variant-title-color);
       }
+    }
+  }
+
+  .navigation {
+    display: grid;
+    width: 90%;
+    margin-top: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (min-width: $min-width-first-break) {
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      grid-row-start: 5;
+      grid-row-end: 6;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      margin: 0 auto;
+      margin-top: 2rem;
+      gap: 2rem;
     }
   }
 

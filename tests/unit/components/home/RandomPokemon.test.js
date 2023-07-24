@@ -17,6 +17,7 @@ jest.mock('@/lib/store', () => ({
     ],
   },
   getRandomPokemons: jest.fn(),
+  getNewRandomPokemon: jest.fn(),
 }));
 
 describe('RandomPokemon', () => {
@@ -38,9 +39,15 @@ describe('RandomPokemon', () => {
     expect(wrapper.vm.loading).toBe(false);
   });
 
-  it('should set the randomPokemons data and loading to false', async () => {
-    await wrapper.vm.getRandomPokemons();
-    expect(wrapper.vm.randomPokemons.length).toBeGreaterThan(0);
-    expect(wrapper.vm.loading).toBe(false);
-  });
+  it('should call getNewRandomPokemon every 5 seconds', async () => {
+    const getNewRandomPokemonSpy = jest.spyOn(
+      wrapper.vm,
+      'getNewRandomPokemon'
+    );
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await wrapper.vm.$nextTick();
+    expect(getNewRandomPokemonSpy).toHaveBeenCalledTimes(1);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    expect(getNewRandomPokemonSpy).toHaveBeenCalledTimes(2);
+  }, 11000);
 });

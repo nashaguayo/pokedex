@@ -13,6 +13,9 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
+    meta: {
+      scrollToTopButton: false,
+    },
   },
   {
     path: '/404',
@@ -32,7 +35,7 @@ const routes = [
     },
   },
   {
-    path: '/pokemons/search',
+    path: '/search',
     name: 'search',
     component: () => import('@/views/SearchView.vue'),
     meta: {
@@ -53,7 +56,7 @@ const routes = [
 
 const router = new VueRouter({
   base: '/pokedex',
-  mode: 'history',
+  mode: 'hash',
   routes,
 });
 
