@@ -152,7 +152,7 @@ export default {
         : "That's not it...";
     },
     hasWon() {
-      return this.playersGuess === this.name;
+      return this.playersGuess.toLowerCase() === this.name;
     },
     hasLost() {
       return !this.hasWon && this.tries === 0;

@@ -7,6 +7,7 @@
 ##### FIXED
 
 - Random pokemon animation
+- Guess pokemon game is now case insensitive
 
 ---
 
