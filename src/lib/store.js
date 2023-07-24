@@ -180,21 +180,6 @@ export default {
       shape,
       generation,
     });
-    state.pokemon.set(id, {
-      id,
-      name,
-      image,
-      stats,
-      types,
-      evolutions,
-      flavorTexts,
-      characteristic,
-      height,
-      weight,
-      color,
-      shape,
-      generation,
-    });
   },
 
   async getRandomPokemons(amountOfRandomPokemons) {
