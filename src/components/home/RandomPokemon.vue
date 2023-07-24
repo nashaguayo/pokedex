@@ -89,7 +89,6 @@ export default {
   width: 100%;
   box-shadow: var(--main-box-shadow);
   background-color: var(--secondary-background-color);
-  width: 100%;
 
   h2 {
     margin-bottom: 0.5rem;
@@ -105,7 +104,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     width: 9rem;
 
     .link {
