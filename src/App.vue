@@ -15,7 +15,10 @@
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
-          <BaseFooter :displayFooter="displayFooter" />
+          <BaseFooter
+            :displayFooter="displayFooter"
+            :displayScrollToTopButton="displayScrollToTopButton"
+          />
         </transition>
       </div>
     </div>
@@ -44,6 +47,9 @@ export default {
     },
     displayFooter() {
       return this.$route.meta.footer ?? true;
+    },
+    displayScrollToTopButton() {
+      return this.$route.meta.scrollToTopButton ?? true;
     },
   },
   watch: {

@@ -13,6 +13,9 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
+    meta: {
+      scrollToTopButton: false,
+    },
   },
   {
     path: '/404',
