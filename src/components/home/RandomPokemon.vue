@@ -2,7 +2,7 @@
   <BaseLoader :loading="loading">
     <div class="random-pokemon">
       <h2>Random Pokemon</h2>
-      <transition-group name="slide-to-right" class="pokemons">
+      <transition-group name="slide-to-left" class="pokemons">
         <div
           class="pokedex"
           v-for="pokemon in randomPokemons"
@@ -89,23 +89,19 @@ export default {
   width: 100%;
   box-shadow: var(--main-box-shadow);
   background-color: var(--secondary-background-color);
-  width: 100%;
 
   h2 {
     margin-bottom: 0.5rem;
   }
 
   .pokemons {
+    position: relative;
     display: flex;
     flex-direction: row-reverse;
     gap: 1rem;
   }
 
   .pokedex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
     width: 9rem;
 
     .link {
@@ -146,19 +142,24 @@ export default {
   }
 }
 
-.slide-to-right-move,
-.slide-to-right-enter-active,
-.slide-to-right-leave-active {
+.slide-to-left-move,
+.slide-to-left-enter-active,
+.slide-to-left-leave-active {
   transition: all 0.5s;
 }
 
-.slide-to-right-enter {
-  transform: translateX(5rem);
+.slide-to-left-leave-active {
+  position: absolute;
+  left: 0;
+}
+
+.slide-to-left-enter {
+  transform: translateX(9rem);
   opacity: 0;
 }
 
-.slide-to-right-leave-to {
-  transform: translateX(-5rem);
+.slide-to-left-leave-to {
+  transform: translateX(-9rem);
   opacity: 0;
 }
 </style>

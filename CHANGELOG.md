@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.3...develop) (dd-mm-yyyy)
 
+##### FIXED
+
+- Random pokemon animation
+
 ---
 
 ## [V0.2.3](https://github.com/nashaguayo/pokedex/compare/V0.2.2...V0.2.3) (23-07-2023)
