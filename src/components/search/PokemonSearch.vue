@@ -289,9 +289,10 @@ export default {
   height: 100vh;
 
   .controls {
-    width: 100%;
+    width: calc(100% - 4rem);
     background-color: var(--main-background-color);
     z-index: 5;
+    padding: 0 2rem;
 
     @media (min-width: $min-width-third-break) {
       display: grid;
@@ -363,7 +364,7 @@ export default {
   }
 
   .results {
-    min-width: 100%;
+    width: calc(100% - 4rem);
     padding-bottom: 4rem;
 
     @media (min-width: $min-width-second-break) {

@@ -1,5 +1,5 @@
 <template functional>
-  <div class="filters">
+  <div class="pokemon-search-filters">
     <div
       class="filter"
       :class="{
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filters {
+.pokemon-search-filters {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
@@ -44,7 +44,7 @@ export default {
   gap: 0.5rem;
   padding: 1rem 0;
   border-bottom: 0.2rem solid var(--main-border-color);
-  width: 100%;
+  width: calc(100% - 4rem);
 
   @media (min-width: $min-width-third-break) {
     grid-template-columns: repeat(4, 1fr);

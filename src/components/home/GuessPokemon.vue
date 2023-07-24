@@ -87,6 +87,7 @@
       :disabled="hasWon"
       :variant="true"
       :small="true"
+      class="retrieve-new-pokemon"
     >
       {{ baseButtonText }}
     </BaseButton>
@@ -304,21 +305,16 @@ export default {
   }
 
   .players-guess {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    width: 90%;
+    display: flex;
+    width: 80%;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 
     .guess-input {
-      grid-column-start: 1;
-      grid-column-end: 5;
+      justify-self: start;
     }
 
     .send-guess {
-      margin-left: -1rem;
-      grid-column-start: 5;
-      grid-column-end: 6;
       max-width: 1.2rem;
     }
   }
@@ -339,6 +335,7 @@ export default {
     align-items: center;
     width: 100%;
     margin-bottom: 1rem;
+
     .gold-star {
       color: #edb200;
       margin: 0 0.1rem;
@@ -351,6 +348,10 @@ export default {
       color: #73440f;
       margin: 0 0.1rem;
     }
+  }
+
+  .retrieve-new-pokemon {
+    width: 80%;
   }
 }
 
