@@ -7,7 +7,10 @@ jest.mock('@/components/ui/BaseInput', () => ({
 }));
 
 jest.mock('@/lib/store', () => ({
-  state: { game: { name: 'pikachu', image: 'pikachu.png' } },
+  state: {
+    storeHasLoaded: true,
+    game: { name: 'pikachu', image: 'pikachu.png' },
+  },
   getNewMysteryPokemon: jest.fn(),
 }));
 
