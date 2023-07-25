@@ -11,18 +11,26 @@
       :width="locationWidth"
     />
     <div
+      v-if="!image"
       class="translucent-circle"
       :style="{
-        height: `${locationWidth / 2}px`,
-        width: `${locationWidth / 2}px`,
-        top: `${locationHeight / 2 - locationWidth / 4}px`,
+        height: `${locationHeight / 2}px`,
+        width: `${locationHeight / 2}px`,
+        top: `${locationHeight / 2 - locationHeight / 4}px`,
       }"
     ></div>
-    <img v-if="!image" :src="silouette" alt="pokemon silouette" />
     <img
-      v-else
+      v-if="image"
       class="pokemon-image"
       :src="image"
+      alt="pokemon"
+      ref="image"
+      @load="setLocationHeight"
+    />
+    <img
+      v-else
+      class="small-pokemon-image"
+      :src="smallImage"
       alt="pokemon"
       ref="image"
       @load="setLocationHeight"
@@ -34,7 +42,6 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import silouette from '@/assets/pokemons/silouette.png';
 import { capitalizeWord } from '@/lib/helpers';
 
 export default {
@@ -43,13 +50,14 @@ export default {
     return {
       locationHeight: 0,
       locationWidth: 0,
-      silouette,
     };
   },
   props: {
     image: {
       type: String,
-      required: true,
+    },
+    smallImage: {
+      type: String,
     },
     name: {
       type: String,
@@ -99,6 +107,8 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       border-radius: 2rem;
+      border: 0.2rem solid var(--secondary-border-color);
+      box-shadow: var(--main-box-shadow);
       max-width: 24rem;
     }
 
@@ -149,14 +159,29 @@ export default {
     }
 
     @media (min-width: $min-width-fourth-break) {
-      border: 0.2rem solid var(--secondary-border-color);
-      border-radius: 2rem;
-      box-shadow: var(--main-box-shadow);
       max-width: 20rem;
     }
 
     @media (min-width: $min-width-fifth-break) {
       max-width: 30rem;
+    }
+  }
+
+  .small-pokemon-image {
+    width: 10rem;
+    z-index: 5;
+    padding: 2rem;
+
+    @media (min-width: $min-width-first-break) {
+      width: 15rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      max-width: 10rem;
+    }
+
+    @media (min-width: $min-width-fifth-break) {
+      max-width: 15rem;
     }
   }
 
