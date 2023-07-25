@@ -36,7 +36,7 @@
         </BaseButton>
         <BaseButton
           :onClickHandler="goToNextPokemon"
-          :disabled="id === allPokemons[allPokemons.length - 1].id"
+          :disabled="id === lastPokemonId"
           :variant="true"
         >
           Next
@@ -99,6 +99,9 @@ export default {
   computed: {
     urlId() {
       return this.$route.params.id;
+    },
+    lastPokemonId() {
+      return this.allPokemons[this.allPokemons.length - 1]?.id ?? 0;
     },
     allPokemons() {
       return store.state.allPokemons;
