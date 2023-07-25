@@ -4,7 +4,11 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.3...develop) (dd-mm-yyyy)
 
-##### FIXED
+##### Modified
+
+- Showing translucent circle on pokemon details images when no big image is present
+
+##### Fixed
 
 - Random pokemon animation
 - Guess pokemon game is now case insensitive
