@@ -10,6 +10,7 @@
         :image="image"
         :smallImage="smallImage"
         :topPosition="topPosition"
+        :habitat="habitat"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
@@ -21,6 +22,7 @@
           :color="color"
           :shape="shape"
           :generation="generation"
+          :habitat="habitat"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
@@ -174,6 +176,11 @@ export default {
     generation() {
       return (
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
+      );
+    },
+    habitat() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat ?? ''
       );
     },
   },

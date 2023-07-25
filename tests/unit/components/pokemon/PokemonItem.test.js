@@ -61,6 +61,7 @@ jest.mock('@/lib/store', () => ({
           color: '',
           shape: '',
           generation: '',
+          habitat: '',
         },
       ],
       [
@@ -79,6 +80,7 @@ jest.mock('@/lib/store', () => ({
           color: '',
           shape: '',
           generation: '',
+          habitat: '',
         },
       ],
       [
@@ -97,6 +99,7 @@ jest.mock('@/lib/store', () => ({
           color: '',
           shape: '',
           generation: '',
+          habitat: '',
         },
       ],
     ]),

@@ -14,6 +14,7 @@ describe('LogoAndBanner', () => {
         color: 'yellow',
         shape: 'upright',
         generation: 'i',
+        habitat: 'rare',
       },
     });
   });
@@ -56,5 +57,10 @@ describe('LogoAndBanner', () => {
   it('displays the correct generation', () => {
     const color = wrapper.findAll('span').at(11);
     expect(color.text()).toBe('I');
+  });
+
+  it('displays the correct habitat', () => {
+    const color = wrapper.findAll('span').at(13);
+    expect(color.text()).toBe('rare');
   });
 });
