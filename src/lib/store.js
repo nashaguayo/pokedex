@@ -3,7 +3,6 @@ import {
   getPokemon as getPokemonApi,
   getPokemons as getPokemonsApi,
   getAllPokemons as getAllPokemonsApi,
-  getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
   getSpeciesData as getSpeciesDataApi,
 } from '@/api/pokemon';
@@ -29,6 +28,7 @@ import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
 const state = Vue.observable({
+  storeHasLoaded: false,
   allPokemons: [],
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
@@ -76,6 +76,7 @@ export default {
       this.getAllGenerations(),
       this.getAllCharacteristicsDescriptions(),
     ]);
+    state.storeHasLoaded = true;
   },
 
   async getPokemonListCardData(pokemon) {
@@ -185,25 +186,24 @@ export default {
   },
 
   async getRandomPokemons(amountOfRandomPokemons) {
-    const pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
-    state.randomPokemons = [];
-    for (let pokemon in pokemons) {
-      state.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
-    }
+    [...Array(amountOfRandomPokemons)].forEach(async () =>
+      state.randomPokemons.push(await this.getNewRandomPokemon())
+    );
   },
 
-  async getNewRandomPokemon() {
-    let newPokemon;
-    let repeatedPokemons;
-    do {
-      newPokemon = (await getRandomPokemonsApi(1))[0];
-      repeatedPokemons = [...state.randomPokemons].filter(
-        (pokemon) => pokemon.name === newPokemon.name
-      );
-    } while (repeatedPokemons.length === 1);
+  async getNewRandomPokemon(addToRandomPokemon = false) {
+    const index = Math.floor(Math.random() * state.allPokemons.length);
+    const name = state.allPokemons[index].name;
+    const { image } = await getDataForPokemonApi(name);
+    const newRandomPokemon = { name, image };
 
-    state.randomPokemons.pop();
-    state.randomPokemons.unshift(this.getPokemonData(newPokemon));
+    if (addToRandomPokemon) {
+      state.randomPokemons.pop();
+      state.randomPokemons.unshift(newRandomPokemon);
+      return;
+    }
+
+    return newRandomPokemon;
   },
 
   async searchPokemons(searchTerm) {
@@ -358,9 +358,8 @@ export default {
   },
 
   async getNewMysteryPokemon() {
-    const newMysteryPokemon = (await getRandomPokemonsApi(1))[0];
-    state.game.image = newMysteryPokemon.sprites.front_default;
-    state.game.name = newMysteryPokemon.name;
+    const newMysteryPokemon = await this.getNewRandomPokemon();
+    state.game = newMysteryPokemon;
   },
 
   async getAllTypes() {
@@ -483,10 +482,6 @@ export default {
 
   clearGenerationFilters() {
     state.search.generations = [];
-  },
-
-  getPokemonData(pokemon) {
-    return { name: pokemon.name, image: pokemon.sprites.front_default };
   },
 
   toggleDarkMode() {

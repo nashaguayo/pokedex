@@ -133,6 +133,9 @@ export default {
     name() {
       return store.state.game.name;
     },
+    storeHasLoaded() {
+      return store.state.storeHasLoaded;
+    },
     triesLeftText() {
       return this.hasWon
         ? `Getting new Pokemon in ${this.timerCount}...`
@@ -162,6 +165,11 @@ export default {
     },
   },
   watch: {
+    async storeHasLoaded(storeHasLoaded) {
+      if (storeHasLoaded) {
+        await this.getNewMysteryPokemon();
+      }
+    },
     hasWon(hasWon) {
       if (hasWon) {
         this.timerEnabled = true;
@@ -213,9 +221,6 @@ export default {
       this.silverStars = Math.floor((guesses % 25) / 5);
       this.bronzeStars = (guesses % 25) % 5;
     },
-  },
-  async created() {
-    await this.getNewMysteryPokemon();
   },
   methods: {
     async getNewMysteryPokemon() {
