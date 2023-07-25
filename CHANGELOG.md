@@ -4,6 +4,11 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.3...develop) (dd-mm-yyyy)
 
+##### Added
+
+- Pokemon habitats to characteristics
+- Changing location background according to habitat
+
 ##### Modified
 
 - Showing translucent circle on pokemon details images when no big image is present
