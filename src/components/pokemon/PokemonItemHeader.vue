@@ -6,7 +6,9 @@
   >
     <img
       class="location"
-      src="@/assets/pokemons/location.jpg"
+      :src="
+        require(`@/assets/locations/${pokemonHabitatsBackground.get(habitat)}`)
+      "
       :height="locationHeight"
       :width="locationWidth"
     />
@@ -43,6 +45,7 @@
 <script>
 import debounce from 'lodash/debounce';
 import { capitalizeWord } from '@/lib/helpers';
+import { pokemonHabitatsBackground } from '@/constants/pokemonHabitatsBackground';
 
 export default {
   name: 'PokemonItemHeader',
@@ -50,6 +53,8 @@ export default {
     return {
       locationHeight: 0,
       locationWidth: 0,
+      location: '',
+      pokemonHabitatsBackground,
     };
   },
   props: {
@@ -65,6 +70,10 @@ export default {
     },
     topPosition: {
       type: Number,
+      required: true,
+    },
+    habitat: {
+      type: String,
       required: true,
     },
   },

@@ -138,7 +138,8 @@ export default {
     }
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
-    const { flavorTexts, color, shape, generation } = pokemon.species.url
+    const { flavorTexts, color, shape, generation, habitat } = pokemon.species
+      .url
       ? await getSpeciesDataApi(pokemon.species.url)
       : [];
     let highestStatName = '';
@@ -179,6 +180,7 @@ export default {
       color,
       shape,
       generation,
+      habitat,
     });
   },
 

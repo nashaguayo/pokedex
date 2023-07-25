@@ -12,6 +12,7 @@ describe('PokemonItemHeader', () => {
         smallImage: 'small-image-url',
         name: 'Pikachu',
         topPosition: 0,
+        habitat: 'rare',
       },
       attachTo: document.body,
     });
@@ -75,6 +76,7 @@ describe('PokemonItemHeader', () => {
         smallImage: 'small-image-url',
         name: 'Pikachu',
         topPosition: 0,
+        habitat: 'rare',
       },
       attachTo: document.body,
     });

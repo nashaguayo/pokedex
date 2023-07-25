@@ -15,6 +15,8 @@
       <span>{{ props.shape }}</span>
       <span class="right">Generation</span>
       <span>{{ props.generation.toUpperCase() }}</span>
+      <span class="right">Habitat</span>
+      <span>{{ props.habitat }}</span>
       <span class="characteristic">
         {{ props.characteristic }}
       </span>
@@ -51,6 +53,10 @@ export default {
       required: true,
     },
     generation: {
+      type: String,
+      required: true,
+    },
+    habitat: {
       type: String,
       required: true,
     },
