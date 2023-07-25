@@ -10,6 +10,14 @@
       :height="locationHeight"
       :width="locationWidth"
     />
+    <div
+      class="translucent-circle"
+      :style="{
+        height: `${locationWidth / 2}px`,
+        width: `${locationWidth / 2}px`,
+        top: `${locationHeight / 2 - locationWidth / 4}px`,
+      }"
+    ></div>
     <img v-if="!image" :src="silouette" alt="pokemon silouette" />
     <img
       v-else
@@ -118,6 +126,13 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       display: none;
     }
+  }
+
+  .translucent-circle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    z-index: 3;
   }
 
   .pokemon-image {
