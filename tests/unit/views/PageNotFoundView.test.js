@@ -1,6 +1,14 @@
 import { shallowMount } from '@vue/test-utils';
 import PageNotFoundView from '@/views/PageNotFoundView.vue';
 
+jest.mock('@/lib/store', () => ({
+  state: {
+    store: {
+      isDarkmodeEnabled: false,
+    },
+  },
+}));
+
 describe('PageNotFoundView', () => {
   it('renders the BasePage component with correct title and content', () => {
     const wrapper = shallowMount(PageNotFoundView);
