@@ -19,5 +19,8 @@ describe('PageNotFoundView', () => {
     const span = basePage.find('.page-not-found-text');
     expect(span.exists()).toBe(true);
     expect(span.text()).toBe("How did you get here? There's nothing to see!");
+
+    const img = basePage.find('img');
+    expect(img.exists()).toBe(true);
   });
 });
