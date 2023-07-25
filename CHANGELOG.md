@@ -7,6 +7,7 @@
 ##### Modified
 
 - Showing translucent circle on pokemon details images when no big image is present
+- Improved styles of 404 page
 
 ##### Fixed
 
