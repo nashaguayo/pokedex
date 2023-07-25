@@ -8,6 +8,7 @@
       <PokemonItemHeader
         :name="name"
         :image="image"
+        :smallImage="smallImage"
         :topPosition="topPosition"
       />
       <div class="pokemon-info-container">
@@ -115,8 +116,11 @@ export default {
       );
     },
     image() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+    },
+    smallImage() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image ??
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.smallImage ??
         silouette
       );
     },

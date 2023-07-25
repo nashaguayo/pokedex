@@ -156,9 +156,8 @@ export default {
         characteristic = c.description;
       }
     });
-    const image =
-      pokemon.sprites.other.dream_world.front_default ??
-      pokemon.sprites.front_default;
+    const image = pokemon.sprites.other.dream_world.front_default;
+    const smallImage = pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
@@ -169,6 +168,7 @@ export default {
       id,
       name,
       image,
+      smallImage,
       stats,
       types,
       evolutions,
