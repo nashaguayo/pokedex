@@ -22,6 +22,7 @@
 - Pokemon details no longer crashes on reload
 - Random pokemon ID errors
 - Error message on evolutions when none are found
+- No more duplicate pokemons on random pokemon
 
 ---
 
