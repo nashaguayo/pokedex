@@ -4,7 +4,12 @@ jest.mock('@/api/pokemon', () => ({
   getPokemon: jest.fn(),
   getPokemons: jest.fn(),
   getAllPokemons: jest.fn().mockResolvedValue({ results: [] }),
-  getDataForPokemon: jest.fn(),
+  getDataForPokemon: jest.fn().mockResolvedValue({
+    id: 1,
+    name: 'pikachu',
+    image: 'pikachu.png',
+    types: ['electric'],
+  }),
   getSpeciesData: jest.fn(),
 }));
 
@@ -61,5 +66,16 @@ describe('store', () => {
     expect(spyGetAllGenerations).toHaveBeenCalled();
     expect(spyGetAllCharacteristicsDescriptions).toHaveBeenCalled();
     expect(store.state.storeHasLoaded).toBeTruthy();
+  });
+
+  it('gets pokemon list card data correctly', async () => {
+    const pokemon = { name: 'pikachu' };
+    const { id, name, image, types } = await store.getPokemonListCardData(
+      pokemon
+    );
+    expect(id).toBe(1);
+    expect(name).toBe(pokemon.name);
+    expect(image).toBe('pikachu.png');
+    expect(types).toStrictEqual(['electric']);
   });
 });
