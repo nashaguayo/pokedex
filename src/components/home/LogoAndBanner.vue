@@ -1,8 +1,16 @@
 <template functional>
   <div class="logo-and-banner">
-    <img class="logo-image" src="@/assets/home/pokedex-logo.png" />
+    <img
+      class="logo-image"
+      alt="pokemon logo"
+      src="@/assets/home/pokedex-logo.png"
+    />
     <h1 v-if="props.subtitle">{{ props.subtitle }}</h1>
-    <img class="banner" src="@/assets/home/pokemons.jpg" />
+    <img
+      class="banner"
+      alt="pokemons banner"
+      src="@/assets/home/pokemons.jpg"
+    />
   </div>
 </template>
 
