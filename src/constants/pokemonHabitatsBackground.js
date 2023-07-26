@@ -8,4 +8,5 @@ export const pokemonHabitatsBackground = new Map([
   ['sea', 'sea.jpg'],
   ['urban', 'urban.jpg'],
   ['waters-edge', 'waters-edge.jpg'],
+  ['legendary', 'legendary.jpg'],
 ]);
