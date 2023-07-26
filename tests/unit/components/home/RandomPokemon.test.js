@@ -11,6 +11,7 @@ jest.mock('@/api/pokemon', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
+    storeHasLoaded: true,
     randomPokemons: [
       { name: 'pikachu', image: 'pikachu.png' },
       { name: 'charizard', image: 'charizard.png' },
@@ -31,12 +32,6 @@ describe('RandomPokemon', () => {
 
   afterEach(() => {
     wrapper.destroy();
-  });
-
-  it('should set the randomPokemons data and loading to false', async () => {
-    await wrapper.vm.getRandomPokemons();
-    expect(wrapper.vm.randomPokemons.length).toBeGreaterThan(0);
-    expect(wrapper.vm.loading).toBe(false);
   });
 
   it('should call getNewRandomPokemon every 5 seconds', async () => {

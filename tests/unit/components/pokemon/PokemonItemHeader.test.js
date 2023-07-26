@@ -9,8 +9,10 @@ describe('PokemonItemHeader', () => {
     wrapper = mount(PokemonItemHeader, {
       propsData: {
         image: 'image-url',
+        smallImage: 'small-image-url',
         name: 'Pikachu',
         topPosition: 0,
+        habitat: 'rare',
       },
       attachTo: document.body,
     });
@@ -61,5 +63,24 @@ describe('PokemonItemHeader', () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.locationHeight).toBe(200);
     expect(wrapper.vm.locationWidth).toBe(100);
+  });
+
+  it('loads the big image when image is present', () => {
+    expect(wrapper.find('.pokemon-image').exists()).toBeTruthy();
+    expect(wrapper.find('.small-pokemon-image').exists()).toBeFalsy();
+  });
+
+  it('loads the small image when no image is present', () => {
+    wrapper = mount(PokemonItemHeader, {
+      propsData: {
+        smallImage: 'small-image-url',
+        name: 'Pikachu',
+        topPosition: 0,
+        habitat: 'rare',
+      },
+      attachTo: document.body,
+    });
+    expect(wrapper.find('.pokemon-image').exists()).toBeFalsy();
+    expect(wrapper.find('.small-pokemon-image').exists()).toBeTruthy();
   });
 });

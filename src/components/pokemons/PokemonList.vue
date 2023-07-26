@@ -54,10 +54,18 @@ export default {
     scrollToTopOfBackgroundPage();
     this.debouncedScroll = debounce(this.handleScroll, 100);
     getPageBackgroundElement().addEventListener('scroll', this.debouncedScroll);
+    getPageBackgroundElement().addEventListener(
+      'touchmove',
+      this.debouncedScroll
+    );
   },
   beforeDestroy() {
     getPageBackgroundElement().removeEventListener(
       'scroll',
+      this.debouncedScroll
+    );
+    getPageBackgroundElement().removeEventListener(
+      'touchmove',
       this.debouncedScroll
     );
   },
@@ -67,7 +75,7 @@ export default {
       this.loading = false;
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
-      if (scrollTop + clientHeight >= scrollHeight) {
+      if (scrollTop + clientHeight + 100 >= scrollHeight) {
         this.loading = true;
         await store.getMorePokemons();
         this.loading = false;

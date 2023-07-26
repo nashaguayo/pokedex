@@ -113,4 +113,18 @@ describe('PokemonItemEvolutions', () => {
       wrapper.findAll('basechevron-stub').at(1).attributes().disabled
     ).toBeFalsy();
   });
+
+  it('displays no evolutions message when none are found', () => {
+    wrapper = shallowMount(PokemonItemEvolutions, {
+      propsData: {
+        evolutions: [],
+        pokemonId: 2,
+        pokemonName: 'pokemon2',
+      },
+      stubs: ['router-link'],
+    });
+    const noEvolutions = wrapper.find('.no-evolutions');
+    expect(noEvolutions.exists).toBeTruthy();
+    expect(noEvolutions.text()).toBe('No evolutions found for this pokemon!');
+  });
 });

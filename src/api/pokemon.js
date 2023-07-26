@@ -50,31 +50,6 @@ export async function getPokemon(id) {
   }
 }
 
-export async function getRandomPokemons(amount) {
-  try {
-    const response = await getPokemons('pokemon?limit=1');
-    const randomPokemons = [];
-    let n = 0;
-    while (n < amount) {
-      const randomPokemonId = Math.floor(Math.random() * response.count);
-      const pokemon = await getPokemon(randomPokemonId);
-      if (!pokemon) {
-        continue;
-      } else {
-        n++;
-      }
-      randomPokemons.push(pokemon);
-    }
-    return randomPokemons;
-  } catch (error) {
-    logError(
-      getRandomPokemons.name,
-      'Unable to retrieve Random Pokemon',
-      error
-    );
-  }
-}
-
 export async function getSpeciesData(url) {
   try {
     const response = await pokemonApi.get(url);
@@ -91,12 +66,9 @@ export async function getSpeciesData(url) {
       shape: response.data.shape?.name ?? '-',
       generation:
         response.data.generation?.name.replace('generation-', '') ?? '-',
+      habitat: response.data.habitat?.name ?? 'legendary',
     };
   } catch (error) {
-    logError(
-      getSpeciesData.name,
-      'Unable to retrieve flavor texts or color',
-      error
-    );
+    logError(getSpeciesData.name, 'Unable to retrieve species data', error);
   }
 }

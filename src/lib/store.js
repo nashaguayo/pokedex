@@ -3,7 +3,6 @@ import {
   getPokemon as getPokemonApi,
   getPokemons as getPokemonsApi,
   getAllPokemons as getAllPokemonsApi,
-  getRandomPokemons as getRandomPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
   getSpeciesData as getSpeciesDataApi,
 } from '@/api/pokemon';
@@ -29,6 +28,7 @@ import { isDarkModeEnabled } from '@/lib/localStorage';
 import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
 const state = Vue.observable({
+  storeHasLoaded: false,
   allPokemons: [],
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
@@ -76,6 +76,7 @@ export default {
       this.getAllGenerations(),
       this.getAllCharacteristicsDescriptions(),
     ]);
+    state.storeHasLoaded = true;
   },
 
   async getPokemonListCardData(pokemon) {
@@ -138,7 +139,8 @@ export default {
     }
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
-    const { flavorTexts, color, shape, generation } = pokemon.species.url
+    const { flavorTexts, color, shape, generation, habitat } = pokemon.species
+      .url
       ? await getSpeciesDataApi(pokemon.species.url)
       : [];
     let highestStatName = '';
@@ -156,9 +158,8 @@ export default {
         characteristic = c.description;
       }
     });
-    const image =
-      pokemon.sprites.other.dream_world.front_default ??
-      pokemon.sprites.front_default;
+    const image = pokemon.sprites.other.dream_world.front_default;
+    const smallImage = pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
     const name = pokemon.name;
     const id = pokemon.id;
@@ -169,6 +170,7 @@ export default {
       id,
       name,
       image,
+      smallImage,
       stats,
       types,
       evolutions,
@@ -179,44 +181,42 @@ export default {
       color,
       shape,
       generation,
-    });
-    state.pokemon.set(id, {
-      id,
-      name,
-      image,
-      stats,
-      types,
-      evolutions,
-      flavorTexts,
-      characteristic,
-      height,
-      weight,
-      color,
-      shape,
-      generation,
+      habitat,
     });
   },
 
   async getRandomPokemons(amountOfRandomPokemons) {
-    const pokemons = await getRandomPokemonsApi(amountOfRandomPokemons);
-    state.randomPokemons = [];
-    for (let pokemon in pokemons) {
-      state.randomPokemons.push(this.getPokemonData(pokemons[pokemon]));
-    }
+    [...Array(amountOfRandomPokemons)].forEach(async () =>
+      state.randomPokemons.push(await this.getNewRandomPokemon())
+    );
   },
 
-  async getNewRandomPokemon() {
-    let newPokemon;
-    let repeatedPokemons;
+  async getNewRandomPokemon(addToRandomPokemon = false) {
+    let newRandomPokemon = {};
     do {
-      newPokemon = (await getRandomPokemonsApi(1))[0];
-      repeatedPokemons = [...state.randomPokemons].filter(
-        (pokemon) => pokemon.name === newPokemon.name
-      );
-    } while (repeatedPokemons.length === 1);
+      const index = Math.floor(Math.random() * state.allPokemons.length);
+      const name = state.allPokemons[index].name;
+      const { image } = await getDataForPokemonApi(name);
+      newRandomPokemon = { name, image };
+    } while (
+      this.pokemonIsAlreadyInRandomPokemons(newRandomPokemon.name) ||
+      !newRandomPokemon.image
+    );
 
-    state.randomPokemons.pop();
-    state.randomPokemons.unshift(this.getPokemonData(newPokemon));
+    if (addToRandomPokemon) {
+      state.randomPokemons.pop();
+      state.randomPokemons.unshift(newRandomPokemon);
+      return;
+    }
+
+    return newRandomPokemon;
+  },
+
+  pokemonIsAlreadyInRandomPokemons(pokemonName) {
+    const repeatedPokemon = state.randomPokemons.filter(
+      (randomPokemon) => randomPokemon.name === pokemonName
+    );
+    return !!repeatedPokemon.length;
   },
 
   async searchPokemons(searchTerm) {
@@ -371,9 +371,8 @@ export default {
   },
 
   async getNewMysteryPokemon() {
-    const newMysteryPokemon = (await getRandomPokemonsApi(1))[0];
-    state.game.image = newMysteryPokemon.sprites.front_default;
-    state.game.name = newMysteryPokemon.name;
+    const newMysteryPokemon = await this.getNewRandomPokemon();
+    state.game = newMysteryPokemon;
   },
 
   async getAllTypes() {
@@ -496,10 +495,6 @@ export default {
 
   clearGenerationFilters() {
     state.search.generations = [];
-  },
-
-  getPokemonData(pokemon) {
-    return { name: pokemon.name, image: pokemon.sprites.front_default };
   },
 
   toggleDarkMode() {

@@ -2,7 +2,32 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.2.3...develop) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.3.0...develop) (dd-mm-yyyy)
+
+---
+
+## [V0.3.0](https://github.com/nashaguayo/pokedex/compare/V0.2.3...V0.3.0) (25-07-2023)
+
+##### Added
+
+- Pokemon habitats to characteristics
+- Changing location background according to habitat
+- Saving guesses in a row in local storage
+
+##### Modified
+
+- Showing translucent circle on pokemon details images when no big image is present
+- Improved styles of 404 page
+
+##### Fixed
+
+- Random pokemon animation
+- Guess pokemon game is now case insensitive
+- Infinite scroll on mobile
+- Pokemon details no longer crashes on reload
+- Random pokemon ID errors
+- Error message on evolutions when none are found
+- No more duplicate pokemons on random pokemon
 
 ---
 

@@ -8,7 +8,9 @@
       <PokemonItemHeader
         :name="name"
         :image="image"
+        :smallImage="smallImage"
         :topPosition="topPosition"
+        :habitat="habitat"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
@@ -20,6 +22,7 @@
           :color="color"
           :shape="shape"
           :generation="generation"
+          :habitat="habitat"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
@@ -36,7 +39,7 @@
         </BaseButton>
         <BaseButton
           :onClickHandler="goToNextPokemon"
-          :disabled="id === allPokemons[allPokemons.length - 1].id"
+          :disabled="id === lastPokemonId"
           :variant="true"
         >
           Next
@@ -100,6 +103,9 @@ export default {
     urlId() {
       return this.$route.params.id;
     },
+    lastPokemonId() {
+      return this.allPokemons[this.allPokemons.length - 1]?.id ?? 0;
+    },
     allPokemons() {
       return store.state.allPokemons;
     },
@@ -112,8 +118,11 @@ export default {
       );
     },
     image() {
+      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+    },
+    smallImage() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image ??
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.smallImage ??
         silouette
       );
     },
@@ -167,6 +176,11 @@ export default {
     generation() {
       return (
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
+      );
+    },
+    habitat() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat ?? ''
       );
     },
   },
