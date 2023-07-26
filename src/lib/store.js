@@ -24,8 +24,10 @@ import {
   getPokemonsByGeneration as getPokemonsByGenerationApi,
 } from '@/api/generations';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
-import { isDarkModeEnabled } from '@/lib/localStorage';
-import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
+import {
+  isDarkModeEnabled,
+  toggleDarkMode as toggleDarkModeInLocalStorage,
+} from '@/lib/localStorage';
 
 const state = Vue.observable({
   storeHasLoaded: false,
