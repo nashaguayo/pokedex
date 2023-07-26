@@ -7,6 +7,7 @@
 ##### Modified
 
 - Added missing alt properties to images
+- Refactored search for colors, shapes and generations so that they aren't arrays
 
 ##### Fixed
 

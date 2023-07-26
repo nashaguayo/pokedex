@@ -47,9 +47,9 @@ const state = Vue.observable({
     results: [],
     isSearchingPokemon: false,
     types: [],
-    colors: [],
-    shapes: [],
-    generations: [],
+    color: '',
+    shape: '',
+    generation: '',
   },
   allTypes: [],
   pokemonsByType: new Map(),
@@ -235,11 +235,11 @@ export default {
 
     if (state.search.types.length) {
       this.searchPokemonsByType(searchTermLowerCase);
-    } else if (state.search.colors.length) {
+    } else if (state.search.color.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
-    } else if (state.search.shapes.length) {
+    } else if (state.search.shape.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
-    } else if (state.search.generations.length) {
+    } else if (state.search.generation.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
     } else {
       this.searchPokemonJustByTerm(searchTermLowerCase);
@@ -283,87 +283,30 @@ export default {
   },
 
   searchPokemonsByColor(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.colors.forEach((color) => {
-      const filteredPokemonNamesByColor = state.pokemonsByColor
-        .get(color)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByColor];
-    });
+    const filteredPokemonNamesByColor = state.pokemonsByColor
+      .get(state.search.color)
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
-    if (state.search.colors.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.colors.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.isSearchingPokemon = false;
+    state.search.results = filteredPokemonNamesByColor;
   },
 
   searchPokemonsByShape(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.shapes.forEach((shape) => {
-      const filteredPokemonNamesByShape = state.pokemonsByShape
-        .get(shape)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByShape];
-    });
+    const filteredPokemonNamesByShape = state.pokemonsByShape
+      .get(state.search.shape)
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
-    if (state.search.shapes.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.shapes.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.isSearchingPokemon = false;
+    state.search.results = filteredPokemonNamesByShape;
   },
 
   searchPokemonsByGeneration(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.generations.forEach((generation) => {
-      const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
-        .get(generation)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [
-        ...repeatedResults,
-        ...filteredPokemonNamesByGeneration,
-      ];
-    });
+    const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
+      .get(state.search.generation)
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
-    if (state.search.generations.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.generations.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.isSearchingPokemon = false;
+    state.search.results = filteredPokemonNamesByGeneration;
   },
 
   clearSearchResults() {
@@ -449,25 +392,15 @@ export default {
   },
 
   toggleColorFilter(color) {
-    if (state.search.colors.length) {
-      state.search.colors.pop();
-    }
-    state.search.colors.pop();
-    state.search.colors.push(color);
+    state.search.color = color;
   },
 
   toggleShapeFilter(shape) {
-    if (state.search.shapes.length) {
-      state.search.shapes.pop();
-    }
-    state.search.shapes.push(shape);
+    state.search.shape = shape;
   },
 
   toggleGenerationFilter(generation) {
-    if (state.search.generations.length) {
-      state.search.generations.pop();
-    }
-    state.search.generations.push(generation);
+    state.search.generation = generation;
   },
 
   async getAllCharacteristicsDescriptions() {
@@ -486,15 +419,15 @@ export default {
   },
 
   clearColorFilters() {
-    state.search.colors = [];
+    state.search.color = '';
   },
 
   clearShapeFilters() {
-    state.search.shapes = [];
+    state.search.shape = '';
   },
 
   clearGenerationFilters() {
-    state.search.generations = [];
+    state.search.generation = '';
   },
 
   toggleDarkMode() {

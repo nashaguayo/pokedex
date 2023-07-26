@@ -62,9 +62,9 @@
           (searchTerm.length >= 3 ||
             (searchTerm.length < 3 &&
               (filteringTypes.length ||
-                filteringColors.length ||
-                filteringShapes.length ||
-                filteringGenerations.length))) &&
+                filteringColor.length ||
+                filteringShape.length ||
+                filteringGeneration.length))) &&
           !searchResults.length
         "
       >
@@ -134,9 +134,9 @@ export default {
       if (
         searchTerm.length < 3 &&
         !this.filteringTypes.length &&
-        !this.filteringColors.length &&
-        !this.filteringShapes.length &&
-        !this.filteringGenerations.length
+        !this.filteringColor.length &&
+        !this.filteringShape.length &&
+        !this.filteringGeneration.length
       ) {
         store.clearSearchResults();
         return;
@@ -150,22 +150,22 @@ export default {
       }
       await store.searchPokemons(this.searchTerm);
     },
-    async filteringColors(filteringColors) {
-      if (!filteringColors.length && !this.searchTerm) {
+    async filteringColor(filteringColor) {
+      if (!filteringColor.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
       await store.searchPokemons(this.searchTerm);
     },
-    async filteringShapes(filteringShapes) {
-      if (!filteringShapes.length && !this.searchTerm) {
+    async filteringShape(filteringShape) {
+      if (!filteringShape.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
       await store.searchPokemons(this.searchTerm);
     },
-    async filteringGenerations(filteringGenerations) {
-      if (!filteringGenerations.length && !this.searchTerm) {
+    async filteringGeneration(filteringGeneration) {
+      if (!filteringGeneration.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
@@ -179,14 +179,14 @@ export default {
     filteringTypes() {
       return store.state.search.types;
     },
-    filteringColors() {
-      return store.state.search.colors;
+    filteringColor() {
+      return store.state.search.color;
     },
-    filteringShapes() {
-      return store.state.search.shapes;
+    filteringShape() {
+      return store.state.search.shape;
     },
-    filteringGenerations() {
-      return store.state.search.generations;
+    filteringGeneration() {
+      return store.state.search.generation;
     },
     loading() {
       return store.state.search.isSearchingPokemon;

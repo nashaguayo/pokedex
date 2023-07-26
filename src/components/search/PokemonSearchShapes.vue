@@ -1,7 +1,7 @@
 <template>
   <PokemonSearchFilters
     :allFilters="allShapes"
-    :filteringFilters="filteringShapes"
+    :filteringFilters="filteringShape"
     :toggleFilter="toggleShapeFilter"
   />
 </template>
@@ -17,8 +17,8 @@ export default {
     allShapes() {
       return store.state.allShapes;
     },
-    filteringShapes() {
-      return store.state.search.shapes;
+    filteringShape() {
+      return store.state.search.shape;
     },
   },
   methods: {

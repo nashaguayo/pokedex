@@ -1,7 +1,7 @@
 <template>
   <PokemonSearchFilters
     :allFilters="allGenerations"
-    :filteringFilters="filteringGenerations"
+    :filteringFilters="filteringGeneration"
     :toggleFilter="toggleGenerationFilter"
   />
 </template>
@@ -17,8 +17,8 @@ export default {
     allGenerations() {
       return store.state.allGenerations;
     },
-    filteringGenerations() {
-      return store.state.search.generations;
+    filteringGeneration() {
+      return store.state.search.generation;
     },
   },
   methods: {
