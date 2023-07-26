@@ -166,10 +166,13 @@ export default {
     },
   },
   watch: {
-    async storeHasLoaded(storeHasLoaded) {
-      if (storeHasLoaded) {
-        await this.getNewMysteryPokemon();
-      }
+    storeHasLoaded: {
+      immediate: true,
+      async handler(storeHasLoaded) {
+        if (storeHasLoaded) {
+          await this.getNewMysteryPokemon();
+        }
+      },
     },
     hasWon(hasWon) {
       if (hasWon) {
