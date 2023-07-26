@@ -44,9 +44,9 @@ jest.mock('@/lib/store', () => ({
       results: ['Pikachu', 'Charizard'],
       isSearchingPokemon: false,
       types: [],
-      colors: [],
-      shapes: [],
-      generations: [],
+      color: '',
+      shape: '',
+      generation: '',
     },
   },
 }));
@@ -138,9 +138,9 @@ describe('PokemonSearch', () => {
     expect(wrapper.vm.displayShapes).toBe(false);
     expect(wrapper.vm.displayGenerations).toBe(false);
     expect(wrapper.vm.filteringTypes).toEqual([]);
-    expect(wrapper.vm.filteringColors).toEqual([]);
-    expect(wrapper.vm.filteringShapes).toEqual([]);
-    expect(wrapper.vm.filteringGenerations).toEqual([]);
+    expect(wrapper.vm.filteringColor).toEqual('');
+    expect(wrapper.vm.filteringShape).toEqual('');
+    expect(wrapper.vm.filteringGeneration).toEqual('');
   });
 
   it('toggles the display of types when "Show Types" or "Hide Types" button is clicked', async () => {
