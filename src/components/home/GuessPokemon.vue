@@ -100,6 +100,7 @@ import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseChevron from '@/components/ui/BaseChevron';
 import store from '@/lib/store';
+import { getGuessesInARow, setGuessesInARow } from '@/lib/localStorage';
 
 export default {
   name: 'GuessPokemon',
@@ -114,7 +115,7 @@ export default {
       playersGuess: '',
       reset: false,
       tries: 3,
-      guessesInARow: 0,
+      guessesInARow: getGuessesInARow() ?? 0,
       loading: false,
       timerCount: 5,
       timerEnabled: false,
@@ -175,11 +176,13 @@ export default {
         this.timerEnabled = true;
         this.tries = 3;
         this.guessesInARow++;
+        setGuessesInARow(this.guessesInARow);
       }
     },
     hasLost(hasLost) {
       if (hasLost) {
         this.guessesInARow = 0;
+        setGuessesInARow(0);
       }
     },
     timerEnabled(enabled) {
@@ -202,24 +205,27 @@ export default {
         this.getNewMysteryPokemon();
       }
     },
-    guessesInARow(guesses) {
-      if (guesses < 5) {
-        this.goldStars = 0;
-        this.silverStars = 0;
-        this.bronzeStars = guesses;
-        return;
-      }
+    guessesInARow: {
+      immediate: true,
+      handler(guesses) {
+        if (guesses < 5) {
+          this.goldStars = 0;
+          this.silverStars = 0;
+          this.bronzeStars = guesses;
+          return;
+        }
 
-      if (guesses < 25) {
-        this.goldStars = 0;
-        this.silverStars = Math.floor(guesses / 5);
-        this.bronzeStars = guesses % 5;
-        return;
-      }
+        if (guesses < 25) {
+          this.goldStars = 0;
+          this.silverStars = Math.floor(guesses / 5);
+          this.bronzeStars = guesses % 5;
+          return;
+        }
 
-      this.goldStars = Math.floor(guesses / 25);
-      this.silverStars = Math.floor((guesses % 25) / 5);
-      this.bronzeStars = (guesses % 25) % 5;
+        this.goldStars = Math.floor(guesses / 25);
+        this.silverStars = Math.floor((guesses % 25) / 5);
+        this.bronzeStars = (guesses % 25) % 5;
+      },
     },
   },
   methods: {
@@ -230,7 +236,7 @@ export default {
       this.tries = 3;
       this.loading = false;
 
-      console.log(this.name);
+      console.log(`You want to cheat? Mystery pokemon is: ${this.name}`);
 
       if (!this.isFirstTime) {
         this.focus = true;
@@ -247,6 +253,7 @@ export default {
     },
     getNewMysteryPokemonAndRefreshGuessesInARow() {
       this.guessesInARow = 0;
+      setGuessesInARow(0);
       this.getNewMysteryPokemon();
     },
     sendPlayersGuess() {
