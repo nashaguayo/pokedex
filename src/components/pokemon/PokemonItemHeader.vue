@@ -84,6 +84,13 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.debouncedSetLocationHeight);
   },
+  mounted() {
+    this.debouncedSetLocationHeight = debounce(this.setLocationHeight, 50);
+    window.addEventListener('resize', this.debouncedSetLocationHeight);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.debouncedSetLocationHeight);
+  },
   methods: {
     capitalizeWord,
     setLocationHeight() {

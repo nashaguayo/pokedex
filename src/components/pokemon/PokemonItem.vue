@@ -118,7 +118,10 @@ export default {
       );
     },
     image() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image ??
+        silouette
+      );
     },
     smallImage() {
       return (
