@@ -90,7 +90,7 @@ export default {
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
     const results = await Promise.all(
-      response.results.map(this.getPokemonListCardData)
+      response.results.map((pokemon) => this.getPokemonListCardData(pokemon))
     );
     state.scroll.pokemons = results;
     state.scroll.nextUrl = response.next;

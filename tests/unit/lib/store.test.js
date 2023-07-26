@@ -2,7 +2,14 @@ import store from '@/lib/store';
 
 jest.mock('@/api/pokemon', () => ({
   getPokemon: jest.fn(),
-  getPokemons: jest.fn(),
+  getPokemons: jest.fn().mockResolvedValue({
+    next: 'next.com',
+    results: [
+      { name: 'pikachu' },
+      { name: 'charmander' },
+      { name: 'squirtle' },
+    ],
+  }),
   getAllPokemons: jest.fn().mockResolvedValue({ results: [] }),
   getDataForPokemon: jest.fn().mockResolvedValue({
     id: 1,
@@ -77,5 +84,23 @@ describe('store', () => {
     expect(name).toBe(pokemon.name);
     expect(image).toBe('pikachu.png');
     expect(types).toStrictEqual(['electric']);
+  });
+
+  it('gets pokemons correctly', async () => {
+    const url = 'some-url.com';
+    const spyGetPokemonListCardData = jest
+      .spyOn(store, 'getPokemonListCardData')
+      .mockResolvedValue({});
+    await store.getPokemons(url);
+    expect(spyGetPokemonListCardData).toHaveBeenCalledTimes(3);
+    expect(spyGetPokemonListCardData).toHaveBeenCalledWith({ name: 'pikachu' });
+    expect(spyGetPokemonListCardData).toHaveBeenCalledWith({
+      name: 'charmander',
+    });
+    expect(spyGetPokemonListCardData).toHaveBeenCalledWith({
+      name: 'squirtle',
+    });
+    expect(store.state.scroll.pokemons).toStrictEqual([{}, {}, {}]);
+    expect(store.state.scroll.nextUrl).toBe('next.com');
   });
 });
