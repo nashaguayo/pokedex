@@ -2,35 +2,40 @@
   <div class="pokemon-item-evolutions">
     <span class="title">Evolutions</span>
     <div class="card">
-      <div class="evolution">
-        <transition name="fade" mode="out-in">
-          <span :key="species">
-            {{ species }}
-          </span>
-        </transition>
-        <router-link :to="`/pokemons/${species}`">
-          <div
-            class="screen"
-            :style="{
-              backgroundImage: image ? `url(${image})` : 'none',
-            }"
-          ></div>
-        </router-link>
-      </div>
-      <div class="buttons">
-        <BaseChevron
-          ref="previousEvolutionButton"
-          :onClickHandler="getPreviousEvolution"
-          direction="left"
-          :disabled="!evolution"
-        />
-        <BaseChevron
-          ref="nextEvolutionButton"
-          :onClickHandler="getNextEvolution"
-          direction="right"
-          :disabled="evolutions.length - 1 === evolution"
-        />
-      </div>
+      <span v-if="!evolutions.length" class="no-evolutions">
+        No evolutions found for this pokemon!
+      </span>
+      <template v-else>
+        <div class="evolution">
+          <transition name="fade" mode="out-in">
+            <span :key="species">
+              {{ species }}
+            </span>
+          </transition>
+          <router-link :to="`/pokemons/${species}`">
+            <div
+              class="screen"
+              :style="{
+                backgroundImage: image ? `url(${image})` : 'none',
+              }"
+            ></div>
+          </router-link>
+        </div>
+        <div class="buttons">
+          <BaseChevron
+            ref="previousEvolutionButton"
+            :onClickHandler="getPreviousEvolution"
+            direction="left"
+            :disabled="!evolution"
+          />
+          <BaseChevron
+            ref="nextEvolutionButton"
+            :onClickHandler="getNextEvolution"
+            direction="right"
+            :disabled="evolutions.length - 1 === evolution"
+          />
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -112,9 +117,10 @@ export default {
   }
 
   .no-evolutions {
-    margin-bottom: 1rem;
-    text-align: center;
-    color: var(--secondary-text-color);
+    font-family: 'Kanit';
+    font-size: 1rem;
+    margin: 1rem;
+    text-align-last: center;
   }
 
   .card {
@@ -124,6 +130,8 @@ export default {
     border: 0.2rem solid var(--secondary-border-color);
     min-width: 10rem;
     box-shadow: var(--main-box-shadow);
+    display: flex;
+    flex-direction: column;
 
     @media (min-width: $min-width-fourth-break) {
       margin-top: 0;
