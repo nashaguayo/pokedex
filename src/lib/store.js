@@ -192,10 +192,16 @@ export default {
   },
 
   async getNewRandomPokemon(addToRandomPokemon = false) {
-    const index = Math.floor(Math.random() * state.allPokemons.length);
-    const name = state.allPokemons[index].name;
-    const { image } = await getDataForPokemonApi(name);
-    const newRandomPokemon = { name, image };
+    let newRandomPokemon = {};
+    do {
+      const index = Math.floor(Math.random() * state.allPokemons.length);
+      const name = state.allPokemons[index].name;
+      const { image } = await getDataForPokemonApi(name);
+      newRandomPokemon = { name, image };
+    } while (
+      this.pokemonIsAlreadyInRandomPokemons(newRandomPokemon.name) ||
+      !newRandomPokemon.image
+    );
 
     if (addToRandomPokemon) {
       state.randomPokemons.pop();
@@ -204,6 +210,13 @@ export default {
     }
 
     return newRandomPokemon;
+  },
+
+  pokemonIsAlreadyInRandomPokemons(pokemonName) {
+    const repeatedPokemon = state.randomPokemons.filter(
+      (randomPokemon) => randomPokemon.name === pokemonName
+    );
+    return !!repeatedPokemon.length;
   },
 
   async searchPokemons(searchTerm) {
