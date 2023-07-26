@@ -10,7 +10,13 @@ jest.mock('@/api/pokemon', () => ({
       { name: 'squirtle' },
     ],
   }),
-  getAllPokemons: jest.fn().mockResolvedValue({ results: [] }),
+  getAllPokemons: jest.fn().mockResolvedValue({
+    results: [
+      { name: 'pikachu', url: 'pokemon/1/' },
+      { name: 'charmander', url: 'pokemon/2/' },
+      { name: 'squirtle', url: 'pokemon/3/' },
+    ],
+  }),
   getDataForPokemon: jest.fn().mockResolvedValue({
     id: 1,
     name: 'pikachu',
@@ -102,5 +108,15 @@ describe('store', () => {
     });
     expect(store.state.scroll.pokemons).toStrictEqual([{}, {}, {}]);
     expect(store.state.scroll.nextUrl).toBe('next.com');
+  });
+
+  it('gets all pokemons correctly', async () => {
+    await store.getAllPokemons();
+    expect(store.state.allPokemons).toStrictEqual([
+      { id: 1, name: 'pikachu' },
+      { id: 2, name: 'charmander' },
+      { id: 3, name: 'squirtle' },
+    ]);
+    expect(store.state.isLoadingAllPokemons).toBeFalsy();
   });
 });
