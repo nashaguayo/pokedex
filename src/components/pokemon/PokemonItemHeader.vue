@@ -6,6 +6,7 @@
   >
     <img
       class="location"
+      alt="pokemon location"
       :src="
         require(`@/assets/locations/${pokemonHabitatsBackground.get(habitat)}`)
       "

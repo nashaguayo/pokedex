@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.3.0...develop) (dd-mm-yyyy)
 
+##### Modified
+
+- Added missing alt properties to images
+
 ##### Fixed
 
 - Base Loader is now at center of page
