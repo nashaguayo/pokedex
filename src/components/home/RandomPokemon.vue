@@ -62,22 +62,25 @@ export default {
     },
   },
   watch: {
-    async storeHasLoaded(storeHasLoaded) {
-      if (storeHasLoaded) {
-        let amountOfRandomPokemons = 1;
-        if (window.innerWidth >= fifthBreak) {
-          amountOfRandomPokemons = 5;
-        } else if (window.innerWidth >= fourthBreak) {
-          amountOfRandomPokemons = 4;
-        } else if (window.innerWidth >= thirdBreak) {
-          amountOfRandomPokemons = 3;
-        } else if (window.innerWidth >= firstBreak) {
-          amountOfRandomPokemons = 2;
-        }
+    storeHasLoaded: {
+      immediate: true,
+      async handler(storeHasLoaded) {
+        if (storeHasLoaded) {
+          let amountOfRandomPokemons = 1;
+          if (window.innerWidth >= fifthBreak) {
+            amountOfRandomPokemons = 5;
+          } else if (window.innerWidth >= fourthBreak) {
+            amountOfRandomPokemons = 4;
+          } else if (window.innerWidth >= thirdBreak) {
+            amountOfRandomPokemons = 3;
+          } else if (window.innerWidth >= firstBreak) {
+            amountOfRandomPokemons = 2;
+          }
 
-        await store.getRandomPokemons(amountOfRandomPokemons);
-        this.loading = false;
-      }
+          await store.getRandomPokemons(amountOfRandomPokemons);
+          this.loading = false;
+        }
+      },
     },
   },
   methods: {
