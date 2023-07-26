@@ -3,8 +3,14 @@
     <div
       class="filter"
       :class="{
-        active: props.filteringFilters.includes(f),
-        inactive: !props.filteringFilters.includes(f),
+        active:
+          typeof props.filteringFilters === 'string'
+            ? props.filteringFilters === f
+            : props.filteringFilters.includes(f),
+        inactive:
+          typeof props.filteringFilters === 'string'
+            ? props.filteringFilters !== f
+            : !props.filteringFilters.includes(f),
       }"
       v-for="f in props.allFilters"
       :key="`filter-${f}`"
