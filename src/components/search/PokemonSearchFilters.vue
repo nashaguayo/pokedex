@@ -24,7 +24,7 @@ export default {
       required: true,
     },
     filteringFilters: {
-      type: Array,
+      type: [Array, String],
       required: true,
     },
     toggleFilter: {

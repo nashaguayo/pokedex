@@ -47,7 +47,7 @@ const state = Vue.observable({
     results: [],
     isSearchingPokemon: false,
     types: [],
-    colors: [],
+    color: '',
     shapes: [],
     generations: [],
   },
@@ -235,7 +235,7 @@ export default {
 
     if (state.search.types.length) {
       this.searchPokemonsByType(searchTermLowerCase);
-    } else if (state.search.colors.length) {
+    } else if (state.search.color.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
     } else if (state.search.shapes.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
@@ -283,30 +283,12 @@ export default {
   },
 
   searchPokemonsByColor(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.colors.forEach((color) => {
-      const filteredPokemonNamesByColor = state.pokemonsByColor
-        .get(color)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByColor];
-    });
+    const filteredPokemonNamesByColor = state.pokemonsByColor
+      .get(state.search.color)
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
-    if (state.search.colors.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.colors.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.isSearchingPokemon = false;
+    state.search.results = filteredPokemonNamesByColor;
   },
 
   searchPokemonsByShape(searchTermLowerCase) {
@@ -449,11 +431,7 @@ export default {
   },
 
   toggleColorFilter(color) {
-    if (state.search.colors.length) {
-      state.search.colors.pop();
-    }
-    state.search.colors.pop();
-    state.search.colors.push(color);
+    state.search.color = color;
   },
 
   toggleShapeFilter(shape) {
@@ -486,7 +464,7 @@ export default {
   },
 
   clearColorFilters() {
-    state.search.colors = [];
+    state.search.color = '';
   },
 
   clearShapeFilters() {
