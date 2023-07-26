@@ -66,7 +66,7 @@ export async function getSpeciesData(url) {
       shape: response.data.shape?.name ?? '-',
       generation:
         response.data.generation?.name.replace('generation-', '') ?? '-',
-      habitat: response.data.habitat.name ?? 'rare',
+      habitat: response.data.habitat?.name ?? 'legendary',
     };
   } catch (error) {
     logError(getSpeciesData.name, 'Unable to retrieve species data', error);
