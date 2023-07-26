@@ -49,7 +49,7 @@ const state = Vue.observable({
     types: [],
     color: '',
     shape: '',
-    generations: [],
+    generation: '',
   },
   allTypes: [],
   pokemonsByType: new Map(),
@@ -239,7 +239,7 @@ export default {
       this.searchPokemonsByColor(searchTermLowerCase);
     } else if (state.search.shape.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
-    } else if (state.search.generations.length) {
+    } else if (state.search.generation.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
     } else {
       this.searchPokemonJustByTerm(searchTermLowerCase);
@@ -301,33 +301,12 @@ export default {
   },
 
   searchPokemonsByGeneration(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.generations.forEach((generation) => {
-      const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
-        .get(generation)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [
-        ...repeatedResults,
-        ...filteredPokemonNamesByGeneration,
-      ];
-    });
+    const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
+      .get(state.search.generation)
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
-    if (state.search.generations.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.generations.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.isSearchingPokemon = false;
+    state.search.results = filteredPokemonNamesByGeneration;
   },
 
   clearSearchResults() {
@@ -421,10 +400,7 @@ export default {
   },
 
   toggleGenerationFilter(generation) {
-    if (state.search.generations.length) {
-      state.search.generations.pop();
-    }
-    state.search.generations.push(generation);
+    state.search.generation = generation;
   },
 
   async getAllCharacteristicsDescriptions() {
@@ -451,7 +427,7 @@ export default {
   },
 
   clearGenerationFilters() {
-    state.search.generations = [];
+    state.search.generation = '';
   },
 
   toggleDarkMode() {
