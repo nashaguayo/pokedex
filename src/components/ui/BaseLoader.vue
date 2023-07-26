@@ -1,10 +1,15 @@
 <template>
-  <transition name="fade-in-out" :mode="mode" @after-enter="afterEnter" appear>
+  <transition
+    name="fade-in-out"
+    :mode="mode"
+    @after-enter="afterEnter"
+    appear
+    :class="{ 'cover-page': coverPage }"
+  >
     <FontAwesomeIcon
       v-if="loading"
       icon="fa-solid fa-spinner"
       class="fa-spin-pulse spinner-icon"
-      :class="{ 'cover-page': coverPage }"
       size="6x"
       :color="shouldChangeColor ? 'white' : 'black'"
     />
@@ -60,7 +65,6 @@ export default {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 100vh;
 }
 
 .fade-in-out-enter-active,

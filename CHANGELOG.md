@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.3.0...develop) (dd-mm-yyyy)
 
+##### Fixed
+
+- Base Loader is now at center of page
+
 ---
 
 ## [V0.3.0](https://github.com/nashaguayo/pokedex/compare/V0.2.3...V0.3.0) (25-07-2023)
