@@ -8,6 +8,7 @@
 
 - Pokemon habitats to characteristics
 - Changing location background according to habitat
+- Saving guesses in a row in local storage
 
 ##### Modified
 
