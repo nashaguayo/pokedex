@@ -63,7 +63,7 @@
             (searchTerm.length < 3 &&
               (filteringTypes.length ||
                 filteringColor.length ||
-                filteringShapes.length ||
+                filteringShape.length ||
                 filteringGenerations.length))) &&
           !searchResults.length
         "
@@ -135,7 +135,7 @@ export default {
         searchTerm.length < 3 &&
         !this.filteringTypes.length &&
         !this.filteringColor.length &&
-        !this.filteringShapes.length &&
+        !this.filteringShape.length &&
         !this.filteringGenerations.length
       ) {
         store.clearSearchResults();
@@ -157,8 +157,8 @@ export default {
       }
       await store.searchPokemons(this.searchTerm);
     },
-    async filteringShapes(filteringShapes) {
-      if (!filteringShapes.length && !this.searchTerm) {
+    async filteringShape(filteringShape) {
+      if (!filteringShape.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
@@ -182,8 +182,8 @@ export default {
     filteringColor() {
       return store.state.search.color;
     },
-    filteringShapes() {
-      return store.state.search.shapes;
+    filteringShape() {
+      return store.state.search.shape;
     },
     filteringGenerations() {
       return store.state.search.generations;

@@ -48,7 +48,7 @@ const state = Vue.observable({
     isSearchingPokemon: false,
     types: [],
     color: '',
-    shapes: [],
+    shape: '',
     generations: [],
   },
   allTypes: [],
@@ -237,7 +237,7 @@ export default {
       this.searchPokemonsByType(searchTermLowerCase);
     } else if (state.search.color.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
-    } else if (state.search.shapes.length) {
+    } else if (state.search.shape.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
     } else if (state.search.generations.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
@@ -292,30 +292,12 @@ export default {
   },
 
   searchPokemonsByShape(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.shapes.forEach((shape) => {
-      const filteredPokemonNamesByShape = state.pokemonsByShape
-        .get(shape)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByShape];
-    });
+    const filteredPokemonNamesByShape = state.pokemonsByShape
+      .get(state.search.shape)
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
-    if (state.search.shapes.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.shapes.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.isSearchingPokemon = false;
+    state.search.results = filteredPokemonNamesByShape;
   },
 
   searchPokemonsByGeneration(searchTermLowerCase) {
@@ -435,10 +417,7 @@ export default {
   },
 
   toggleShapeFilter(shape) {
-    if (state.search.shapes.length) {
-      state.search.shapes.pop();
-    }
-    state.search.shapes.push(shape);
+    state.search.shape = shape;
   },
 
   toggleGenerationFilter(generation) {
@@ -468,7 +447,7 @@ export default {
   },
 
   clearShapeFilters() {
-    state.search.shapes = [];
+    state.search.shape = '';
   },
 
   clearGenerationFilters() {
