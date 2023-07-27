@@ -230,7 +230,8 @@ export default {
       !state.allPokemons.length ||
       !state.pokemonsByType.size ||
       !state.pokemonsByColor.size ||
-      !state.pokemonsByShape.size
+      !state.pokemonsByShape.size ||
+      !state.pokemonsByGeneration.size
     ) {
       return;
     }

@@ -261,4 +261,172 @@ describe('store', () => {
     spySearchPokemonsJustByTerm.mockRestore();
     store.state.search.isSearchingPokemon = false;
   });
+
+  it('calls correctly search by type', async () => {
+    const spySearchPokemonsByType = jest.spyOn(store, 'searchPokemonsByType');
+    const spySearchPokemonsByColor = jest.spyOn(store, 'searchPokemonsByColor');
+    const spySearchPokemonsByShape = jest.spyOn(store, 'searchPokemonsByShape');
+    const spySearchPokemonsByGeneration = jest.spyOn(
+      store,
+      'searchPokemonsByGeneration'
+    );
+    const spySearchPokemonsJustByTerm = jest.spyOn(
+      store,
+      'searchPokemonJustByTerm'
+    );
+    store.state.allPokemons = [{ name: 'pikachu' }];
+    store.state.pokemonsByType = new Map([['electric', ['pikachu']]]);
+    store.state.pokemonsByColor = new Map([['yellow', ['pikachu']]]);
+    store.state.pokemonsByShape = new Map([['quadruped', ['pikachu']]]);
+    store.state.pokemonsByGeneration = new Map([['i', ['pikachu']]]);
+    store.state.search.types = ['electric'];
+    await store.searchPokemons('pik');
+    expect(store.state.search.isSearchingPokemon).toBeFalsy();
+    expect(spySearchPokemonsByType).toHaveBeenCalled();
+    expect(spySearchPokemonsByType).toHaveBeenCalledWith('pik');
+    expect(spySearchPokemonsByColor).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByShape).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByGeneration).not.toHaveBeenCalled();
+    expect(spySearchPokemonsJustByTerm).not.toHaveBeenCalled();
+    spySearchPokemonsByType.mockRestore();
+    spySearchPokemonsByColor.mockRestore();
+    spySearchPokemonsByShape.mockRestore();
+    spySearchPokemonsByGeneration.mockRestore();
+    spySearchPokemonsJustByTerm.mockRestore();
+    store.state.search.types = [];
+  });
+
+  it('calls correctly search by color', async () => {
+    const spySearchPokemonsByType = jest.spyOn(store, 'searchPokemonsByType');
+    const spySearchPokemonsByColor = jest.spyOn(store, 'searchPokemonsByColor');
+    const spySearchPokemonsByShape = jest.spyOn(store, 'searchPokemonsByShape');
+    const spySearchPokemonsByGeneration = jest.spyOn(
+      store,
+      'searchPokemonsByGeneration'
+    );
+    const spySearchPokemonsJustByTerm = jest.spyOn(
+      store,
+      'searchPokemonJustByTerm'
+    );
+    store.state.allPokemons = [{ name: 'pikachu' }];
+    store.state.pokemonsByType = new Map([['electric', ['pikachu']]]);
+    store.state.pokemonsByColor = new Map([['yellow', ['pikachu']]]);
+    store.state.pokemonsByShape = new Map([['quadruped', ['pikachu']]]);
+    store.state.pokemonsByGeneration = new Map([['i', ['pikachu']]]);
+    store.state.search.color = 'yellow';
+    await store.searchPokemons('pik');
+    expect(store.state.search.isSearchingPokemon).toBeFalsy();
+    expect(spySearchPokemonsByType).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByColor).toHaveBeenCalled();
+    expect(spySearchPokemonsByColor).toHaveBeenCalledWith('pik');
+    expect(spySearchPokemonsByShape).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByGeneration).not.toHaveBeenCalled();
+    expect(spySearchPokemonsJustByTerm).not.toHaveBeenCalled();
+    spySearchPokemonsByType.mockRestore();
+    spySearchPokemonsByColor.mockRestore();
+    spySearchPokemonsByShape.mockRestore();
+    spySearchPokemonsByGeneration.mockRestore();
+    spySearchPokemonsJustByTerm.mockRestore();
+    store.state.search.color = '';
+  });
+
+  it('calls correctly search by shape', async () => {
+    const spySearchPokemonsByType = jest.spyOn(store, 'searchPokemonsByType');
+    const spySearchPokemonsByColor = jest.spyOn(store, 'searchPokemonsByColor');
+    const spySearchPokemonsByShape = jest.spyOn(store, 'searchPokemonsByShape');
+    const spySearchPokemonsByGeneration = jest.spyOn(
+      store,
+      'searchPokemonsByGeneration'
+    );
+    const spySearchPokemonsJustByTerm = jest.spyOn(
+      store,
+      'searchPokemonJustByTerm'
+    );
+    store.state.allPokemons = [{ name: 'pikachu' }];
+    store.state.pokemonsByType = new Map([['electric', ['pikachu']]]);
+    store.state.pokemonsByColor = new Map([['yellow', ['pikachu']]]);
+    store.state.pokemonsByShape = new Map([['quadruped', ['pikachu']]]);
+    store.state.pokemonsByGeneration = new Map([['i', ['pikachu']]]);
+    store.state.search.shape = 'quadruped';
+    await store.searchPokemons('pik');
+    expect(store.state.search.isSearchingPokemon).toBeFalsy();
+    expect(spySearchPokemonsByType).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByColor).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByShape).toHaveBeenCalled();
+    expect(spySearchPokemonsByShape).toHaveBeenCalledWith('pik');
+    expect(spySearchPokemonsByGeneration).not.toHaveBeenCalled();
+    expect(spySearchPokemonsJustByTerm).not.toHaveBeenCalled();
+    spySearchPokemonsByType.mockRestore();
+    spySearchPokemonsByColor.mockRestore();
+    spySearchPokemonsByShape.mockRestore();
+    spySearchPokemonsByGeneration.mockRestore();
+    spySearchPokemonsJustByTerm.mockRestore();
+    store.state.search.shape = '';
+  });
+
+  it('calls correctly search by generation', async () => {
+    const spySearchPokemonsByType = jest.spyOn(store, 'searchPokemonsByType');
+    const spySearchPokemonsByColor = jest.spyOn(store, 'searchPokemonsByColor');
+    const spySearchPokemonsByShape = jest.spyOn(store, 'searchPokemonsByShape');
+    const spySearchPokemonsByGeneration = jest.spyOn(
+      store,
+      'searchPokemonsByGeneration'
+    );
+    const spySearchPokemonsJustByTerm = jest.spyOn(
+      store,
+      'searchPokemonJustByTerm'
+    );
+    store.state.allPokemons = [{ name: 'pikachu' }];
+    store.state.pokemonsByType = new Map([['electric', ['pikachu']]]);
+    store.state.pokemonsByColor = new Map([['yellow', ['pikachu']]]);
+    store.state.pokemonsByShape = new Map([['quadruped', ['pikachu']]]);
+    store.state.pokemonsByGeneration = new Map([['i', ['pikachu']]]);
+    store.state.search.generation = 'i';
+    await store.searchPokemons('pik');
+    expect(store.state.search.isSearchingPokemon).toBeFalsy();
+    expect(spySearchPokemonsByType).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByColor).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByShape).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByGeneration).toHaveBeenCalled();
+    expect(spySearchPokemonsByGeneration).toHaveBeenCalledWith('pik');
+    expect(spySearchPokemonsJustByTerm).not.toHaveBeenCalled();
+    spySearchPokemonsByType.mockRestore();
+    spySearchPokemonsByColor.mockRestore();
+    spySearchPokemonsByShape.mockRestore();
+    spySearchPokemonsByGeneration.mockRestore();
+    spySearchPokemonsJustByTerm.mockRestore();
+    store.state.search.generation = '';
+  });
+
+  it('calls correctly search just by term', async () => {
+    const spySearchPokemonsByType = jest.spyOn(store, 'searchPokemonsByType');
+    const spySearchPokemonsByColor = jest.spyOn(store, 'searchPokemonsByColor');
+    const spySearchPokemonsByShape = jest.spyOn(store, 'searchPokemonsByShape');
+    const spySearchPokemonsByGeneration = jest.spyOn(
+      store,
+      'searchPokemonsByGeneration'
+    );
+    const spySearchPokemonsJustByTerm = jest.spyOn(
+      store,
+      'searchPokemonJustByTerm'
+    );
+    store.state.allPokemons = [{ name: 'pikachu' }];
+    store.state.pokemonsByType = new Map([['electric', ['pikachu']]]);
+    store.state.pokemonsByColor = new Map([['yellow', ['pikachu']]]);
+    store.state.pokemonsByShape = new Map([['quadruped', ['pikachu']]]);
+    store.state.pokemonsByGeneration = new Map([['i', ['pikachu']]]);
+    await store.searchPokemons('pik');
+    expect(store.state.search.isSearchingPokemon).toBeFalsy();
+    expect(spySearchPokemonsByType).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByColor).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByShape).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByGeneration).not.toHaveBeenCalled();
+    expect(spySearchPokemonsJustByTerm).toHaveBeenCalled();
+    expect(spySearchPokemonsJustByTerm).toHaveBeenCalledWith('pik');
+    spySearchPokemonsByType.mockRestore();
+    spySearchPokemonsByColor.mockRestore();
+    spySearchPokemonsByShape.mockRestore();
+    spySearchPokemonsByGeneration.mockRestore();
+    spySearchPokemonsJustByTerm.mockRestore();
+  });
 });
