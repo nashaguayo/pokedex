@@ -73,7 +73,16 @@ jest.mock('@/api/generations', () => ({
 }));
 
 jest.mock('@/api/characteristics', () => ({
-  getAllCharacteristicsDescriptions: jest.fn(),
+  getAllCharacteristicsDescriptions: jest
+    .fn()
+    .mockResolvedValue(
+      new Map([
+        [
+          'hp',
+          [{ description: 'Loves to eat', possibleValues: [1, 2, 3, 4, 5] }],
+        ],
+      ])
+    ),
 }));
 
 jest.mock('@/lib/localStorage', () => ({
@@ -590,5 +599,63 @@ describe('store', () => {
     expect(store.state.search.generation).toBe('i');
     store.toggleGenerationFilter('ii');
     expect(store.state.search.generation).toBe('ii');
+  });
+
+  it('gets all characteristics descriptions correctly', async () => {
+    store.state.allCharacteristics = new Map([]);
+    expect(store.state.allCharacteristics.size).toBe(0);
+    await store.getAllCharacteristicsDescriptions();
+    expect(store.state.allCharacteristics.size).toBe(1);
+  });
+
+  it('clears all filters', async () => {
+    const spyClearTypeFilters = jest.spyOn(store, 'clearTypeFilters');
+    const spyClearColorFilters = jest.spyOn(store, 'clearColorFilters');
+    const spyClearShapeFilters = jest.spyOn(store, 'clearShapeFilters');
+    const spyClearGenerationFilters = jest.spyOn(
+      store,
+      'clearGenerationFilters'
+    );
+    store.clearFilters();
+    expect(spyClearTypeFilters).toHaveBeenCalled();
+    expect(spyClearColorFilters).toHaveBeenCalled();
+    expect(spyClearShapeFilters).toHaveBeenCalled();
+    expect(spyClearGenerationFilters).toHaveBeenCalled();
+    spyClearTypeFilters.mockRestore();
+    spyClearColorFilters.mockRestore();
+    spyClearShapeFilters.mockRestore();
+    spyClearGenerationFilters.mockRestore();
+  });
+
+  it('clears type filters', () => {
+    store.state.search.types = ['fighting', 'electric'];
+    store.clearTypeFilters();
+    expect(store.state.search.types).toStrictEqual([]);
+  });
+
+  it('clears color filters', () => {
+    store.state.search.color = 'yellow';
+    store.clearColorFilters();
+    expect(store.state.search.color).toBe('');
+  });
+
+  it('clears shape filters', () => {
+    store.state.search.shape = 'quadruped';
+    store.clearShapeFilters();
+    expect(store.state.search.shape).toBe('');
+  });
+
+  it('clears generation filters', () => {
+    store.state.search.generation = 'i';
+    store.clearGenerationFilters();
+    expect(store.state.search.generation).toBe('');
+  });
+
+  it('toggles dark mode', () => {
+    expect(store.state.isDarkModeEnabled).toBeFalsy();
+    store.toggleDarkMode();
+    expect(store.state.isDarkModeEnabled).toBeTruthy();
+    store.toggleDarkMode();
+    expect(store.state.isDarkModeEnabled).toBeFalsy();
   });
 });
