@@ -32,6 +32,7 @@ import {
 const state = Vue.observable({
   storeHasLoaded: false,
   allPokemons: [],
+  pokemonVariants: new Map(),
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
   randomPokemons: [],
@@ -100,7 +101,7 @@ export default {
     if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
       state.isLoadingAllPokemons = true;
       const allPokemons = (await getAllPokemonsApi()).results;
-      state.allPokemons = allPokemons.map((pokemon) => ({
+      const allPokemonsWithHyphens = allPokemons.map((pokemon) => ({
         id: Number(
           pokemon.url
             .replace(process.env.VUE_APP_POKEAPI_URL, '')
@@ -109,6 +110,21 @@ export default {
         ),
         name: pokemon.name,
       }));
+
+      state.allPokemons = allPokemonsWithHyphens.filter(
+        (pokemon) => !pokemon.name.includes('-')
+      );
+      state.allPokemons.forEach((pokemon) => {
+        const pokemonVariants = allPokemonsWithHyphens.filter((p) => {
+          return p.name.includes('-') && p.name.includes(pokemon.name);
+        });
+        if (pokemonVariants.length) {
+          const pokemonVariantsNames = pokemonVariants.map(
+            (pokemon) => pokemon.name
+          );
+          state.pokemonVariants.set(pokemon.name, pokemonVariantsNames);
+        }
+      });
       state.isLoadingAllPokemons = false;
     }
   },
