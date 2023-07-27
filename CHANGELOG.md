@@ -15,6 +15,7 @@
 - Random Pokemon and Guess Pokemon not finishing loading
 - Animation in search items
 - Amount of empty stat bars
+- Infinite row brings up correct amount of items per row
 
 ---
 
