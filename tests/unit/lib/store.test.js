@@ -187,4 +187,16 @@ describe('store', () => {
     });
     expect(store.state.pokemon.size).toBe(1);
   });
+
+  it('gets the correct amount of random pokemons', async () => {
+    const amountOfRandomPokemons = 5;
+    const spyGetNewRandomPokemon = jest
+      .spyOn(store, 'getNewRandomPokemon')
+      .mockResolvedValue({});
+    await store.getRandomPokemons(amountOfRandomPokemons);
+    expect(spyGetNewRandomPokemon).toHaveBeenCalledTimes(
+      amountOfRandomPokemons
+    );
+    expect(store.state.randomPokemons.length).toBe(amountOfRandomPokemons);
+  });
 });

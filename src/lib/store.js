@@ -189,8 +189,10 @@ export default {
 
   async getRandomPokemons(amountOfRandomPokemons) {
     state.randomPokemons = [];
-    [...Array(amountOfRandomPokemons)].forEach(async () =>
-      state.randomPokemons.push(await this.getNewRandomPokemon())
+    await Promise.all(
+      [...Array(amountOfRandomPokemons)].map(async () => {
+        state.randomPokemons.push(await this.getNewRandomPokemon());
+      })
     );
   },
 
