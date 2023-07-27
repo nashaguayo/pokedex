@@ -87,8 +87,8 @@ export default {
     return { id, name, image, types };
   },
 
-  async getPokemons(url) {
-    const response = await getPokemonsApi(url);
+  async getPokemons(url, limit) {
+    const response = await getPokemonsApi(url, limit);
     const results = await Promise.all(
       response.results.map((pokemon) => this.getPokemonListCardData(pokemon))
     );
@@ -113,13 +113,13 @@ export default {
     }
   },
 
-  async getMorePokemons() {
+  async getMorePokemons(limit) {
     if (state.isLoadingMorePokemons) {
       return;
     }
 
     state.isLoadingMorePokemons = true;
-    const response = await getPokemonsApi(state.scroll.nextUrl);
+    const response = await getPokemonsApi(state.scroll.nextUrl, limit);
     if (!response) {
       return;
     }
