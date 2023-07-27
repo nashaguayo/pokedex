@@ -29,6 +29,8 @@ jest.mock('@/api/pokemon', () => ({
       { name: 'pikachu', url: 'pokemon/1/' },
       { name: 'charmander', url: 'pokemon/2/' },
       { name: 'squirtle', url: 'pokemon/3/' },
+      { name: 'pikachu-rock-star', url: 'pokemon/4' },
+      { name: 'pikachu-pop-star', url: 'pokemon/5' },
     ],
   }),
   getDataForPokemon: jest.fn().mockResolvedValue({
@@ -158,6 +160,9 @@ describe('store', () => {
       { id: 2, name: 'charmander' },
       { id: 3, name: 'squirtle' },
     ]);
+    expect(store.state.pokemonVariants).toStrictEqual(
+      new Map([['pikachu', ['pikachu-rock-star', 'pikachu-pop-star']]])
+    );
     expect(store.state.isLoadingAllPokemons).toBeFalsy();
   });
 
