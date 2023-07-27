@@ -40,6 +40,7 @@ describe('GuessPokemon', () => {
   it("should send player's guess when clicking send button", () => {
     const spy = jest.spyOn(document.body, 'dispatchEvent');
     wrapper = shallowMount(GuessPokemon, {
+      stubs: ['FontAwesomeIcon'],
       propsData: { playersGuess: 'pikachu' },
     });
     wrapper.vm.sendPlayersGuess();

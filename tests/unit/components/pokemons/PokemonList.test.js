@@ -95,4 +95,28 @@ describe('PokemonList', () => {
     expect(store.getMorePokemons).toHaveBeenCalled();
     expect(wrapper.vm.loading).toBe(false);
   });
+
+  it('loads 21 pokemons when the resolution is right', async () => {
+    jest.spyOn(window.screen, 'width', 'get').mockReturnValue(900);
+    const spyGetPokemons = jest.spyOn(store, 'getPokemons');
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.amountOfPokemonsToLoadPerPage).toBe(21);
+    expect(spyGetPokemons).toHaveBeenCalledWith(null, 21);
+    spyGetPokemons.mockRestore();
+  });
+
+  it('loads 21 more pokemons in infinite scroll when the resolution is right', async () => {
+    jest.spyOn(window.screen, 'width', 'get').mockReturnValue(900);
+    const spyGetMorePokemons = jest.spyOn(store, 'getMorePokemons');
+    const target = {
+      scrollTop: 200,
+      clientHeight: 200,
+      scrollHeight: 400,
+    };
+    wrapper.vm.handleScroll({ target });
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+    expect(spyGetMorePokemons).toHaveBeenCalledWith(21);
+    spyGetMorePokemons.mockRestore();
+  });
 });

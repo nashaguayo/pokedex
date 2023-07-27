@@ -17,10 +17,12 @@ export async function getDataForPokemon(pokemonName) {
   }
 }
 
-export async function getPokemons(url) {
+export async function getPokemons(url, limit = 20) {
   try {
     const response = await pokemonApi.get(
-      url?.replace(process.env.VUE_APP_POKEAPI_URL, '') ?? 'pokemon'
+      `${
+        url?.replace(process.env.VUE_APP_POKEAPI_URL, '') ?? 'pokemon'
+      }?limit=${limit}`
     );
     return response.data;
   } catch (error) {
