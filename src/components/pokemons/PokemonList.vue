@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     async getPokemons() {
-      await store.getPokemons(undefined, this.amountOfPokemonsToLoadPerPage);
+      await store.getPokemons(null, this.amountOfPokemonsToLoadPerPage);
       this.loading = false;
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
