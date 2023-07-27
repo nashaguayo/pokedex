@@ -24,8 +24,10 @@ import {
   getPokemonsByGeneration as getPokemonsByGenerationApi,
 } from '@/api/generations';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
-import { isDarkModeEnabled } from '@/lib/localStorage';
-import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
+import {
+  isDarkModeEnabled,
+  toggleDarkMode as toggleDarkModeInLocalStorage,
+} from '@/lib/localStorage';
 
 const state = Vue.observable({
   storeHasLoaded: false,
@@ -88,7 +90,7 @@ export default {
   async getPokemons(url) {
     const response = await getPokemonsApi(url);
     const results = await Promise.all(
-      response.results.map(this.getPokemonListCardData)
+      response.results.map((pokemon) => this.getPokemonListCardData(pokemon))
     );
     state.scroll.pokemons = results;
     state.scroll.nextUrl = response.next;
@@ -122,7 +124,7 @@ export default {
       return;
     }
     const results = await Promise.all(
-      response.results.map(this.getPokemonListCardData)
+      response.results.map((pokemon) => this.getPokemonListCardData(pokemon))
     );
 
     state.scroll.pokemons = [...state.scroll.pokemons, ...results];
@@ -132,8 +134,8 @@ export default {
 
   async getPokemon(pokemonId) {
     let pokemon;
-    if (pokemon?.has(pokemonId)) {
-      pokemon = pokemon.get(pokemonId);
+    if (state.pokemon?.has(pokemonId)) {
+      pokemon = state.pokemon.get(pokemonId);
     } else {
       pokemon = await getPokemonApi(pokemonId);
     }
@@ -187,8 +189,10 @@ export default {
 
   async getRandomPokemons(amountOfRandomPokemons) {
     state.randomPokemons = [];
-    [...Array(amountOfRandomPokemons)].forEach(async () =>
-      state.randomPokemons.push(await this.getNewRandomPokemon())
+    await Promise.all(
+      [...Array(amountOfRandomPokemons)].map(async () => {
+        state.randomPokemons.push(await this.getNewRandomPokemon());
+      })
     );
   },
 
@@ -226,7 +230,8 @@ export default {
       !state.allPokemons.length ||
       !state.pokemonsByType.size ||
       !state.pokemonsByColor.size ||
-      !state.pokemonsByShape.size
+      !state.pokemonsByShape.size ||
+      !state.pokemonsByGeneration.size
     ) {
       return;
     }
