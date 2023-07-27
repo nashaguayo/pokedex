@@ -188,6 +188,19 @@ describe('store', () => {
     expect(store.state.pokemon.size).toBe(1);
   });
 
+  it('gets the correct amount of random pokemons', async () => {
+    const amountOfRandomPokemons = 5;
+    const spyGetNewRandomPokemon = jest
+      .spyOn(store, 'getNewRandomPokemon')
+      .mockResolvedValue({});
+    await store.getRandomPokemons(amountOfRandomPokemons);
+    expect(spyGetNewRandomPokemon).toHaveBeenCalledTimes(
+      amountOfRandomPokemons
+    );
+    expect(store.state.randomPokemons.length).toBe(amountOfRandomPokemons);
+    spyGetNewRandomPokemon.mockRestore();
+  });
+
   it('gets a new random pokemon', async () => {
     const spyPokemonIsAlreadyInRandomPokemons = jest
       .spyOn(store, 'pokemonIsAlreadyInRandomPokemons')
@@ -212,17 +225,12 @@ describe('store', () => {
     expect(store.state.randomPokemons).toStrictEqual([
       { image: 'pikachu.png', name: 'pikachu' },
     ]);
+    spyPokemonIsAlreadyInRandomPokemons.mockRestore();
   });
 
-  it('gets the correct amount of random pokemons', async () => {
-    const amountOfRandomPokemons = 5;
-    const spyGetNewRandomPokemon = jest
-      .spyOn(store, 'getNewRandomPokemon')
-      .mockResolvedValue({});
-    await store.getRandomPokemons(amountOfRandomPokemons);
-    expect(spyGetNewRandomPokemon).toHaveBeenCalledTimes(
-      amountOfRandomPokemons
-    );
-    expect(store.state.randomPokemons.length).toBe(amountOfRandomPokemons);
+  it('defines if a pokemon is already in random pokemons correctly', () => {
+    store.state.randomPokemons = [{ name: 'pikachu', image: 'pikachu.png' }];
+    expect(store.pokemonIsAlreadyInRandomPokemons('pikachu')).toBeTruthy();
+    expect(store.pokemonIsAlreadyInRandomPokemons('charmander')).toBeFalsy();
   });
 });
