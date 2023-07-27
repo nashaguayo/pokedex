@@ -56,7 +56,7 @@ export default {
       let exceedingBars = 0;
       let highestValue = 0;
       this.stats.map((stat) => {
-        if (stat.value > highestValue && stat.value > 110) {
+        if (stat.value > highestValue && stat.value >= 110) {
           highestValue = stat.value;
           exceedingBars = Math.floor((stat.value - 100) / 10);
         }
