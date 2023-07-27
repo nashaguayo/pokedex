@@ -53,23 +53,23 @@ jest.mock('@/api/evolutions', () => ({
 }));
 
 jest.mock('@/api/types', () => ({
-  getAllTypes: jest.fn().mockResolvedValue([]),
-  getPokemonsByType: jest.fn(),
+  getAllTypes: jest.fn().mockResolvedValue(['electric', 'fighting']),
+  getPokemonsByType: jest.fn().mockResolvedValue(['pikachu']),
 }));
 
 jest.mock('@/api/colors', () => ({
-  getAllColors: jest.fn().mockResolvedValue([]),
-  getPokemonsByColor: jest.fn(),
+  getAllColors: jest.fn().mockResolvedValue(['yellow', 'blue']),
+  getPokemonsByColor: jest.fn().mockResolvedValue(['pikachu']),
 }));
 
 jest.mock('@/api/shapes', () => ({
-  getAllShapes: jest.fn().mockResolvedValue([]),
-  getPokemonsByShape: jest.fn(),
+  getAllShapes: jest.fn().mockResolvedValue(['quadruped', 'humanoid']),
+  getPokemonsByShape: jest.fn().mockResolvedValue(['pikachu']),
 }));
 
 jest.mock('@/api/generations', () => ({
-  getAllGenerations: jest.fn().mockResolvedValue([]),
-  getPokemonsByGeneration: jest.fn(),
+  getAllGenerations: jest.fn().mockResolvedValue(['i', 'ii']),
+  getPokemonsByGeneration: jest.fn().mockResolvedValue(['pikachu']),
 }));
 
 jest.mock('@/api/characteristics', () => ({
@@ -498,5 +498,61 @@ describe('store', () => {
       name: 'pikachu',
       image: 'pikachu.png',
     });
+  });
+
+  it('gets all types correctly', async () => {
+    store.state.allTypes = [];
+    store.state.pokemonsByType = new Map([]);
+    expect(store.state.allTypes).toStrictEqual([]);
+    await store.getAllTypes();
+    expect(store.state.allTypes).toStrictEqual(['electric', 'fighting']);
+    expect(store.state.pokemonsByType).toStrictEqual(
+      new Map([
+        ['electric', ['pikachu']],
+        ['fighting', ['pikachu']],
+      ])
+    );
+  });
+
+  it('gets all colors correctly', async () => {
+    store.state.allColors = [];
+    store.state.pokemonsByColor = new Map([]);
+    expect(store.state.allColors).toStrictEqual([]);
+    await store.getAllColors();
+    expect(store.state.allColors).toStrictEqual(['yellow', 'blue']);
+    expect(store.state.pokemonsByColor).toStrictEqual(
+      new Map([
+        ['yellow', ['pikachu']],
+        ['blue', ['pikachu']],
+      ])
+    );
+  });
+
+  it('gets all shapes correctly', async () => {
+    store.state.allShapes = [];
+    store.state.pokemonsByShape = new Map([]);
+    expect(store.state.allShapes).toStrictEqual([]);
+    await store.getAllShapes();
+    expect(store.state.allShapes).toStrictEqual(['quadruped', 'humanoid']);
+    expect(store.state.pokemonsByShape).toStrictEqual(
+      new Map([
+        ['quadruped', ['pikachu']],
+        ['humanoid', ['pikachu']],
+      ])
+    );
+  });
+
+  it('gets all generations correctly', async () => {
+    store.state.allGenerations = [];
+    store.state.pokemonsByGeneration = new Map([]);
+    expect(store.state.allGenerations).toStrictEqual([]);
+    await store.getAllGenerations();
+    expect(store.state.allGenerations).toStrictEqual(['i', 'ii']);
+    expect(store.state.pokemonsByGeneration).toStrictEqual(
+      new Map([
+        ['i', ['pikachu']],
+        ['ii', ['pikachu']],
+      ])
+    );
   });
 });
