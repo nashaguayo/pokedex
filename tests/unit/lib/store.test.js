@@ -294,6 +294,7 @@ describe('store', () => {
     spySearchPokemonsByGeneration.mockRestore();
     spySearchPokemonsJustByTerm.mockRestore();
     store.state.search.types = [];
+    store.state.allPokemons = [];
   });
 
   it('calls correctly search by color', async () => {
@@ -328,6 +329,7 @@ describe('store', () => {
     spySearchPokemonsByGeneration.mockRestore();
     spySearchPokemonsJustByTerm.mockRestore();
     store.state.search.color = '';
+    store.state.allPokemons = [];
   });
 
   it('calls correctly search by shape', async () => {
@@ -362,6 +364,7 @@ describe('store', () => {
     spySearchPokemonsByGeneration.mockRestore();
     spySearchPokemonsJustByTerm.mockRestore();
     store.state.search.shape = '';
+    store.state.allPokemons = [];
   });
 
   it('calls correctly search by generation', async () => {
@@ -396,6 +399,7 @@ describe('store', () => {
     spySearchPokemonsByGeneration.mockRestore();
     spySearchPokemonsJustByTerm.mockRestore();
     store.state.search.generation = '';
+    store.state.allPokemons = [];
   });
 
   it('calls correctly search just by term', async () => {
@@ -428,5 +432,51 @@ describe('store', () => {
     spySearchPokemonsByShape.mockRestore();
     spySearchPokemonsByGeneration.mockRestore();
     spySearchPokemonsJustByTerm.mockRestore();
+    store.state.allPokemons = [];
+  });
+
+  it('searches correctly just by term', () => {
+    store.state.allPokemons = [
+      { name: 'pikachu' },
+      { name: 'charmander' },
+      { name: 'squirtle' },
+    ];
+    store.searchPokemonJustByTerm('pik');
+    expect(store.state.search.results).toStrictEqual(['pikachu']);
+    store.state.search.results = [];
+  });
+
+  it('searches correctly by type', () => {
+    store.state.search.types = ['electric'];
+    store.searchPokemonsByType('pik');
+    expect(store.state.search.results).toStrictEqual(['pikachu']);
+    store.state.search.results = [];
+  });
+
+  it('searches correctly by color', () => {
+    store.state.search.color = 'yellow';
+    store.searchPokemonsByType('pik');
+    expect(store.state.search.results).toStrictEqual(['pikachu']);
+    store.state.search.results = [];
+  });
+
+  it('searches correctly by shape', () => {
+    store.state.search.shape = 'quadruped';
+    store.searchPokemonsByType('pik');
+    expect(store.state.search.results).toStrictEqual(['pikachu']);
+    store.state.search.results = [];
+  });
+
+  it('searches correctly by generation', () => {
+    store.state.search.generation = 'i';
+    store.searchPokemonsByType('pik');
+    expect(store.state.search.results).toStrictEqual(['pikachu']);
+    store.state.search.results = [];
+  });
+
+  it('clears search results', () => {
+    store.state.search.results = ['pikachu'];
+    store.clearSearchResults();
+    expect(store.state.search.results).toStrictEqual([]);
   });
 });
