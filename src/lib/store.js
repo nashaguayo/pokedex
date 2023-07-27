@@ -124,7 +124,7 @@ export default {
       return;
     }
     const results = await Promise.all(
-      response.results.map(this.getPokemonListCardData)
+      response.results.map((pokemon) => this.getPokemonListCardData(pokemon))
     );
 
     state.scroll.pokemons = [...state.scroll.pokemons, ...results];

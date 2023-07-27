@@ -60,6 +60,10 @@ jest.mock('@/lib/localStorage', () => ({
 }));
 
 describe('store', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('loads the store when initializeStore method is called', async () => {
     const spyGetAllPokemons = jest.spyOn(store, 'getAllPokemons');
     const spyGetAllTypes = jest.spyOn(store, 'getAllTypes');
@@ -118,5 +122,23 @@ describe('store', () => {
       { id: 3, name: 'squirtle' },
     ]);
     expect(store.state.isLoadingAllPokemons).toBeFalsy();
+  });
+
+  it('gets more pokemons correctly', async () => {
+    const spyGetPokemonListCardData = jest
+      .spyOn(store, 'getPokemonListCardData')
+      .mockResolvedValue({});
+    await store.getMorePokemons();
+    expect(spyGetPokemonListCardData).toHaveBeenCalledTimes(3);
+    expect(spyGetPokemonListCardData).toHaveBeenCalledWith({ name: 'pikachu' });
+    expect(spyGetPokemonListCardData).toHaveBeenCalledWith({
+      name: 'charmander',
+    });
+    expect(spyGetPokemonListCardData).toHaveBeenCalledWith({
+      name: 'squirtle',
+    });
+    expect(store.state.scroll.pokemons).toStrictEqual([{}, {}, {}, {}, {}, {}]);
+    expect(store.state.scroll.nextUrl).toBe('next.com');
+    expect(store.state.isLoadingMorePokemons).toBeFalsy();
   });
 });
