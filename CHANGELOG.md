@@ -14,6 +14,7 @@
 - Base Loader is now at center of page
 - Random Pokemon and Guess Pokemon not finishing loading
 - Animation in search items
+- Amount of empty stat bars
 
 ---
 
