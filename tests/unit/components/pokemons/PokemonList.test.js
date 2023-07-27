@@ -99,22 +99,15 @@ describe('PokemonList', () => {
   it('loads 21 pokemons when the resolution is right', async () => {
     jest.spyOn(window.screen, 'width', 'get').mockReturnValue(900);
     const spyGetPokemons = jest.spyOn(store, 'getPokemons');
-    wrapper = shallowMount(PokemonList, {
-      store,
-      stubs: ['router-link', 'FontAwesomeIcon'],
-    });
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.amountOfPokemonsToLoadPerPage).toBe(21);
     expect(spyGetPokemons).toHaveBeenCalledWith(null, 21);
+    spyGetPokemons.mockRestore();
   });
 
   it('loads 21 more pokemons in infinite scroll when the resolution is right', async () => {
     jest.spyOn(window.screen, 'width', 'get').mockReturnValue(900);
     const spyGetMorePokemons = jest.spyOn(store, 'getMorePokemons');
-    wrapper = shallowMount(PokemonList, {
-      store,
-      stubs: ['router-link', 'FontAwesomeIcon'],
-    });
     const target = {
       scrollTop: 200,
       clientHeight: 200,
@@ -124,5 +117,6 @@ describe('PokemonList', () => {
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
     expect(spyGetMorePokemons).toHaveBeenCalledWith(21);
+    spyGetMorePokemons.mockRestore();
   });
 });
