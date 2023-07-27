@@ -52,10 +52,10 @@
         </BaseButton>
       </div>
     </div>
-    <transition name="slide-from-above" mode="out-in" appear>
+    <transition name="slide-from-above" mode="out-in">
       <component :is="component" />
     </transition>
-    <transition name="slide-from-above" mode="out-in" appear>
+    <transition name="slide-from-above" mode="out-in">
       <span
         class="no-results"
         v-if="
@@ -72,12 +72,7 @@
       </span>
     </transition>
     <BaseLoader :loading="loading">
-      <transition-group
-        class="results"
-        name="slide-from-right"
-        mode="out-in"
-        appear
-      >
+      <transition-group class="results" name="slide-from-right">
         <span
           v-for="pokemon in searchResults"
           :key="pokemon"
@@ -402,6 +397,10 @@ export default {
 .slide-from-right-enter-active,
 .slide-from-right-leave-active {
   transition: all 0.3s;
+}
+
+.slide-from-right-enter-active {
+  transition-delay: 0.3s;
 }
 
 .slide-from-right-enter,
