@@ -555,4 +555,40 @@ describe('store', () => {
       ])
     );
   });
+
+  it('toggles type filter correctly', () => {
+    store.state.search.types = ['electric', 'fighting'];
+    store.toggleTypeFilter('grass');
+    expect(store.state.search.types).toStrictEqual([
+      'electric',
+      'fighting',
+      'grass',
+    ]);
+    store.toggleTypeFilter('electric');
+    expect(store.state.search.types).toStrictEqual(['fighting', 'grass']);
+  });
+
+  it('toggles color filter correctly', () => {
+    store.state.search.color = '';
+    store.toggleColorFilter('yellow');
+    expect(store.state.search.color).toBe('yellow');
+    store.toggleColorFilter('blue');
+    expect(store.state.search.color).toBe('blue');
+  });
+
+  it('toggles shape filter correctly', () => {
+    store.state.search.shape = '';
+    store.toggleShapeFilter('quadruped');
+    expect(store.state.search.shape).toBe('quadruped');
+    store.toggleShapeFilter('humanoid');
+    expect(store.state.search.shape).toBe('humanoid');
+  });
+
+  it('toggles generation filter correctly', () => {
+    store.state.search.generation = '';
+    store.toggleGenerationFilter('i');
+    expect(store.state.search.generation).toBe('i');
+    store.toggleGenerationFilter('ii');
+    expect(store.state.search.generation).toBe('ii');
+  });
 });
