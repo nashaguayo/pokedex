@@ -1,7 +1,21 @@
 import store from '@/lib/store';
 
 jest.mock('@/api/pokemon', () => ({
-  getPokemon: jest.fn(),
+  getPokemon: jest.fn().mockResolvedValue({
+    id: 1,
+    name: 'pikachu',
+    species: { url: 'pikachu.com' },
+    stats: [],
+    sprites: {
+      front_default: 'front-default-image.png',
+      other: {
+        dream_world: { front_default: 'other-front-default-image.png' },
+      },
+    },
+    types: [],
+    height: 4,
+    weight: 60,
+  }),
   getPokemons: jest.fn().mockResolvedValue({
     next: 'next.com',
     results: [
@@ -23,11 +37,19 @@ jest.mock('@/api/pokemon', () => ({
     image: 'pikachu.png',
     types: ['electric'],
   }),
-  getSpeciesData: jest.fn(),
+  getSpeciesData: jest.fn().mockResolvedValue({
+    flavorTexts: ['Text 1', 'Text 2'],
+    color: 'yellow',
+    shape: 'quadruped',
+    generation: 'i',
+    habitat: 'forest',
+  }),
 }));
 
 jest.mock('@/api/evolutions', () => ({
-  getPokemonEvolutions: jest.fn(),
+  getPokemonEvolutions: jest
+    .fn()
+    .mockResolvedValue(['pichu', 'pikachu', 'raichu']),
 }));
 
 jest.mock('@/api/types', () => ({
@@ -140,5 +162,29 @@ describe('store', () => {
     expect(store.state.scroll.pokemons).toStrictEqual([{}, {}, {}, {}, {}, {}]);
     expect(store.state.scroll.nextUrl).toBe('next.com');
     expect(store.state.isLoadingMorePokemons).toBeFalsy();
+  });
+
+  it('gets pokemon correctly', async () => {
+    store.state.allCharacteristics = new Map([['hp', ['Characteristic 1']]]);
+    const pokemonId = 'pikachu';
+    await store.getPokemon(pokemonId);
+    expect(store.state.pokemon.get('pikachu')).toStrictEqual({
+      id: 1,
+      name: 'pikachu',
+      image: 'other-front-default-image.png',
+      smallImage: 'front-default-image.png',
+      stats: [],
+      types: [],
+      evolutions: ['pichu', 'pikachu', 'raichu'],
+      flavorTexts: ['Text 1', 'Text 2'],
+      characteristic: '',
+      height: 4,
+      weight: 60,
+      color: 'yellow',
+      shape: 'quadruped',
+      generation: 'i',
+      habitat: 'forest',
+    });
+    expect(store.state.pokemon.size).toBe(1);
   });
 });

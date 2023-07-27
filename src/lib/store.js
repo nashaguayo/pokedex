@@ -134,8 +134,8 @@ export default {
 
   async getPokemon(pokemonId) {
     let pokemon;
-    if (pokemon?.has(pokemonId)) {
-      pokemon = pokemon.get(pokemonId);
+    if (state.pokemon?.has(pokemonId)) {
+      pokemon = state.pokemon.get(pokemonId);
     } else {
       pokemon = await getPokemonApi(pokemonId);
     }
