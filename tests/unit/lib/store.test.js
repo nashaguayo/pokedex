@@ -233,4 +233,32 @@ describe('store', () => {
     expect(store.pokemonIsAlreadyInRandomPokemons('pikachu')).toBeTruthy();
     expect(store.pokemonIsAlreadyInRandomPokemons('charmander')).toBeFalsy();
   });
+
+  it("doesn't search again when there's already a search underway", async () => {
+    const spySearchPokemonsByType = jest.spyOn(store, 'searchPokemonsByType');
+    const spySearchPokemonsByColor = jest.spyOn(store, 'searchPokemonsByColor');
+    const spySearchPokemonsByShape = jest.spyOn(store, 'searchPokemonsByShape');
+    const spySearchPokemonsByGeneration = jest.spyOn(
+      store,
+      'searchPokemonsByGeneration'
+    );
+    const spySearchPokemonsJustByTerm = jest.spyOn(
+      store,
+      'searchPokemonJustByTerm'
+    );
+    store.state.search.isSearchingPokemon = true;
+    await store.searchPokemons('');
+    expect(store.state.search.isSearchingPokemon).toBeTruthy();
+    expect(spySearchPokemonsByType).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByColor).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByShape).not.toHaveBeenCalled();
+    expect(spySearchPokemonsByGeneration).not.toHaveBeenCalled();
+    expect(spySearchPokemonsJustByTerm).not.toHaveBeenCalled();
+    spySearchPokemonsByType.mockRestore();
+    spySearchPokemonsByColor.mockRestore();
+    spySearchPokemonsByShape.mockRestore();
+    spySearchPokemonsByGeneration.mockRestore();
+    spySearchPokemonsJustByTerm.mockRestore();
+    store.state.search.isSearchingPokemon = false;
+  });
 });
