@@ -1,32 +1,81 @@
-<template functional>
+<template>
   <div class="pokemon-item-variants">
     <hr />
-    <span class="title">Variants</span>
     <div class="variants">
-      <div
-        v-for="variant in props.variants"
-        :key="variant.name"
-        class="variant"
-      >
+      <div class="variant">
         <div
           class="screen"
           :style="{
-            backgroundImage: `url(${variant.image})`,
+            backgroundImage: `url(${image})`,
           }"
         ></div>
-        <span>{{ variant.name }}</span>
+        <span>{{ name }}</span>
       </div>
+      <BaseButton
+        :onClickHandler="setDisplayVariantDropdownToTrue"
+        :small="true"
+      >
+        Variant
+      </BaseButton>
     </div>
+    <transition name="slide-up">
+      <PokemonItemVariantsDropdown
+        v-if="displayVariantDropdown"
+        :variants="variantNames"
+        @displayVariant="displayVariant"
+        @close="closeDisplayVariantDropdown"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
+import PokemonItemVariantsDropdown from '@/components/pokemon/PokemonItemVariantsDropdown.vue';
+import BaseButton from '@/components/ui/BaseButton.vue';
+
 export default {
   name: 'PokemonItemVariants',
+  components: {
+    PokemonItemVariantsDropdown,
+    BaseButton,
+  },
+  data() {
+    return {
+      image: this.variants[0]?.image,
+      name: this.variants[0]?.name,
+      displayVariantDropdown: false,
+    };
+  },
   props: {
+    pokemonName: {
+      type: String,
+      required: true,
+    },
     variants: {
       type: Array,
       required: true,
+    },
+  },
+  computed: {
+    variantNames() {
+      return this.variants.map((variant) => variant.name);
+    },
+  },
+  methods: {
+    setDisplayVariantDropdownToTrue() {
+      this.displayVariantDropdown = true;
+    },
+    setDisplayVariantDropdownToFalse() {
+      this.displayVariantDropdown = false;
+    },
+    displayVariant(variant) {
+      this.setDisplayVariantDropdownToFalse();
+      const variants = this.variants.filter((v) => v.name === variant);
+      this.name = variant;
+      this.image = variants[0].image;
+    },
+    closeDisplayVariantDropdown() {
+      this.displayVariantDropdown = false;
     },
   },
 };
@@ -48,11 +97,6 @@ export default {
     height: 1rem;
   }
 
-  .title {
-    margin: 0.5rem 0 1.5rem;
-    font-size: 2rem;
-  }
-
   .variant {
     display: flex;
     flex-direction: column;
@@ -63,5 +107,15 @@ export default {
       height: 6rem;
     }
   }
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(100%);
 }
 </style>

@@ -28,7 +28,11 @@
         <PokemonItemType :types="types" />
       </div>
       <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
-      <PokemonItemVariants v-if="variants" :variants="variants" />
+      <PokemonItemVariants
+        v-if="variants"
+        :pokemon-name="name"
+        :variants="variants"
+      />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
       <div class="navigation">
         <BaseButton
