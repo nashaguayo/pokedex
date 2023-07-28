@@ -32,6 +32,11 @@ jest.mock('@/components/pokemon/PokemonItemEvolutions.vue', () => ({
   template: '<div class="mocked-pokemon-item-evolutions"></div>',
 }));
 
+jest.mock('@/components/pokemon/PokemonItemVariants.vue', () => ({
+  name: 'PokemonItemVariants',
+  template: '<div class="mocked-pokemon-item-variants"></div>',
+}));
+
 jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   name: 'PokemonItemDescription',
   template: '<div class="mocked-pokemon-item-description"></div>',
@@ -62,6 +67,7 @@ jest.mock('@/lib/store', () => ({
           shape: '',
           generation: '',
           habitat: '',
+          variants: [],
         },
       ],
       [
@@ -81,6 +87,7 @@ jest.mock('@/lib/store', () => ({
           shape: '',
           generation: '',
           habitat: '',
+          variants: [],
         },
       ],
       [
@@ -100,6 +107,7 @@ jest.mock('@/lib/store', () => ({
           shape: '',
           generation: '',
           habitat: '',
+          variants: [],
         },
       ],
     ]),
@@ -154,6 +162,7 @@ describe('PokemonItem', () => {
     expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
+    expect(wrapper.find('pokemonitemvariants-stub').exists()).toBe(true);
     expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
   });
 
