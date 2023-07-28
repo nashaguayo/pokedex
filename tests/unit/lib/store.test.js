@@ -204,6 +204,16 @@ describe('store', () => {
       shape: 'quadruped',
       generation: 'i',
       habitat: 'forest',
+      variants: [
+        {
+          image: 'front-default-image.png',
+          name: 'pikachu',
+        },
+        {
+          image: 'front-default-image.png',
+          name: 'pikachu',
+        },
+      ],
     });
     expect(store.state.pokemon.size).toBe(1);
   });

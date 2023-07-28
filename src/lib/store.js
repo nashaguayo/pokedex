@@ -176,6 +176,13 @@ export default {
         characteristic = c.description;
       }
     });
+    const variants = [];
+    await Promise.all(
+      state.pokemonVariants.get(pokemonId).map(async (pokemon) => {
+        const { sprites } = await getPokemonApi(pokemon);
+        variants.push({ name: pokemonId, image: sprites.front_default });
+      })
+    );
     const image = pokemon.sprites.other.dream_world.front_default;
     const smallImage = pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
@@ -200,6 +207,7 @@ export default {
       shape,
       generation,
       habitat,
+      variants,
     });
   },
 
