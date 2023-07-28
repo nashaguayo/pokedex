@@ -178,7 +178,7 @@ export default {
     });
     const variants = [];
     await Promise.all(
-      state.pokemonVariants.get(pokemonId).map(async (pokemon) => {
+      state.pokemonVariants.get(pokemonId)?.map(async (pokemon) => {
         const { name, sprites } = await getPokemonApi(pokemon);
         if (sprites.front_default) {
           variants.push({
@@ -186,7 +186,7 @@ export default {
             image: sprites.front_default,
           });
         }
-      })
+      }) ?? []
     );
     const image = pokemon.sprites.other.dream_world.front_default;
     const smallImage = pokemon.sprites.front_default;

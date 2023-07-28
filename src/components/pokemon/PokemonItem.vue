@@ -29,7 +29,7 @@
       </div>
       <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
       <PokemonItemVariants
-        v-if="variants"
+        v-if="variants.length"
         :pokemon-name="name"
         :variants="variants"
       />
