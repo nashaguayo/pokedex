@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.3.0...develop) (dd-mm-yyyy)
 
+##### Added
+
+- Pokemon variants
+
 ##### Modified
 
 - Added missing alt properties to images

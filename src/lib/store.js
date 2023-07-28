@@ -32,6 +32,7 @@ import {
 const state = Vue.observable({
   storeHasLoaded: false,
   allPokemons: [],
+  pokemonVariants: new Map(),
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
   randomPokemons: [],
@@ -100,7 +101,7 @@ export default {
     if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
       state.isLoadingAllPokemons = true;
       const allPokemons = (await getAllPokemonsApi()).results;
-      state.allPokemons = allPokemons.map((pokemon) => ({
+      const allPokemonsWithHyphens = allPokemons.map((pokemon) => ({
         id: Number(
           pokemon.url
             .replace(process.env.VUE_APP_POKEAPI_URL, '')
@@ -109,6 +110,21 @@ export default {
         ),
         name: pokemon.name,
       }));
+
+      state.allPokemons = allPokemonsWithHyphens.filter(
+        (pokemon) => !pokemon.name.includes('-')
+      );
+      state.allPokemons.forEach((pokemon) => {
+        const pokemonVariants = allPokemonsWithHyphens.filter((p) => {
+          return p.name.includes('-') && p.name.includes(pokemon.name);
+        });
+        if (pokemonVariants.length) {
+          const pokemonVariantsNames = pokemonVariants.map(
+            (pokemon) => pokemon.name
+          );
+          state.pokemonVariants.set(pokemon.name, pokemonVariantsNames);
+        }
+      });
       state.isLoadingAllPokemons = false;
     }
   },
@@ -160,6 +176,18 @@ export default {
         characteristic = c.description;
       }
     });
+    const variants = [];
+    await Promise.all(
+      state.pokemonVariants.get(pokemonId)?.map(async (pokemon) => {
+        const { name, sprites } = await getPokemonApi(pokemon);
+        if (sprites.front_default) {
+          variants.push({
+            name: name.replace(`${pokemonId}-`, '').replace('-', ' '),
+            image: sprites.front_default,
+          });
+        }
+      }) ?? []
+    );
     const image = pokemon.sprites.other.dream_world.front_default;
     const smallImage = pokemon.sprites.front_default;
     const types = pokemon.types.map((t) => t.type.name);
@@ -184,6 +212,7 @@ export default {
       shape,
       generation,
       habitat,
+      variants,
     });
   },
 

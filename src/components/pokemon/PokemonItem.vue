@@ -28,6 +28,11 @@
         <PokemonItemType :types="types" />
       </div>
       <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
+      <PokemonItemVariants
+        v-if="variants.length"
+        :pokemon-name="name"
+        :variants="variants"
+      />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
       <div class="navigation">
         <BaseButton
@@ -65,6 +70,7 @@ import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacte
 import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
+import PokemonItemVariants from '@/components/pokemon/PokemonItemVariants.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 import {
   getPageBackgroundElement,
@@ -85,6 +91,7 @@ export default {
     PokemonItemStats,
     PokemonItemType,
     PokemonItemEvolutions,
+    PokemonItemVariants,
     PokemonItemDescription,
   },
   data() {
@@ -181,6 +188,11 @@ export default {
     habitat() {
       return (
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat ?? ''
+      );
+    },
+    variants() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.variants ?? []
       );
     },
   },
