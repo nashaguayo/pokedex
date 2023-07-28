@@ -1,22 +1,21 @@
 <template>
   <div class="pokemon-item-variants">
     <hr />
-    <div class="variants">
-      <div class="variant">
-        <div
-          class="screen"
-          :style="{
-            backgroundImage: `url(${image})`,
-          }"
-        ></div>
-        <span class="name">{{ name }}</span>
-        <BaseButton
-          :onClickHandler="setDisplayVariantDropdownToTrue"
-          :small="true"
-        >
-          Variant
-        </BaseButton>
-      </div>
+    <span class="title">Variants</span>
+    <div class="variant">
+      <div
+        class="screen"
+        :style="{
+          backgroundImage: `url(${image})`,
+        }"
+      ></div>
+      <span class="name">{{ name }}</span>
+      <BaseButton
+        :onClickHandler="setDisplayVariantDropdownToTrue"
+        :small="true"
+      >
+        Variant
+      </BaseButton>
     </div>
     <transition name="slide-up">
       <PokemonItemVariantsDropdown
@@ -95,6 +94,18 @@ export default {
     border-color: var(--variant-background-color);
     box-shadow: var(--main-box-shadow);
     height: 1rem;
+
+    @media (min-width: $min-width-fourth-break) {
+      display: none;
+    }
+  }
+
+  .title {
+    font-size: 2rem;
+
+    @media (min-width: $min-width-fourth-break) {
+      font-size: 2.5rem;
+    }
   }
 
   .variant {
