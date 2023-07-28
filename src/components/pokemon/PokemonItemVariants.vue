@@ -9,14 +9,14 @@
             backgroundImage: `url(${image})`,
           }"
         ></div>
-        <span>{{ name }}</span>
+        <span class="name">{{ name }}</span>
+        <BaseButton
+          :onClickHandler="setDisplayVariantDropdownToTrue"
+          :small="true"
+        >
+          Variant
+        </BaseButton>
       </div>
-      <BaseButton
-        :onClickHandler="setDisplayVariantDropdownToTrue"
-        :small="true"
-      >
-        Variant
-      </BaseButton>
     </div>
     <transition name="slide-up">
       <PokemonItemVariantsDropdown
@@ -101,10 +101,28 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    background-color: var(--cards-background-color);
+    border-radius: 2rem;
+    border: 0.2rem solid var(--secondary-border-color);
+    box-shadow: var(--main-box-shadow);
+    padding: 1rem;
 
     .screen {
       width: 6rem;
       height: 6rem;
+      background-color: white;
+      border-radius: 50%;
+      border: 0.2rem solid var(--main-border-color);
+    }
+
+    .name {
+      margin: 1rem 0;
+      background-color: var(--main-background-color);
+      border-radius: 1rem;
+      box-shadow: var(--main-box-shadow);
+      padding: 0.5rem;
     }
   }
 }
