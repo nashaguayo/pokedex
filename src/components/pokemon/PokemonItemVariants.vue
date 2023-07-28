@@ -10,10 +10,7 @@
         }"
       ></div>
       <span class="name">{{ name }}</span>
-      <BaseButton
-        :onClickHandler="setDisplayVariantDropdownToTrue"
-        :small="true"
-      >
+      <BaseButton :onClickHandler="openVariantDropdown" :small="true">
         Variant
       </BaseButton>
     </div>
@@ -22,7 +19,7 @@
         v-if="displayVariantDropdown"
         :variants="variantNames"
         @displayVariant="displayVariant"
-        @close="closeDisplayVariantDropdown"
+        @close="closeVariantDropdown"
       />
     </transition>
   </div>
@@ -61,19 +58,16 @@ export default {
     },
   },
   methods: {
-    setDisplayVariantDropdownToTrue() {
-      this.displayVariantDropdown = true;
-    },
-    setDisplayVariantDropdownToFalse() {
-      this.displayVariantDropdown = false;
-    },
     displayVariant(variant) {
-      this.setDisplayVariantDropdownToFalse();
+      this.closeVariantDropdown();
       const variants = this.variants.filter((v) => v.name === variant);
       this.name = variant;
       this.image = variants[0].image;
     },
-    closeDisplayVariantDropdown() {
+    openVariantDropdown() {
+      this.displayVariantDropdown = true;
+    },
+    closeVariantDropdown() {
       this.displayVariantDropdown = false;
     },
   },
