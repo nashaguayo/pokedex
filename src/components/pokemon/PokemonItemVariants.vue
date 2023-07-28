@@ -105,6 +105,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       font-size: 2.5rem;
+      margin-right: 3rem;
     }
   }
 
@@ -119,6 +120,10 @@ export default {
     border: 0.2rem solid var(--secondary-border-color);
     box-shadow: var(--main-box-shadow);
     padding: 1rem;
+
+    @media (min-width: $min-width-fourth-break) {
+      margin-right: 3rem;
+    }
 
     .screen {
       width: 6rem;

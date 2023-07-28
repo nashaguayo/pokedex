@@ -54,6 +54,18 @@ export default {
   display: flex;
   flex-direction: column;
 
+  @media (min-width: $min-width-second-break) {
+    width: 75%;
+    left: 12.5%;
+    height: calc(100vh - 6rem);
+    padding-bottom: 6rem;
+  }
+
+  @media (min-width: $min-width-third-break) {
+    height: calc(100vh - 7rem);
+    padding-bottom: 7rem;
+  }
+
   h2 {
     margin: 0;
     width: 100%;
@@ -79,6 +91,7 @@ export default {
 
     @media (min-width: $min-width-second-break) {
       margin-bottom: 2rem;
+      width: 75%;
     }
   }
 }
