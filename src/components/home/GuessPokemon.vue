@@ -279,8 +279,13 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 2rem 0;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
   max-width: 25rem;
+
+  @media (min-width: $min-width-third-break) {
+    margin-bottom: 2.5rem;
+  }
 
   .background-image {
     background-image: url(@/assets/home/mystery-pokemon.jpg);
