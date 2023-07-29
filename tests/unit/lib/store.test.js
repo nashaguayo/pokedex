@@ -524,6 +524,19 @@ describe('store', () => {
     });
   });
 
+  it('sets new mystery pokemon correctly', () => {
+    const spySetNewMysteryPokemon = jest.spyOn(store, 'setNewMysteryPokemon');
+    store.setNewMysteryPokemon({ name: '', image: '' });
+    expect(store.state.game).toStrictEqual({ image: '', name: '' });
+    store.setNewMysteryPokemon({ name: 'pikachu', image: 'pikachu.png' });
+    expect(spySetNewMysteryPokemon).toHaveBeenCalled();
+    spySetNewMysteryPokemon.mockRestore();
+    expect(store.state.game).toStrictEqual({
+      name: 'pikachu',
+      image: 'pikachu.png',
+    });
+  });
+
   it('gets all types correctly', async () => {
     store.state.allTypes = [];
     store.state.pokemonsByType = new Map([]);

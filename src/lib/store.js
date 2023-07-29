@@ -365,6 +365,10 @@ export default {
     state.game = newMysteryPokemon;
   },
 
+  setNewMysteryPokemon(newMysteryPokemon) {
+    state.game = newMysteryPokemon;
+  },
+
   async getAllTypes() {
     const allTypes = await getAllTypesApi();
     state.allTypes = allTypes;
