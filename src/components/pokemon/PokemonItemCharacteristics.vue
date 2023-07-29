@@ -16,7 +16,7 @@
       <span class="right">Generation</span>
       <span>{{ props.generation.toUpperCase() }}</span>
       <span class="right">Habitat</span>
-      <span>{{ props.habitat }}</span>
+      <span>{{ props.habitat.replace('-', ' ') }}</span>
       <span class="characteristic">
         {{ props.characteristic }}
       </span>
