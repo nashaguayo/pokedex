@@ -2,6 +2,10 @@ export function getPageBackgroundElement() {
   return document.getElementsByClassName('page-background')[0];
 }
 
+export function getPokemonItemElement() {
+  return document.getElementsByClassName('pokemon-item')[0];
+}
+
 export function scrollToTopOfBackgroundPage(behavior) {
   getPageBackgroundElement().scrollTo({ top: 0, behavior });
 }

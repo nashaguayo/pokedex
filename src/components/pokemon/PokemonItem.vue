@@ -73,7 +73,7 @@ import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vu
 import PokemonItemVariants from '@/components/pokemon/PokemonItemVariants.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 import {
-  getPageBackgroundElement,
+  getPokemonItemElement,
   capitalizeWord,
   scrollToTopOfBackgroundPage,
 } from '@/lib/helpers';
@@ -206,7 +206,7 @@ export default {
     if (window.innerWidth >= fourthBreak) {
       return;
     }
-    getPageBackgroundElement().removeEventListener(
+    getPokemonItemElement().removeEventListener(
       'scroll',
       this.throttledParallax
     );
@@ -217,7 +217,7 @@ export default {
       this.$router.push({ name: 'pokemons' });
     },
     parallax() {
-      const yPosition = getPageBackgroundElement().scrollTop / 2;
+      const yPosition = getPokemonItemElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
     headerIsVisible() {
@@ -225,7 +225,7 @@ export default {
         return;
       }
       this.throttledParallax = throttle(this.parallax, 20);
-      getPageBackgroundElement().addEventListener(
+      getPokemonItemElement().addEventListener(
         'scroll',
         this.throttledParallax
       );
