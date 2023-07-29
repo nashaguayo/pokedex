@@ -86,8 +86,19 @@
           <span class="search-result">
             {{ recentSearch }}
           </span>
-          <FontAwesomeIcon icon="fa-solid fa-chevron-right" class="icon" />
+
+          <FontAwesomeIcon
+            icon="fa-solid fa-chevron-right"
+            class="icon"
+            :color="isDarkModeEnabled ? 'white' : 'black'"
+          />
         </div>
+        <FontAwesomeIcon
+          icon="fa-regular fa-trash-can"
+          size="2x"
+          class="trash-can"
+          :color="isDarkModeEnabled ? 'white' : 'black'"
+        />
       </div>
     </transition>
     <BaseLoader :loading="loading">
@@ -101,6 +112,7 @@
           <span class="search-result">
             {{ pokemon }}
           </span>
+          :color="isDarkModeEnabled ? 'white' : 'black'"
           <FontAwesomeIcon icon="fa-solid fa-chevron-right" class="icon" />
         </div>
       </transition-group>
@@ -209,6 +221,9 @@ export default {
     },
     loading() {
       return store.state.search.isSearchingPokemon;
+    },
+    isDarkModeEnabled() {
+      return store.state.isDarkModeEnabled;
     },
     displayTypesText() {
       return `${this.displayTypes ? 'Hide' : 'Show'} Types`;
@@ -446,6 +461,10 @@ export default {
     .icon {
       margin-right: 1rem;
     }
+  }
+
+  .trash-can {
+    margin-top: 1rem;
   }
 
   .go-back {

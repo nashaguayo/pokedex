@@ -48,6 +48,7 @@ jest.mock('@/lib/store', () => ({
       shape: '',
       generation: '',
     },
+    isDarkModeEnabled: false,
   },
 }));
 

@@ -48,3 +48,7 @@ export function setRecentSearch(recentSearch) {
     localStorage.setItem(RECENT_SEARCHES, JSON.stringify(recentSearches));
   }
 }
+
+export function clearRecentSearches() {
+  localStorage.setItem(RECENT_SEARCHES, JSON.stringify([]));
+}
