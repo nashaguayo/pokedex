@@ -13,6 +13,7 @@
 - Added missing alt properties to images
 - Refactored search for colors, shapes and generations so that they aren't arrays
 - Removed pokemons with hyphens from search
+- Styles in pokemon details
 
 ##### Fixed
 
