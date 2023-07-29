@@ -97,6 +97,7 @@ export default {
 
   &.big {
     width: 90%;
+    margin: 0 auto;
   }
 }
 

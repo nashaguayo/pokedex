@@ -491,8 +491,12 @@ export default {
   .go-back {
     position: fixed;
     bottom: 0;
-    margin-bottom: 1rem;
     z-index: 10;
+    background-color: var(--main-background-color);
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
 
     @media (min-width: $min-width-second-break) {
       margin-bottom: 2rem;
