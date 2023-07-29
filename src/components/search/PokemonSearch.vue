@@ -71,6 +71,19 @@
         No results found
       </span>
     </transition>
+    <div
+      v-if="!searchResults.length && searchTerm.length === 0"
+      class="recent-searches"
+    >
+      <span class="recent-searches-title">Recent Searches</span>
+      <span
+        v-for="recentSearch in recentSearches"
+        :key="`recent-search-${recentSearch}`"
+        class="search-result"
+        @click="goToPokemonPage(recentSearch)"
+        >{{ recentSearch }}</span
+      >
+    </div>
     <BaseLoader :loading="loading">
       <transition-group class="results" name="slide-from-right">
         <span
@@ -98,6 +111,7 @@ import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
 import store from '@/lib/store';
+import { getRecentSearches, setRecentSearch } from '@/lib/localStorage';
 
 export default {
   name: 'PokemonSearch',
@@ -119,6 +133,7 @@ export default {
       displayShapes: false,
       displayGenerations: false,
       reset: false,
+      recentSearches: getRecentSearches() ?? [],
     };
   },
   beforeDestroy() {
@@ -201,6 +216,7 @@ export default {
   },
   methods: {
     goToPokemonPage(pokemon) {
+      setRecentSearch(pokemon);
       this.$router.push({ name: 'pokemon', params: { id: pokemon } });
     },
     goBack() {
@@ -358,6 +374,34 @@ export default {
     margin-top: 1rem;
   }
 
+  .recent-searches {
+    margin-top: 1rem;
+    width: calc(100% - 4rem);
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $min-width-second-break) {
+      padding-bottom: 6rem;
+    }
+
+    @media (min-width: $min-width-third-break) {
+      padding-bottom: 7rem;
+    }
+
+    .recent-searches-title {
+      font-size: 1.5rem;
+      text-align: center;
+      align-self: center;
+      border-bottom: 0.2rem solid var(--main-border-color);
+      width: 100%;
+      padding-bottom: 1rem;
+
+      @media (min-width: $min-width-second-break) {
+        font-size: 2rem;
+      }
+    }
+  }
+
   .results {
     width: calc(100% - 4rem);
     padding-bottom: 4rem;
@@ -369,16 +413,16 @@ export default {
     @media (min-width: $min-width-third-break) {
       padding-bottom: 7rem;
     }
+  }
 
-    .search-result {
-      display: flex;
-      padding: 1rem;
-      border-bottom: 0.2rem solid var(--main-border-color);
-      cursor: pointer;
+  .search-result {
+    display: flex;
+    padding: 1rem;
+    border-bottom: 0.2rem solid var(--main-border-color);
+    cursor: pointer;
 
-      @media (min-width: $min-width-third-break) {
-        padding: 1rem 3rem;
-      }
+    @media (min-width: $min-width-third-break) {
+      padding: 1rem 3rem;
     }
   }
 

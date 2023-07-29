@@ -2,6 +2,7 @@ const DARKMODE_ENABLED = 'darkmodeEnabled';
 const GUESSES_IN_A_ROW = 'guessesInARow';
 const TRIES_LEFT = 'triesLeft';
 const MYSTERY_POKEMON = 'mysteryPokemon';
+const RECENT_SEARCHES = 'recentSearches';
 
 export function isDarkModeEnabled() {
   return localStorage.getItem(DARKMODE_ENABLED) === 'true';
@@ -34,4 +35,16 @@ export function getMysteryPokemon() {
 
 export function setMysteryPokemon(mysteryPokemon) {
   localStorage.setItem(MYSTERY_POKEMON, JSON.stringify(mysteryPokemon));
+}
+
+export function getRecentSearches() {
+  return JSON.parse(localStorage.getItem(RECENT_SEARCHES));
+}
+
+export function setRecentSearch(recentSearch) {
+  const recentSearches = getRecentSearches() ?? [];
+  if (!recentSearches.includes(recentSearch)) {
+    recentSearches.push(recentSearch);
+    localStorage.setItem(RECENT_SEARCHES, JSON.stringify(recentSearches));
+  }
 }
