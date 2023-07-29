@@ -9,8 +9,12 @@
     <img
       class="banner"
       alt="pokemons banner"
-      src="@/assets/home/pokemons.jpg"
+      src="@/assets/home/pokemons.png"
     />
+    <span class="description">
+      This is an application about pokemons. Guess who they are, read about them
+      and their stats, search them by type, generations, colors, and more!
+    </span>
   </div>
 </template>
 
@@ -46,13 +50,16 @@ export default {
   }
 
   .banner {
-    display: none;
     box-shadow: var(--main-box-shadow);
+    display: block;
+    width: 100%;
+  }
 
-    @media (min-width: $min-width-second-break) {
-      display: block;
-      width: 100%;
-    }
+  .description {
+    font-family: 'Kanit';
+    text-align: center;
+    padding: 0 1rem;
+    margin: 2rem 0;
   }
 }
 </style>
