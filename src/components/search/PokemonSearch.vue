@@ -73,7 +73,15 @@
     </transition>
     <transition name="slide-from-above" appear>
       <div
-        v-if="!searchResults.length && searchTerm.length === 0"
+        v-if="
+          !searchResults.length &&
+          searchTerm.length === 0 &&
+          filteringTypes.length === 0 &&
+          !filteringColor &&
+          !filteringShape &&
+          !filteringGeneration &&
+          recentSearches.length
+        "
         class="recent-searches"
       >
         <span class="recent-searches-title">Recent Searches</span>
@@ -98,6 +106,7 @@
           size="2x"
           class="trash-can"
           :color="isDarkModeEnabled ? 'white' : 'black'"
+          @click="clearRecentSearchesFromLS"
         />
       </div>
     </transition>
@@ -112,8 +121,12 @@
           <span class="search-result">
             {{ pokemon }}
           </span>
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          <FontAwesomeIcon icon="fa-solid fa-chevron-right" class="icon" />
+
+          <FontAwesomeIcon
+            icon="fa-solid fa-chevron-right"
+            class="icon"
+            :color="isDarkModeEnabled ? 'white' : 'black'"
+          />
         </div>
       </transition-group>
     </BaseLoader>
@@ -132,7 +145,11 @@ import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
 import store from '@/lib/store';
-import { getRecentSearches, setRecentSearch } from '@/lib/localStorage';
+import {
+  getRecentSearches,
+  setRecentSearch,
+  clearRecentSearches,
+} from '@/lib/localStorage';
 
 export default {
   name: 'PokemonSearch',
@@ -310,6 +327,10 @@ export default {
       this.displayColors = false;
       this.displayShapes = false;
       this.displayGenerations = false;
+    },
+    clearRecentSearchesFromLS() {
+      clearRecentSearches();
+      this.recentSearches = [];
     },
   },
 };
