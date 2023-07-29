@@ -25,6 +25,7 @@
 - Infinite row brings up correct amount of items per row
 - Pokemon item header not scrolling
 - Habitats no longer show hyphens
+- Scroll to top button overlapping
 
 ---
 
