@@ -293,7 +293,7 @@ export default {
       width: auto;
       background-color: var(--variant-background-color);
       border-radius: 2rem;
-      box-shadow: var(--marin-box-shadow);
+      box-shadow: var(--main-box-shadow);
       border: 0.2rem solid var(--secondary-border-color);
       margin-top: 0;
       margin-left: 3rem;
