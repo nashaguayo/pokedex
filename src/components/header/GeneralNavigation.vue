@@ -1,35 +1,17 @@
 <template>
   <div class="general-navigation">
     <div class="navigation">
-      <router-link to="/">
-        <img
-          src="@/assets/ui/pokeball.svg.png"
-          alt="menu"
-          class="url home-icon-link"
-        />
-      </router-link>
-      <router-link class="desktop" :to="{ name: 'pokemons' }">
-        <h2 class="url pokemons-link">Pokemons</h2>
-      </router-link>
-      <router-link class="mobile" :to="{ name: 'pokemons' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-book-open"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          size="2x"
-          class="icon"
-        />
-      </router-link>
-      <router-link class="desktop" :to="{ name: 'search' }">
-        <h2 class="url pokemons-link">Search</h2>
-      </router-link>
-      <router-link class="mobile" :to="{ name: 'search' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-magnifying-glass"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          size="2x"
-          class="icon"
-        />
-      </router-link>
+      <GeneralNavigationLink :to="{ name: 'home' }" />
+      <GeneralNavigationLink
+        :to="{ name: 'pokemons' }"
+        text="Pokemons"
+        icon="fa-book-open"
+      />
+      <GeneralNavigationLink
+        :to="{ name: 'search' }"
+        text="Search"
+        icon="fa-magnifying-glass"
+      />
     </div>
     <div class="darkmode">
       <transition name="flip" mode="out-in">
@@ -56,10 +38,12 @@
 </template>
 
 <script>
+import GeneralNavigationLink from './GeneralNavigationLink.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'GeneralNavigation',
+  components: { GeneralNavigationLink },
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
@@ -92,27 +76,6 @@ export default {
   .navigation {
     display: flex;
     align-items: center;
-
-    .url {
-      cursor: pointer;
-    }
-  }
-
-  .home-icon-link {
-    margin: 0.5rem 1rem;
-    height: 3rem;
-
-    @media (min-width: $min-width-first-break) {
-      margin: 1rem 2rem;
-    }
-
-    @media (min-width: $min-width-third-break) {
-      height: 4rem;
-    }
-  }
-
-  .pokemons-link {
-    margin-right: 2rem;
   }
 
   .icon {
@@ -128,20 +91,6 @@ export default {
   .flip-enter,
   .flip-leave-to {
     transform: scaleX(0);
-  }
-
-  .desktop {
-    display: none;
-
-    @media (min-width: $min-width-third-break) {
-      display: block;
-    }
-  }
-
-  .mobile {
-    @media (min-width: $min-width-third-break) {
-      display: none;
-    }
   }
 }
 </style>
