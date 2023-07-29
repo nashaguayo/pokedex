@@ -8,6 +8,7 @@
 
 - Pokemon variants
 - Animations to header icons
+- Recent searches
 
 ##### Modified
 
