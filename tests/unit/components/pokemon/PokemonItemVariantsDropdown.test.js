@@ -1,25 +1,21 @@
 import { mount } from '@vue/test-utils';
 import PokemonItemVariantsDropdown from '@/components/pokemon/PokemonItemVariantsDropdown.vue';
-import BaseButton from '@/components/ui/BaseButton';
 
-jest.mock('@/components/ui/BaseButton', () => ({
+jest.mock('@/components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
-  template: '<button @click="onClickHandler"><slot /></button>',
+  template: '<div class="mocked-base-button"></div>',
 }));
 
 describe('PokemonItemVariantsDropdown', () => {
   let wrapper;
 
   beforeEach(() => {
-    BaseButton.methods = {
-      onClickHandler: jest.fn(),
-    };
-
     const variants = ['Variant 1', 'Variant 2', 'Variant 3'];
     wrapper = mount(PokemonItemVariantsDropdown, {
       propsData: {
         variants,
       },
+      stubs: ['BaseButton'],
     });
   });
 
@@ -27,7 +23,13 @@ describe('PokemonItemVariantsDropdown', () => {
     wrapper.destroy();
   });
 
+  it('renders base button correctly', () => {
+    expect(wrapper.find('basebutton-stub').exists()).toBeTruthy();
+    expect(wrapper.find('basebutton-stub').text()).toBe('Close');
+  });
+
   it('renders the variants correctly', () => {
+    console.log(wrapper.html());
     const variantElements = wrapper.findAll('h2');
     expect(variantElements).toHaveLength(3);
     expect(variantElements.at(0).text()).toBe('Variant 1');

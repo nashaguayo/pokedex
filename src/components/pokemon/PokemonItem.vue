@@ -50,13 +50,15 @@
           Next
         </BaseButton>
       </div>
-      <BaseButton
-        class="go-back-button"
-        :onClickHandler="goToPokemonsPage"
-        :big="true"
-      >
-        Go Back
-      </BaseButton>
+      <div class="go-back">
+        <BaseButton
+          class="go-back-button"
+          :onClickHandler="goToPokemonsPage"
+          :big="true"
+        >
+          Go Back
+        </BaseButton>
+      </div>
     </div>
   </BaseLoader>
 </template>
@@ -73,7 +75,7 @@ import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vu
 import PokemonItemVariants from '@/components/pokemon/PokemonItemVariants.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 import {
-  getPokemonItemElement,
+  getPageBackgroundElement,
   capitalizeWord,
   scrollToTopOfBackgroundPage,
 } from '@/lib/helpers';
@@ -206,7 +208,7 @@ export default {
     if (window.innerWidth >= fourthBreak) {
       return;
     }
-    getPokemonItemElement().removeEventListener(
+    getPageBackgroundElement().removeEventListener(
       'scroll',
       this.throttledParallax
     );
@@ -217,7 +219,7 @@ export default {
       this.$router.push({ name: 'pokemons' });
     },
     parallax() {
-      const yPosition = getPokemonItemElement().scrollTop / 2;
+      const yPosition = getPageBackgroundElement().scrollTop / 2;
       this.topPosition = yPosition;
     },
     headerIsVisible() {
@@ -225,7 +227,7 @@ export default {
         return;
       }
       this.throttledParallax = throttle(this.parallax, 20);
-      getPokemonItemElement().addEventListener(
+      getPageBackgroundElement().addEventListener(
         'scroll',
         this.throttledParallax
       );
@@ -256,9 +258,8 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
   z-index: 1;
-  background-image: var(--popup-background-color);
-  overflow-x: hidden;
 
   @media (min-width: $min-width-fourth-break) {
     display: grid;
@@ -334,19 +335,28 @@ export default {
     }
   }
 
-  .go-back-button {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-
-    @media (min-width: $min-width-first-break) {
-      margin-top: 2rem;
-    }
+  .go-back {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
-      justify-self: center;
-      width: calc(100% - 6rem);
+    }
+
+    .go-back-button {
+      margin: 1rem 0;
+
+      @media (min-width: $min-width-first-break) {
+        margin: 2rem 0;
+      }
+
+      @media (min-width: $min-width-fourth-break) {
+        justify-self: center;
+        width: calc(100% - 6rem);
+      }
     }
   }
 }

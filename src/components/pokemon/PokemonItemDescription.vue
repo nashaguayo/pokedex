@@ -54,7 +54,7 @@ export default {
   ul {
     padding: 0;
     margin: 0 1rem;
-    background-color: var(--main-background-color);
+    background-color: var(--cards-background-color);
     padding: 0 1rem;
     border-radius: 2rem;
     border: 0.2rem solid var(--secondary-border-color);
