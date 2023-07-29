@@ -6,12 +6,17 @@ jest.mock('@/lib/store', () => ({
   toggleDarkMode: jest.fn(),
 }));
 
+jest.mock('@/components/header/GeneralNavigationLink.vue', () => ({
+  name: 'GeneralNavigationLink',
+  template: '<div class="mocked-general-navigation-link"></div>',
+}));
+
 describe('GeneralNavigation', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallowMount(GeneralNavigation, {
-      stubs: ['router-link', 'FontAwesomeIcon'],
+      stubs: ['router-link', 'FontAwesomeIcon', 'GeneralNavigationLink'],
     });
   });
 
@@ -24,11 +29,11 @@ describe('GeneralNavigation', () => {
   });
 
   it('loads all routes from header', () => {
-    expect(wrapper.findAll('router-link-stub').length).toBe(5);
+    expect(wrapper.findAll('generalnavigationlink-stub').length).toBe(3);
   });
 
   it('displays the dark mode on icon when isDarkModeEnabled is true', () => {
-    expect(wrapper.findAll('.icon').at(2).attributes().icon).toBe(
+    expect(wrapper.findAll('.icon').at(0).attributes().icon).toBe(
       'fa-solid fa-toggle-on'
     );
   });
@@ -42,7 +47,7 @@ describe('GeneralNavigation', () => {
       },
       stubs: ['router-link', 'FontAwesomeIcon'],
     });
-    expect(wrapper.findAll('.icon').at(2).attributes().icon).toBe(
+    expect(wrapper.findAll('.icon').at(0).attributes().icon).toBe(
       'fa-solid fa-toggle-off'
     );
   });
