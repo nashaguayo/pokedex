@@ -14,6 +14,15 @@ jest.mock('@/lib/store', () => ({
   getNewMysteryPokemon: jest.fn(),
 }));
 
+jest.mock('@/lib/localStorage', () => ({
+  getGuessesInARow: jest.fn(),
+  getMysteryPokemon: jest.fn(),
+  getTriesLeft: jest.fn(),
+  setGuessesInARow: jest.fn(),
+  setMysteryPokemon: jest.fn(),
+  setTriesLeft: jest.fn(),
+}));
+
 describe('GuessPokemon', () => {
   let wrapper;
 
