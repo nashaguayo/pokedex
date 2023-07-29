@@ -7,6 +7,7 @@
 ##### Added
 
 - Pokemon variants
+- Animations to header icons
 
 ##### Modified
 
