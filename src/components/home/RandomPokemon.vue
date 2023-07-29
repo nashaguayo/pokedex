@@ -28,9 +28,11 @@ import BaseLoader from '@/components/ui/BaseLoader.vue';
 import store from '@/lib/store';
 import {
   firstBreak,
+  secondBreak,
   thirdBreak,
   fourthBreak,
   fifthBreak,
+  sixthBreak,
 } from '@/constants/resolutions';
 
 export default {
@@ -67,11 +69,15 @@ export default {
       async handler(storeHasLoaded) {
         if (storeHasLoaded) {
           let amountOfRandomPokemons = 1;
-          if (window.innerWidth >= fifthBreak) {
-            amountOfRandomPokemons = 5;
+          if (window.innerWidth >= sixthBreak) {
+            amountOfRandomPokemons = 7;
+          } else if (window.innerWidth >= fifthBreak) {
+            amountOfRandomPokemons = 6;
           } else if (window.innerWidth >= fourthBreak) {
-            amountOfRandomPokemons = 4;
+            amountOfRandomPokemons = 5;
           } else if (window.innerWidth >= thirdBreak) {
+            amountOfRandomPokemons = 4;
+          } else if (window.innerWidth >= secondBreak) {
             amountOfRandomPokemons = 3;
           } else if (window.innerWidth >= firstBreak) {
             amountOfRandomPokemons = 2;
