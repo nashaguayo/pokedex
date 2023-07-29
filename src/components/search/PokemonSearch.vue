@@ -492,6 +492,7 @@ export default {
     position: fixed;
     bottom: 0;
     margin-bottom: 1rem;
+    z-index: 10;
 
     @media (min-width: $min-width-second-break) {
       margin-bottom: 2rem;
