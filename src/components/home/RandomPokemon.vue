@@ -146,8 +146,6 @@ export default {
       margin-bottom: 2rem;
       text-align: center;
       color: var(--secondary-text-color);
-      -webkit-text-stroke-width: 0.08rem;
-      -webkit-text-stroke-color: var(--secondary-title-border-color);
     }
   }
 }
