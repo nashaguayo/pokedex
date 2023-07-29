@@ -10,7 +10,11 @@
         }"
       ></div>
       <span class="name">{{ name }}</span>
-      <BaseButton :onClickHandler="openVariantDropdown" :small="true">
+      <BaseButton
+        :onClickHandler="openVariantDropdown"
+        :disabled="variants.length === 1"
+        :small="true"
+      >
         Variant
       </BaseButton>
     </div>
