@@ -22,6 +22,7 @@
 - Amount of empty stat bars
 - Infinite row brings up correct amount of items per row
 - Pokemon item header not scrolling
+- Habitats no longer show hyphens
 
 ---
 
