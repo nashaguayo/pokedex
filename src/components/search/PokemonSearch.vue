@@ -85,20 +85,10 @@
         class="recent-searches"
       >
         <span class="recent-searches-title">Recent Searches</span>
-        <div
-          v-for="recentSearch in recentSearches"
-          :key="`recent-search-${recentSearch}`"
-          @click="goToPokemonPage(recentSearch)"
-          class="search-result-container"
-        >
-          <span class="search-result">
-            {{ recentSearch }}
-          </span>
-
-          <FontAwesomeIcon
-            icon="fa-solid fa-chevron-right"
-            class="icon"
-            :color="isDarkModeEnabled ? 'white' : 'black'"
+        <div v-for="name in recentSearches" :key="`recent-search-${name}`">
+          <PokemonSearchItem
+            :name="name"
+            :isDarkModeEnabled="isDarkModeEnabled"
           />
         </div>
         <FontAwesomeIcon
@@ -112,20 +102,10 @@
     </transition>
     <BaseLoader :loading="loading">
       <transition-group class="results" name="slide-from-right">
-        <div
-          v-for="pokemon in searchResults"
-          :key="pokemon"
-          @click="goToPokemonPage(pokemon)"
-          class="search-result-container"
-        >
-          <span class="search-result">
-            {{ pokemon }}
-          </span>
-
-          <FontAwesomeIcon
-            icon="fa-solid fa-chevron-right"
-            class="icon"
-            :color="isDarkModeEnabled ? 'white' : 'black'"
+        <div v-for="name in searchResults" :key="name">
+          <PokemonSearchItem
+            :name="name"
+            :isDarkModeEnabled="isDarkModeEnabled"
           />
         </div>
       </transition-group>
@@ -144,12 +124,9 @@ import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
 import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
+import PokemonSearchItem from '@/components/search/PokemonSearchItem.vue';
 import store from '@/lib/store';
-import {
-  getRecentSearches,
-  setRecentSearch,
-  clearRecentSearches,
-} from '@/lib/localStorage';
+import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
 
 export default {
   name: 'PokemonSearch',
@@ -161,6 +138,7 @@ export default {
     PokemonSearchColors,
     PokemonSearchShapes,
     PokemonSearchGenerations,
+    PokemonSearchItem,
   },
   data() {
     return {
@@ -256,10 +234,6 @@ export default {
     },
   },
   methods: {
-    goToPokemonPage(pokemon) {
-      setRecentSearch(pokemon);
-      this.$router.push({ name: 'pokemon', params: { id: pokemon } });
-    },
     goBack() {
       this.$router.back();
     },
