@@ -21,6 +21,7 @@ describe('LogoAndBanner', () => {
     expect(wrapper.find('h1').text()).toBe(subtitle);
     expect(wrapper.find('.logo-image').exists()).toBe(true);
     expect(wrapper.find('.banner').exists()).toBe(true);
+    expect(wrapper.find('.description').exists()).toBe(true);
   });
 
   it('renders the banner image on larger screens', () => {
