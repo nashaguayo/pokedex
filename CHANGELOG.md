@@ -15,6 +15,7 @@
 - Removed pokemons with hyphens from search
 - Styles in pokemon details
 - Saving all info from pokemon mini game on local storage
+- Home landing banner and description
 
 ##### Fixed
 
