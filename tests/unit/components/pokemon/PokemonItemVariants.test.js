@@ -63,4 +63,18 @@ describe('PokemonItemVariants', () => {
       'variant2.jpg'
     );
   });
+
+  it("should disable variant button when there's only one variant", () => {
+    const variants = [{ name: 'Variant 1', image: 'variant1.jpg' }];
+    wrapper = mount(PokemonItemVariants, {
+      propsData: {
+        pokemonName: 'Pikachu',
+        variants: variants,
+      },
+      stubs: ['PokemonItemVariantsDropdown'],
+    });
+    expect(wrapper.find('.variant button').attributes()['disabled']).toBe(
+      'disabled'
+    );
+  });
 });
