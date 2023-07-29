@@ -21,6 +21,7 @@ describe('PokemonItemVariants', () => {
         pokemonName: 'Pikachu',
         variants: variants,
       },
+      stubs: ['PokemonItemVariantsDropdown'],
     });
   });
 
