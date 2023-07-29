@@ -31,6 +31,11 @@ jest.mock('@/components/search/PokemonSearchGenerations.vue', () => ({
   template: '<div class="mocked-pokemon-search-generations"></div>',
 }));
 
+jest.mock('@/components/search/PokemonSearchItem.vue', () => ({
+  name: 'PokemonSearchItem',
+  template: '<div class="mocked-pokemon-search-item"></div>',
+}));
+
 jest.mock('@/lib/store', () => ({
   searchPokemons: jest.fn(),
   clearSearchResults: jest.fn(),
@@ -48,6 +53,7 @@ jest.mock('@/lib/store', () => ({
       shape: '',
       generation: '',
     },
+    isDarkModeEnabled: false,
   },
 }));
 
@@ -72,7 +78,7 @@ describe('PokemonSearch', () => {
   });
 
   it('displays search results', async () => {
-    const resultElements = wrapper.findAll('span');
+    const resultElements = wrapper.findAll('pokemonsearchitem-stub');
     expect(resultElements).toHaveLength(2);
   });
 
@@ -80,19 +86,6 @@ describe('PokemonSearch', () => {
     wrapper.vm.searchTerm = 'pikachu';
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.searchTerm).toBe('pikachu');
-  });
-
-  it('navigates to pokemon page when a search result is clicked', async () => {
-    const pokemon = 'Pikachu';
-    const mockRouter = { push: jest.fn() };
-    wrapper.vm.$router = mockRouter;
-
-    await wrapper.find('.search-result').trigger('click');
-
-    expect(mockRouter.push).toHaveBeenCalledWith({
-      name: 'pokemon',
-      params: { id: pokemon },
-    });
   });
 
   it('should toggle between filters', () => {

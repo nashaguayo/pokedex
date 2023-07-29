@@ -71,16 +71,43 @@
         No results found
       </span>
     </transition>
+    <transition name="slide-from-above" appear>
+      <div
+        v-if="
+          !searchResults.length &&
+          searchTerm.length === 0 &&
+          filteringTypes.length === 0 &&
+          !filteringColor &&
+          !filteringShape &&
+          !filteringGeneration &&
+          recentSearches.length
+        "
+        class="recent-searches"
+      >
+        <span class="recent-searches-title">Recent Searches</span>
+        <div v-for="name in recentSearches" :key="`recent-search-${name}`">
+          <PokemonSearchItem
+            :name="name"
+            :isDarkModeEnabled="isDarkModeEnabled"
+          />
+        </div>
+        <FontAwesomeIcon
+          icon="fa-regular fa-trash-can"
+          size="2x"
+          class="trash-can"
+          :color="isDarkModeEnabled ? 'white' : 'black'"
+          @click="clearRecentSearchesFromLS"
+        />
+      </div>
+    </transition>
     <BaseLoader :loading="loading">
       <transition-group class="results" name="slide-from-right">
-        <span
-          v-for="pokemon in searchResults"
-          :key="pokemon"
-          class="search-result"
-          @click="goToPokemonPage(pokemon)"
-        >
-          {{ pokemon }}
-        </span>
+        <div v-for="name in searchResults" :key="name">
+          <PokemonSearchItem
+            :name="name"
+            :isDarkModeEnabled="isDarkModeEnabled"
+          />
+        </div>
       </transition-group>
     </BaseLoader>
     <div class="go-back">
@@ -97,7 +124,9 @@ import PokemonSearchTypes from '@/components/search/PokemonSearchTypes.vue';
 import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
+import PokemonSearchItem from '@/components/search/PokemonSearchItem.vue';
 import store from '@/lib/store';
+import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
 
 export default {
   name: 'PokemonSearch',
@@ -109,6 +138,7 @@ export default {
     PokemonSearchColors,
     PokemonSearchShapes,
     PokemonSearchGenerations,
+    PokemonSearchItem,
   },
   data() {
     return {
@@ -119,6 +149,7 @@ export default {
       displayShapes: false,
       displayGenerations: false,
       reset: false,
+      recentSearches: getRecentSearches() ?? [],
     };
   },
   beforeDestroy() {
@@ -186,6 +217,9 @@ export default {
     loading() {
       return store.state.search.isSearchingPokemon;
     },
+    isDarkModeEnabled() {
+      return store.state.isDarkModeEnabled;
+    },
     displayTypesText() {
       return `${this.displayTypes ? 'Hide' : 'Show'} Types`;
     },
@@ -200,9 +234,6 @@ export default {
     },
   },
   methods: {
-    goToPokemonPage(pokemon) {
-      this.$router.push({ name: 'pokemon', params: { id: pokemon } });
-    },
     goBack() {
       this.$router.back();
     },
@@ -270,6 +301,10 @@ export default {
       this.displayColors = false;
       this.displayShapes = false;
       this.displayGenerations = false;
+    },
+    clearRecentSearchesFromLS() {
+      clearRecentSearches();
+      this.recentSearches = [];
     },
   },
 };
@@ -358,6 +393,36 @@ export default {
     margin-top: 1rem;
   }
 
+  .recent-searches {
+    margin-top: 1rem;
+    width: calc(100% - 4rem);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 3;
+
+    @media (min-width: $min-width-second-break) {
+      padding-bottom: 6rem;
+    }
+
+    @media (min-width: $min-width-third-break) {
+      padding-bottom: 7rem;
+    }
+
+    .recent-searches-title {
+      font-size: 1.5rem;
+      text-align: center;
+      align-self: center;
+      border-bottom: 0.2rem solid var(--main-border-color);
+      width: 100%;
+      padding-bottom: 1rem;
+
+      @media (min-width: $min-width-second-break) {
+        font-size: 2rem;
+      }
+    }
+  }
+
   .results {
     width: calc(100% - 4rem);
     padding-bottom: 4rem;
@@ -369,23 +434,43 @@ export default {
     @media (min-width: $min-width-third-break) {
       padding-bottom: 7rem;
     }
+  }
+
+  .search-result-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.2rem solid var(--main-border-color);
 
     .search-result {
       display: flex;
       padding: 1rem;
-      border-bottom: 0.2rem solid var(--main-border-color);
       cursor: pointer;
 
       @media (min-width: $min-width-third-break) {
         padding: 1rem 3rem;
       }
     }
+
+    .icon {
+      margin-right: 1rem;
+    }
+  }
+
+  .trash-can {
+    margin-top: 1rem;
   }
 
   .go-back {
     position: fixed;
     bottom: 0;
-    margin-bottom: 1rem;
+    z-index: 10;
+    background-color: var(--main-background-color);
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
 
     @media (min-width: $min-width-second-break) {
       margin-bottom: 2rem;
@@ -412,6 +497,10 @@ export default {
 .slide-from-above-enter-active,
 .slide-from-above-leave-active {
   transition: transform 0.3s;
+}
+
+.slide-from-above-enter-active {
+  transition-delay: 0.3s;
 }
 
 .slide-from-above-enter,

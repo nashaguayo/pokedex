@@ -51,6 +51,9 @@ export default {
   padding: 1rem 0;
   border-bottom: 0.2rem solid var(--main-border-color);
   width: calc(100% - 4rem);
+  position: relative;
+  z-index: 4;
+  background-color: var(--main-background-color);
 
   @media (min-width: $min-width-third-break) {
     grid-template-columns: repeat(4, 1fr);
