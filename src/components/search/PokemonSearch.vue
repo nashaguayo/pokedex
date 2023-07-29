@@ -71,29 +71,38 @@
         No results found
       </span>
     </transition>
-    <div
-      v-if="!searchResults.length && searchTerm.length === 0"
-      class="recent-searches"
-    >
-      <span class="recent-searches-title">Recent Searches</span>
-      <span
-        v-for="recentSearch in recentSearches"
-        :key="`recent-search-${recentSearch}`"
-        class="search-result"
-        @click="goToPokemonPage(recentSearch)"
-        >{{ recentSearch }}</span
+    <transition name="slide-from-above" appear>
+      <div
+        v-if="!searchResults.length && searchTerm.length === 0"
+        class="recent-searches"
       >
-    </div>
+        <span class="recent-searches-title">Recent Searches</span>
+        <div
+          v-for="recentSearch in recentSearches"
+          :key="`recent-search-${recentSearch}`"
+          @click="goToPokemonPage(recentSearch)"
+          class="search-result-container"
+        >
+          <span class="search-result">
+            {{ recentSearch }}
+          </span>
+          <FontAwesomeIcon icon="fa-solid fa-chevron-right" class="icon" />
+        </div>
+      </div>
+    </transition>
     <BaseLoader :loading="loading">
       <transition-group class="results" name="slide-from-right">
-        <span
+        <div
           v-for="pokemon in searchResults"
           :key="pokemon"
-          class="search-result"
           @click="goToPokemonPage(pokemon)"
+          class="search-result-container"
         >
-          {{ pokemon }}
-        </span>
+          <span class="search-result">
+            {{ pokemon }}
+          </span>
+          <FontAwesomeIcon icon="fa-solid fa-chevron-right" class="icon" />
+        </div>
       </transition-group>
     </BaseLoader>
     <div class="go-back">
@@ -415,14 +424,25 @@ export default {
     }
   }
 
-  .search-result {
+  .search-result-container {
     display: flex;
-    padding: 1rem;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 0.2rem solid var(--main-border-color);
-    cursor: pointer;
 
-    @media (min-width: $min-width-third-break) {
-      padding: 1rem 3rem;
+    .search-result {
+      display: flex;
+      padding: 1rem;
+      cursor: pointer;
+
+      @media (min-width: $min-width-third-break) {
+        padding: 1rem 3rem;
+      }
+    }
+
+    .icon {
+      margin-right: 1rem;
     }
   }
 
