@@ -50,13 +50,15 @@
           Next
         </BaseButton>
       </div>
-      <BaseButton
-        class="go-back-button"
-        :onClickHandler="goToPokemonsPage"
-        :big="true"
-      >
-        Go Back
-      </BaseButton>
+      <div class="go-back">
+        <BaseButton
+          class="go-back-button"
+          :onClickHandler="goToPokemonsPage"
+          :big="true"
+        >
+          Go Back
+        </BaseButton>
+      </div>
     </div>
   </BaseLoader>
 </template>
@@ -333,18 +335,28 @@ export default {
     }
   }
 
-  .go-back-button {
-    margin-top: 1rem;
-
-    @media (min-width: $min-width-first-break) {
-      margin-top: 2rem;
-    }
+  .go-back {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
-      justify-self: center;
-      width: calc(100% - 6rem);
+    }
+
+    .go-back-button {
+      margin: 1rem 0;
+
+      @media (min-width: $min-width-first-break) {
+        margin: 2rem 0;
+      }
+
+      @media (min-width: $min-width-fourth-break) {
+        justify-self: center;
+        width: calc(100% - 6rem);
+      }
     }
   }
 }
