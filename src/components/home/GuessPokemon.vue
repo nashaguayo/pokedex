@@ -100,7 +100,14 @@ import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseChevron from '@/components/ui/BaseChevron';
 import store from '@/lib/store';
-import { getGuessesInARow, setGuessesInARow } from '@/lib/localStorage';
+import {
+  getGuessesInARow,
+  getMysteryPokemon,
+  getTriesLeft,
+  setGuessesInARow,
+  setMysteryPokemon,
+  setTriesLeft,
+} from '@/lib/localStorage';
 
 export default {
   name: 'GuessPokemon',
@@ -114,7 +121,7 @@ export default {
     return {
       playersGuess: '',
       reset: false,
-      tries: 3,
+      tries: getTriesLeft() ?? 3,
       guessesInARow: getGuessesInARow() ?? 0,
       loading: false,
       timerCount: 5,
@@ -169,7 +176,12 @@ export default {
     storeHasLoaded: {
       immediate: true,
       async handler(storeHasLoaded) {
-        if (storeHasLoaded) {
+        if (storeHasLoaded && !this.image && !this.name) {
+          const mysteryPokemon = getMysteryPokemon();
+          if (mysteryPokemon) {
+            store.setNewMysteryPokemon(mysteryPokemon);
+            return;
+          }
           await this.getNewMysteryPokemon();
         }
       },
@@ -179,6 +191,7 @@ export default {
         this.timerEnabled = true;
         this.tries = 3;
         this.guessesInARow++;
+        setTriesLeft(this.tries);
         setGuessesInARow(this.guessesInARow);
       }
     },
@@ -238,6 +251,8 @@ export default {
       this.reset = true;
       this.tries = 3;
       this.loading = false;
+      setTriesLeft(this.tries);
+      setMysteryPokemon({ name: this.name, image: this.image });
 
       console.log(`You want to cheat? Mystery pokemon is: ${this.name}`);
 
@@ -252,6 +267,7 @@ export default {
       this.playersGuess = playersGuess;
       if (!this.hasWon && playersGuess.length) {
         this.tries--;
+        setTriesLeft(this.tries);
       }
     },
     getNewMysteryPokemonAndRefreshGuessesInARow() {
