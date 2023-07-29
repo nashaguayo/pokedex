@@ -350,10 +350,6 @@ export default {
       margin-top: 1rem;
       margin-bottom: 6rem;
 
-      @media (min-width: $min-width-first-break) {
-        margin-top: 1rem;
-      }
-
       @media (min-width: $min-width-fourth-break) {
         justify-self: center;
         width: calc(100% - 6rem);
