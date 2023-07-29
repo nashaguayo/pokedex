@@ -12,6 +12,7 @@ jest.mock('@/lib/store', () => ({
     game: { name: 'pikachu', image: 'pikachu.png' },
   },
   getNewMysteryPokemon: jest.fn(),
+  setNewMysteryPokemon: jest.fn(),
 }));
 
 jest.mock('@/lib/localStorage', () => ({
