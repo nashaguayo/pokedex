@@ -388,6 +388,8 @@ export default {
     width: calc(100% - 4rem);
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 3;
 
     @media (min-width: $min-width-second-break) {
       padding-bottom: 6rem;
@@ -476,6 +478,10 @@ export default {
 .slide-from-above-enter-active,
 .slide-from-above-leave-active {
   transition: transform 0.3s;
+}
+
+.slide-from-above-enter-active {
+  transition-delay: 0.3s;
 }
 
 .slide-from-above-enter,
