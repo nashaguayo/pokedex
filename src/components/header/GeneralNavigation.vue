@@ -1,35 +1,20 @@
 <template>
   <div class="general-navigation">
     <div class="navigation">
-      <router-link to="/">
-        <img
-          src="@/assets/ui/pokeball.svg.png"
-          alt="menu"
-          class="url home-icon-link"
-        />
-      </router-link>
-      <router-link class="desktop" :to="{ name: 'pokemons' }">
-        <h2 class="url pokemons-link">Pokemons</h2>
-      </router-link>
-      <router-link class="mobile" :to="{ name: 'pokemons' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-book-open"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          size="2x"
-          class="icon"
-        />
-      </router-link>
-      <router-link class="desktop" :to="{ name: 'search' }">
-        <h2 class="url pokemons-link">Search</h2>
-      </router-link>
-      <router-link class="mobile" :to="{ name: 'search' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-magnifying-glass"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          size="2x"
-          class="icon"
-        />
-      </router-link>
+      <GeneralNavigationLink
+        :to="{ name: 'home' }"
+        image="@/assets/ui/pokeball.svg.png"
+      />
+      <GeneralNavigationLink
+        :to="{ name: 'pokemons' }"
+        text="Pokemons"
+        icon="fa-book-open"
+      />
+      <GeneralNavigationLink
+        :to="{ name: 'search' }"
+        text="Search"
+        icon="fa-magnifying-glass"
+      />
     </div>
     <div class="darkmode">
       <transition name="flip" mode="out-in">
@@ -56,10 +41,12 @@
 </template>
 
 <script>
+import GeneralNavigationLink from './GeneralNavigationLink.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'GeneralNavigation',
+  components: { GeneralNavigationLink },
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
