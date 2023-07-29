@@ -69,6 +69,11 @@ export default {
     padding: 0.3rem;
     transition: all 0.3s;
     cursor: pointer;
+    font-size: 0.8rem;
+
+    @media (min-width: $min-width-first-break) {
+      font-size: 1rem;
+    }
 
     &.inactive {
       background-color: var(--disabled-button-background-color);
