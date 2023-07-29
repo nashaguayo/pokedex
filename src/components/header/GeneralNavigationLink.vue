@@ -3,7 +3,7 @@
     <router-link v-if="!text && !icon" :to="to">
       <img
         src="@/assets/ui/pokeball.svg.png"
-        :alt="alt"
+        alt="home"
         class="url image"
         :class="{ 'shrink-animation': wasClicked }"
         @click="wasClicked = true"
@@ -46,14 +46,6 @@ export default {
     to: {
       type: Object,
       required: true,
-    },
-    image: {
-      type: String,
-      default: null,
-    },
-    alt: {
-      type: String,
-      default: '',
     },
     icon: {
       type: String,

@@ -1,10 +1,7 @@
 <template>
   <div class="general-navigation">
     <div class="navigation">
-      <GeneralNavigationLink
-        :to="{ name: 'home' }"
-        image="@/assets/ui/pokeball.svg.png"
-      />
+      <GeneralNavigationLink :to="{ name: 'home' }" />
       <GeneralNavigationLink
         :to="{ name: 'pokemons' }"
         text="Pokemons"
@@ -79,27 +76,6 @@ export default {
   .navigation {
     display: flex;
     align-items: center;
-
-    .url {
-      cursor: pointer;
-    }
-  }
-
-  .home-icon-link {
-    margin: 0.5rem 1rem;
-    height: 3rem;
-
-    @media (min-width: $min-width-first-break) {
-      margin: 1rem 2rem;
-    }
-
-    @media (min-width: $min-width-third-break) {
-      height: 4rem;
-    }
-  }
-
-  .pokemons-link {
-    margin-right: 2rem;
   }
 
   .icon {
@@ -115,20 +91,6 @@ export default {
   .flip-enter,
   .flip-leave-to {
     transform: scaleX(0);
-  }
-
-  .desktop {
-    display: none;
-
-    @media (min-width: $min-width-third-break) {
-      display: block;
-    }
-  }
-
-  .mobile {
-    @media (min-width: $min-width-third-break) {
-      display: none;
-    }
   }
 }
 </style>
