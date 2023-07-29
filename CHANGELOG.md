@@ -14,6 +14,7 @@
 - Refactored search for colors, shapes and generations so that they aren't arrays
 - Removed pokemons with hyphens from search
 - Styles in pokemon details
+- Saving all info from pokemon mini game on local storage
 
 ##### Fixed
 
