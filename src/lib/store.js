@@ -520,4 +520,9 @@ export default {
   clearPokemon() {
     state.pokemon = new Map();
   },
+
+  async clearPokemonListAndRefresh() {
+    state.scroll.pokemons = [];
+    await this.getPokemons();
+  },
 };

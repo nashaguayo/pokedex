@@ -28,10 +28,11 @@ export default {
     };
   },
   watch: {
-    '$i18n.locale'(language) {
+    async '$i18n.locale'(language) {
       setLanguage(language);
       store.clearPokemon();
       store.initializeStore();
+      await store.clearPokemonListAndRefresh();
     },
   },
 };

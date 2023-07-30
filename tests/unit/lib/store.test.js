@@ -697,4 +697,10 @@ describe('store', () => {
     store.clearPokemon();
     expect(store.state.pokemon.size).toBe(0);
   });
+
+  it('clears pokemon list', async () => {
+    expect(store.state.scroll.pokemons.length).toBe(6);
+    await store.clearPokemonListAndRefresh();
+    expect(store.state.scroll.pokemons.length).toBe(3);
+  });
 });
