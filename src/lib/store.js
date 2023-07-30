@@ -76,6 +76,7 @@ export default {
   },
 
   async initializeStore() {
+    state.storeHasLoaded = false;
     await Promise.all([
       this.getAllPokemons(),
       this.getAllTypes(),
