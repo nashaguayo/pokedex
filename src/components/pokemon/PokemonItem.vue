@@ -202,7 +202,6 @@ export default {
     if (!store.state.pokemon.has(this.urlId)) {
       await store.getPokemon(this.urlId);
     }
-    this.loading = false;
   },
   beforeDestroy() {
     if (window.innerWidth >= fourthBreak) {
@@ -223,7 +222,7 @@ export default {
       this.topPosition = yPosition;
     },
     headerIsVisible() {
-      if (this.loading || window.innerWidth >= fourthBreak) {
+      if (window.innerWidth >= fourthBreak) {
         return;
       }
       this.throttledParallax = throttle(this.parallax, 10);
@@ -231,6 +230,7 @@ export default {
         'scroll',
         this.throttledParallax
       );
+      this.loading = false;
     },
     goToPreviousPokemon() {
       const index = this.allPokemons.findIndex(
