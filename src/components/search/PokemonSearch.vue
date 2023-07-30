@@ -3,7 +3,7 @@
     <div class="controls">
       <BaseInput
         name="search"
-        placeholder="search for pokemon"
+        :placeholder="$t('search.placeholder')"
         icon="fa-solid fa-magnifying-glass"
         @inputValueChanged="setSearchTerm"
         :model="searchTerm"
@@ -17,7 +17,7 @@
           :variant="true"
           :small="true"
         >
-          {{ displayTypesText }}
+          {{ $t('search.displayTypes', { displayTypes }) }}
         </BaseButton>
         <BaseButton
           class="button"
@@ -25,7 +25,7 @@
           :variant="true"
           :small="true"
         >
-          {{ displayColorsText }}
+          {{ $t('search.displayColors', { displayColors }) }}
         </BaseButton>
         <BaseButton
           class="button"
@@ -33,7 +33,7 @@
           :variant="true"
           :small="true"
         >
-          {{ displayShapesText }}
+          {{ $t('search.displayShapes', { displayShapes }) }}
         </BaseButton>
         <BaseButton
           class="button"
@@ -41,14 +41,14 @@
           :variant="true"
           :small="true"
         >
-          {{ displayGenerationsText }}
+          {{ $t('search.displayGenerations', { displayGenerations }) }}
         </BaseButton>
         <BaseButton
           class="button clear-search"
           :onClickHandler="clearSearch"
           :small="true"
         >
-          Clear Search
+          {{ $t('search.clearSearch') }}
         </BaseButton>
       </div>
     </div>
@@ -68,7 +68,7 @@
           !searchResults.length
         "
       >
-        No results found
+        {{ $t('search.noResultsFound') }}
       </span>
     </transition>
     <transition name="slide-from-above" appear>
@@ -84,7 +84,9 @@
         "
         class="recent-searches"
       >
-        <span class="recent-searches-title">Recent Searches</span>
+        <span class="recent-searches-title">{{
+          $t('search.recentSearches')
+        }}</span>
         <div v-for="name in recentSearches" :key="`recent-search-${name}`">
           <PokemonSearchItem
             :name="name"
@@ -111,7 +113,9 @@
       </transition-group>
     </BaseLoader>
     <div class="go-back">
-      <BaseButton :onClickHandler="goBack" :big="true"> Go Back </BaseButton>
+      <BaseButton :onClickHandler="goBack" :big="true">{{
+        $t('search.goBackButton')
+      }}</BaseButton>
     </div>
   </div>
 </template>
@@ -219,18 +223,6 @@ export default {
     },
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
-    },
-    displayTypesText() {
-      return `${this.displayTypes ? 'Hide' : 'Show'} Types`;
-    },
-    displayColorsText() {
-      return `${this.displayColors ? 'Hide' : 'Show'} Colors`;
-    },
-    displayShapesText() {
-      return `${this.displayShapes ? 'Hide' : 'Show'} Shapes`;
-    },
-    displayGenerationsText() {
-      return `${this.displayGenerations ? 'Hide' : 'Show'} Gens`;
     },
   },
   methods: {

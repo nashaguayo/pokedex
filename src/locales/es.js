@@ -49,4 +49,20 @@ export default {
   pokemonItemPrevious: 'Anterior',
   pokemonItemNext: 'Siguiente',
   pokemonItemGoBack: 'Volver',
+
+  search: {
+    clearSearch: 'Limpiar Busqueda',
+    placeholder: 'Busca un pokemon...',
+    goBackButton: 'Volver',
+    noResultsFound: 'No se han encontrado resultados',
+    recentSearches: 'Busquedas Recientes',
+    displayTypes: (ctx) =>
+      ctx.named('displayTypes') ? 'Mostrar Tipos' : 'Esconder Tipos',
+    displayColors: (ctx) =>
+      ctx.named('displayColors') ? 'Mostrar Colores' : 'Esconder Colores',
+    displayShapes: (ctx) =>
+      ctx.named('displayShapes') ? 'Mostrar Formas' : 'Esconder Formas',
+    displayGenerations: (ctx) =>
+      ctx.named('displayGenerations') ? 'Mostrar Gens' : 'Esconder Gens',
+  },
 };
