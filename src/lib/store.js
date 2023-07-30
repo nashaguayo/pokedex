@@ -14,6 +14,7 @@ import {
 import {
   getAllColors as getAllColorsApi,
   getPokemonsByColor as getPokemonsByColorApi,
+  getPokemonColorTranslation as getPokemonColorTranslationApi,
 } from '@/api/colors';
 import {
   getAllShapes as getAllShapesApi,
@@ -208,7 +209,7 @@ export default {
       characteristic,
       height,
       weight,
-      color,
+      color: await getPokemonColorTranslationApi(color),
       shape,
       generation,
       habitat,
