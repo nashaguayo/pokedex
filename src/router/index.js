@@ -50,7 +50,6 @@ const routes = [
     meta: {
       header: false,
       footer: false,
-      transition: 'slide-from-right',
     },
   },
 ];
@@ -61,9 +60,13 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeResolve((to, from, next) => {
-  if (from.name === 'pokemon') {
+router.beforeEach((to, from, next) => {
+  if (to.name === 'pokemon') {
+    to.meta.transition = 'slide-from-right';
+  } else if (from.name === 'pokemon') {
     to.meta.transition = 'slide-from-left';
+  } else {
+    to.meta.transition = 'slide';
   }
   next();
 });
