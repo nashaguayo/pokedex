@@ -24,6 +24,7 @@ import VueObserveVisibility from 'vue-observe-visibility';
 
 import titleMixin from '@/lib/titleMixin';
 import { getLanguage } from './lib/localStorage';
+import './registerServiceWorker';
 
 library.add(faToggleOn);
 library.add(faToggleOff);
