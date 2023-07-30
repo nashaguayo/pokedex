@@ -40,4 +40,7 @@ export default {
 
   pokemonItemEvolutionsTitle: 'Evolutions',
   pokemonItemEvolutionsNone: 'No evolutions found for this pokemon',
+
+  pokemonItemVariantsTitle: 'Variants',
+  pokemonItemVariantsButton: 'Variant',
 };
