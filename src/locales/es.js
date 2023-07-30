@@ -37,4 +37,6 @@ export default {
   pokemonItemDescriptionFunFacts: 'Trivia',
 
   pokemonItemStatsTitle: 'Estadísticas',
+
+  pokemonItemTypeTitle: 'Tipos',
 };

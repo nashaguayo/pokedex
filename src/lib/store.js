@@ -28,6 +28,7 @@ import {
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
+import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
 import {
   isDarkModeEnabled,
   toggleDarkMode as toggleDarkModeInLocalStorage,
@@ -199,7 +200,12 @@ export default {
     );
     const image = pokemon.sprites.other.dream_world.front_default;
     const smallImage = pokemon.sprites.front_default;
-    const types = pokemon.types.map((t) => t.type.name);
+    const types = await Promise.all(
+      pokemon.types.map(async (t) => ({
+        name: t.type.name,
+        translated: await getPokemonTypeTranslationApi(t.type.name),
+      }))
+    );
     const name = pokemon.name;
     const id = pokemon.id;
     const height = pokemon.height;
