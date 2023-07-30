@@ -68,6 +68,7 @@ jest.mock('@/api/colors', () => ({
 jest.mock('@/api/shapes', () => ({
   getAllShapes: jest.fn().mockResolvedValue(['quadruped', 'humanoid']),
   getPokemonsByShape: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonShapeTranslation: jest.fn().mockResolvedValue('quadruped'),
 }));
 
 jest.mock('@/api/generations', () => ({
