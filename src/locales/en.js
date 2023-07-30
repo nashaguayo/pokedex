@@ -3,7 +3,7 @@ import { capitalizeWord } from '@/lib/helpers';
 export default {
   header: {
     generalNavigation: {
-      goToPokemonsPage: 'Pokemonss',
+      goToPokemonsPage: 'Pokemons',
       search: 'Search',
     },
   },
