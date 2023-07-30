@@ -29,7 +29,6 @@ describe('PokemonItemVariantsDropdown', () => {
   });
 
   it('renders the variants correctly', () => {
-    console.log(wrapper.html());
     const variantElements = wrapper.findAll('h2');
     expect(variantElements).toHaveLength(3);
     expect(variantElements.at(0).text()).toBe('Variant 1');

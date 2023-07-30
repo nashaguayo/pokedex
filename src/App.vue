@@ -11,7 +11,7 @@
         <transition name="drawer-up">
           <BaseHeader v-if="displayHeader" />
         </transition>
-        <transition :name="transition ?? 'slide'" appear mode="out-in">
+        <transition :name="transition" appear mode="out-in">
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
@@ -46,7 +46,7 @@ export default {
       return this.$route.meta.footer ?? true;
     },
     transition() {
-      return this.$route.meta.transition;
+      return this.$route.meta.transition ?? 'slide';
     },
   },
   watch: {

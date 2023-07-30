@@ -19,6 +19,7 @@ describe('PokemonSearchItem', () => {
           push: jest.fn(),
         },
       },
+      stubs: ['FontAwesomeIcon'],
     });
   });
 
