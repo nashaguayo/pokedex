@@ -13,15 +13,23 @@
 </template>
 
 <script>
+import { ENGLISH, SPANISH } from '@/constants/languages';
+import { setLanguage } from '@/lib/localStorage';
+
 export default {
   name: 'LocaleChanger',
   data() {
     return {
       langs: [
-        { name: 'Español', value: 'es' },
-        { name: 'English', value: 'en' },
+        { name: 'Español', value: SPANISH },
+        { name: 'English', value: ENGLISH },
       ],
     };
+  },
+  watch: {
+    '$i18n.locale'(language) {
+      setLanguage(language);
+    },
   },
 };
 </script>
