@@ -8,7 +8,9 @@
       <span class="right">{{ $t('pokemonItemCharacteristicsHeight') }}</span>
       <span>{{ height }}"</span>
       <span class="right">{{ $t('pokemonItemCharacteristicsColor') }}</span>
-      <span :style="{ color: color }" class="color">{{ color }}</span>
+      <span :style="{ color: color.name }" class="color">{{
+        color.translated
+      }}</span>
       <span class="right">{{ $t('pokemonItemCharacteristicsShape') }}</span>
       <span>{{ shape }}</span>
       <span class="right">{{
@@ -45,7 +47,7 @@ export default {
       required: true,
     },
     color: {
-      type: String,
+      type: Object,
       required: true,
     },
     shape: {

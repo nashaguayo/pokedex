@@ -211,7 +211,10 @@ export default {
       characteristic,
       height,
       weight,
-      color: await getPokemonColorTranslationApi(color),
+      color: {
+        name: color,
+        translated: await getPokemonColorTranslationApi(color),
+      },
       shape: await getPokemonShapeTranslationApi(shape),
       generation,
       habitat: {
