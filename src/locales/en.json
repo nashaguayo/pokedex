@@ -1,3 +1,6 @@
 {
-  "homeViewWelcomeMessage": "Learn all about pokemons!"
+  "homeViewWelcomeMessage": "Learn all about pokemons!",
+
+  "generalNavigationGoToPokemonsPage": "Pokemons",
+  "generalNavigationSearch": "Search"
 }

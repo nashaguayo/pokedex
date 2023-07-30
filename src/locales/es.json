@@ -1,3 +1,6 @@
 {
-  "homeViewWelcomeMessage": "Aprende todo sobre Pokemones!"
+  "homeViewWelcomeMessage": "Aprende todo sobre Pokemones!",
+
+  "generalNavigationGoToPokemonsPage": "Pokes",
+  "generalNavigationSearch": "Busqueda"
 }

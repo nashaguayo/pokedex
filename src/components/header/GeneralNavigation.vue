@@ -4,12 +4,12 @@
       <GeneralNavigationLink :to="{ name: 'home' }" />
       <GeneralNavigationLink
         :to="{ name: 'pokemons' }"
-        text="Pokemons"
+        :text="$t('generalNavigationGoToPokemonsPage')"
         icon="fa-book-open"
       />
       <GeneralNavigationLink
         :to="{ name: 'search' }"
-        text="Search"
+        :text="$t('generalNavigationSearch')"
         icon="fa-magnifying-glass"
       />
     </div>
