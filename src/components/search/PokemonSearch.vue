@@ -474,6 +474,7 @@ export default {
 
     @media (min-width: $min-width-second-break) {
       margin-bottom: 2rem;
+      width: 75%;
     }
   }
 }

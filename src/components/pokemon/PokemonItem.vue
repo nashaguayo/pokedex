@@ -216,7 +216,7 @@ export default {
   methods: {
     capitalizeWord,
     goToPokemonsPage() {
-      this.$router.push({ name: 'pokemons' });
+      this.$router.back();
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;

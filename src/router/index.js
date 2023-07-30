@@ -60,4 +60,15 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.name === 'pokemon') {
+    to.meta.transition = 'slide-from-right';
+  } else if (from.name === 'pokemon') {
+    to.meta.transition = 'slide-from-left';
+  } else {
+    to.meta.transition = 'slide';
+  }
+  next();
+});
+
 export default router;

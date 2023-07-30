@@ -17,6 +17,7 @@ describe('GeneralNavigationLink', () => {
         text: 'Test Link',
         icon: 'fa-icon-name',
       },
+      stubs: ['router-link', 'FontAwesomeIcon'],
     });
   });
 

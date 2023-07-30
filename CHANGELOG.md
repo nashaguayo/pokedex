@@ -18,6 +18,7 @@
 - Styles in pokemon details
 - Saving all info from pokemon mini game on local storage
 - Home landing banner and description
+- Animation for pokemon details
 
 ##### Fixed
 
