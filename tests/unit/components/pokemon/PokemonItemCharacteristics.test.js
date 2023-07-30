@@ -36,7 +36,7 @@ describe('LogoAndBanner', () => {
 
   it('displays the correct weight', () => {
     const weight = wrapper.findAll('span').at(3);
-    expect(weight.text()).toBe('80 pokemonItemCharacteristicsPounds');
+    expect(weight.text()).toBe('80 pokemon.characteristics.pounds');
   });
 
   it('displays the correct height', () => {

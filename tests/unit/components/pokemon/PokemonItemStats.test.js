@@ -54,7 +54,7 @@ describe('PokemonItemStats', () => {
   it('displays the title', () => {
     const title = wrapper.find('.title');
     expect(title.exists()).toBe(true);
-    expect(title.text()).toBe('pokemonItemStatsTitle');
+    expect(title.text()).toBe('pokemon.statsTitle');
   });
 
   it('displays the correct amount of bars', () => {

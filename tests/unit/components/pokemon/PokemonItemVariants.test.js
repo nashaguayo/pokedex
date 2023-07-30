@@ -31,7 +31,7 @@ describe('PokemonItemVariants', () => {
   });
 
   it('should display the title "Variants"', () => {
-    expect(wrapper.find('.title').text()).toBe('pokemonItemVariantsTitle');
+    expect(wrapper.find('.title').text()).toBe('pokemon.variants.title');
   });
 
   it('should display the first variant by default', () => {

@@ -23,7 +23,7 @@ describe('PokemonItemDescription', () => {
 
   it('displays the title correctly', () => {
     const titleElement = wrapper.find('.title');
-    expect(titleElement.text()).toBe('pokemonItemDescriptionFunFacts');
+    expect(titleElement.text()).toBe('pokemon.descriptionFunFacts');
   });
 
   it('renders the flavor texts correctly', () => {

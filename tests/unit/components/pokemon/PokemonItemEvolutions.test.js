@@ -129,6 +129,6 @@ describe('PokemonItemEvolutions', () => {
     });
     const noEvolutions = wrapper.find('.no-evolutions');
     expect(noEvolutions.exists).toBeTruthy();
-    expect(noEvolutions.text()).toBe('pokemonItemEvolutionsNone');
+    expect(noEvolutions.text()).toBe('pokemon.evolutions.none');
   });
 });
