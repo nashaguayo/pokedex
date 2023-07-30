@@ -398,7 +398,10 @@ export default {
       allTypes.map(async (type) => {
         const pokemons = await getPokemonsByTypeApi(type);
         if (pokemons.length) {
-          state.pokemonsByType.set(type, pokemons);
+          const key = await getPokemonTypeTranslationApi(type);
+          state.pokemonsByType.set(key, pokemons);
+          const index = state.allTypes.findIndex((t) => t === type);
+          state.allTypes[index] = await getPokemonTypeTranslationApi(type);
           return;
         }
         const index = state.allTypes.findIndex((t) => t === type);
