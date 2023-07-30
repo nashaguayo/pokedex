@@ -14,7 +14,7 @@ describe('PokemonListCard', () => {
         id: 1,
         name: 'pikachu',
         image: 'pokemon-image.png',
-        types: ['fire'],
+        types: [{ name: 'fire', translated: 'fire' }],
       },
       mocks: {
         $router,
