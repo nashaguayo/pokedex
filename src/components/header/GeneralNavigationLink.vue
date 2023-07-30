@@ -1,6 +1,6 @@
 <template>
   <div class="general-navigation-link">
-    <router-link v-if="!text && !icon" :to="to">
+    <router-link v-if="!text && !icon" class="home-image" :to="to">
       <img
         src="@/assets/ui/pokeball.svg.png"
         alt="home"
@@ -69,20 +69,31 @@ export default {
 
 <style lang="scss" scoped>
 .general-navigation-link {
+  display: flex;
+
   .url {
     cursor: pointer;
   }
 
+  .home-image {
+    display: flex;
+  }
+
   .image {
-    margin: 0.5rem 1.5rem;
-    height: 3rem;
+    margin: 0.5rem 0;
+    margin-right: 0.5rem;
+    height: 2.5rem;
 
     @media (min-width: $min-width-first-break) {
-      margin: 1rem 2rem;
+      margin: 1rem;
     }
 
     @media (min-width: $min-width-third-break) {
       height: 4rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      margin-left: 3rem;
     }
   }
 
@@ -92,7 +103,7 @@ export default {
 
   .icon {
     cursor: pointer;
-    margin-right: 2rem;
+    margin-right: 1rem;
   }
 
   .desktop {
