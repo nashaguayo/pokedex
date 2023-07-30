@@ -33,4 +33,6 @@ export default {
   pokemonItemCharacteristicsHabitat: 'Habitat',
 
   pokemonItemDescriptionFunFacts: 'Fun Facts',
+
+  pokemonItemStatsTitle: 'Stats',
 };

@@ -35,4 +35,6 @@ export default {
   pokemonItemCharacteristicsHabitat: 'Hábitat',
 
   pokemonItemDescriptionFunFacts: 'Trivia',
+
+  pokemonItemStatsTitle: 'Estadísticas',
 };

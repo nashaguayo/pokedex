@@ -27,6 +27,7 @@ import {
 } from '@/api/generations';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
+import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import {
   isDarkModeEnabled,
   toggleDarkMode as toggleDarkModeInLocalStorage,
@@ -166,13 +167,18 @@ export default {
       : [];
     let highestStatName = '';
     let highestStatValue = 0;
-    const stats = pokemon.stats.map((s) => {
-      if (s.base_stat > highestStatValue) {
-        highestStatName = s.stat.name;
-        highestStatValue = s.base_stat;
-      }
-      return { name: s.stat.name, value: s.base_stat };
-    });
+    const stats = await Promise.all(
+      pokemon.stats.map(async (s) => {
+        if (s.base_stat > highestStatValue) {
+          highestStatName = s.stat.name;
+          highestStatValue = s.base_stat;
+        }
+        return {
+          name: await getPokemonStatTranslationApi(s.stat.name),
+          value: s.base_stat,
+        };
+      })
+    );
     let characteristic = '';
     (state.allCharacteristics.get(highestStatName) ?? []).map((c) => {
       if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {

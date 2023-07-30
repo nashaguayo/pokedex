@@ -2,9 +2,9 @@ import pokemonApi from '@/config/pokemonApi';
 import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
 
-export async function getPokemonHabitatTranslation(habitat) {
+export async function getPokemonStatTranslation(stat) {
   try {
-    const response = await pokemonApi.get(`pokemon-habitat/${habitat}`);
+    const response = await pokemonApi.get(`stat/${stat}`);
     return (
       response.data.names.filter(
         (language) => language.language.name === getLanguage()
@@ -16,8 +16,8 @@ export async function getPokemonHabitatTranslation(habitat) {
     );
   } catch (error) {
     logError(
-      getPokemonHabitatTranslation.name,
-      `Unable to retrieve translation for habitat ${habitat}`,
+      getPokemonStatTranslation.name,
+      `Unable to retrieve translation for stat ${stat}`,
       error
     );
   }

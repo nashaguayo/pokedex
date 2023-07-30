@@ -11,7 +11,7 @@ describe('LogoAndBanner', () => {
         characteristic: 'Mischievous',
         weight: 80,
         height: 17,
-        color: 'yellow',
+        color: { name: 'yellow', translated: 'yellow' },
         shape: 'upright',
         generation: 'i',
         habitat: 'rare',

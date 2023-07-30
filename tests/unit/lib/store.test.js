@@ -80,6 +80,10 @@ jest.mock('@/api/habitat', () => ({
   getPokemonHabitatTranslation: jest.fn().mockResolvedValue('forest'),
 }));
 
+jest.mock('@/api/stats', () => ({
+  getPokemonStatTranslation: jest.fn().mockResolvedValue('HP'),
+}));
+
 jest.mock('@/api/characteristics', () => ({
   getAllCharacteristicsDescriptions: jest
     .fn()
@@ -206,7 +210,7 @@ describe('store', () => {
       characteristic: '',
       height: 4,
       weight: 60,
-      color: 'yellow',
+      color: { name: 'yellow', translated: 'yellow' },
       shape: 'quadruped',
       generation: 'i',
       habitat: {

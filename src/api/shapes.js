@@ -39,7 +39,7 @@ export async function getPokemonShapeTranslation(shape) {
   } catch (error) {
     logError(
       getPokemonShapeTranslation.name,
-      `Unable to retrieve translation for color ${shape}`,
+      `Unable to retrieve translation for shape ${shape}`,
       error
     );
   }
