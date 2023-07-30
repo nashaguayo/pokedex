@@ -43,4 +43,8 @@ export default {
 
   pokemonItemVariantsTitle: 'Variants',
   pokemonItemVariantsButton: 'Variant',
+
+  pokemonItemPrevious: 'Previous',
+  pokemonItemNext: 'Next',
+  pokemonItemGoBack: 'Go back',
 };

@@ -40,14 +40,14 @@
           :disabled="id === 1"
           :variant="true"
         >
-          Previous
+          {{ $t('pokemonItemPrevious') }}
         </BaseButton>
         <BaseButton
           :onClickHandler="goToNextPokemon"
           :disabled="id === lastPokemonId"
           :variant="true"
         >
-          Next
+          {{ $t('pokemonItemNext') }}
         </BaseButton>
       </div>
       <div class="go-back">
@@ -56,7 +56,7 @@
           :onClickHandler="goToPokemonsPage"
           :big="true"
         >
-          Go Back
+          {{ $t('pokemonItemGoBack') }}
         </BaseButton>
       </div>
     </div>
