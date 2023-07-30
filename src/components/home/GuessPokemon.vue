@@ -12,10 +12,14 @@
     <transition name="flip" mode="out-in">
       <span
         class="game-results"
-        :key="$t('guessPokemonGameResults', { playersGuess, hasLost, name })"
+        :key="
+          $t('home.guessPokemon.gameResults', { playersGuess, hasLost, name })
+        "
         :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
       >
-        {{ $t('guessPokemonGameResults', { playersGuess, hasLost, name }) }}
+        {{
+          $t('home.guessPokemon.gameResults', { playersGuess, hasLost, name })
+        }}
       </span>
     </transition>
     <div class="players-guess">
@@ -42,7 +46,7 @@
     <transition name="flip" mode="out-in">
       <span
         :key="
-          $t('guessPokemonTriesLeft', {
+          $t('home.guessPokemon.triesLeft', {
             hasWon,
             hasLost,
             timerCount,
@@ -53,7 +57,7 @@
         class="tries-left"
         :class="{ 'last-try': tries === 1 }"
         v-html="
-          $t('guessPokemonTriesLeft', {
+          $t('home.guessPokemon.triesLeft', {
             hasWon,
             hasLost,
             timerCount,
@@ -65,7 +69,7 @@
     </transition>
     <transition name="flip" appear>
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
-        <span>{{ $t('guessPokemonGuessesInARow') }}</span
+        <span>{{ $t('home.guessPokemon.guessesInARow') }}</span
         ><br />
         <div class="stars">
           <transition-group name="zoom-in" appear>
@@ -107,7 +111,7 @@
       :small="true"
       class="retrieve-new-pokemon"
     >
-      {{ $t('guessPokemonBaseButton', { hasWon, hasLost }) }}
+      {{ $t('home.guessPokemon.baseButton', { hasWon, hasLost }) }}
     </BaseButton>
   </div>
 </template>

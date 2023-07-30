@@ -4,7 +4,7 @@
       componentName="LogoAndBanner"
       errorMessage="Logo and Banner unable to load"
     >
-      <LogoAndBanner :subtitle="$t('homeViewWelcomeMessage')" />
+      <LogoAndBanner :subtitle="$t('home.welcomeMessage')" />
     </ErrorBoundary>
     <ErrorBoundary
       componentName="RandomPokemon"
