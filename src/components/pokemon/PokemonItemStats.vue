@@ -1,6 +1,6 @@
 <template>
   <div class="pokemon-item-stats">
-    <span class="title">{{ $t('pokemonItemStatsTitle') }}</span>
+    <span class="title">{{ $t('pokemon.statsTitle') }}</span>
     <div
       v-for="stat in stats"
       :key="`stat-${stat.name}`"

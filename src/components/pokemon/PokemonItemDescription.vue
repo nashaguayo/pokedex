@@ -1,7 +1,7 @@
 <template>
   <div class="pokemon-item-description">
     <hr />
-    <span class="title">{{ $t('pokemonItemDescriptionFunFacts') }}</span>
+    <span class="title">{{ $t('pokemon.descriptionFunFacts') }}</span>
     <ul>
       <li v-for="text in flavorTexts" :key="text">{{ text }}</li>
     </ul>

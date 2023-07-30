@@ -1,9 +1,9 @@
 <template>
   <div class="pokemon-item-evolutions">
-    <span class="title">{{ $t('pokemonItemEvolutionsTitle') }}</span>
+    <span class="title">{{ $t('pokemon.evolutionsTitle') }}</span>
     <div class="card">
       <span v-if="!evolutions.length" class="no-evolutions">
-        {{ $t('pokemonItemEvolutionsNone') }}
+        {{ $t('pokemon.evolutionsNone') }}
       </span>
       <template v-else>
         <div class="evolution">

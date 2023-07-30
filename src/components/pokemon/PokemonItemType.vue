@@ -1,6 +1,6 @@
 <template>
   <div class="pokemon-item-type">
-    <span class="title">{{ $t('pokemonItemTypeTitle') }}</span>
+    <span class="title">{{ $t('pokemon.typeTitle') }}</span>
     <div class="types">
       <div v-for="t in types" :key="`type-${t.name}`" class="type">
         <span class="type-text">{{ t.translated }}</span>

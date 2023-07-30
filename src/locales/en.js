@@ -30,29 +30,25 @@ export default {
     },
   },
 
-  pokemonItemCharacteristicsWeight: 'Weight',
-  pokemonItemCharacteristicsHeight: 'Height',
-  pokemonItemCharacteristicsPounds: 'Pounds',
-  pokemonItemCharacteristicsColor: 'Color',
-  pokemonItemCharacteristicsShape: 'Shape',
-  pokemonItemCharacteristicsGeneration: 'Generation',
-  pokemonItemCharacteristicsHabitat: 'Habitat',
-
-  pokemonItemDescriptionFunFacts: 'Fun Facts',
-
-  pokemonItemStatsTitle: 'Stats',
-
-  pokemonItemTypeTitle: 'Types',
-
-  pokemonItemEvolutionsTitle: 'Evolutions',
-  pokemonItemEvolutionsNone: 'No evolutions found for this pokemon',
-
-  pokemonItemVariantsTitle: 'Variants',
-  pokemonItemVariantsButton: 'Variant',
-
-  pokemonItemPrevious: 'Previous',
-  pokemonItemNext: 'Next',
-  pokemonItemGoBack: 'Go back',
+  pokemon: {
+    characteristicsWeight: 'Weight',
+    characteristicsHeight: 'Height',
+    characteristicsPounds: 'Pounds',
+    characteristicsColor: 'Color',
+    characteristicsShape: 'Shape',
+    characteristicsGeneration: 'Generation',
+    characteristicsHabitat: 'Habitat',
+    descriptionFunFacts: 'Fun Facts',
+    statsTitle: 'Stats',
+    typeTitle: 'Types',
+    evolutionsTitle: 'Evolutions',
+    evolutionsNone: 'No evolutions found for this pokemon',
+    variantsTitle: 'Variants',
+    variantsButton: 'Variant',
+    previous: 'Previous',
+    next: 'Next',
+    goBack: 'Go back',
+  },
 
   pokemons: {
     title: 'Pokemons',

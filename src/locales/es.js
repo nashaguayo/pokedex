@@ -32,29 +32,25 @@ export default {
     },
   },
 
-  pokemonItemCharacteristicsWeight: 'Peso',
-  pokemonItemCharacteristicsHeight: 'Altura',
-  pokemonItemCharacteristicsPounds: 'Libras',
-  pokemonItemCharacteristicsColor: 'Color',
-  pokemonItemCharacteristicsShape: 'Forma',
-  pokemonItemCharacteristicsGeneration: 'Generación',
-  pokemonItemCharacteristicsHabitat: 'Hábitat',
-
-  pokemonItemDescriptionFunFacts: 'Trivia',
-
-  pokemonItemStatsTitle: 'Estadísticas',
-
-  pokemonItemTypeTitle: 'Tipos',
-
-  pokemonItemEvolutionsTitle: 'Evoluciones',
-  pokemonItemEvolutionsNone: 'Este pokemon no tiene evoluciones',
-
-  pokemonItemVariantsTitle: 'Variantes',
-  pokemonItemVariantsButton: 'Variante',
-
-  pokemonItemPrevious: 'Anterior',
-  pokemonItemNext: 'Siguiente',
-  pokemonItemGoBack: 'Volver',
+  pokemon: {
+    characteristicsWeight: 'Peso',
+    characteristicsHeight: 'Altura',
+    characteristicsPounds: 'Libras',
+    characteristicsColor: 'Color',
+    characteristicsShape: 'Forma',
+    characteristicsGeneration: 'Generación',
+    characteristicsHabitat: 'Hábitat',
+    descriptionFunFacts: 'Trivia',
+    statsTitle: 'Estadísticas',
+    typeTitle: 'Tipos',
+    evolutionsTitle: 'Evoluciones',
+    evolutionsNone: 'Este pokemon no tiene evoluciones',
+    variantsTitle: 'Variantes',
+    variantsButton: 'Variante',
+    previous: 'Anterior',
+    next: 'Siguiente',
+    goBack: 'Volver',
+  },
 
   pokemons: {
     title: 'Pokemones',

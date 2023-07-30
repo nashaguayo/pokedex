@@ -1,7 +1,7 @@
 <template>
   <div class="pokemon-item-variants">
     <hr />
-    <span class="title">{{ $t('pokemonItemVariantsTitle') }}</span>
+    <span class="title">{{ $t('pokemon.variantsTitle') }}</span>
     <div class="variant">
       <div
         class="screen"
@@ -15,7 +15,7 @@
         :disabled="variants.length === 1"
         :small="true"
       >
-        {{ $t('pokemonItemVariantsButton') }}
+        {{ $t('pokemon.variantsButton') }}
       </BaseButton>
     </div>
     <transition name="slide-up">
