@@ -31,6 +31,7 @@ export default {
     '$i18n.locale'(language) {
       setLanguage(language);
       store.clearPokemon();
+      store.initializeStore();
     },
   },
 };
