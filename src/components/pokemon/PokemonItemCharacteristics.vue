@@ -1,24 +1,24 @@
-<template functional>
+<template>
   <div class="pokemon-item-characteristics">
     <div class="status">
       <span class="right">ID</span>
-      <span>#{{ props.id }}</span>
-      <span class="right">Weight</span>
-      <span>{{ props.weight }} pounds</span>
-      <span class="right">Height</span>
-      <span>{{ props.height }}"</span>
-      <span class="right">Color</span>
-      <span :style="{ color: props.color }" class="color">{{
-        props.color
+      <span>#{{ id }}</span>
+      <span class="right">{{ $t('pokemonItemCharacteristicsWeight') }}</span>
+      <span>{{ weight }} {{ $t('pokemonItemCharacteristicsPounds') }}</span>
+      <span class="right">{{ $t('pokemonItemCharacteristicsHeight') }}</span>
+      <span>{{ height }}"</span>
+      <span class="right">{{ $t('pokemonItemCharacteristicsColor') }}</span>
+      <span :style="{ color: color }" class="color">{{ color }}</span>
+      <span class="right">{{ $t('pokemonItemCharacteristicsShape') }}</span>
+      <span>{{ shape }}</span>
+      <span class="right">{{
+        $t('pokemonItemCharacteristicsGeneration')
       }}</span>
-      <span class="right">Shape</span>
-      <span>{{ props.shape }}</span>
-      <span class="right">Generation</span>
-      <span>{{ props.generation.toUpperCase() }}</span>
-      <span class="right">Habitat</span>
-      <span>{{ props.habitat.replace('-', ' ') }}</span>
+      <span>{{ generation.toUpperCase() }}</span>
+      <span class="right">{{ $t('pokemonItemCharacteristicsHabitat') }}</span>
+      <span>{{ habitat.replace('-', ' ') }}</span>
       <span class="characteristic">
-        {{ props.characteristic }}
+        {{ characteristic }}
       </span>
     </div>
   </div>

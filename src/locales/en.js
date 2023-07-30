@@ -23,4 +23,12 @@ export default {
   guessPokemonGuessesInARow: 'Guesses in a row',
   guessPokemonBaseButton: (ctx) =>
     ctx.named('hasWon') || ctx.named('hasLost') ? 'New Pokemon' : 'I give up',
+
+  pokemonItemCharacteristicsWeight: 'Weight',
+  pokemonItemCharacteristicsHeight: 'Height',
+  pokemonItemCharacteristicsPounds: 'Pounds',
+  pokemonItemCharacteristicsColor: 'Color',
+  pokemonItemCharacteristicsShape: 'Shape',
+  pokemonItemCharacteristicsGeneration: 'Generation',
+  pokemonItemCharacteristicsHabitat: 'Habitat',
 };

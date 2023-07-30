@@ -25,4 +25,12 @@ export default {
   guessPokemonGuessesInARow: 'Acertadas al hilo',
   guessPokemonBaseButton: (ctx) =>
     ctx.named('hasWon') || ctx.named('hasLost') ? 'Nuevo Pokemon' : 'Me rindo',
+
+  pokemonItemCharacteristicsWeight: 'Peso',
+  pokemonItemCharacteristicsHeight: 'Altura',
+  pokemonItemCharacteristicsPounds: 'Libras',
+  pokemonItemCharacteristicsColor: 'Color',
+  pokemonItemCharacteristicsShape: 'Forma',
+  pokemonItemCharacteristicsGeneration: 'Generación',
+  pokemonItemCharacteristicsHabitat: 'Hábitat',
 };

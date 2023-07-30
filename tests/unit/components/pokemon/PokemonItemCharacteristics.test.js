@@ -16,6 +16,7 @@ describe('LogoAndBanner', () => {
         generation: 'i',
         habitat: 'rare',
       },
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -35,7 +36,7 @@ describe('LogoAndBanner', () => {
 
   it('displays the correct weight', () => {
     const weight = wrapper.findAll('span').at(3);
-    expect(weight.text()).toBe('80 pounds');
+    expect(weight.text()).toBe('80 pokemonItemCharacteristicsPounds');
   });
 
   it('displays the correct height', () => {
