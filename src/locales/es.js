@@ -39,4 +39,7 @@ export default {
   pokemonItemStatsTitle: 'Estadísticas',
 
   pokemonItemTypeTitle: 'Tipos',
+
+  pokemonItemEvolutionsTitle: 'Evoluciones',
+  pokemonItemEvolutionsNone: 'Este pokemon no tiene evoluciones',
 };

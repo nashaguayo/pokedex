@@ -20,6 +20,7 @@ describe('PokemonItemEvolutions', () => {
         pokemonName: 'pokemon1',
       },
       stubs: ['router-link'],
+      mocks: { $t: (key) => key },
     });
 
     await wrapper.vm.$nextTick();
@@ -66,6 +67,7 @@ describe('PokemonItemEvolutions', () => {
         pokemonName: 'pokemon2',
       },
       stubs: ['router-link'],
+      mocks: { $t: (key) => key },
     });
     expect(
       wrapper.findAll('basechevron-stub').at(0).attributes().disabled
@@ -103,6 +105,7 @@ describe('PokemonItemEvolutions', () => {
         pokemonName: 'pokemon2',
       },
       stubs: ['router-link'],
+      mocks: { $t: (key) => key },
     });
     wrapper.vm.getPreviousEvolution();
     await wrapper.vm.$nextTick();
@@ -122,9 +125,10 @@ describe('PokemonItemEvolutions', () => {
         pokemonName: 'pokemon2',
       },
       stubs: ['router-link'],
+      mocks: { $t: (key) => key },
     });
     const noEvolutions = wrapper.find('.no-evolutions');
     expect(noEvolutions.exists).toBeTruthy();
-    expect(noEvolutions.text()).toBe('No evolutions found for this pokemon!');
+    expect(noEvolutions.text()).toBe('pokemonItemEvolutionsNone');
   });
 });
