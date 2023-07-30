@@ -1,4 +1,5 @@
 import pokemonApi from '@/config/pokemonApi';
+import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
 
 export async function getDataForPokemon(pokemonName) {
@@ -56,7 +57,7 @@ export async function getSpeciesData(url) {
   try {
     const response = await pokemonApi.get(url);
     const result = response.data.flavor_text_entries.filter(
-      (flavorText) => flavorText.language.name === 'en'
+      (flavorText) => flavorText.language.name === getLanguage()
     );
     const flavorTexts = result.map((text) =>
       text.flavor_text.replace(/\n/g, ' ').replace(/\f/g, ' ')

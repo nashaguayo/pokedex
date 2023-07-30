@@ -31,4 +31,6 @@ export default {
   pokemonItemCharacteristicsShape: 'Shape',
   pokemonItemCharacteristicsGeneration: 'Generation',
   pokemonItemCharacteristicsHabitat: 'Habitat',
+
+  pokemonItemDescriptionFunFacts: 'Fun Facts',
 };

@@ -1,9 +1,9 @@
-<template functional>
+<template>
   <div class="pokemon-item-description">
     <hr />
-    <span class="title">Fun Facts</span>
+    <span class="title">{{ $t('pokemonItemDescriptionFunFacts') }}</span>
     <ul>
-      <li v-for="text in props.flavorTexts" :key="text">{{ text }}</li>
+      <li v-for="text in flavorTexts" :key="text">{{ text }}</li>
     </ul>
   </div>
 </template>

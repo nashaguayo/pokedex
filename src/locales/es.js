@@ -33,4 +33,6 @@ export default {
   pokemonItemCharacteristicsShape: 'Forma',
   pokemonItemCharacteristicsGeneration: 'Generación',
   pokemonItemCharacteristicsHabitat: 'Hábitat',
+
+  pokemonItemDescriptionFunFacts: 'Trivia',
 };
