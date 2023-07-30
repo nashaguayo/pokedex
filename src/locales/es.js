@@ -8,6 +8,11 @@ export default {
     },
   },
 
+  footer: {
+    disclaimer: 'Este proyecto fue hecho para aprender.',
+    fueledBy: 'Backend',
+  },
+
   home: {
     welcomeMessage: 'Aprende todo sobre pokemones!',
     description:

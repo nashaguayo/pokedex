@@ -8,12 +8,12 @@
     }"
   >
     <div class="disclaimer">
-      <span>This is a project built for learning.</span>
+      <span>{{ $t('footer.disclaimer') }}</span>
       <span>Natasha Aguayo - 2023</span>
     </div>
     <div class="logos">
       <div class="fueled-by">
-        <span>Fueled by</span>
+        <span>{{ $t('footer.fueledBy') }}</span>
         <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
           <img src="@/assets/ui/pokeapi.png" alt="pokeapi logo" />
         </a>

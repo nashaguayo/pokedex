@@ -8,6 +8,11 @@ export default {
     },
   },
 
+  footer: {
+    disclaimer: 'This is a project built for learning.',
+    fueledBy: 'Fueled by',
+  },
+
   home: {
     welcomeMessage: 'Learn all about pokemons!',
     description:
