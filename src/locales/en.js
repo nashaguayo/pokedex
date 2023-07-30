@@ -48,6 +48,10 @@ export default {
   pokemonItemNext: 'Next',
   pokemonItemGoBack: 'Go back',
 
+  pokemons: {
+    title: 'Pokemons',
+  },
+
   search: {
     clearSearch: 'Clear search',
     placeholder: 'Search for pokemon...',

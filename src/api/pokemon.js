@@ -1,13 +1,21 @@
 import pokemonApi from '@/config/pokemonApi';
 import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
+import { getPokemonTypeTranslation } from './types';
 
 export async function getDataForPokemon(pokemonName) {
   try {
     const response = await pokemonApi.get(`pokemon/${pokemonName}`);
     const id = response.data.id;
     const image = response.data.sprites.front_default;
-    const types = response.data.types.map((t) => t.type.name);
+    const names = response.data.types.map((t) => t.type.name);
+    const types = await Promise.all(
+      names.map(async (name) => ({
+        name,
+        translated: await getPokemonTypeTranslation(name),
+      }))
+    );
+
     return { id, image, types };
   } catch (error) {
     logError(

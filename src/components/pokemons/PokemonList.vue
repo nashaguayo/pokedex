@@ -5,7 +5,7 @@
       <p>No pokemons to display.</p>
     </template>
     <template v-else>
-      <h1>Pokemons</h1>
+      <h1>{{ $t('pokemons.title') }}</h1>
       <transition-group name="slide-up" appear class="pokemons">
         <PokemonListCard
           v-for="pokemon in pokemons"
