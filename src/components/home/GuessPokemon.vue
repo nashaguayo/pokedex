@@ -12,10 +12,11 @@
     <transition name="flip" mode="out-in">
       <span
         class="game-results"
-        :key="gameResultsText"
+        :key="$t('guessPokemonGameResults', { playersGuess, hasLost, name })"
         :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
-        >{{ gameResultsText }}</span
       >
+        {{ $t('guessPokemonGameResults', { playersGuess, hasLost, name }) }}
+      </span>
     </transition>
     <div class="players-guess">
       <BaseInput
@@ -40,15 +41,32 @@
     </div>
     <transition name="flip" mode="out-in">
       <span
-        :key="triesLeftText"
+        :key="
+          $t('guessPokemonTriesLeft', {
+            hasWon,
+            hasLost,
+            timerCount,
+            name,
+            tries,
+          })
+        "
         class="tries-left"
         :class="{ 'last-try': tries === 1 }"
-        v-html="triesLeftText"
+        v-html="
+          $t('guessPokemonTriesLeft', {
+            hasWon,
+            hasLost,
+            timerCount,
+            name,
+            tries,
+          })
+        "
       ></span>
     </transition>
     <transition name="flip" appear>
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
-        <span>Guesses in a row</span><br />
+        <span>{{ $t('guessPokemonGuessesInARow') }}</span
+        ><br />
         <div class="stars">
           <transition-group name="zoom-in" appear>
             <FontAwesomeIcon
@@ -89,7 +107,7 @@
       :small="true"
       class="retrieve-new-pokemon"
     >
-      {{ baseButtonText }}
+      {{ $t('guessPokemonBaseButton', { hasWon, hasLost }) }}
     </BaseButton>
   </div>
 </template>
@@ -144,32 +162,11 @@ export default {
     storeHasLoaded() {
       return store.state.storeHasLoaded;
     },
-    triesLeftText() {
-      return this.hasWon
-        ? `Getting new Pokemon in ${this.timerCount}...`
-        : this.hasLost
-        ? `Pokemon was ${this.name}`
-        : `You have <strong>${this.tries} ${
-            this.tries === 1 ? 'TRY' : 'TRIES'
-          }</strong> left`;
-    },
-    gameResultsText() {
-      return !this.playersGuess
-        ? 'Guess the Pokemon!'
-        : this.hasLost
-        ? 'You Lost!'
-        : this.playersGuess === this.name
-        ? 'You won!'
-        : "That's not it...";
-    },
     hasWon() {
       return this.playersGuess.toLowerCase() === this.name;
     },
     hasLost() {
       return !this.hasWon && this.tries === 0;
-    },
-    baseButtonText() {
-      return this.hasWon || this.hasLost ? 'New Pokemon!' : 'I Give Up!';
     },
   },
   watch: {
