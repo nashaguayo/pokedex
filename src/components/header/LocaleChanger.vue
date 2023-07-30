@@ -15,6 +15,7 @@
 <script>
 import { ENGLISH, SPANISH } from '@/constants/languages';
 import { setLanguage } from '@/lib/localStorage';
+import store from '@/lib/store';
 
 export default {
   name: 'LocaleChanger',
@@ -29,6 +30,7 @@ export default {
   watch: {
     '$i18n.locale'(language) {
       setLanguage(language);
+      store.clearPokemon();
     },
   },
 };

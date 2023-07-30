@@ -485,4 +485,8 @@ export default {
     state.isDarkModeEnabled = !state.isDarkModeEnabled;
     toggleDarkModeInLocalStorage();
   },
+
+  clearPokemon() {
+    state.pokemon = new Map();
+  },
 };
