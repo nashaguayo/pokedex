@@ -9,6 +9,7 @@ describe('FooterLinks', () => {
     Vue.directive('observe-visibility', {});
     wrapper = shallowMount(FooterLinks, {
       props: { hasToUpdateHeight: false },
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -18,14 +19,12 @@ describe('FooterLinks', () => {
 
   it('renders the disclaimer', () => {
     expect(wrapper.find('.disclaimer').exists()).toBe(true);
-    expect(wrapper.find('.disclaimer span').text()).toBe(
-      'This is a project built for learning.'
-    );
+    expect(wrapper.find('.disclaimer span').text()).toBe('footer.disclaimer');
   });
 
   it('renders the "Fueled by" logo and link', () => {
     expect(wrapper.find('.fueled-by').exists()).toBe(true);
-    expect(wrapper.find('.fueled-by span').text()).toBe('Fueled by');
+    expect(wrapper.find('.fueled-by span').text()).toBe('footer.fueledBy');
     expect(wrapper.find('.fueled-by a').attributes('href')).toBe(
       'https://pokeapi.co/docs/v2'
     );
@@ -53,6 +52,7 @@ describe('FooterLinks', () => {
       props: {
         hasToUpdateHeight: false,
       },
+      mocks: { $t: (key) => key },
     });
 
     wrapper.setProps({ hasToUpdateHeight: true });
@@ -72,6 +72,7 @@ describe('FooterLinks', () => {
       props: {
         hasToUpdateHeight: false,
       },
+      mocks: { $t: (key) => key },
     });
 
     const githubLogo = wrapper.find('.repository img');

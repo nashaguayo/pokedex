@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import App from '@/App.vue';
 import router from '@/router';
+import VueI18n from 'vue-i18n';
+import en from '@/locales/en';
+import es from '@/locales/es';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -20,6 +23,7 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import VueObserveVisibility from 'vue-observe-visibility';
 
 import titleMixin from '@/lib/titleMixin';
+import { getLanguage } from './lib/localStorage';
 
 library.add(faToggleOn);
 library.add(faToggleOff);
@@ -38,11 +42,22 @@ Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 
 Vue.use(VueObserveVisibility);
 
+Vue.use(VueI18n);
+const messages = {
+  en,
+  es,
+};
+const i18n = new VueI18n({
+  locale: getLanguage(),
+  messages,
+});
+
 Vue.mixin(titleMixin);
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
+  i18n,
   render: (h) => h(App),
 }).$mount('#app');

@@ -1,12 +1,21 @@
 import pokemonApi from '@/config/pokemonApi';
+import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
+import { getPokemonTypeTranslation } from './types';
 
 export async function getDataForPokemon(pokemonName) {
   try {
     const response = await pokemonApi.get(`pokemon/${pokemonName}`);
     const id = response.data.id;
     const image = response.data.sprites.front_default;
-    const types = response.data.types.map((t) => t.type.name);
+    const names = response.data.types.map((t) => t.type.name);
+    const types = await Promise.all(
+      names.map(async (name) => ({
+        name,
+        translated: await getPokemonTypeTranslation(name),
+      }))
+    );
+
     return { id, image, types };
   } catch (error) {
     logError(
@@ -56,7 +65,7 @@ export async function getSpeciesData(url) {
   try {
     const response = await pokemonApi.get(url);
     const result = response.data.flavor_text_entries.filter(
-      (flavorText) => flavorText.language.name === 'en'
+      (flavorText) => flavorText.language.name === getLanguage()
     );
     const flavorTexts = result.map((text) =>
       text.flavor_text.replace(/\n/g, ' ').replace(/\f/g, ' ')
@@ -68,7 +77,7 @@ export async function getSpeciesData(url) {
       shape: response.data.shape?.name ?? '-',
       generation:
         response.data.generation?.name.replace('generation-', '') ?? '-',
-      habitat: response.data.habitat?.name ?? 'legendary',
+      habitat: response.data.habitat?.name ?? 'rare',
     };
   } catch (error) {
     logError(getSpeciesData.name, 'Unable to retrieve species data', error);

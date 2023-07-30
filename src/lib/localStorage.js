@@ -3,6 +3,7 @@ const GUESSES_IN_A_ROW = 'guessesInARow';
 const TRIES_LEFT = 'triesLeft';
 const MYSTERY_POKEMON = 'mysteryPokemon';
 const RECENT_SEARCHES = 'recentSearches';
+const LANGUAGE = 'language';
 
 export function isDarkModeEnabled() {
   return localStorage.getItem(DARKMODE_ENABLED) === 'true';
@@ -51,4 +52,12 @@ export function setRecentSearch(recentSearch) {
 
 export function clearRecentSearches() {
   localStorage.setItem(RECENT_SEARCHES, JSON.stringify([]));
+}
+
+export function getLanguage() {
+  return localStorage.getItem(LANGUAGE) ?? process.env.VUE_APP_FALLBACK_LOCALE;
+}
+
+export function setLanguage(language) {
+  localStorage.setItem(LANGUAGE, language);
 }

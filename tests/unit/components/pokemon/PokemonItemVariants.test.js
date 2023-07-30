@@ -22,6 +22,7 @@ describe('PokemonItemVariants', () => {
         variants: variants,
       },
       stubs: ['PokemonItemVariantsDropdown'],
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -30,7 +31,7 @@ describe('PokemonItemVariants', () => {
   });
 
   it('should display the title "Variants"', () => {
-    expect(wrapper.find('.title').text()).toBe('Variants');
+    expect(wrapper.find('.title').text()).toBe('pokemon.variants.title');
   });
 
   it('should display the first variant by default', () => {
@@ -72,6 +73,7 @@ describe('PokemonItemVariants', () => {
         variants: variants,
       },
       stubs: ['PokemonItemVariantsDropdown'],
+      mocks: { $t: (key) => key },
     });
     expect(wrapper.find('.variant button').attributes()['disabled']).toBe(
       'disabled'

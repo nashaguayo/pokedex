@@ -3,13 +3,18 @@ import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 
 describe('PokemonItemType', () => {
   let wrapper;
-  const types = ['fire', 'water', 'grass'];
+  const types = [
+    { name: 'fire', translated: 'fire' },
+    { name: 'water', translated: 'water' },
+    { name: 'grass', translated: 'grass' },
+  ];
 
   beforeEach(() => {
     wrapper = mount(PokemonItemType, {
       propsData: {
         types,
       },
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -28,9 +33,9 @@ describe('PokemonItemType', () => {
       const lightsElement = typeElement.querySelector('.lights');
       const shineElement = typeElement.querySelector('.shine');
 
-      expect(typeNameElement.textContent).toBe(type);
+      expect(typeNameElement.textContent).toBe(type.translated);
       expect(lightsElement.style.backgroundColor).toBe(
-        wrapper.vm.pokemonColorTypes.get(type)
+        wrapper.vm.pokemonColorTypes.get(type.name)
       );
       expect(shineElement).toBeTruthy();
     });
@@ -41,6 +46,7 @@ describe('PokemonItemType', () => {
       propsData: {
         types: [],
       },
+      mocks: { $t: (key) => key },
     });
     const typeElements = wrapper.findAll('.type');
     expect(typeElements.length).toBe(0);

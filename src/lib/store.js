@@ -14,16 +14,21 @@ import {
 import {
   getAllColors as getAllColorsApi,
   getPokemonsByColor as getPokemonsByColorApi,
+  getPokemonColorTranslation as getPokemonColorTranslationApi,
 } from '@/api/colors';
 import {
   getAllShapes as getAllShapesApi,
   getPokemonsByShape as getPokemonsByShapeApi,
+  getPokemonShapeTranslation as getPokemonShapeTranslationApi,
 } from '@/api/shapes';
 import {
   getAllGenerations as getAllGenerationsApi,
   getPokemonsByGeneration as getPokemonsByGenerationApi,
 } from '@/api/generations';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
+import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
+import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
+import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
 import {
   isDarkModeEnabled,
   toggleDarkMode as toggleDarkModeInLocalStorage,
@@ -71,6 +76,7 @@ export default {
   },
 
   async initializeStore() {
+    state.storeHasLoaded = false;
     await Promise.all([
       this.getAllPokemons(),
       this.getAllTypes(),
@@ -163,13 +169,18 @@ export default {
       : [];
     let highestStatName = '';
     let highestStatValue = 0;
-    const stats = pokemon.stats.map((s) => {
-      if (s.base_stat > highestStatValue) {
-        highestStatName = s.stat.name;
-        highestStatValue = s.base_stat;
-      }
-      return { name: s.stat.name, value: s.base_stat };
-    });
+    const stats = await Promise.all(
+      pokemon.stats.map(async (s) => {
+        if (s.base_stat > highestStatValue) {
+          highestStatName = s.stat.name;
+          highestStatValue = s.base_stat;
+        }
+        return {
+          name: await getPokemonStatTranslationApi(s.stat.name),
+          value: s.base_stat,
+        };
+      })
+    );
     let characteristic = '';
     (state.allCharacteristics.get(highestStatName) ?? []).map((c) => {
       if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {
@@ -190,7 +201,12 @@ export default {
     );
     const image = pokemon.sprites.other.dream_world.front_default;
     const smallImage = pokemon.sprites.front_default;
-    const types = pokemon.types.map((t) => t.type.name);
+    const types = await Promise.all(
+      pokemon.types.map(async (t) => ({
+        name: t.type.name,
+        translated: await getPokemonTypeTranslationApi(t.type.name),
+      }))
+    );
     const name = pokemon.name;
     const id = pokemon.id;
     const height = pokemon.height;
@@ -208,10 +224,16 @@ export default {
       characteristic,
       height,
       weight,
-      color,
-      shape,
+      color: {
+        name: color,
+        translated: await getPokemonColorTranslationApi(color),
+      },
+      shape: await getPokemonShapeTranslationApi(shape),
       generation,
-      habitat,
+      habitat: {
+        name: habitat,
+        translated: await getPokemonHabitatTranslationApi(habitat),
+      },
       variants,
     });
   },
@@ -376,7 +398,10 @@ export default {
       allTypes.map(async (type) => {
         const pokemons = await getPokemonsByTypeApi(type);
         if (pokemons.length) {
-          state.pokemonsByType.set(type, pokemons);
+          const key = await getPokemonTypeTranslationApi(type);
+          state.pokemonsByType.set(key, pokemons);
+          const index = state.allTypes.findIndex((t) => t === type);
+          state.allTypes[index] = key;
           return;
         }
         const index = state.allTypes.findIndex((t) => t === type);
@@ -392,10 +417,13 @@ export default {
       allColors.map(async (color) => {
         const pokemons = await getPokemonsByColorApi(color);
         if (pokemons.length) {
-          state.pokemonsByColor.set(color, pokemons);
+          const key = await getPokemonColorTranslationApi(color);
+          state.pokemonsByColor.set(key, pokemons);
+          const index = state.allColors.findIndex((c) => c === color);
+          state.allColors[index] = key;
           return;
         }
-        const index = state.allColors.findIndex((t) => t === color);
+        const index = state.allColors.findIndex((c) => c === color);
         state.allColors.splice(index, 1);
       })
     );
@@ -408,7 +436,10 @@ export default {
       allShapes.map(async (shape) => {
         const pokemons = await getPokemonsByShapeApi(shape);
         if (pokemons.length) {
-          state.pokemonsByShape.set(shape, pokemons);
+          const key = await getPokemonShapeTranslationApi(shape);
+          state.pokemonsByShape.set(key, pokemons);
+          const index = state.allShapes.findIndex((s) => s === shape);
+          state.allShapes[index] = key;
           return;
         }
         const index = state.allShapes.findIndex((s) => s === shape);
@@ -484,5 +515,14 @@ export default {
   toggleDarkMode() {
     state.isDarkModeEnabled = !state.isDarkModeEnabled;
     toggleDarkModeInLocalStorage();
+  },
+
+  clearPokemon() {
+    state.pokemon = new Map();
+  },
+
+  async clearPokemonListAndRefresh() {
+    state.scroll.pokemons = [];
+    await this.getPokemons();
   },
 };

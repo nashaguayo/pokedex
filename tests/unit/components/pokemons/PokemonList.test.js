@@ -49,6 +49,7 @@ describe('PokemonList', () => {
   beforeEach(() => {
     wrapper = shallowMount(PokemonList, {
       stubs: ['router-link', 'FontAwesomeIcon'],
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -76,6 +77,7 @@ describe('PokemonList', () => {
     wrapper = shallowMount(PokemonList, {
       store,
       stubs: ['router-link', 'FontAwesomeIcon'],
+      mocks: { $t: (key) => key },
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.find('h2').text()).toBe('Something went wrong!');

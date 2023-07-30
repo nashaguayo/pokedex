@@ -4,16 +4,17 @@
       <GeneralNavigationLink :to="{ name: 'home' }" />
       <GeneralNavigationLink
         :to="{ name: 'pokemons' }"
-        text="Pokemons"
+        :text="$t('header.generalNavigation.goToPokemonsPage')"
         icon="fa-book-open"
       />
       <GeneralNavigationLink
         :to="{ name: 'search' }"
-        text="Search"
+        :text="$t('header.generalNavigation.search')"
         icon="fa-magnifying-glass"
       />
     </div>
     <div class="darkmode">
+      <LocaleChanger />
       <transition name="flip" mode="out-in">
         <FontAwesomeIcon
           key="on"
@@ -38,12 +39,13 @@
 </template>
 
 <script>
-import GeneralNavigationLink from './GeneralNavigationLink.vue';
+import GeneralNavigationLink from '@/components/header/GeneralNavigationLink.vue';
+import LocaleChanger from '@/components/header/LocaleChanger.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'GeneralNavigation',
-  components: { GeneralNavigationLink },
+  components: { GeneralNavigationLink, LocaleChanger },
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
@@ -78,9 +80,22 @@ export default {
     align-items: center;
   }
 
+  .darkmode {
+    display: flex;
+    align-items: center;
+  }
+
   .icon {
     cursor: pointer;
     margin-right: 2rem;
+
+    @media (min-width: $min-width-first-break) {
+      margin-right: 1rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      margin-right: 3rem;
+    }
   }
 
   .flip-enter-active,

@@ -57,21 +57,32 @@ jest.mock('@/api/evolutions', () => ({
 jest.mock('@/api/types', () => ({
   getAllTypes: jest.fn().mockResolvedValue(['electric', 'fighting']),
   getPokemonsByType: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonTypeTranslation: jest.fn().mockResolvedValue('electric'),
 }));
 
 jest.mock('@/api/colors', () => ({
   getAllColors: jest.fn().mockResolvedValue(['yellow', 'blue']),
   getPokemonsByColor: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonColorTranslation: jest.fn().mockResolvedValue('yellow'),
 }));
 
 jest.mock('@/api/shapes', () => ({
   getAllShapes: jest.fn().mockResolvedValue(['quadruped', 'humanoid']),
   getPokemonsByShape: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonShapeTranslation: jest.fn().mockResolvedValue('quadruped'),
 }));
 
 jest.mock('@/api/generations', () => ({
   getAllGenerations: jest.fn().mockResolvedValue(['i', 'ii']),
   getPokemonsByGeneration: jest.fn().mockResolvedValue(['pikachu']),
+}));
+
+jest.mock('@/api/habitat', () => ({
+  getPokemonHabitatTranslation: jest.fn().mockResolvedValue('forest'),
+}));
+
+jest.mock('@/api/stats', () => ({
+  getPokemonStatTranslation: jest.fn().mockResolvedValue('HP'),
 }));
 
 jest.mock('@/api/characteristics', () => ({
@@ -200,10 +211,13 @@ describe('store', () => {
       characteristic: '',
       height: 4,
       weight: 60,
-      color: 'yellow',
+      color: { name: 'yellow', translated: 'yellow' },
       shape: 'quadruped',
       generation: 'i',
-      habitat: 'forest',
+      habitat: {
+        name: 'forest',
+        translated: 'forest',
+      },
       variants: [
         {
           image: 'front-default-image.png',
@@ -542,12 +556,9 @@ describe('store', () => {
     store.state.pokemonsByType = new Map([]);
     expect(store.state.allTypes).toStrictEqual([]);
     await store.getAllTypes();
-    expect(store.state.allTypes).toStrictEqual(['electric', 'fighting']);
+    expect(store.state.allTypes).toStrictEqual(['electric', 'electric']);
     expect(store.state.pokemonsByType).toStrictEqual(
-      new Map([
-        ['electric', ['pikachu']],
-        ['fighting', ['pikachu']],
-      ])
+      new Map([['electric', ['pikachu']]])
     );
   });
 
@@ -556,12 +567,9 @@ describe('store', () => {
     store.state.pokemonsByColor = new Map([]);
     expect(store.state.allColors).toStrictEqual([]);
     await store.getAllColors();
-    expect(store.state.allColors).toStrictEqual(['yellow', 'blue']);
+    expect(store.state.allColors).toStrictEqual(['yellow', 'yellow']);
     expect(store.state.pokemonsByColor).toStrictEqual(
-      new Map([
-        ['yellow', ['pikachu']],
-        ['blue', ['pikachu']],
-      ])
+      new Map([['yellow', ['pikachu']]])
     );
   });
 
@@ -570,12 +578,9 @@ describe('store', () => {
     store.state.pokemonsByShape = new Map([]);
     expect(store.state.allShapes).toStrictEqual([]);
     await store.getAllShapes();
-    expect(store.state.allShapes).toStrictEqual(['quadruped', 'humanoid']);
+    expect(store.state.allShapes).toStrictEqual(['quadruped', 'quadruped']);
     expect(store.state.pokemonsByShape).toStrictEqual(
-      new Map([
-        ['quadruped', ['pikachu']],
-        ['humanoid', ['pikachu']],
-      ])
+      new Map([['quadruped', ['pikachu']]])
     );
   });
 
@@ -685,5 +690,17 @@ describe('store', () => {
     expect(store.state.isDarkModeEnabled).toBeTruthy();
     store.toggleDarkMode();
     expect(store.state.isDarkModeEnabled).toBeFalsy();
+  });
+
+  it('clears pokemon', () => {
+    expect(store.state.pokemon.size).toBe(1);
+    store.clearPokemon();
+    expect(store.state.pokemon.size).toBe(0);
+  });
+
+  it('clears pokemon list', async () => {
+    expect(store.state.scroll.pokemons.length).toBe(6);
+    await store.clearPokemonListAndRefresh();
+    expect(store.state.scroll.pokemons.length).toBe(3);
   });
 });

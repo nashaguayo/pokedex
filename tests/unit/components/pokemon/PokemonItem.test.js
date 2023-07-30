@@ -144,6 +144,7 @@ describe('PokemonItem', () => {
         $router: {
           push: jest.fn(),
         },
+        $t: (key) => key,
       },
     });
   });
@@ -203,6 +204,7 @@ describe('PokemonItem', () => {
         $router: {
           push: jest.fn(),
         },
+        $t: (key) => key,
       },
     });
     expect(
@@ -228,6 +230,7 @@ describe('PokemonItem', () => {
         $router: {
           push: jest.fn(),
         },
+        $t: (key) => key,
       },
     });
     expect(

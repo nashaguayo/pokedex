@@ -11,11 +11,11 @@
     <div class="types">
       <span
         v-for="t in types"
-        :key="`type-${t}`"
-        :style="{ backgroundColor: pokemonColorTypes.get(t) }"
+        :key="`type-${t.name}`"
+        :style="{ backgroundColor: pokemonColorTypes.get(t.name) }"
         class="type"
       >
-        {{ t }}
+        {{ t.translated }}
       </span>
     </div>
   </div>

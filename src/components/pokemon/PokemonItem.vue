@@ -10,7 +10,7 @@
         :image="image"
         :smallImage="smallImage"
         :topPosition="topPosition"
-        :habitat="habitat"
+        :habitat="habitatName"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
@@ -22,7 +22,7 @@
           :color="color"
           :shape="shape"
           :generation="generation"
-          :habitat="habitat"
+          :habitat="habitatTranslated"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
@@ -40,14 +40,14 @@
           :disabled="id === 1"
           :variant="true"
         >
-          Previous
+          {{ $t('pokemon.previous') }}
         </BaseButton>
         <BaseButton
           :onClickHandler="goToNextPokemon"
           :disabled="id === lastPokemonId"
           :variant="true"
         >
-          Next
+          {{ $t('pokemon.next') }}
         </BaseButton>
       </div>
       <div class="go-back">
@@ -56,7 +56,7 @@
           :onClickHandler="goToPokemonsPage"
           :big="true"
         >
-          Go Back
+          {{ $t('pokemon.goBack') }}
         </BaseButton>
       </div>
     </div>
@@ -187,9 +187,16 @@ export default {
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
       );
     },
-    habitat() {
+    habitatTranslated() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat ?? ''
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat
+          ?.translated ?? ''
+      );
+    },
+    habitatName() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat?.name ??
+        ''
       );
     },
     variants() {

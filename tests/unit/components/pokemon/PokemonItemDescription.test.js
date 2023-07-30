@@ -9,6 +9,7 @@ describe('PokemonItemDescription', () => {
       propsData: {
         flavorTexts: ['flavor text 1', 'flavor text 2'],
       },
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -22,7 +23,7 @@ describe('PokemonItemDescription', () => {
 
   it('displays the title correctly', () => {
     const titleElement = wrapper.find('.title');
-    expect(titleElement.text()).toBe('Fun Facts');
+    expect(titleElement.text()).toBe('pokemon.descriptionFunFacts');
   });
 
   it('renders the flavor texts correctly', () => {
