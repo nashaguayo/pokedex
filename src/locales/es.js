@@ -79,13 +79,13 @@ export default {
     noResultsFound: 'No se han encontrado resultados',
     recentSearches: 'Busquedas Recientes',
     displayTypes: (ctx) =>
-      ctx.named('displayTypes') ? 'Mostrar Tipos' : 'Esconder Tipos',
+      !ctx.named('displayTypes') ? 'Mostrar Tipos' : 'Esconder Tipos',
     displayColors: (ctx) =>
-      ctx.named('displayColors') ? 'Mostrar Colores' : 'Esconder Colores',
+      !ctx.named('displayColors') ? 'Mostrar Colores' : 'Esconder Colores',
     displayShapes: (ctx) =>
-      ctx.named('displayShapes') ? 'Mostrar Formas' : 'Esconder Formas',
+      !ctx.named('displayShapes') ? 'Mostrar Formas' : 'Esconder Formas',
     displayGenerations: (ctx) =>
-      ctx.named('displayGenerations') ? 'Mostrar Gens' : 'Esconder Gens',
+      !ctx.named('displayGenerations') ? 'Mostrar Gens' : 'Esconder Gens',
   },
 
   error: {
