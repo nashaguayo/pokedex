@@ -226,7 +226,7 @@ export default {
       if (this.loading || window.innerWidth >= fourthBreak) {
         return;
       }
-      this.throttledParallax = throttle(this.parallax, 20);
+      this.throttledParallax = throttle(this.parallax, 10);
       getPageBackgroundElement().addEventListener(
         'scroll',
         this.throttledParallax
