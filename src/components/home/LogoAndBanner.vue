@@ -1,19 +1,18 @@
-<template functional>
+<template>
   <div class="logo-and-banner">
     <img
       class="logo-image"
       alt="pokemon logo"
       src="@/assets/home/pokedex-logo.png"
     />
-    <h1 v-if="props.subtitle">{{ props.subtitle }}</h1>
+    <h1 v-if="subtitle">{{ subtitle }}</h1>
     <img
       class="banner"
       alt="pokemons banner"
       src="@/assets/home/pokemons.png"
     />
     <span class="description">
-      This is an application about pokemons. Guess who they are, read about them
-      and their stats, search them by type, generations, colors, and more!
+      {{ $t('home.description') }}
     </span>
   </div>
 </template>

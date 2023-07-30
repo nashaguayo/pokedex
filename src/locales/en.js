@@ -1,10 +1,17 @@
+import { capitalizeWord } from '@/lib/helpers';
+
 export default {
-  home: {
-    welcomeMessage: 'Learn all about pokemons!',
+  header: {
     generalNavigation: {
       goToPokemonsPage: 'Pokemonss',
       search: 'Search',
     },
+  },
+
+  home: {
+    welcomeMessage: 'Learn all about pokemons!',
+    description:
+      'This is an application about pokemons. Guess who they are, read about them and their stats, search them by type, generations, colors, and more!',
     guessPokemon: {
       gameResults: (ctx) =>
         !ctx.named('playersGuess')
@@ -18,7 +25,7 @@ export default {
         ctx.named('hasWon')
           ? `Getting new pokemon in ${ctx.named('timerCount')}...`
           : ctx.named('hasLost')
-          ? `Pokemon was ${ctx.named('name')}`
+          ? `Pokemon was ${capitalizeWord(ctx.named('name'))}`
           : `You have <strong>${ctx.named('tries')} ${
               ctx.named('tries') === 1 ? 'TRY' : 'TRIES'
             }</strong> left`,

@@ -1,12 +1,17 @@
 import { capitalizeWord } from '@/lib/helpers';
 
 export default {
-  home: {
-    welcomeMessage: 'Aprende todo sobre pokemones!',
+  header: {
     generalNavigation: {
       goToPokemonsPage: 'Pokemones',
       search: 'Buscar',
     },
+  },
+
+  home: {
+    welcomeMessage: 'Aprende todo sobre pokemones!',
+    description:
+      'Esta es una aplicación sobre pokemones. Adivina quiénes son, lee sobre ellos y sus estadísticas, búscalos por tipo, generaciones, colores y más.',
     guessPokemon: {
       gameResults: (ctx) =>
         !ctx.named('playersGuess')
