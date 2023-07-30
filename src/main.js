@@ -24,7 +24,6 @@ import VueObserveVisibility from 'vue-observe-visibility';
 
 import titleMixin from '@/lib/titleMixin';
 import { getLanguage } from './lib/localStorage';
-import { ENGLISH } from './constants/languages';
 
 library.add(faToggleOn);
 library.add(faToggleOff);
@@ -49,7 +48,7 @@ const messages = {
   es,
 };
 const i18n = new VueI18n({
-  locale: getLanguage() ?? ENGLISH,
+  locale: getLanguage(),
   messages,
 });
 

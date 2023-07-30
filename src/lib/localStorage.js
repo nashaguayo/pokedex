@@ -55,7 +55,7 @@ export function clearRecentSearches() {
 }
 
 export function getLanguage() {
-  return localStorage.getItem(LANGUAGE);
+  return localStorage.getItem(LANGUAGE) ?? process.env.VUE_APP_FALLBACK_LOCALE;
 }
 
 export function setLanguage(language) {

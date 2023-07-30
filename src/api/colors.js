@@ -1,5 +1,4 @@
 import pokemonApi from '@/config/pokemonApi';
-import { ENGLISH } from '@/constants/languages';
 import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
 
@@ -28,13 +27,8 @@ export async function getPokemonsByColor(color) {
 export async function getPokemonColorTranslation(color) {
   try {
     const response = await pokemonApi.get(`pokemon-color/${color}`);
-    console.log(
-      response.data.names.filter(
-        (language) => language.language.name === getLanguage() ?? ENGLISH
-      )[0].name
-    );
     return response.data.names.filter(
-      (language) => language.language.name === getLanguage() ?? ENGLISH
+      (language) => language.language.name === getLanguage()
     )[0].name;
   } catch (error) {
     logError(
