@@ -3,19 +3,19 @@
     <div class="status">
       <span class="right">ID</span>
       <span>#{{ id }}</span>
-      <span class="right">{{ $t('pokemon.characteristicsWeight') }}</span>
-      <span>{{ weight }} {{ $t('pokemon.characteristicsPounds') }}</span>
-      <span class="right">{{ $t('pokemon.characteristicsHeight') }}</span>
+      <span class="right">{{ $t('pokemon.characteristics.weight') }}</span>
+      <span>{{ weight }} {{ $t('pokemon.characteristics.pounds') }}</span>
+      <span class="right">{{ $t('pokemon.characteristics.height') }}</span>
       <span>{{ height }}"</span>
-      <span class="right">{{ $t('pokemon.characteristicsColor') }}</span>
+      <span class="right">{{ $t('pokemon.characteristics.color') }}</span>
       <span :style="{ color: color.name }" class="color">{{
         color.translated
       }}</span>
-      <span class="right">{{ $t('pokemon.characteristicsShape') }}</span>
+      <span class="right">{{ $t('pokemon.characteristics.shape') }}</span>
       <span>{{ shape }}</span>
-      <span class="right">{{ $t('pokemon.characteristicsGeneration') }}</span>
+      <span class="right">{{ $t('pokemon.characteristics.generation') }}</span>
       <span>{{ generation.toUpperCase() }}</span>
-      <span class="right">{{ $t('pokemon.characteristicsHabitat') }}</span>
+      <span class="right">{{ $t('pokemon.characteristics.habitat') }}</span>
       <span>{{ habitat.replace('-', ' ') }}</span>
       <span class="characteristic">
         {{ characteristic }}

@@ -1,7 +1,7 @@
 <template>
   <div class="pokemon-item-variants">
     <hr />
-    <span class="title">{{ $t('pokemon.variantsTitle') }}</span>
+    <span class="title">{{ $t('pokemon.variants.title') }}</span>
     <div class="variant">
       <div
         class="screen"
@@ -15,7 +15,7 @@
         :disabled="variants.length === 1"
         :small="true"
       >
-        {{ $t('pokemon.variantsButton') }}
+        {{ $t('pokemon.variants.button') }}
       </BaseButton>
     </div>
     <transition name="slide-up">
@@ -100,10 +100,12 @@ export default {
 
   .title {
     font-size: 2rem;
+    margin-top: 1rem;
 
     @media (min-width: $min-width-fourth-break) {
       font-size: 2.5rem;
       margin-right: 3rem;
+      margin-top: 0;
     }
   }
 
