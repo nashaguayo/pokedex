@@ -9,6 +9,7 @@
 - Pokemon variants
 - Animations to header icons
 - Recent searches
+- Internationalization
 
 ##### Modified
 
