@@ -401,7 +401,7 @@ export default {
           const key = await getPokemonTypeTranslationApi(type);
           state.pokemonsByType.set(key, pokemons);
           const index = state.allTypes.findIndex((t) => t === type);
-          state.allTypes[index] = await getPokemonTypeTranslationApi(type);
+          state.allTypes[index] = key;
           return;
         }
         const index = state.allTypes.findIndex((t) => t === type);
@@ -417,7 +417,10 @@ export default {
       allColors.map(async (color) => {
         const pokemons = await getPokemonsByColorApi(color);
         if (pokemons.length) {
-          state.pokemonsByColor.set(color, pokemons);
+          const key = await getPokemonColorTranslationApi(color);
+          state.pokemonsByColor.set(key, pokemons);
+          const index = state.allColors.findIndex((t) => t === color);
+          state.allColors[index] = key;
           return;
         }
         const index = state.allColors.findIndex((t) => t === color);
