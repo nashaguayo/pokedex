@@ -10,7 +10,7 @@
         :image="image"
         :smallImage="smallImage"
         :topPosition="topPosition"
-        :habitat="habitat"
+        :habitat="habitatName"
       />
       <div class="pokemon-info-container">
         <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
@@ -22,7 +22,7 @@
           :color="color"
           :shape="shape"
           :generation="generation"
-          :habitat="habitat"
+          :habitat="habitatTranslated"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
@@ -187,9 +187,16 @@ export default {
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
       );
     },
-    habitat() {
+    habitatTranslated() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat ?? ''
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat
+          ?.translated ?? ''
+      );
+    },
+    habitatName() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat?.name ??
+        ''
       );
     },
     variants() {
@@ -226,7 +233,7 @@ export default {
       if (this.loading || window.innerWidth >= fourthBreak) {
         return;
       }
-      this.throttledParallax = throttle(this.parallax, 10);
+      this.throttledParallax = throttle(this.parallax, 20);
       getPageBackgroundElement().addEventListener(
         'scroll',
         this.throttledParallax

@@ -76,6 +76,10 @@ jest.mock('@/api/generations', () => ({
   getPokemonsByGeneration: jest.fn().mockResolvedValue(['pikachu']),
 }));
 
+jest.mock('@/api/habitat', () => ({
+  getPokemonHabitatTranslation: jest.fn().mockResolvedValue('forest'),
+}));
+
 jest.mock('@/api/characteristics', () => ({
   getAllCharacteristicsDescriptions: jest
     .fn()
@@ -205,7 +209,10 @@ describe('store', () => {
       color: 'yellow',
       shape: 'quadruped',
       generation: 'i',
-      habitat: 'forest',
+      habitat: {
+        name: 'forest',
+        translated: 'forest',
+      },
       variants: [
         {
           image: 'front-default-image.png',

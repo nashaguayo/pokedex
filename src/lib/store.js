@@ -26,6 +26,7 @@ import {
   getPokemonsByGeneration as getPokemonsByGenerationApi,
 } from '@/api/generations';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
+import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import {
   isDarkModeEnabled,
   toggleDarkMode as toggleDarkModeInLocalStorage,
@@ -213,7 +214,10 @@ export default {
       color: await getPokemonColorTranslationApi(color),
       shape: await getPokemonShapeTranslationApi(shape),
       generation,
-      habitat,
+      habitat: {
+        name: habitat,
+        translated: await getPokemonHabitatTranslationApi(habitat),
+      },
       variants,
     });
   },

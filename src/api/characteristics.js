@@ -1,4 +1,5 @@
 import pokemonApi from '@/config/pokemonApi';
+import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
 
 export async function getAllCharacteristicsDescriptions() {
@@ -41,7 +42,7 @@ export async function getCharacteristicDescription(characteristicUrl) {
       characteristicUrl.replace(process.env.VUE_APP_POKEAPI_URL, '')
     );
     const filteredResult = results.data.descriptions.filter(
-      (description) => description.language.name == 'en'
+      (description) => description.language.name === getLanguage()
     );
     return {
       name: results.data.highest_stat.name,
