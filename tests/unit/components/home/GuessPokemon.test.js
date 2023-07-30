@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import GuessPokemon from '@/components/home/GuessPokemon.vue';
-import en from '@/locales/en';
 
 jest.mock('@/components/ui/BaseInput', () => ({
   name: 'BaseInput',
