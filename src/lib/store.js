@@ -419,11 +419,11 @@ export default {
         if (pokemons.length) {
           const key = await getPokemonColorTranslationApi(color);
           state.pokemonsByColor.set(key, pokemons);
-          const index = state.allColors.findIndex((t) => t === color);
+          const index = state.allColors.findIndex((c) => c === color);
           state.allColors[index] = key;
           return;
         }
-        const index = state.allColors.findIndex((t) => t === color);
+        const index = state.allColors.findIndex((c) => c === color);
         state.allColors.splice(index, 1);
       })
     );

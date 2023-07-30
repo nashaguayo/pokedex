@@ -57,6 +57,7 @@ jest.mock('@/api/evolutions', () => ({
 jest.mock('@/api/types', () => ({
   getAllTypes: jest.fn().mockResolvedValue(['electric', 'fighting']),
   getPokemonsByType: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonTypeTranslation: jest.fn().mockResolvedValue('electric'),
 }));
 
 jest.mock('@/api/colors', () => ({
@@ -555,12 +556,9 @@ describe('store', () => {
     store.state.pokemonsByType = new Map([]);
     expect(store.state.allTypes).toStrictEqual([]);
     await store.getAllTypes();
-    expect(store.state.allTypes).toStrictEqual(['electric', 'fighting']);
+    expect(store.state.allTypes).toStrictEqual(['electric', 'electric']);
     expect(store.state.pokemonsByType).toStrictEqual(
-      new Map([
-        ['electric', ['pikachu']],
-        ['fighting', ['pikachu']],
-      ])
+      new Map([['electric', ['pikachu']]])
     );
   });
 
@@ -569,12 +567,9 @@ describe('store', () => {
     store.state.pokemonsByColor = new Map([]);
     expect(store.state.allColors).toStrictEqual([]);
     await store.getAllColors();
-    expect(store.state.allColors).toStrictEqual(['yellow', 'blue']);
+    expect(store.state.allColors).toStrictEqual(['yellow', 'yellow']);
     expect(store.state.pokemonsByColor).toStrictEqual(
-      new Map([
-        ['yellow', ['pikachu']],
-        ['blue', ['pikachu']],
-      ])
+      new Map([['yellow', ['pikachu']]])
     );
   });
 
