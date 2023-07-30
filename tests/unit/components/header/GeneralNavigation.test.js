@@ -17,6 +17,7 @@ describe('GeneralNavigation', () => {
   beforeEach(() => {
     wrapper = shallowMount(GeneralNavigation, {
       stubs: ['router-link', 'FontAwesomeIcon', 'GeneralNavigationLink'],
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -46,6 +47,7 @@ describe('GeneralNavigation', () => {
         },
       },
       stubs: ['router-link', 'FontAwesomeIcon'],
+      mocks: { $t: (key) => key },
     });
     expect(wrapper.findAll('.icon').at(0).attributes().icon).toBe(
       'fa-solid fa-toggle-off'
