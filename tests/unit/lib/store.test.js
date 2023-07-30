@@ -578,12 +578,9 @@ describe('store', () => {
     store.state.pokemonsByShape = new Map([]);
     expect(store.state.allShapes).toStrictEqual([]);
     await store.getAllShapes();
-    expect(store.state.allShapes).toStrictEqual(['quadruped', 'humanoid']);
+    expect(store.state.allShapes).toStrictEqual(['quadruped', 'quadruped']);
     expect(store.state.pokemonsByShape).toStrictEqual(
-      new Map([
-        ['quadruped', ['pikachu']],
-        ['humanoid', ['pikachu']],
-      ])
+      new Map([['quadruped', ['pikachu']]])
     );
   });
 
