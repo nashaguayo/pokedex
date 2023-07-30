@@ -87,4 +87,10 @@ export default {
     displayGenerations: (ctx) =>
       ctx.named('displayGenerations') ? 'Show Gens' : 'Hide Gens',
   },
+
+  error: {
+    title: '404 Error',
+    subtitle: 'Page Not Found',
+    description: "How did you get here? There's nothing to see!",
+  },
 };
