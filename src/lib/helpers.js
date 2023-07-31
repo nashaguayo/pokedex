@@ -1,3 +1,5 @@
+import { getIsInstalled } from './localStorage';
+
 export function getPageBackgroundElement() {
   return document.getElementsByClassName('page-background')[0];
 }
@@ -23,7 +25,8 @@ export function isInstalled() {
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone ||
-    document.referrer.includes('android-app://')
+    document.referrer.includes('android-app://') ||
+    getIsInstalled()
   );
 }
 
