@@ -11,7 +11,7 @@
         <transition name="drawer-up">
           <BaseHeader v-if="displayHeader" />
         </transition>
-        <transition :name="transition" appear mode="out-in">
+        <transition :name="transition" mode="out-in">
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
@@ -40,10 +40,10 @@ export default {
       return store.state.isDarkModeEnabled;
     },
     displayHeader() {
-      return this.$route.meta.header ?? true;
+      return this.$route.meta.header ?? false;
     },
     displayFooter() {
-      return this.$route.meta.footer ?? true;
+      return this.$route.meta.footer ?? false;
     },
     transition() {
       return this.$route.meta.transition ?? 'slide';
