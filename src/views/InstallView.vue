@@ -2,7 +2,7 @@
   <div class="install-view">
     <h1>{{ $t('install.title') }}</h1>
     <span>{{ $t('install.description') }}</span>
-    <BaseButton :big="true" :variant="true">{{
+    <BaseButton :big="true" :variant="true" :onClickHandler="install">{{
       $t('install.button')
     }}</BaseButton>
     <img src="@/assets/pokemons/silouette.png" alt="silouette" />
@@ -15,6 +15,22 @@ import BaseButton from '@/components/ui/BaseButton.vue';
 export default {
   name: 'InstallView',
   components: { BaseButton },
+  data() {
+    return {
+      deferredInstallPrompt: null,
+    };
+  },
+  created() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredInstallPrompt = e;
+    });
+  },
+  methods: {
+    async install() {
+      this.deferredInstallPrompt.prompt();
+    },
+  },
 };
 </script>
 
