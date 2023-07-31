@@ -38,7 +38,11 @@ export default {
   methods: {
     async install() {
       this.installing = true;
-      this.deferredInstallPrompt.prompt();
+      await this.deferredInstallPrompt.prompt();
+      const { outcome } = await this.deferredInstallPrompt.userChoice;
+      if (outcome === 'dismissed') {
+        this.installing = false;
+      }
     },
     beforeInstallPrompt(event) {
       event.preventDefault();
