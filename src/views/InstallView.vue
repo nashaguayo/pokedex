@@ -16,6 +16,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
+import { setIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'InstallView',
@@ -44,6 +45,7 @@ export default {
       this.deferredInstallPrompt = event;
     },
     appInstalled() {
+      setIsInstalled(true);
       this.$router.push({ name: 'home' });
     },
   },

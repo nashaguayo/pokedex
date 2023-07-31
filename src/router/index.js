@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import { isDesktop, isInstalled } from '@/lib/helpers';
+import { getIsInstalled } from '@/lib/localStorage';
 
 Vue.use(VueRouter);
 
@@ -72,7 +73,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!isDesktop() && !isInstalled() && to.name !== 'install') {
+  if (
+    !isDesktop() &&
+    !isInstalled() &&
+    !getIsInstalled() &&
+    to.name !== 'install'
+  ) {
     next({ name: 'install' });
     return;
   }
