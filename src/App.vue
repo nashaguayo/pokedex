@@ -36,6 +36,13 @@ export default {
     this.setTheme(this.isDarkModeEnabled);
     await store.initializeStore();
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    window.addEventListener('online', this.online);
+    window.addEventListener('offline', this.offline);
+  },
+  beforeDestroy() {
+    window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    window.removeEventListener('online', this.online);
+    window.removeEventListener('offline', this.offline);
   },
   computed: {
     isDarkModeEnabled() {
@@ -62,6 +69,12 @@ export default {
     },
     beforeInstallPrompt() {
       setIsInstalled(false);
+    },
+    online() {
+      this.$router.push({ name: 'home' });
+    },
+    offline() {
+      this.$router.push({ name: 'offline' });
     },
   },
 };

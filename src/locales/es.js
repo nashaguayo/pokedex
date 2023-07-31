@@ -100,4 +100,9 @@ export default {
       'Instala la aplicación para empezar a disfrutar la mejor info sobre Pokemones',
     button: 'Instalar',
   },
+
+  offline: {
+    title: 'Desconectado',
+    description: 'Esta aplicación solo puede accederse con conexión a internet',
+  },
 };
