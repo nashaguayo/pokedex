@@ -32,6 +32,7 @@
 - Pokemon item header not scrolling
 - Habitats no longer show hyphens
 - Scroll to top button overlapping
+- Public path error
 
 ---
 
