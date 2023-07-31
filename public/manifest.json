@@ -1,7 +1,8 @@
 {
   "name": "Pokedex",
   "short_name": "Pokedex",
-  "theme_color": "#4DBA87",
+  "description": "Learn all about Pokemons",
+  "theme_color": "#af0c00",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -24,8 +25,33 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "./img/icons/apple-touch-icon-60x60.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/icons/apple-touch-icon-70x70.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/icons/apple-touch-icon-120x120.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/icons/apple-touch-icon-152x152.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/icons/apple-touch-icon-180x180.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "display": "standalone",
-  "background_color": "#000000"
+  "background_color": "#ffffda"
 }
