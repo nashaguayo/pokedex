@@ -52,6 +52,15 @@ const routes = [
       footer: false,
     },
   },
+  {
+    path: '/install',
+    name: 'install',
+    component: () => import('@/views/InstallView.vue'),
+    meta: {
+      header: false,
+      footer: false,
+    },
+  },
 ];
 
 const router = new VueRouter({
