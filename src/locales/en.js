@@ -99,4 +99,9 @@ export default {
     description: 'Get the App to start enjoying all info about Pokemons',
     button: 'Install',
   },
+
+  offline: {
+    title: 'Offline',
+    description: 'This app can only be accessed with internet connection',
+  },
 };

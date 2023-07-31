@@ -33,3 +33,7 @@ export function isInstalled() {
 export function isDesktop() {
   return !/android|iphone|kindle|ipad/i.test(navigator.userAgent);
 }
+
+export function isOnline() {
+  return navigator.onLine;
+}

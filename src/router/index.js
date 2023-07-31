@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
-import { isDesktop, isInstalled } from '@/lib/helpers';
+import { isDesktop, isInstalled, isOnline } from '@/lib/helpers';
 
 Vue.use(VueRouter);
 
@@ -63,6 +63,14 @@ const routes = [
       transition: 'none',
     },
   },
+  {
+    path: '/offline',
+    name: 'offline',
+    component: () => import('@/views/OfflineView.vue'),
+    meta: {
+      transition: 'none',
+    },
+  },
 ];
 
 const router = new VueRouter({
@@ -77,11 +85,16 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
+  if (!isOnline() && to.name !== 'offline') {
+    next({ name: 'offline' });
+    return;
+  }
+
   if (to.name === 'pokemon') {
     to.meta.transition = 'slide-from-right';
   } else if (from.name === 'pokemon') {
     to.meta.transition = 'slide-from-left';
-  } else if (to.name !== 'install') {
+  } else if (to.name !== 'install' && to.name !== 'offline') {
     to.meta.transition = 'slide';
   }
   next();
