@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "deploy": "node scripts/gh-pages-deploy.js",
-    "pwa": "npm run build && npx https-server dist"
+    "pwa": "npm run build && npx http-server dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
