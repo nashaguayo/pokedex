@@ -11,7 +11,7 @@
         <transition name="drawer-up">
           <BaseHeader v-if="displayHeader" />
         </transition>
-        <transition :name="transition" appear mode="out-in">
+        <transition :name="transition" mode="out-in">
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
@@ -27,6 +27,7 @@ import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
 import { toggleDarkMode } from '@/lib/helpers';
+import { setIsInstalled } from './lib/localStorage';
 
 export default {
   name: 'App',
@@ -34,16 +35,17 @@ export default {
   async created() {
     this.setTheme(this.isDarkModeEnabled);
     await store.initializeStore();
+    window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
   },
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
     },
     displayHeader() {
-      return this.$route.meta.header ?? true;
+      return this.$route.meta.header ?? false;
     },
     displayFooter() {
-      return this.$route.meta.footer ?? true;
+      return this.$route.meta.footer ?? false;
     },
     transition() {
       return this.$route.meta.transition ?? 'slide';
@@ -57,6 +59,9 @@ export default {
   methods: {
     setTheme(isDarkModeEnabled) {
       toggleDarkMode(isDarkModeEnabled);
+    },
+    beforeInstallPrompt() {
+      setIsInstalled(false);
     },
   },
 };

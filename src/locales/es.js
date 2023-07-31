@@ -93,4 +93,11 @@ export default {
     subtitle: 'Página No Encontrada',
     description: '¿Cómo llegaste hasta aquí? ¡No hay nada para ver!',
   },
+
+  install: {
+    title: 'Pokedex',
+    description:
+      'Instala la aplicación para empezar a disfrutar la mejor info sobre Pokemones',
+    button: 'Instalar',
+  },
 };

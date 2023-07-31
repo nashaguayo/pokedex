@@ -93,4 +93,10 @@ export default {
     subtitle: 'Page Not Found',
     description: "How did you get here? There's nothing to see!",
   },
+
+  install: {
+    title: 'Pokedex',
+    description: 'Get the App to start enjoying all info about Pokemons',
+    button: 'Install',
+  },
 };

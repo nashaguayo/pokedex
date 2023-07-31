@@ -1,3 +1,5 @@
+import { getIsInstalled } from './localStorage';
+
 export function getPageBackgroundElement() {
   return document.getElementsByClassName('page-background')[0];
 }
@@ -17,4 +19,17 @@ export function toggleDarkMode(isDarkMode) {
     'data-theme',
     isDarkMode ? 'dark' : 'light'
   );
+}
+
+export function isInstalled() {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone ||
+    document.referrer.includes('android-app://') ||
+    getIsInstalled()
+  );
+}
+
+export function isDesktop() {
+  return !/android|iphone|kindle|ipad/i.test(navigator.userAgent);
 }

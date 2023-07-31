@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
+import { isDesktop, isInstalled } from '@/lib/helpers';
 
 Vue.use(VueRouter);
 
@@ -14,6 +15,8 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
+      header: true,
+      footer: true,
       scrollToTopButton: false,
     },
   },
@@ -21,35 +24,43 @@ const routes = [
     path: '/404',
     name: 'pageNotFound',
     component: () => import('@/views/PageNotFoundView.vue'),
+    meta: {
+      header: true,
+      footer: true,
+    },
   },
   {
     path: '*',
     redirect: '/404',
+    meta: {
+      header: true,
+      footer: true,
+    },
   },
   {
     path: '/pokemons',
     name: 'pokemons',
     component: () => import('@/views/PokemonsView.vue'),
     meta: {
-      footer: false,
+      header: true,
     },
   },
   {
     path: '/search',
     name: 'search',
     component: () => import('@/views/SearchView.vue'),
-    meta: {
-      header: false,
-      footer: false,
-    },
   },
   {
     path: '/pokemons/:id',
     name: 'pokemon',
     component: () => import('@/views/PokemonView.vue'),
+  },
+  {
+    path: '/install',
+    name: 'install',
+    component: () => import('@/views/InstallView.vue'),
     meta: {
-      header: false,
-      footer: false,
+      transition: 'none',
     },
   },
 ];
@@ -61,11 +72,16 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (!isDesktop() && !isInstalled() && to.name !== 'install') {
+    next({ name: 'install' });
+    return;
+  }
+
   if (to.name === 'pokemon') {
     to.meta.transition = 'slide-from-right';
   } else if (from.name === 'pokemon') {
     to.meta.transition = 'slide-from-left';
-  } else {
+  } else if (to.name !== 'install') {
     to.meta.transition = 'slide';
   }
   next();

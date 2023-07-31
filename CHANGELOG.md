@@ -10,6 +10,7 @@
 - Animations to header icons
 - Recent searches
 - Internationalization
+- PWA support
 
 ##### Modified
 
