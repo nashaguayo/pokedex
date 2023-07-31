@@ -27,6 +27,7 @@ import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
 import { toggleDarkMode } from '@/lib/helpers';
+import { setIsInstalled } from './lib/localStorage';
 
 export default {
   name: 'App',
@@ -34,6 +35,7 @@ export default {
   async created() {
     this.setTheme(this.isDarkModeEnabled);
     await store.initializeStore();
+    window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
   },
   computed: {
     isDarkModeEnabled() {
@@ -57,6 +59,9 @@ export default {
   methods: {
     setTheme(isDarkModeEnabled) {
       toggleDarkMode(isDarkModeEnabled);
+    },
+    beforeInstallPrompt() {
+      setIsInstalled(false);
     },
   },
 };
