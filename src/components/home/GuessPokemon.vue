@@ -257,8 +257,6 @@ export default {
 
       console.log(`You want to cheat? Mystery pokemon is: ${this.name}`);
 
-      console.log(`You want to cheat? Mystery pokemon is: ${this.name}`);
-
       if (!this.isFirstTime) {
         this.focus = true;
       } else {
