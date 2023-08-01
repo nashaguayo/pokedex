@@ -22,6 +22,7 @@
 - Home landing banner and description
 - Animation for pokemon details
 - Manifest.json
+- Better way of filtering out pokemons with hyphens
 
 ##### Fixed
 
