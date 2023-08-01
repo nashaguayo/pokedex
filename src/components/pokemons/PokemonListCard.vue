@@ -26,6 +26,7 @@
 <script>
 import silouette from '@/assets/pokemons/silouette.png';
 import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
+import store from '@/lib/store';
 
 export default {
   name: 'PokemonListCard',
@@ -54,8 +55,17 @@ export default {
     },
   },
   methods: {
-    showPokemonInfo() {
+    async showPokemonInfo() {
       this.wasClicked = true;
+      const pokemonName = this.name.split('-')[0];
+      if (await store.pokemonIsVariant(this.name)) {
+        this.$router.push({
+          name: 'pokemon',
+          params: { id: pokemonName },
+          query: { variantName: this.name.replace(`${pokemonName}-`, '') },
+        });
+        return;
+      }
       this.$router.push({ name: 'pokemon', params: { id: this.name } });
     },
     onAnimationEnd() {
