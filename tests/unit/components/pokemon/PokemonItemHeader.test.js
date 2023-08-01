@@ -3,7 +3,7 @@ import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
 
 describe('PokemonItemHeader', () => {
   let wrapper;
-  let image;
+  let header;
 
   beforeEach(() => {
     wrapper = mount(PokemonItemHeader, {
@@ -17,8 +17,8 @@ describe('PokemonItemHeader', () => {
       attachTo: document.body,
     });
 
-    image = wrapper.find('.pokemon-image');
-    Object.defineProperty(image.element, 'offsetHeight', { value: 200 });
+    header = wrapper.find('.pokemon-item-header');
+    Object.defineProperty(header.element, 'offsetWidth', { value: 200 });
   });
 
   afterEach(() => {
@@ -32,37 +32,16 @@ describe('PokemonItemHeader', () => {
 
   it('sets the location height on pokemon image load', () => {
     expect(wrapper.vm.locationHeight).toBe(0);
-    image.trigger('load');
+    wrapper.find('.pokemon-image').trigger('load');
     expect(wrapper.vm.locationHeight).toBe(200);
   });
 
   it('sets the location height and width when the component is mounted', () => {
-    Object.defineProperty(wrapper.vm.$refs.image, 'offsetHeight', {
-      value: 200,
-    });
-    Object.defineProperty(wrapper.vm.$refs.pokemonItemHeader, 'offsetWidth', {
-      value: 100,
-    });
     wrapper.vm.setLocationHeight();
     global.innerWidth = 500;
     global.dispatchEvent(new Event('resize'));
     expect(wrapper.vm.locationHeight).toBe(200);
-    expect(wrapper.vm.locationWidth).toBe(100);
-  });
-
-  it('sets the location height on window resize', async () => {
-    Object.defineProperty(wrapper.vm.$refs.image, 'offsetHeight', {
-      value: 200,
-    });
-    Object.defineProperty(wrapper.vm.$refs.pokemonItemHeader, 'offsetWidth', {
-      value: 100,
-    });
-    wrapper.vm.setLocationHeight();
-    global.innerWidth = 500;
-    global.dispatchEvent(new Event('resize'));
-    await wrapper.vm.$nextTick();
-    expect(wrapper.vm.locationHeight).toBe(200);
-    expect(wrapper.vm.locationWidth).toBe(100);
+    expect(wrapper.vm.locationWidth).toBe(200);
   });
 
   it('loads the big image when image is present', () => {

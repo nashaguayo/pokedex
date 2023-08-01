@@ -39,6 +39,7 @@
 - Habitats no longer show hyphens
 - Scroll to top button overlapping
 - Public path error
+- Pokemon details header animation
 
 ---
 
