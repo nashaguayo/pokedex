@@ -107,19 +107,5 @@ export default {
   .flip-leave-to {
     transform: scaleX(0);
   }
-
-  .desktop {
-    display: none;
-
-    @media (min-width: $min-width-third-break) {
-      display: block;
-    }
-  }
-
-  .mobile {
-    @media (min-width: $min-width-third-break) {
-      display: none;
-    }
-  }
 }
 </style>
