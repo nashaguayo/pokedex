@@ -1,5 +1,5 @@
 <template>
-  <BaseLoader :coverPage="true" :loading="storeHasLoaded">
+  <BaseLoader :coverPage="true" :loading="!storeHasLoaded">
     <div class="pokemon-search">
       <div class="controls">
         <BaseInput
