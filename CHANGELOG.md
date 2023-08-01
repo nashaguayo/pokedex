@@ -4,6 +4,10 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.0...develop) (dd-mm-yyyy)
 
+##### Modified
+
+- Install page now has a loader
+
 ##### Fixed
 
 - Pokemon details header animation
