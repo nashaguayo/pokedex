@@ -61,6 +61,11 @@ export default {
       return this.variants.map((variant) => variant.name);
     },
   },
+  mounted() {
+    if (this.$route.query.variantName) {
+      this.displayVariant(this.$route.query.variantName.replace('-', ' '));
+    }
+  },
   methods: {
     displayVariant(variant) {
       this.closeVariantDropdown();

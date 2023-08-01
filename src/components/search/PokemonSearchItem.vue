@@ -34,10 +34,14 @@ export default {
         this.$router.push({
           name: 'pokemon',
           params: { id: this.name.split('-')[0] },
+          query: { variantName: this.name },
         });
         return;
       }
-      this.$router.push({ name: 'pokemon', params: { id: this.name } });
+      this.$router.push({
+        name: 'pokemon',
+        params: { id: this.name.replace(`${this.name}-`, '') },
+      });
     },
   },
 };
