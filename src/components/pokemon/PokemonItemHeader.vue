@@ -27,7 +27,7 @@
       class="pokemon-image"
       :src="image"
       alt="pokemon"
-      ref="image"
+      :height="locationHeight"
       @load="setLocationHeight"
     />
     <img
@@ -35,7 +35,7 @@
       class="small-pokemon-image"
       :src="smallImage"
       alt="pokemon"
-      ref="image"
+      :height="locationHeight"
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
@@ -88,7 +88,7 @@ export default {
   methods: {
     capitalizeWord,
     setLocationHeight() {
-      this.locationHeight = this.$refs.image.offsetHeight;
+      this.locationHeight = this.$refs.pokemonItemHeader.offsetWidth;
       this.locationWidth = this.$refs.pokemonItemHeader.offsetWidth;
     },
   },
@@ -113,6 +113,7 @@ export default {
     box-shadow: var(--main-box-shadow);
     width: 100%;
     object-fit: cover;
+    transition: height 0.3s;
 
     @media (min-width: $min-width-fourth-break) {
       border-radius: 2rem;
@@ -157,7 +158,7 @@ export default {
   .pokemon-image {
     width: 20rem;
     z-index: 5;
-    padding: 2rem;
+    transition: height 0.3s;
 
     @media (min-width: $min-width-first-break) {
       width: 25rem;
@@ -180,6 +181,7 @@ export default {
     width: 10rem;
     z-index: 5;
     padding: 2rem;
+    transition: height 0.3s;
 
     @media (min-width: $min-width-first-break) {
       width: 15rem;
