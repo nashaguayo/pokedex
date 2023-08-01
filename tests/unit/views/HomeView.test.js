@@ -18,7 +18,7 @@ jest.mock('@/components/home/RandomPokemon.vue', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
-    hasStoreLoaded: true,
+    storeHasLoaded: true,
   },
   initializeStore: jest.fn().mockResolvedValue(),
 }));
