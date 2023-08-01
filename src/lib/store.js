@@ -174,12 +174,11 @@ export default {
   },
 
   async getPokemon(pokemonId) {
-    let pokemon;
     if (state.pokemon?.has(pokemonId)) {
-      pokemon = state.pokemon.get(pokemonId);
-    } else {
-      pokemon = await getPokemonApi(pokemonId);
+      return;
     }
+
+    const pokemon = await getPokemonApi(pokemonId);
 
     const evolutions = await getPokemonEvolutionsApi(pokemonId);
     const { flavorTexts, color, shape, generation, habitat } = pokemon.species
