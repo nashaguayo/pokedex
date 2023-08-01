@@ -388,4 +388,18 @@ export default {
 .flip-open-leave-to {
   transform: scaleY(0);
 }
+
+.pokemon-item::-webkit-scrollbar {
+  display: none;
+}
+
+.flip-open-enter-active,
+.flip-open-leave-active {
+  transition: transform 0.3s linear;
+}
+
+.flip-open-enter,
+.flip-open-leave-to {
+  transform: scaleY(0);
+}
 </style>

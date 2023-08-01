@@ -19,10 +19,6 @@ export default {
     },
     filteringShape() {
       return store.state.search.shape;
-    },
-  },
-  methods: {
-    toggleShapeFilter(shape) {
       store.toggleShapeFilter(shape);
     },
   },
