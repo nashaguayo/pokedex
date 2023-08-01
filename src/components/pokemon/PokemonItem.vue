@@ -13,7 +13,9 @@
         :habitat="habitatName"
       />
       <div class="pokemon-info-container">
-        <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
+        <h2 class="pokemon-name">
+          {{ capitalizeWord(name.replace('-', ' ')) }}
+        </h2>
         <PokemonItemCharacteristics
           :id="id"
           :characteristic="characteristic"
@@ -106,6 +108,17 @@ export default {
   watch: {
     name() {
       document.title = `Pokedex - ${capitalizeWord(this.name)}`;
+    },
+    storeHasLoaded: {
+      immediate: true,
+      async handler(storeHasLoaded) {
+        if (storeHasLoaded) {
+          if (!store.state.pokemon.has(this.urlId)) {
+            await store.getPokemon(this.urlId);
+          }
+          this.loading = false;
+        }
+      },
     },
   },
   computed: {
@@ -204,12 +217,9 @@ export default {
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.variants ?? []
       );
     },
-  },
-  async created() {
-    if (!store.state.pokemon.has(this.urlId)) {
-      await store.getPokemon(this.urlId);
-    }
-    this.loading = false;
+    storeHasLoaded() {
+      return store.state.storeHasLoaded;
+    },
   },
   beforeDestroy() {
     if (window.innerWidth >= fourthBreak) {

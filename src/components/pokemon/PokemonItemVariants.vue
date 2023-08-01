@@ -9,7 +9,7 @@
           backgroundImage: `url(${image})`,
         }"
       ></div>
-      <span class="name">{{ name }}</span>
+      <span class="name">{{ name.replace('-', ' ') }}</span>
       <BaseButton
         :onClickHandler="openVariantDropdown"
         :disabled="variants.length === 1"
@@ -60,6 +60,11 @@ export default {
     variantNames() {
       return this.variants.map((variant) => variant.name);
     },
+  },
+  mounted() {
+    if (this.$route.query.variantName) {
+      this.displayVariant(this.$route.query.variantName.replace('-', ' '));
+    }
   },
   methods: {
     displayVariant(variant) {

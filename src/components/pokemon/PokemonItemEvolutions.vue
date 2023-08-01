@@ -9,7 +9,7 @@
         <div class="evolution">
           <transition class="species" name="fade" mode="out-in">
             <span :key="species">
-              {{ species }}
+              {{ species.replace('-', ' ') }}
             </span>
           </transition>
           <router-link :to="`/pokemons/${species}`">

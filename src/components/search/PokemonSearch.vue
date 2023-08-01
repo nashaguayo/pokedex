@@ -452,6 +452,7 @@ export default {
 
   .trash-can {
     margin-top: 1rem;
+    cursor: pointer;
   }
 
   .go-back {

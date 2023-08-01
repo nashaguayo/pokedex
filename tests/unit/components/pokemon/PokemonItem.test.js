@@ -44,6 +44,7 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
+    storeHasLoaded: true,
     allPokemons: [
       { id: 1, name: 'pikachu' },
       { id: 2, name: 'squirtle' },

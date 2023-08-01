@@ -117,20 +117,34 @@ export default {
         name: pokemon.name,
       }));
 
-      state.allPokemons = allPokemonsWithHyphens.filter(
-        (pokemon) => !pokemon.name.includes('-')
+      const { variations, pokemons } = await allPokemonsWithHyphens.reduce(
+        async (accumulator, currentValue) => {
+          const accum = await accumulator;
+          if (!currentValue.name.includes('-')) {
+            accum.pokemons.push({ ...currentValue });
+          } else if (await this.pokemonIsVariant(currentValue.name)) {
+            accum.variations.push({ ...currentValue });
+          } else {
+            accum.pokemons.push({ ...currentValue });
+          }
+          return accum;
+        },
+        { variations: [], pokemons: [] }
       );
-      state.allPokemons.forEach((pokemon) => {
-        const pokemonVariants = allPokemonsWithHyphens.filter((p) => {
-          return p.name.includes('-') && p.name.includes(pokemon.name);
-        });
-        if (pokemonVariants.length) {
-          const pokemonVariantsNames = pokemonVariants.map(
-            (pokemon) => pokemon.name
+
+      pokemons.forEach((pokemon) => {
+        const variantsForPokemon = variations.filter((v) =>
+          v.name.includes(pokemon.name)
+        );
+        if (variantsForPokemon.length) {
+          state.pokemonVariants.set(
+            pokemon.name,
+            variantsForPokemon.map((p) => p.name)
           );
-          state.pokemonVariants.set(pokemon.name, pokemonVariantsNames);
         }
       });
+
+      state.allPokemons = pokemons;
       state.isLoadingAllPokemons = false;
     }
   },
@@ -152,6 +166,10 @@ export default {
     state.scroll.pokemons = [...state.scroll.pokemons, ...results];
     state.scroll.nextUrl = response.next;
     state.isLoadingMorePokemons = false;
+  },
+
+  async pokemonIsVariant(name) {
+    return name.includes('-') && !!(await getPokemonApi(name.split('-')[0]));
   },
 
   async getPokemon(pokemonId) {
@@ -317,10 +335,7 @@ export default {
     state.search.types.forEach((type) => {
       const filteredPokemonNamesByType = state.pokemonsByType
         .get(type)
-        .filter(
-          (pokemon) =>
-            pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-        );
+        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
       repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
     });
 
@@ -345,10 +360,7 @@ export default {
   searchPokemonsByColor(searchTermLowerCase) {
     const filteredPokemonNamesByColor = state.pokemonsByColor
       .get(state.search.color)
-      .filter(
-        (pokemon) =>
-          pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-      );
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByColor;
@@ -357,10 +369,7 @@ export default {
   searchPokemonsByShape(searchTermLowerCase) {
     const filteredPokemonNamesByShape = state.pokemonsByShape
       .get(state.search.shape)
-      .filter(
-        (pokemon) =>
-          pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-      );
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByShape;
@@ -369,10 +378,7 @@ export default {
   searchPokemonsByGeneration(searchTermLowerCase) {
     const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
       .get(state.search.generation)
-      .filter(
-        (pokemon) =>
-          pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-      );
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByGeneration;
