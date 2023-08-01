@@ -57,7 +57,11 @@ export async function getPokemon(id) {
     const response = await pokemonApi.get(`pokemon/${id}`);
     return response.data;
   } catch (error) {
-    logError(getPokemon.name, 'Unable to retrieve Pokemon', error);
+    logError(
+      getPokemon.name,
+      `Unable to retrieve Pokemon named ${id}. It may not exist`,
+      error
+    );
   }
 }
 
