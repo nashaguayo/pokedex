@@ -2,7 +2,6 @@
 
 ---
 
-<<<<<<< HEAD
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.0...develop) (dd-mm-yyyy)
 
 ---
@@ -40,9 +39,6 @@
 - Habitats no longer show hyphens
 - Scroll to top button overlapping
 - Public path error
-=======
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.3.0...develop) (dd-mm-yyyy)
->>>>>>> main
 
 ---
 
