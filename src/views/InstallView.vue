@@ -1,6 +1,6 @@
 <template>
   <div class="install-view">
-    <BaseLoader :cover="true" :loading="installing">
+    <BaseLoader :cover="true" :loading="installing || loading">
       <div class="content">
         <h1>{{ $t('install.title') }}</h1>
         <span>{{ $t('install.description') }}</span>
@@ -16,7 +16,6 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import { setIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'InstallView',
@@ -25,6 +24,7 @@ export default {
     return {
       deferredInstallPrompt: null,
       installing: false,
+      loading: true,
     };
   },
   created() {
@@ -47,9 +47,9 @@ export default {
     beforeInstallPrompt(event) {
       event.preventDefault();
       this.deferredInstallPrompt = event;
+      this.loading = false;
     },
     appInstalled() {
-      setIsInstalled(true);
       this.$router.push({ name: 'home' });
     },
   },
