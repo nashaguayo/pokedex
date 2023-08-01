@@ -83,16 +83,22 @@ export default {
   .close {
     position: fixed;
     bottom: 0;
-    margin-bottom: 1rem;
+    padding: 1rem 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--main-background-color);
 
     @media (min-width: $min-width-second-break) {
-      margin-bottom: 2rem;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
       width: 75%;
     }
   }
+}
+
+.pokemon-item-variants-dropdown::-webkit-scrollbar {
+  display: none;
 }
 </style>
