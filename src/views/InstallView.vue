@@ -50,7 +50,7 @@ export default {
       this.loading = false;
     },
     appInstalled() {
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'download' });
     },
   },
 };

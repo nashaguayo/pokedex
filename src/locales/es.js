@@ -105,4 +105,8 @@ export default {
     title: 'Desconectado',
     description: 'Esta aplicación solo puede accederse con conexión a internet',
   },
+
+  download: {
+    title: 'Bajando',
+  },
 };
