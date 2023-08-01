@@ -22,7 +22,7 @@ describe('PokemonItemVariants', () => {
         variants: variants,
       },
       stubs: ['PokemonItemVariantsDropdown'],
-      mocks: { $t: (key) => key },
+      mocks: { $t: (key) => key, $route: { query: { variantName: null } } },
     });
   });
 
@@ -73,7 +73,7 @@ describe('PokemonItemVariants', () => {
         variants: variants,
       },
       stubs: ['PokemonItemVariantsDropdown'],
-      mocks: { $t: (key) => key },
+      mocks: { $t: (key) => key, $route: { query: { variantName: null } } },
     });
     expect(wrapper.find('.variant button').attributes()['disabled']).toBe(
       'disabled'

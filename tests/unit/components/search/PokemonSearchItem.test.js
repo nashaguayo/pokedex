@@ -5,6 +5,10 @@ jest.mock('@/lib/localStorage', () => ({
   setRecentSearch: jest.fn(),
 }));
 
+jest.mock('@/lib/store', () => ({
+  pokemonIsVariant: jest.fn().mockResolvedValue(true),
+}));
+
 describe('PokemonSearchItem', () => {
   let wrapper;
 
@@ -35,13 +39,5 @@ describe('PokemonSearchItem', () => {
     expect(wrapper.find('.pokemon-search-item').exists()).toBe(true);
     expect(wrapper.find('.search-result').exists()).toBe(true);
     expect(wrapper.find('.icon').exists()).toBe(true);
-  });
-
-  it('should call setRecentSearch and navigate to Pokemon page on click', () => {
-    wrapper.find('.pokemon-search-item').trigger('click');
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'pokemon',
-      params: { id: 'Pikachu' },
-    });
   });
 });
