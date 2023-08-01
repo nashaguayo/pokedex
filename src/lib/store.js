@@ -76,16 +76,17 @@ export default {
   },
 
   async initializeStore() {
-    state.storeHasLoaded = false;
-    await Promise.all([
-      this.getAllPokemons(),
-      this.getAllTypes(),
-      this.getAllColors(),
-      this.getAllShapes(),
-      this.getAllGenerations(),
-      this.getAllCharacteristicsDescriptions(),
-    ]);
-    state.storeHasLoaded = true;
+    if (!state.storeHasLoaded) {
+      await Promise.all([
+        this.getAllPokemons(),
+        this.getAllTypes(),
+        this.getAllColors(),
+        this.getAllShapes(),
+        this.getAllGenerations(),
+        this.getAllCharacteristicsDescriptions(),
+      ]);
+      state.storeHasLoaded = true;
+    }
   },
 
   async getPokemonListCardData(pokemon) {

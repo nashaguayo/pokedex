@@ -16,6 +16,13 @@ jest.mock('@/components/home/RandomPokemon.vue', () => ({
   template: '<div class="mocked-random-pokemon"></div>',
 }));
 
+jest.mock('@/lib/store', () => ({
+  state: {
+    hasStoreLoaded: true,
+  },
+  initializeStore: jest.fn().mockResolvedValue(),
+}));
+
 describe('HomeView', () => {
   it('renders all components components', () => {
     const wrapper = shallowMount(HomeView, { mocks: { $t: (key) => key } });
