@@ -34,7 +34,6 @@ export default {
   components: { BaseHeader, BaseFooter },
   async created() {
     this.setTheme(this.isDarkModeEnabled);
-    await store.initializeStore();
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.addEventListener('online', this.online);
     window.addEventListener('offline', this.offline);

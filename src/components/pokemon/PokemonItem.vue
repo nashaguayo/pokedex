@@ -221,6 +221,11 @@ export default {
       return store.state.storeHasLoaded;
     },
   },
+  async created() {
+    if (!this.storeHasLoaded) {
+      await store.initializeStore();
+    }
+  },
   beforeDestroy() {
     if (window.innerWidth >= fourthBreak) {
       return;
