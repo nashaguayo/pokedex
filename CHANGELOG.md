@@ -4,6 +4,11 @@
 
 ## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.0...develop) (dd-mm-yyyy)
 
+##### Fixed
+
+- Pokemon details header animation
+- Pokemon details header throttle
+
 ---
 
 ## [V1.0.0](https://github.com/nashaguayo/pokedex/compare/V0.3.0...V1.0.0) (31-07-2023)
@@ -39,8 +44,6 @@
 - Habitats no longer show hyphens
 - Scroll to top button overlapping
 - Public path error
-- Pokemon details header animation
-- Fixed in memory implementation of pokemon details
 
 ---
 
