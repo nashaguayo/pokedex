@@ -268,7 +268,7 @@ export default {
     },
     navigateToPokemon(id) {
       this.$router.push({ name: 'pokemon', params: { id } });
-      scrollToTopOfBackgroundPage('smooth');
+      scrollToTopOfBackgroundPage();
     },
   },
 };
