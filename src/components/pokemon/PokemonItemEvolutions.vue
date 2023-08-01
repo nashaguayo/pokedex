@@ -1,15 +1,15 @@
 <template>
   <div class="pokemon-item-evolutions">
-    <span class="title">Evolutions</span>
+    <span class="title">{{ $t('pokemon.evolutions.title') }}</span>
     <div class="card">
       <span v-if="!evolutions.length" class="no-evolutions">
-        No evolutions found for this pokemon!
+        {{ $t('pokemon.evolutions.none') }}
       </span>
       <template v-else>
         <div class="evolution">
-          <transition name="fade" mode="out-in">
+          <transition class="species" name="fade" mode="out-in">
             <span :key="species">
-              {{ species }}
+              {{ species.replace('-', ' ') }}
             </span>
           </transition>
           <router-link :to="`/pokemons/${species}`">
@@ -104,6 +104,7 @@ export default {
 
   @media (min-width: $min-width-fourth-break) {
     margin: 0;
+    margin-top: 2rem;
   }
 
   .title {
@@ -135,7 +136,7 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       margin-top: 0;
-      width: 80%;
+      width: auto;
       margin-right: 3rem;
       border-radius: 2rem;
     }
@@ -163,6 +164,10 @@ export default {
 
       span {
         margin-top: 1rem;
+        background-color: var(--main-background-color);
+        border-radius: 1rem;
+        box-shadow: var(--main-box-shadow);
+        padding: 0.5rem;
       }
     }
   }

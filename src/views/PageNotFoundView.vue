@@ -1,9 +1,9 @@
 <template>
   <div class="page-not-found-view">
-    <h1>404 Error</h1>
-    <h2>Page Not Found</h2>
+    <h1>{{ $t('error.title') }}</h1>
+    <h2>{{ $t('error.subtitle') }}</h2>
     <p class="page-not-found-text">
-      How did you get here? There's nothing to see!
+      {{ $t('error.description') }}
     </p>
     <img
       :src="silouette"

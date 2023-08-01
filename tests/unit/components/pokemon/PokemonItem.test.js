@@ -32,6 +32,11 @@ jest.mock('@/components/pokemon/PokemonItemEvolutions.vue', () => ({
   template: '<div class="mocked-pokemon-item-evolutions"></div>',
 }));
 
+jest.mock('@/components/pokemon/PokemonItemVariants.vue', () => ({
+  name: 'PokemonItemVariants',
+  template: '<div class="mocked-pokemon-item-variants"></div>',
+}));
+
 jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   name: 'PokemonItemDescription',
   template: '<div class="mocked-pokemon-item-description"></div>',
@@ -39,6 +44,7 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
+    storeHasLoaded: true,
     allPokemons: [
       { id: 1, name: 'pikachu' },
       { id: 2, name: 'squirtle' },
@@ -62,6 +68,7 @@ jest.mock('@/lib/store', () => ({
           shape: '',
           generation: '',
           habitat: '',
+          variants: [],
         },
       ],
       [
@@ -81,6 +88,7 @@ jest.mock('@/lib/store', () => ({
           shape: '',
           generation: '',
           habitat: '',
+          variants: [],
         },
       ],
       [
@@ -100,6 +108,7 @@ jest.mock('@/lib/store', () => ({
           shape: '',
           generation: '',
           habitat: '',
+          variants: [],
         },
       ],
     ]),
@@ -136,6 +145,7 @@ describe('PokemonItem', () => {
         $router: {
           push: jest.fn(),
         },
+        $t: (key) => key,
       },
     });
   });
@@ -149,12 +159,13 @@ describe('PokemonItem', () => {
   });
 
   it('renders its respective components', () => {
-    expect(wrapper.find('basebutton-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemheader-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemstats-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemtype-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBe(true);
-    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBe(true);
+    expect(wrapper.find('basebutton-stub').exists()).toBeTruthy();
+    expect(wrapper.find('pokemonitemheader-stub').exists()).toBeTruthy();
+    expect(wrapper.find('pokemonitemstats-stub').exists()).toBeTruthy();
+    expect(wrapper.find('pokemonitemtype-stub').exists()).toBeTruthy();
+    expect(wrapper.find('pokemonitemevolutions-stub').exists()).toBeTruthy();
+    expect(wrapper.find('pokemonitemvariants-stub').exists()).toBeFalsy();
+    expect(wrapper.find('pokemonitemdescription-stub').exists()).toBeTruthy();
   });
 
   it('navigates to next pokemon page when clicked', () => {
@@ -194,6 +205,7 @@ describe('PokemonItem', () => {
         $router: {
           push: jest.fn(),
         },
+        $t: (key) => key,
       },
     });
     expect(
@@ -219,6 +231,7 @@ describe('PokemonItem', () => {
         $router: {
           push: jest.fn(),
         },
+        $t: (key) => key,
       },
     });
     expect(

@@ -1,4 +1,5 @@
 import pokemonApi from '@/config/pokemonApi';
+import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
 
 export async function getAllShapes() {
@@ -18,6 +19,27 @@ export async function getPokemonsByShape(shape) {
     logError(
       getPokemonsByShape.name,
       `Unable to retrieve pokemons by shape ${shape}`,
+      error
+    );
+  }
+}
+
+export async function getPokemonShapeTranslation(shape) {
+  try {
+    const response = await pokemonApi.get(`pokemon-shape/${shape}`);
+    return (
+      response.data.names.filter(
+        (language) => language.language.name === getLanguage()
+      )[0]?.name ??
+      response.data.names.filter(
+        (language) =>
+          language.language.name === process.env.VUE_APP_FALLBACK_LOCALE
+      )[0]?.name
+    );
+  } catch (error) {
+    logError(
+      getPokemonShapeTranslation.name,
+      `Unable to retrieve translation for shape ${shape}`,
       error
     );
   }

@@ -12,10 +12,15 @@
     <transition name="flip" mode="out-in">
       <span
         class="game-results"
-        :key="gameResultsText"
+        :key="
+          $t('home.guessPokemon.gameResults', { playersGuess, hasLost, name })
+        "
         :class="{ losing: !hasWon && playersGuess.length, winning: hasWon }"
-        >{{ gameResultsText }}</span
       >
+        {{
+          $t('home.guessPokemon.gameResults', { playersGuess, hasLost, name })
+        }}
+      </span>
     </transition>
     <div class="players-guess">
       <BaseInput
@@ -40,15 +45,32 @@
     </div>
     <transition name="flip" mode="out-in">
       <span
-        :key="triesLeftText"
+        :key="
+          $t('home.guessPokemon.triesLeft', {
+            hasWon,
+            hasLost,
+            timerCount,
+            name,
+            tries,
+          })
+        "
         class="tries-left"
         :class="{ 'last-try': tries === 1 }"
-        v-html="triesLeftText"
+        v-html="
+          $t('home.guessPokemon.triesLeft', {
+            hasWon,
+            hasLost,
+            timerCount,
+            name,
+            tries,
+          })
+        "
       ></span>
     </transition>
     <transition name="flip" appear>
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
-        <span>Guesses in a row</span><br />
+        <span>{{ $t('home.guessPokemon.guessesInARow') }}</span
+        ><br />
         <div class="stars">
           <transition-group name="zoom-in" appear>
             <FontAwesomeIcon
@@ -89,7 +111,7 @@
       :small="true"
       class="retrieve-new-pokemon"
     >
-      {{ baseButtonText }}
+      {{ $t('home.guessPokemon.baseButton', { hasWon, hasLost }) }}
     </BaseButton>
   </div>
 </template>
@@ -100,7 +122,14 @@ import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseChevron from '@/components/ui/BaseChevron';
 import store from '@/lib/store';
-import { getGuessesInARow, setGuessesInARow } from '@/lib/localStorage';
+import {
+  getGuessesInARow,
+  getMysteryPokemon,
+  getTriesLeft,
+  setGuessesInARow,
+  setMysteryPokemon,
+  setTriesLeft,
+} from '@/lib/localStorage';
 
 export default {
   name: 'GuessPokemon',
@@ -114,7 +143,7 @@ export default {
     return {
       playersGuess: '',
       reset: false,
-      tries: 3,
+      tries: getTriesLeft() ?? 3,
       guessesInARow: getGuessesInARow() ?? 0,
       loading: false,
       timerCount: 5,
@@ -137,45 +166,33 @@ export default {
     storeHasLoaded() {
       return store.state.storeHasLoaded;
     },
-    triesLeftText() {
-      return this.hasWon
-        ? `Getting new Pokemon in ${this.timerCount}...`
-        : this.hasLost
-        ? `Pokemon was ${this.name}`
-        : `You have <strong>${this.tries} ${
-            this.tries === 1 ? 'TRY' : 'TRIES'
-          }</strong> left`;
-    },
-    gameResultsText() {
-      return !this.playersGuess
-        ? 'Guess the Pokemon!'
-        : this.hasLost
-        ? 'You Lost!'
-        : this.playersGuess === this.name
-        ? 'You won!'
-        : "That's not it...";
-    },
     hasWon() {
       return this.playersGuess.toLowerCase() === this.name;
     },
     hasLost() {
       return !this.hasWon && this.tries === 0;
     },
-    baseButtonText() {
-      return this.hasWon || this.hasLost ? 'New Pokemon!' : 'I Give Up!';
-    },
   },
   watch: {
-    async storeHasLoaded(storeHasLoaded) {
-      if (storeHasLoaded) {
-        await this.getNewMysteryPokemon();
-      }
+    storeHasLoaded: {
+      immediate: true,
+      async handler(storeHasLoaded) {
+        if (storeHasLoaded && !this.image && !this.name) {
+          const mysteryPokemon = getMysteryPokemon();
+          if (mysteryPokemon) {
+            store.setNewMysteryPokemon(mysteryPokemon);
+            return;
+          }
+          await this.getNewMysteryPokemon();
+        }
+      },
     },
     hasWon(hasWon) {
       if (hasWon) {
         this.timerEnabled = true;
         this.tries = 3;
         this.guessesInARow++;
+        setTriesLeft(this.tries);
         setGuessesInARow(this.guessesInARow);
       }
     },
@@ -235,6 +252,8 @@ export default {
       this.reset = true;
       this.tries = 3;
       this.loading = false;
+      setTriesLeft(this.tries);
+      setMysteryPokemon({ name: this.name, image: this.image });
 
       console.log(`You want to cheat? Mystery pokemon is: ${this.name}`);
 
@@ -249,6 +268,7 @@ export default {
       this.playersGuess = playersGuess;
       if (!this.hasWon && playersGuess.length) {
         this.tries--;
+        setTriesLeft(this.tries);
       }
     },
     getNewMysteryPokemonAndRefreshGuessesInARow() {
@@ -276,8 +296,13 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 2rem 0;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
   max-width: 25rem;
+
+  @media (min-width: $min-width-third-break) {
+    margin-bottom: 2.5rem;
+  }
 
   .background-image {
     background-image: url(@/assets/home/mystery-pokemon.jpg);

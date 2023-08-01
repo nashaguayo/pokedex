@@ -1,8 +1,19 @@
-<template functional>
+<template>
   <div class="logo-and-banner">
-    <img class="logo-image" src="@/assets/home/pokedex-logo.png" />
-    <h1 v-if="props.subtitle">{{ props.subtitle }}</h1>
-    <img class="banner" src="@/assets/home/pokemons.jpg" />
+    <img
+      class="logo-image"
+      alt="pokemon logo"
+      src="@/assets/home/pokedex-logo.png"
+    />
+    <h1 v-if="subtitle">{{ subtitle }}</h1>
+    <img
+      class="banner"
+      alt="pokemons banner"
+      src="@/assets/home/pokemons.png"
+    />
+    <span class="description">
+      {{ $t('home.description') }}
+    </span>
   </div>
 </template>
 
@@ -38,13 +49,16 @@ export default {
   }
 
   .banner {
-    display: none;
     box-shadow: var(--main-box-shadow);
+    display: block;
+    width: 100%;
+  }
 
-    @media (min-width: $min-width-second-break) {
-      display: block;
-      width: 100%;
-    }
+  .description {
+    font-family: 'Kanit';
+    text-align: center;
+    padding: 0 1rem;
+    margin: 2rem 0;
   }
 }
 </style>

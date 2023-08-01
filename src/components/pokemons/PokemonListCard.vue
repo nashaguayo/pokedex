@@ -7,15 +7,17 @@
   >
     <span class="id">#{{ id }}</span>
     <img :src="image" alt="pokemon front default" class="screen" />
-    <span class="name">{{ image === silouette ? '???' : name }}</span>
+    <span class="name">{{
+      image === silouette ? '???' : name.replace('-', ' ')
+    }}</span>
     <div class="types">
       <span
         v-for="t in types"
-        :key="`type-${t}`"
-        :style="{ backgroundColor: pokemonColorTypes.get(t) }"
+        :key="`type-${t.name}`"
+        :style="{ backgroundColor: pokemonColorTypes.get(t.name) }"
         class="type"
       >
-        {{ t }}
+        {{ t.translated }}
       </span>
     </div>
   </div>
@@ -24,6 +26,7 @@
 <script>
 import silouette from '@/assets/pokemons/silouette.png';
 import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
+import store from '@/lib/store';
 
 export default {
   name: 'PokemonListCard',
@@ -52,8 +55,17 @@ export default {
     },
   },
   methods: {
-    showPokemonInfo() {
+    async showPokemonInfo() {
       this.wasClicked = true;
+      const pokemonName = this.name.split('-')[0];
+      if (await store.pokemonIsVariant(this.name)) {
+        this.$router.push({
+          name: 'pokemon',
+          params: { id: pokemonName },
+          query: { variantName: this.name.replace(`${pokemonName}-`, '') },
+        });
+        return;
+      }
       this.$router.push({ name: 'pokemon', params: { id: this.name } });
     },
     onAnimationEnd() {

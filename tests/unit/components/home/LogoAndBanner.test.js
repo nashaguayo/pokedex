@@ -5,7 +5,10 @@ describe('LogoAndBanner', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(LogoAndBanner, { stubs: ['CenteredColumn'] });
+    wrapper = shallowMount(LogoAndBanner, {
+      stubs: ['CenteredColumn'],
+      mocks: { $t: (key) => key },
+    });
   });
 
   afterEach(() => {
@@ -17,10 +20,12 @@ describe('LogoAndBanner', () => {
     wrapper = shallowMount(LogoAndBanner, {
       propsData: { subtitle },
       stubs: ['CenteredColumn'],
+      mocks: { $t: (key) => key },
     });
     expect(wrapper.find('h1').text()).toBe(subtitle);
     expect(wrapper.find('.logo-image').exists()).toBe(true);
     expect(wrapper.find('.banner').exists()).toBe(true);
+    expect(wrapper.find('.description').exists()).toBe(true);
   });
 
   it('renders the banner image on larger screens', () => {

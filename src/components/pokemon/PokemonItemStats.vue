@@ -1,6 +1,6 @@
 <template>
   <div class="pokemon-item-stats">
-    <span class="title">Stats</span>
+    <span class="title">{{ $t('pokemon.statsTitle') }}</span>
     <div
       v-for="stat in stats"
       :key="`stat-${stat.name}`"
@@ -56,7 +56,7 @@ export default {
       let exceedingBars = 0;
       let highestValue = 0;
       this.stats.map((stat) => {
-        if (stat.value > highestValue && stat.value > 110) {
+        if (stat.value > highestValue && stat.value >= 110) {
           highestValue = stat.value;
           exceedingBars = Math.floor((stat.value - 100) / 10);
         }
@@ -92,7 +92,7 @@ export default {
 
   .pokemon-item-stat {
     display: grid;
-    grid-template-columns: 5rem auto 5rem;
+    grid-template-columns: 5.5rem auto 5.5rem;
     grid-gap: 1rem;
     padding: 0.5rem 2rem;
     border-bottom: 0.2rem solid var(--main-border-color);
@@ -100,11 +100,13 @@ export default {
     align-items: center;
 
     @media (min-width: $min-width-first-break) {
+      grid-template-columns: 6.5rem auto 4rem;
+      padding: 0.5rem 2rem;
       width: 70%;
     }
 
     @media (min-width: $min-width-second-break) {
-      grid-template-columns: 7rem auto 7rem;
+      grid-template-columns: 8rem auto 4rem;
       width: 70%;
     }
 

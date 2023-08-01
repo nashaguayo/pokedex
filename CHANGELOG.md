@@ -2,7 +2,43 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V0.3.0...develop) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.0...develop) (dd-mm-yyyy)
+
+---
+
+## [V1.0.0](https://github.com/nashaguayo/pokedex/compare/V0.3.0...V1.0.0) (31-07-2023)
+
+##### Added
+
+- Pokemon variants
+- Animations to header icons
+- Recent searches
+- Internationalization
+- PWA support
+
+##### Modified
+
+- Added missing alt properties to images
+- Refactored search for colors, shapes and generations so that they aren't arrays
+- Removed pokemons with hyphens from search
+- Styles in pokemon details
+- Saving all info from pokemon mini game on local storage
+- Home landing banner and description
+- Animation for pokemon details
+- Manifest.json
+- Better way of filtering out pokemons with hyphens
+
+##### Fixed
+
+- Base Loader is now at center of page
+- Random Pokemon and Guess Pokemon not finishing loading
+- Animation in search items
+- Amount of empty stat bars
+- Infinite row brings up correct amount of items per row
+- Pokemon item header not scrolling
+- Habitats no longer show hyphens
+- Scroll to top button overlapping
+- Public path error
 
 ---
 

@@ -10,10 +10,12 @@
         :image="image"
         :smallImage="smallImage"
         :topPosition="topPosition"
-        :habitat="habitat"
+        :habitat="habitatName"
       />
       <div class="pokemon-info-container">
-        <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
+        <h2 class="pokemon-name">
+          {{ capitalizeWord(name.replace('-', ' ')) }}
+        </h2>
         <PokemonItemCharacteristics
           :id="id"
           :characteristic="characteristic"
@@ -22,12 +24,17 @@
           :color="color"
           :shape="shape"
           :generation="generation"
-          :habitat="habitat"
+          :habitat="habitatTranslated"
         />
         <PokemonItemStats :stats="stats" />
         <PokemonItemType :types="types" />
       </div>
       <PokemonItemEvolutions :evolutions="evolutions" :pokemonName="name" />
+      <PokemonItemVariants
+        v-if="variants.length"
+        :pokemon-name="name"
+        :variants="variants"
+      />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
       <div class="navigation">
         <BaseButton
@@ -35,23 +42,25 @@
           :disabled="id === 1"
           :variant="true"
         >
-          Previous
+          {{ $t('pokemon.previous') }}
         </BaseButton>
         <BaseButton
           :onClickHandler="goToNextPokemon"
           :disabled="id === lastPokemonId"
           :variant="true"
         >
-          Next
+          {{ $t('pokemon.next') }}
         </BaseButton>
       </div>
-      <BaseButton
-        class="go-back-button"
-        :onClickHandler="goToPokemonsPage"
-        :big="true"
-      >
-        Go Back
-      </BaseButton>
+      <div class="go-back">
+        <BaseButton
+          class="go-back-button"
+          :onClickHandler="goToPokemonsPage"
+          :big="true"
+        >
+          {{ $t('pokemon.goBack') }}
+        </BaseButton>
+      </div>
     </div>
   </BaseLoader>
 </template>
@@ -65,6 +74,7 @@ import PokemonItemCharacteristics from '@/components/pokemon/PokemonItemCharacte
 import PokemonItemStats from '@/components/pokemon/PokemonItemStats.vue';
 import PokemonItemType from '@/components/pokemon/PokemonItemType.vue';
 import PokemonItemEvolutions from '@/components/pokemon/PokemonItemEvolutions.vue';
+import PokemonItemVariants from '@/components/pokemon/PokemonItemVariants.vue';
 import PokemonItemDescription from '@/components/pokemon/PokemonItemDescription.vue';
 import {
   getPageBackgroundElement,
@@ -85,6 +95,7 @@ export default {
     PokemonItemStats,
     PokemonItemType,
     PokemonItemEvolutions,
+    PokemonItemVariants,
     PokemonItemDescription,
   },
   data() {
@@ -97,6 +108,17 @@ export default {
   watch: {
     name() {
       document.title = `Pokedex - ${capitalizeWord(this.name)}`;
+    },
+    storeHasLoaded: {
+      immediate: true,
+      async handler(storeHasLoaded) {
+        if (storeHasLoaded) {
+          if (!store.state.pokemon.has(this.urlId)) {
+            await store.getPokemon(this.urlId);
+          }
+          this.loading = false;
+        }
+      },
     },
   },
   computed: {
@@ -178,17 +200,26 @@ export default {
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
       );
     },
-    habitat() {
+    habitatTranslated() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat ?? ''
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat
+          ?.translated ?? ''
       );
     },
-  },
-  async created() {
-    if (!store.state.pokemon.has(this.urlId)) {
-      await store.getPokemon(this.urlId);
-    }
-    this.loading = false;
+    habitatName() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat?.name ??
+        ''
+      );
+    },
+    variants() {
+      return (
+        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.variants ?? []
+      );
+    },
+    storeHasLoaded() {
+      return store.state.storeHasLoaded;
+    },
   },
   beforeDestroy() {
     if (window.innerWidth >= fourthBreak) {
@@ -202,7 +233,7 @@ export default {
   methods: {
     capitalizeWord,
     goToPokemonsPage() {
-      this.$router.push({ name: 'pokemons' });
+      this.$router.back();
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;
@@ -212,7 +243,7 @@ export default {
       if (this.loading || window.innerWidth >= fourthBreak) {
         return;
       }
-      this.throttledParallax = throttle(this.parallax, 20);
+      this.throttledParallax = throttle(this.parallax, 10);
       getPageBackgroundElement().addEventListener(
         'scroll',
         this.throttledParallax
@@ -244,9 +275,8 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
   z-index: 1;
-  background-image: var(--popup-background-color);
-  overflow-x: hidden;
 
   @media (min-width: $min-width-fourth-break) {
     display: grid;
@@ -280,7 +310,7 @@ export default {
       width: auto;
       background-color: var(--variant-background-color);
       border-radius: 2rem;
-      box-shadow: var(--marin-box-shadow);
+      box-shadow: var(--main-box-shadow);
       border: 0.2rem solid var(--secondary-border-color);
       margin-top: 0;
       margin-left: 3rem;
@@ -322,19 +352,25 @@ export default {
     }
   }
 
-  .go-back-button {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-
-    @media (min-width: $min-width-first-break) {
-      margin-top: 2rem;
-    }
+  .go-back {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
-      justify-self: center;
-      width: calc(100% - 6rem);
+    }
+
+    .go-back-button {
+      margin-top: 1rem;
+      margin-bottom: 6rem;
+
+      @media (min-width: $min-width-fourth-break) {
+        justify-self: center;
+        width: calc(100% - 6rem);
+      }
     }
   }
 }

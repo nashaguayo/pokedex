@@ -6,6 +6,7 @@
   >
     <img
       class="location"
+      alt="pokemon location"
       :src="
         require(`@/assets/locations/${pokemonHabitatsBackground.get(habitat)}`)
       "
@@ -99,7 +100,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   width: 100%;
   position: relative;
 

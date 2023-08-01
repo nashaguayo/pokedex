@@ -1,37 +1,20 @@
 <template>
   <div class="general-navigation">
     <div class="navigation">
-      <router-link to="/">
-        <img
-          src="@/assets/ui/pokeball.svg.png"
-          alt="menu"
-          class="url home-icon-link"
-        />
-      </router-link>
-      <router-link class="desktop" :to="{ name: 'pokemons' }">
-        <h2 class="url pokemons-link">Pokemons</h2>
-      </router-link>
-      <router-link class="mobile" :to="{ name: 'pokemons' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-book-open"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          size="2x"
-          class="icon"
-        />
-      </router-link>
-      <router-link class="desktop" :to="{ name: 'search' }">
-        <h2 class="url pokemons-link">Search</h2>
-      </router-link>
-      <router-link class="mobile" :to="{ name: 'search' }">
-        <FontAwesomeIcon
-          icon="fa-solid fa-magnifying-glass"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          size="2x"
-          class="icon"
-        />
-      </router-link>
+      <GeneralNavigationLink :to="{ name: 'home' }" />
+      <GeneralNavigationLink
+        :to="{ name: 'pokemons' }"
+        :text="$t('header.generalNavigation.goToPokemonsPage')"
+        icon="fa-book-open"
+      />
+      <GeneralNavigationLink
+        :to="{ name: 'search' }"
+        :text="$t('header.generalNavigation.search')"
+        icon="fa-magnifying-glass"
+      />
     </div>
     <div class="darkmode">
+      <LocaleChanger />
       <transition name="flip" mode="out-in">
         <FontAwesomeIcon
           key="on"
@@ -56,10 +39,13 @@
 </template>
 
 <script>
+import GeneralNavigationLink from '@/components/header/GeneralNavigationLink.vue';
+import LocaleChanger from '@/components/header/LocaleChanger.vue';
 import store from '@/lib/store';
 
 export default {
   name: 'GeneralNavigation',
+  components: { GeneralNavigationLink, LocaleChanger },
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
@@ -92,32 +78,24 @@ export default {
   .navigation {
     display: flex;
     align-items: center;
-
-    .url {
-      cursor: pointer;
-    }
   }
 
-  .home-icon-link {
-    margin: 0.5rem 1rem;
-    height: 3rem;
-
-    @media (min-width: $min-width-first-break) {
-      margin: 1rem 2rem;
-    }
-
-    @media (min-width: $min-width-third-break) {
-      height: 4rem;
-    }
-  }
-
-  .pokemons-link {
-    margin-right: 2rem;
+  .darkmode {
+    display: flex;
+    align-items: center;
   }
 
   .icon {
     cursor: pointer;
     margin-right: 2rem;
+
+    @media (min-width: $min-width-first-break) {
+      margin-right: 1rem;
+    }
+
+    @media (min-width: $min-width-fourth-break) {
+      margin-right: 3rem;
+    }
   }
 
   .flip-enter-active,
@@ -128,20 +106,6 @@ export default {
   .flip-enter,
   .flip-leave-to {
     transform: scaleX(0);
-  }
-
-  .desktop {
-    display: none;
-
-    @media (min-width: $min-width-third-break) {
-      display: block;
-    }
-  }
-
-  .mobile {
-    @media (min-width: $min-width-third-break) {
-      display: none;
-    }
   }
 }
 </style>

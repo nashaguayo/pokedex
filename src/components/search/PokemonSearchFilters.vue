@@ -3,8 +3,14 @@
     <div
       class="filter"
       :class="{
-        active: props.filteringFilters.includes(f),
-        inactive: !props.filteringFilters.includes(f),
+        active:
+          typeof props.filteringFilters === 'string'
+            ? props.filteringFilters === f
+            : props.filteringFilters.includes(f),
+        inactive:
+          typeof props.filteringFilters === 'string'
+            ? props.filteringFilters !== f
+            : !props.filteringFilters.includes(f),
       }"
       v-for="f in props.allFilters"
       :key="`filter-${f}`"
@@ -24,7 +30,7 @@ export default {
       required: true,
     },
     filteringFilters: {
-      type: Array,
+      type: [Array, String],
       required: true,
     },
     toggleFilter: {
@@ -45,6 +51,9 @@ export default {
   padding: 1rem 0;
   border-bottom: 0.2rem solid var(--main-border-color);
   width: calc(100% - 4rem);
+  position: relative;
+  z-index: 4;
+  background-color: var(--main-background-color);
 
   @media (min-width: $min-width-third-break) {
     grid-template-columns: repeat(4, 1fr);
@@ -63,6 +72,11 @@ export default {
     padding: 0.3rem;
     transition: all 0.3s;
     cursor: pointer;
+    font-size: 0.8rem;
+
+    @media (min-width: $min-width-first-break) {
+      font-size: 1rem;
+    }
 
     &.inactive {
       background-color: var(--disabled-button-background-color);

@@ -31,6 +31,11 @@ jest.mock('@/components/search/PokemonSearchGenerations.vue', () => ({
   template: '<div class="mocked-pokemon-search-generations"></div>',
 }));
 
+jest.mock('@/components/search/PokemonSearchItem.vue', () => ({
+  name: 'PokemonSearchItem',
+  template: '<div class="mocked-pokemon-search-item"></div>',
+}));
+
 jest.mock('@/lib/store', () => ({
   searchPokemons: jest.fn(),
   clearSearchResults: jest.fn(),
@@ -44,10 +49,11 @@ jest.mock('@/lib/store', () => ({
       results: ['Pikachu', 'Charizard'],
       isSearchingPokemon: false,
       types: [],
-      colors: [],
-      shapes: [],
-      generations: [],
+      color: '',
+      shape: '',
+      generation: '',
     },
+    isDarkModeEnabled: false,
   },
 }));
 
@@ -59,6 +65,7 @@ describe('PokemonSearch', () => {
 
     wrapper = shallowMount(PokemonSearch, {
       stubs: ['FontAwesomeIcon'],
+      mocks: { $t: (key) => key },
     });
   });
 
@@ -72,7 +79,7 @@ describe('PokemonSearch', () => {
   });
 
   it('displays search results', async () => {
-    const resultElements = wrapper.findAll('span');
+    const resultElements = wrapper.findAll('pokemonsearchitem-stub');
     expect(resultElements).toHaveLength(2);
   });
 
@@ -80,19 +87,6 @@ describe('PokemonSearch', () => {
     wrapper.vm.searchTerm = 'pikachu';
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.searchTerm).toBe('pikachu');
-  });
-
-  it('navigates to pokemon page when a search result is clicked', async () => {
-    const pokemon = 'Pikachu';
-    const mockRouter = { push: jest.fn() };
-    wrapper.vm.$router = mockRouter;
-
-    await wrapper.find('.search-result').trigger('click');
-
-    expect(mockRouter.push).toHaveBeenCalledWith({
-      name: 'pokemon',
-      params: { id: pokemon },
-    });
   });
 
   it('should toggle between filters', () => {
@@ -138,60 +132,48 @@ describe('PokemonSearch', () => {
     expect(wrapper.vm.displayShapes).toBe(false);
     expect(wrapper.vm.displayGenerations).toBe(false);
     expect(wrapper.vm.filteringTypes).toEqual([]);
-    expect(wrapper.vm.filteringColors).toEqual([]);
-    expect(wrapper.vm.filteringShapes).toEqual([]);
-    expect(wrapper.vm.filteringGenerations).toEqual([]);
+    expect(wrapper.vm.filteringColor).toEqual('');
+    expect(wrapper.vm.filteringShape).toEqual('');
+    expect(wrapper.vm.filteringGeneration).toEqual('');
   });
 
   it('toggles the display of types when "Show Types" or "Hide Types" button is clicked', async () => {
-    expect(wrapper.vm.displayTypesText).toBe('Show Types');
     expect(wrapper.vm.displayTypes).toBe(false);
     wrapper.vm.toggleDisplayTypes();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.displayTypesText).toBe('Hide Types');
     expect(wrapper.vm.displayTypes).toBe(true);
     wrapper.vm.toggleDisplayTypes();
     await wrapper.find('.button[variant=true][small=true]').trigger('click');
-    expect(wrapper.vm.displayTypesText).toBe('Show Types');
     expect(wrapper.vm.displayTypes).toBe(false);
   });
 
   it('toggles the display of colors when "Show Colors" or "Hide Colors" button is clicked', async () => {
-    expect(wrapper.vm.displayColorsText).toBe('Show Colors');
     expect(wrapper.vm.displayColors).toBe(false);
     wrapper.vm.toggleDisplayColors();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.displayColorsText).toBe('Hide Colors');
     expect(wrapper.vm.displayColors).toBe(true);
     wrapper.vm.toggleDisplayColors();
     await wrapper.find('.button[variant=true][small=true]').trigger('click');
-    expect(wrapper.vm.displayColorsText).toBe('Show Colors');
     expect(wrapper.vm.displayColors).toBe(false);
   });
 
   it('toggles the display of shapes when "Show Shapes" or "Hide Shapes" button is clicked', async () => {
-    expect(wrapper.vm.displayShapesText).toBe('Show Shapes');
     expect(wrapper.vm.displayShapes).toBe(false);
     wrapper.vm.toggleDisplayShapes();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.displayShapesText).toBe('Hide Shapes');
     expect(wrapper.vm.displayShapes).toBe(true);
     wrapper.vm.toggleDisplayShapes();
     await wrapper.find('.button[variant=true][small=true]').trigger('click');
-    expect(wrapper.vm.displayShapesText).toBe('Show Shapes');
     expect(wrapper.vm.displayShapes).toBe(false);
   });
 
   it('toggles the display of generations when "Show Generations" or "Hide Generations" button is clicked', async () => {
-    expect(wrapper.vm.displayGenerationsText).toBe('Show Gens');
     expect(wrapper.vm.displayGenerations).toBe(false);
     wrapper.vm.toggleDisplayGenerations();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.displayGenerationsText).toBe('Hide Gens');
     expect(wrapper.vm.displayGenerations).toBe(true);
     wrapper.vm.toggleDisplayGenerations();
     await wrapper.find('.button[variant=true][small=true]').trigger('click');
-    expect(wrapper.vm.displayGenerationsText).toBe('Show Gens');
     expect(wrapper.vm.displayGenerations).toBe(false);
   });
 });

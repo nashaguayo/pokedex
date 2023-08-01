@@ -1,5 +1,10 @@
 const DARKMODE_ENABLED = 'darkmodeEnabled';
 const GUESSES_IN_A_ROW = 'guessesInARow';
+const TRIES_LEFT = 'triesLeft';
+const MYSTERY_POKEMON = 'mysteryPokemon';
+const RECENT_SEARCHES = 'recentSearches';
+const LANGUAGE = 'language';
+const IS_INSTALLED = 'isInstalled';
 
 export function isDarkModeEnabled() {
   return localStorage.getItem(DARKMODE_ENABLED) === 'true';
@@ -16,4 +21,52 @@ export function getGuessesInARow() {
 
 export function setGuessesInARow(guessesInARow) {
   localStorage.setItem(GUESSES_IN_A_ROW, guessesInARow);
+}
+
+export function getTriesLeft() {
+  return Number(localStorage.getItem(TRIES_LEFT));
+}
+
+export function setTriesLeft(triesLeft) {
+  localStorage.setItem(TRIES_LEFT, triesLeft);
+}
+
+export function getMysteryPokemon() {
+  return JSON.parse(localStorage.getItem(MYSTERY_POKEMON));
+}
+
+export function setMysteryPokemon(mysteryPokemon) {
+  localStorage.setItem(MYSTERY_POKEMON, JSON.stringify(mysteryPokemon));
+}
+
+export function getRecentSearches() {
+  return JSON.parse(localStorage.getItem(RECENT_SEARCHES));
+}
+
+export function setRecentSearch(recentSearch) {
+  const recentSearches = getRecentSearches() ?? [];
+  if (!recentSearches.includes(recentSearch)) {
+    recentSearches.push(recentSearch);
+    localStorage.setItem(RECENT_SEARCHES, JSON.stringify(recentSearches));
+  }
+}
+
+export function clearRecentSearches() {
+  localStorage.setItem(RECENT_SEARCHES, JSON.stringify([]));
+}
+
+export function getLanguage() {
+  return localStorage.getItem(LANGUAGE) ?? process.env.VUE_APP_FALLBACK_LOCALE;
+}
+
+export function setLanguage(language) {
+  localStorage.setItem(LANGUAGE, language);
+}
+
+export function getIsInstalled() {
+  return localStorage.getItem(IS_INSTALLED) === 'true';
+}
+
+export function setIsInstalled(isInstalled) {
+  localStorage.setItem(IS_INSTALLED, isInstalled);
 }

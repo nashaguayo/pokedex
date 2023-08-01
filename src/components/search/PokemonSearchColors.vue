@@ -1,7 +1,7 @@
 <template>
   <PokemonSearchFilters
     :allFilters="allColors"
-    :filteringFilters="filteringColors"
+    :filteringFilters="filteringColor"
     :toggleFilter="toggleColorFilter"
   />
 </template>
@@ -17,8 +17,8 @@ export default {
     allColors() {
       return store.state.allColors;
     },
-    filteringColors() {
-      return store.state.search.colors;
+    filteringColor() {
+      return store.state.search.color;
     },
   },
   methods: {

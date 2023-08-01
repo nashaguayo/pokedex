@@ -11,14 +11,11 @@
         <transition name="drawer-up">
           <BaseHeader v-if="displayHeader" />
         </transition>
-        <transition name="slide" appear mode="out-in">
+        <transition :name="transition" mode="out-in">
           <router-view :key="$route.fullPath" />
         </transition>
         <transition name="drawer-down">
-          <BaseFooter
-            :displayFooter="displayFooter"
-            :displayScrollToTopButton="displayScrollToTopButton"
-          />
+          <BaseFooter :displayFooter="displayFooter" />
         </transition>
       </div>
     </div>
@@ -30,6 +27,7 @@ import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
 import { toggleDarkMode } from '@/lib/helpers';
+import { setIsInstalled } from './lib/localStorage';
 
 export default {
   name: 'App',
@@ -37,19 +35,27 @@ export default {
   async created() {
     this.setTheme(this.isDarkModeEnabled);
     await store.initializeStore();
+    window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    window.addEventListener('online', this.online);
+    window.addEventListener('offline', this.offline);
+  },
+  beforeDestroy() {
+    window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    window.removeEventListener('online', this.online);
+    window.removeEventListener('offline', this.offline);
   },
   computed: {
     isDarkModeEnabled() {
       return store.state.isDarkModeEnabled;
     },
     displayHeader() {
-      return this.$route.meta.header ?? true;
+      return this.$route.meta.header ?? false;
     },
     displayFooter() {
-      return this.$route.meta.footer ?? true;
+      return this.$route.meta.footer ?? false;
     },
-    displayScrollToTopButton() {
-      return this.$route.meta.scrollToTopButton ?? true;
+    transition() {
+      return this.$route.meta.transition ?? 'slide';
     },
   },
   watch: {
@@ -60,6 +66,15 @@ export default {
   methods: {
     setTheme(isDarkModeEnabled) {
       toggleDarkMode(isDarkModeEnabled);
+    },
+    beforeInstallPrompt() {
+      setIsInstalled(false);
+    },
+    online() {
+      this.$router.push({ name: 'home' });
+    },
+    offline() {
+      this.$router.push({ name: 'offline' });
     },
   },
 };
@@ -330,5 +345,31 @@ h2 {
 .drawer-down-enter,
 .drawer-down-leave-to {
   transform: translateY(100%);
+}
+
+.slide-from-left-enter-active,
+.slide-from-left-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-from-left-enter {
+  transform: translateX(-100%);
+}
+
+.slide-from-left-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-from-right-enter-active,
+.slide-from-right-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-from-right-enter {
+  transform: translateX(100%);
+}
+
+.slide-from-right-leave-to {
+  transform: translateX(-100%);
 }
 </style>

@@ -1,12 +1,21 @@
 import pokemonApi from '@/config/pokemonApi';
+import { getLanguage } from '@/lib/localStorage';
 import { logError } from '@/lib/logger';
+import { getPokemonTypeTranslation } from './types';
 
 export async function getDataForPokemon(pokemonName) {
   try {
     const response = await pokemonApi.get(`pokemon/${pokemonName}`);
     const id = response.data.id;
     const image = response.data.sprites.front_default;
-    const types = response.data.types.map((t) => t.type.name);
+    const names = response.data.types.map((t) => t.type.name);
+    const types = await Promise.all(
+      names.map(async (name) => ({
+        name,
+        translated: await getPokemonTypeTranslation(name),
+      }))
+    );
+
     return { id, image, types };
   } catch (error) {
     logError(
@@ -17,10 +26,12 @@ export async function getDataForPokemon(pokemonName) {
   }
 }
 
-export async function getPokemons(url) {
+export async function getPokemons(url, limit = 20) {
   try {
     const response = await pokemonApi.get(
-      url?.replace(process.env.VUE_APP_POKEAPI_URL, '') ?? 'pokemon'
+      `${
+        url?.replace(process.env.VUE_APP_POKEAPI_URL, '') ?? 'pokemon'
+      }?limit=${limit}`
     );
     return response.data;
   } catch (error) {
@@ -46,7 +57,11 @@ export async function getPokemon(id) {
     const response = await pokemonApi.get(`pokemon/${id}`);
     return response.data;
   } catch (error) {
-    logError(getPokemon.name, 'Unable to retrieve Pokemon', error);
+    logError(
+      getPokemon.name,
+      `Unable to retrieve Pokemon named ${id}. It may not exist`,
+      error
+    );
   }
 }
 
@@ -54,7 +69,7 @@ export async function getSpeciesData(url) {
   try {
     const response = await pokemonApi.get(url);
     const result = response.data.flavor_text_entries.filter(
-      (flavorText) => flavorText.language.name === 'en'
+      (flavorText) => flavorText.language.name === getLanguage()
     );
     const flavorTexts = result.map((text) =>
       text.flavor_text.replace(/\n/g, ' ').replace(/\f/g, ' ')
@@ -66,7 +81,7 @@ export async function getSpeciesData(url) {
       shape: response.data.shape?.name ?? '-',
       generation:
         response.data.generation?.name.replace('generation-', '') ?? '-',
-      habitat: response.data.habitat?.name ?? 'legendary',
+      habitat: response.data.habitat?.name ?? 'rare',
     };
   } catch (error) {
     logError(getSpeciesData.name, 'Unable to retrieve species data', error);

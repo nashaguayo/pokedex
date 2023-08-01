@@ -18,7 +18,7 @@ jest.mock('@/components/home/RandomPokemon.vue', () => ({
 
 describe('HomeView', () => {
   it('renders all components components', () => {
-    const wrapper = shallowMount(HomeView);
+    const wrapper = shallowMount(HomeView, { mocks: { $t: (key) => key } });
     expect(wrapper.find('logoandbanner-stub').exists()).toBe(true);
     expect(wrapper.find('guesspokemon-stub').exists()).toBe(true);
     expect(wrapper.find('randompokemon-stub').exists()).toBe(true);

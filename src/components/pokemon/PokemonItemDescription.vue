@@ -1,9 +1,9 @@
-<template functional>
+<template>
   <div class="pokemon-item-description">
     <hr />
-    <span class="title">Fun Facts</span>
+    <span class="title">{{ $t('pokemon.descriptionFunFacts') }}</span>
     <ul>
-      <li v-for="text in props.flavorTexts" :key="text">{{ text }}</li>
+      <li v-for="text in flavorTexts" :key="text">{{ text }}</li>
     </ul>
   </div>
 </template>
@@ -54,7 +54,7 @@ export default {
   ul {
     padding: 0;
     margin: 0 1rem;
-    background-color: var(--main-background-color);
+    background-color: var(--cards-background-color);
     padding: 0 1rem;
     border-radius: 2rem;
     border: 0.2rem solid var(--secondary-border-color);
