@@ -9,7 +9,7 @@
           backgroundImage: `url(${image})`,
         }"
       ></div>
-      <span class="name">{{ name }}</span>
+      <span class="name">{{ name.replace('-', ' ') }}</span>
       <BaseButton
         :onClickHandler="openVariantDropdown"
         :disabled="variants.length === 1"

@@ -1,7 +1,7 @@
 <template>
   <div @click="goToPokemonPage" class="pokemon-search-item">
     <span class="search-result">
-      {{ name }}
+      {{ name.replace('-', ' ') }}
     </span>
     <FontAwesomeIcon
       icon="fa-solid fa-chevron-right"
@@ -13,6 +13,7 @@
 
 <script>
 import { setRecentSearch } from '@/lib/localStorage';
+import store from '@/lib/store';
 
 export default {
   name: 'PokemonSearchItem',
@@ -27,8 +28,15 @@ export default {
     },
   },
   methods: {
-    goToPokemonPage() {
+    async goToPokemonPage() {
       setRecentSearch(this.name);
+      if (await store.pokemonIsVariant(this.name)) {
+        this.$router.push({
+          name: 'pokemon',
+          params: { id: this.name.split('-')[0] },
+        });
+        return;
+      }
       this.$router.push({ name: 'pokemon', params: { id: this.name } });
     },
   },

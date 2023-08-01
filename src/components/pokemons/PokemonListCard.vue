@@ -7,7 +7,9 @@
   >
     <span class="id">#{{ id }}</span>
     <img :src="image" alt="pokemon front default" class="screen" />
-    <span class="name">{{ image === silouette ? '???' : name }}</span>
+    <span class="name">{{
+      image === silouette ? '???' : name.replace('-', ' ')
+    }}</span>
     <div class="types">
       <span
         v-for="t in types"

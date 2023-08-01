@@ -5,7 +5,7 @@
       :key="variant"
       @click="showVariant(variant)"
     >
-      {{ variant }}
+      {{ variant.replace('-', ' ') }}
     </h2>
     <div class="close">
       <BaseButton :onClickHandler="close" :variant="true"> Close </BaseButton>

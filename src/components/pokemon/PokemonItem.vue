@@ -13,7 +13,9 @@
         :habitat="habitatName"
       />
       <div class="pokemon-info-container">
-        <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
+        <h2 class="pokemon-name">
+          {{ capitalizeWord(name.replace('-', ' ')) }}
+        </h2>
         <PokemonItemCharacteristics
           :id="id"
           :characteristic="characteristic"

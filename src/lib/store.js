@@ -122,7 +122,7 @@ export default {
           const accum = await accumulator;
           if (!currentValue.name.includes('-')) {
             accum.pokemons.push({ ...currentValue });
-          } else if (await getPokemonApi(currentValue.name.split('-')[0])) {
+          } else if (await this.pokemonIsVariant(currentValue.name)) {
             accum.variations.push({ ...currentValue });
           } else {
             accum.pokemons.push({ ...currentValue });
@@ -166,6 +166,10 @@ export default {
     state.scroll.pokemons = [...state.scroll.pokemons, ...results];
     state.scroll.nextUrl = response.next;
     state.isLoadingMorePokemons = false;
+  },
+
+  async pokemonIsVariant(name) {
+    return name.includes('-') && !!(await getPokemonApi(name.split('-')[0]));
   },
 
   async getPokemon(pokemonId) {
@@ -331,10 +335,7 @@ export default {
     state.search.types.forEach((type) => {
       const filteredPokemonNamesByType = state.pokemonsByType
         .get(type)
-        .filter(
-          (pokemon) =>
-            pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-        );
+        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
       repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
     });
 
@@ -359,10 +360,7 @@ export default {
   searchPokemonsByColor(searchTermLowerCase) {
     const filteredPokemonNamesByColor = state.pokemonsByColor
       .get(state.search.color)
-      .filter(
-        (pokemon) =>
-          pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-      );
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByColor;
@@ -371,10 +369,7 @@ export default {
   searchPokemonsByShape(searchTermLowerCase) {
     const filteredPokemonNamesByShape = state.pokemonsByShape
       .get(state.search.shape)
-      .filter(
-        (pokemon) =>
-          pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-      );
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByShape;
@@ -383,10 +378,7 @@ export default {
   searchPokemonsByGeneration(searchTermLowerCase) {
     const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
       .get(state.search.generation)
-      .filter(
-        (pokemon) =>
-          pokemon.includes(searchTermLowerCase) && !pokemon.includes('-')
-      );
+      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByGeneration;
