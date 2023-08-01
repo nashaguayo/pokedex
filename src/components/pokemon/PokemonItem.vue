@@ -107,6 +107,17 @@ export default {
     name() {
       document.title = `Pokedex - ${capitalizeWord(this.name)}`;
     },
+    storeHasLoaded: {
+      immediate: true,
+      async handler(storeHasLoaded) {
+        if (storeHasLoaded) {
+          if (!store.state.pokemon.has(this.urlId)) {
+            await store.getPokemon(this.urlId);
+          }
+          this.loading = false;
+        }
+      },
+    },
   },
   computed: {
     urlId() {
@@ -204,12 +215,9 @@ export default {
         store.state.pokemon.get(this.loading ? 0 : this.urlId)?.variants ?? []
       );
     },
-  },
-  async created() {
-    if (!store.state.pokemon.has(this.urlId)) {
-      await store.getPokemon(this.urlId);
-    }
-    this.loading = false;
+    storeHasLoaded() {
+      return store.state.storeHasLoaded;
+    },
   },
   beforeDestroy() {
     if (window.innerWidth >= fourthBreak) {

@@ -117,20 +117,34 @@ export default {
         name: pokemon.name,
       }));
 
-      state.allPokemons = allPokemonsWithHyphens.filter(
-        (pokemon) => !pokemon.name.includes('-')
+      const { variations, pokemons } = await allPokemonsWithHyphens.reduce(
+        async (accumulator, currentValue) => {
+          const accum = await accumulator;
+          if (!currentValue.name.includes('-')) {
+            accum.pokemons.push({ ...currentValue });
+          } else if (await getPokemonApi(currentValue.name.split('-')[0])) {
+            accum.variations.push({ ...currentValue });
+          } else {
+            accum.pokemons.push({ ...currentValue });
+          }
+          return accum;
+        },
+        { variations: [], pokemons: [] }
       );
-      state.allPokemons.forEach((pokemon) => {
-        const pokemonVariants = allPokemonsWithHyphens.filter((p) => {
-          return p.name.includes('-') && p.name.includes(pokemon.name);
-        });
-        if (pokemonVariants.length) {
-          const pokemonVariantsNames = pokemonVariants.map(
-            (pokemon) => pokemon.name
+
+      pokemons.forEach((pokemon) => {
+        const variantsForPokemon = variations.filter((v) =>
+          v.name.includes(pokemon.name)
+        );
+        if (variantsForPokemon.length) {
+          state.pokemonVariants.set(
+            pokemon.name,
+            variantsForPokemon.map((p) => p.name)
           );
-          state.pokemonVariants.set(pokemon.name, pokemonVariantsNames);
         }
       });
+
+      state.allPokemons = pokemons;
       state.isLoadingAllPokemons = false;
     }
   },
