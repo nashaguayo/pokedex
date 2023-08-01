@@ -40,6 +40,7 @@
 - Scroll to top button overlapping
 - Public path error
 - Pokemon details header animation
+- Fixed in memory implementation of pokemon details
 
 ---
 
