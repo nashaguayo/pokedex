@@ -42,6 +42,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.2rem solid var(--main-border-color);
+  cursor: pointer;
 
   .search-result {
     display: flex;
