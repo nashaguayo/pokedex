@@ -7,6 +7,7 @@
 ##### Added
 
 - Created Download View
+- Created Launch App View
 
 ##### Modified
 

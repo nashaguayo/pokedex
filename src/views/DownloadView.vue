@@ -12,6 +12,7 @@
 
 <script>
 import { isInstalled } from '@/lib/helpers';
+import { setIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'DownloadView',
@@ -23,6 +24,7 @@ export default {
   created() {
     this.interval = setInterval(() => {
       if (isInstalled()) {
+        setIsInstalled(true);
         this.$router.push({ name: 'home' });
       }
     }, 1000);

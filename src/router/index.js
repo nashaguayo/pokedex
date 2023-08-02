@@ -67,17 +67,16 @@ const routes = [
     path: '/offline',
     name: 'offline',
     component: () => import('@/views/OfflineView.vue'),
-    meta: {
-      transition: 'none',
-    },
   },
   {
     path: '/download',
     name: 'download',
     component: () => import('@/views/DownloadView.vue'),
-    meta: {
-      transition: 'none',
-    },
+  },
+  {
+    path: '/launch-app',
+    name: 'launchApp',
+    component: () => import('@/views/LaunchAppView.vue'),
   },
 ];
 
@@ -92,7 +91,8 @@ router.beforeEach((to, from, next) => {
     !isDesktop() &&
     !isInstalled() &&
     to.name !== 'install' &&
-    to.name !== 'download'
+    to.name !== 'download' &&
+    to.name !== 'launchApp'
   ) {
     next({ name: 'install' });
     return;
