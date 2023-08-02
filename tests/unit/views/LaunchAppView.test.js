@@ -1,11 +1,28 @@
 import { shallowMount } from '@vue/test-utils';
 import LaunchAppView from '@/views/LaunchAppView.vue';
 
+jest.mock('@/lib/localStorage', () => ({
+  removeIsInstalled: jest.fn(),
+}));
+
+jest.mock('@/components/ui/BaseButton.vue', () => ({
+  name: 'BaseButton',
+  template: '<div class="mocked-base-button"></div>',
+}));
+
+jest.mock('@/components/ui/BaseLoader.vue', () => ({
+  name: 'BaseLoader',
+  template: '<div class="mocked-base-loader"></div>',
+}));
+
 describe('LaunchAppView', () => {
   it('renders the BasePage component with correct title and content', () => {
+    const env = process.env;
+    jest.resetModules();
+    process.env = { ...env };
+
     const wrapper = shallowMount(LaunchAppView, {
       mocks: { $t: (key) => key },
-      stubs: ['BaseButton'],
     });
 
     const basePage = wrapper.find('.launch-app-view');
