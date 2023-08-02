@@ -402,12 +402,11 @@ export default {
     state.allTypes = allTypes;
     await Promise.all(
       allTypes.map(async (type) => {
-        const pokemons = await getPokemonsByTypeApi(type);
+        const { name, pokemons } = await getPokemonsByTypeApi(type);
         if (pokemons.length) {
-          const key = await getPokemonTypeTranslationApi(type);
-          state.pokemonsByType.set(key, pokemons);
+          state.pokemonsByType.set(name, pokemons);
           const index = state.allTypes.findIndex((t) => t === type);
-          state.allTypes[index] = key;
+          state.allTypes[index] = name;
           return;
         }
         const index = state.allTypes.findIndex((t) => t === type);
