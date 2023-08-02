@@ -94,7 +94,7 @@ export default {
     display: grid;
     grid-template-columns: 5.5rem auto 5.5rem;
     grid-gap: 1rem;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 0rem;
     border-bottom: 0.2rem solid var(--main-border-color);
     width: 100%;
     align-items: center;
