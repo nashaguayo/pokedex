@@ -14,7 +14,17 @@ export async function getAllShapes() {
 export async function getPokemonsByShape(shape) {
   try {
     const response = await pokemonApi.get(`pokemon-shape/${shape}`);
-    return response.data.pokemon_species.map((p) => p.name) ?? [];
+    return {
+      name:
+        response.data.names.filter(
+          (language) => language.language.name === getLanguage()
+        )[0]?.name ??
+        response.data.names.filter(
+          (language) =>
+            language.language.name === process.env.VUE_APP_FALLBACK_LOCALE
+        )[0]?.name,
+      pokemons: response.data.pokemon_species.map((p) => p.name) ?? [],
+    };
   } catch (error) {
     logError(
       getPokemonsByShape.name,

@@ -438,12 +438,11 @@ export default {
     state.allShapes = allShapes;
     await Promise.all(
       allShapes.map(async (shape) => {
-        const pokemons = await getPokemonsByShapeApi(shape);
+        const { name, pokemons } = await getPokemonsByShapeApi(shape);
         if (pokemons.length) {
-          const key = await getPokemonShapeTranslationApi(shape);
-          state.pokemonsByShape.set(key, pokemons);
+          state.pokemonsByShape.set(name, pokemons);
           const index = state.allShapes.findIndex((s) => s === shape);
-          state.allShapes[index] = key;
+          state.allShapes[index] = name;
           return;
         }
         const index = state.allShapes.findIndex((s) => s === shape);
