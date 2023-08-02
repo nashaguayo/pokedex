@@ -66,6 +66,7 @@ export default {
     previous: 'Previous',
     next: 'Next',
     goToPokemonList: 'Go to Pokemon List',
+    goToSearch: 'Go to Search',
   },
 
   pokemons: {

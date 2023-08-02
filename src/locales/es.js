@@ -66,6 +66,7 @@ export default {
     previous: 'Anterior',
     next: 'Siguiente',
     goToPokemonList: 'Ir a la Lista de Pokemones',
+    goToSearch: 'Ir a la Busqueda',
   },
 
   pokemons: {
