@@ -253,9 +253,12 @@ h2 {
 
 #app {
   height: 100vh;
-  background-image: url(@/assets/ui/wallpaper.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+
+  @media (min-width: $min-width-second-break) {
+    background-image: url(@/assets/ui/wallpaper.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 
   .base-page {
     display: flex;
