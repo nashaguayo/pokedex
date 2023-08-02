@@ -420,12 +420,11 @@ export default {
     state.allColors = allColors;
     await Promise.all(
       allColors.map(async (color) => {
-        const pokemons = await getPokemonsByColorApi(color);
+        const { name, pokemons } = await getPokemonsByColorApi(color);
         if (pokemons.length) {
-          const key = await getPokemonColorTranslationApi(color);
-          state.pokemonsByColor.set(key, pokemons);
+          state.pokemonsByColor.set(name, pokemons);
           const index = state.allColors.findIndex((c) => c === color);
-          state.allColors[index] = key;
+          state.allColors[index] = name;
           return;
         }
         const index = state.allColors.findIndex((c) => c === color);
