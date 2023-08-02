@@ -9,13 +9,26 @@
 
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
+import { getIsInstalled, removeIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'LaunchAppView',
   components: { BaseButton },
+  created() {
+    window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+  },
+  beforeDestroy() {
+    window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+  },
   methods: {
     launchApp() {
       window.open(process.env.VUE_APP_BASE_URL, '_blank');
+    },
+    beforeInstallPrompt() {
+      if (getIsInstalled()) {
+        removeIsInstalled();
+        this.$router.push({ name: 'install' });
+      }
     },
   },
 };
