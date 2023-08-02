@@ -19,6 +19,7 @@
 
 - Pokemon details header animation
 - Pokemon details header throttle
+- Margin showing on pokemon details
 
 ---
 
