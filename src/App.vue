@@ -255,7 +255,7 @@ h2 {
   height: 100vh;
 
   @media (min-width: $min-width-second-break) {
-    background-image: url(@/assets/ui/wallpaper.jpg);
+    background-image: url(@/assets/images/ui/wallpaper.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }

@@ -15,7 +15,7 @@
       <div class="fueled-by">
         <span>{{ $t('footer.fueledBy') }}</span>
         <a href="https://pokeapi.co/docs/v2" target="_blank" ref="noreferrer">
-          <img src="@/assets/ui/pokeapi.png" alt="pokeapi logo" />
+          <img src="@/assets/images/ui/pokeapi.png" alt="pokeapi logo" />
         </a>
       </div>
       <a
@@ -25,7 +25,7 @@
         ref="noreferrer"
       >
         <img
-          src="@/assets/ui/github-logo.jpeg"
+          src="@/assets/images/ui/github-logo.jpeg"
           class="github-logo"
           alt="github logo"
         />

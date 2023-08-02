@@ -83,7 +83,7 @@ import {
 } from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
-import silouette from '@/assets/pokemons/silouette.png';
+import silouette from '@/assets/images/pokemons/silouette.png';
 
 export default {
   name: 'PokemonItem',

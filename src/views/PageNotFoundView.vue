@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import silouette from '@/assets/pokemons/silouette.png';
+import silouette from '@/assets/images/pokemons/silouette.png';
 import store from '@/lib/store';
 
 export default {
