@@ -4,6 +4,7 @@ const TRIES_LEFT = 'triesLeft';
 const MYSTERY_POKEMON = 'mysteryPokemon';
 const RECENT_SEARCHES = 'recentSearches';
 const LANGUAGE = 'language';
+const IS_INSTALLED = 'isInstalled';
 
 export function isDarkModeEnabled() {
   return localStorage.getItem(DARKMODE_ENABLED) === 'true';
@@ -60,4 +61,16 @@ export function getLanguage() {
 
 export function setLanguage(language) {
   localStorage.setItem(LANGUAGE, language);
+}
+
+export function getIsInstalled() {
+  return localStorage.getItem(IS_INSTALLED) === 'true';
+}
+
+export function setIsInstalled(isInstalled) {
+  return localStorage.setItem(IS_INSTALLED, isInstalled);
+}
+
+export function removeIsInstalled() {
+  localStorage.removeItem(IS_INSTALLED);
 }

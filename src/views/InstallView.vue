@@ -16,6 +16,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
+import { getIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'InstallView',
@@ -28,6 +29,10 @@ export default {
     };
   },
   created() {
+    if (getIsInstalled()) {
+      this.$router.push({ name: 'launchApp' });
+      return;
+    }
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
   },
   destroyed() {

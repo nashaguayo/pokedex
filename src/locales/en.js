@@ -108,4 +108,9 @@ export default {
   download: {
     title: 'Downloading',
   },
+
+  launchApp: {
+    title: 'See in App',
+    button: 'Open',
+  },
 };
