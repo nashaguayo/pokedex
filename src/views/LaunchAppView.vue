@@ -1,7 +1,7 @@
 <template>
   <div class="launch-app-view">
     <h2>{{ $t('launchApp.title') }}</h2>
-    <BaseButton :variant="true" :big="true">{{
+    <BaseButton :onClickHandler="launchApp" :variant="true" :big="true">{{
       $t('launchApp.button')
     }}</BaseButton>
   </div>
@@ -13,6 +13,11 @@ import BaseButton from '@/components/ui/BaseButton.vue';
 export default {
   name: 'LaunchAppView',
   components: { BaseButton },
+  methods: {
+    launchApp() {
+      window.open(process.env.VUE_APP_BASE_URL, '_blank');
+    },
+  },
 };
 </script>
 

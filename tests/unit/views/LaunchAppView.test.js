@@ -16,5 +16,6 @@ describe('LaunchAppView', () => {
     expect(heading1.text()).toBe('launchApp.title');
 
     expect(wrapper.find('basebutton-stub').exists()).toBeTruthy();
+    expect(wrapper.find('basebutton-stub').text()).toBe('launchApp.button');
   });
 });

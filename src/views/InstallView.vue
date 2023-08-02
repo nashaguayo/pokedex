@@ -16,7 +16,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import { getIsInstalled } from '@/lib/localStorage';
+import { getIsInstalled, removeIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'InstallView',
@@ -50,6 +50,11 @@ export default {
       }
     },
     beforeInstallPrompt(event) {
+      if (getIsInstalled()) {
+        removeIsInstalled();
+        this.$router.push({ name: 'install' });
+        return;
+      }
       event.preventDefault();
       this.deferredInstallPrompt = event;
       this.loading = false;
