@@ -1,19 +1,22 @@
 <template>
-  <div class="launch-app-view">
-    <h2>{{ $t('launchApp.title') }}</h2>
-    <BaseButton :onClickHandler="launchApp" :variant="true" :big="true">{{
-      $t('launchApp.button')
-    }}</BaseButton>
-  </div>
+  <BaseLoader :coverPage="true" :loading="installing">
+    <div class="launch-app-view">
+      <h2>{{ $t('launchApp.title') }}</h2>
+      <BaseButton :onClickHandler="launchApp" :variant="true" :big="true">{{
+        $t('launchApp.button')
+      }}</BaseButton>
+    </div>
+  </BaseLoader>
 </template>
 
 <script>
+import BaseLoader from '@/components/ui/BaseLoader.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import { removeIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'LaunchAppView',
-  components: { BaseButton },
+  components: { BaseLoader, BaseButton },
   data() {
     return {
       deferredInstallPrompt: null,
@@ -29,6 +32,7 @@ export default {
   methods: {
     async launchApp() {
       if (this.deferredInstallPrompt) {
+        this.installing = true;
         await this.deferredInstallPrompt.prompt();
         const { outcome } = await this.deferredInstallPrompt.userChoice;
         if (outcome === 'dismissed') {
@@ -44,7 +48,6 @@ export default {
       removeIsInstalled();
       event.preventDefault();
       this.deferredInstallPrompt = event;
-      this.installing = true;
     },
   },
 };
