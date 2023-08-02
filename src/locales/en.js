@@ -104,4 +104,8 @@ export default {
     title: 'Offline',
     description: 'This app can only be accessed with internet connection',
   },
+
+  download: {
+    title: 'Downloading',
+  },
 };

@@ -71,6 +71,14 @@ const routes = [
       transition: 'none',
     },
   },
+  {
+    path: '/download',
+    name: 'download',
+    component: () => import('@/views/DownloadView.vue'),
+    meta: {
+      transition: 'none',
+    },
+  },
 ];
 
 const router = new VueRouter({
@@ -80,7 +88,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!isDesktop() && !isInstalled() && to.name !== 'install') {
+  if (
+    !isDesktop() &&
+    !isInstalled() &&
+    to.name !== 'install' &&
+    to.name !== 'download'
+  ) {
     next({ name: 'install' });
     return;
   }
