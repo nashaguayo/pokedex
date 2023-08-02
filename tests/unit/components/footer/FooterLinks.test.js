@@ -76,7 +76,9 @@ describe('FooterLinks', () => {
     });
 
     const githubLogo = wrapper.find('.repository img');
-    expect(githubLogo.attributes('src')).toBe('@/assets/ui/github-logo.jpeg');
+    expect(githubLogo.attributes('src')).toBe(
+      '@/assets/images/ui/github-logo.jpeg'
+    );
     expect(githubLogo.attributes('alt')).toBe('github logo');
 
     const githubLogoWrapper = wrapper.find('.repository');
