@@ -9,11 +9,17 @@
 
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
-import { getIsInstalled, removeIsInstalled } from '@/lib/localStorage';
+import { removeIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'LaunchAppView',
   components: { BaseButton },
+  data() {
+    return {
+      deferredInstallPrompt: null,
+      installing: false,
+    };
+  },
   created() {
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
   },
@@ -21,14 +27,24 @@ export default {
     window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
   },
   methods: {
-    launchApp() {
+    async launchApp() {
+      if (this.deferredInstallPrompt) {
+        await this.deferredInstallPrompt.prompt();
+        const { outcome } = await this.deferredInstallPrompt.userChoice;
+        if (outcome === 'dismissed') {
+          this.installing = false;
+        } else if (outcome === 'accepted') {
+          this.$router.push({ name: 'download' });
+        }
+        return;
+      }
       window.open(process.env.VUE_APP_BASE_URL, '_blank');
     },
-    beforeInstallPrompt() {
-      if (getIsInstalled()) {
-        removeIsInstalled();
-        this.$router.push({ name: 'install' });
-      }
+    beforeInstallPrompt(event) {
+      removeIsInstalled();
+      event.preventDefault();
+      this.deferredInstallPrompt = event;
+      this.installing = true;
     },
   },
 };
