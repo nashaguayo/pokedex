@@ -305,7 +305,7 @@ export default {
   }
 
   .background-image {
-    background-image: url(@/assets/home/mystery-pokemon.jpg);
+    background-image: url(@/assets/images/home/mystery-pokemon.jpg);
     background-size: cover;
     width: 20rem;
     height: 12rem;

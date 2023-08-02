@@ -8,7 +8,9 @@
       class="location"
       alt="pokemon location"
       :src="
-        require(`@/assets/locations/${pokemonHabitatsBackground.get(habitat)}`)
+        require(`@/assets/images/locations/${pokemonHabitatsBackground.get(
+          habitat
+        )}`)
       "
       :height="locationHeight"
       :width="locationWidth"

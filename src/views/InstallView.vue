@@ -7,7 +7,7 @@
         <BaseButton :big="true" :variant="true" :onClickHandler="install">{{
           $t('install.button')
         }}</BaseButton>
-        <img src="@/assets/pokemons/silouette.png" alt="silouette" />
+        <img src="@/assets/images/pokemons/silouette.png" alt="silouette" />
       </div>
     </BaseLoader>
   </div>
