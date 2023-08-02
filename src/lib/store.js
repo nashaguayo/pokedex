@@ -402,12 +402,11 @@ export default {
     state.allTypes = allTypes;
     await Promise.all(
       allTypes.map(async (type) => {
-        const pokemons = await getPokemonsByTypeApi(type);
+        const { name, pokemons } = await getPokemonsByTypeApi(type);
         if (pokemons.length) {
-          const key = await getPokemonTypeTranslationApi(type);
-          state.pokemonsByType.set(key, pokemons);
+          state.pokemonsByType.set(name, pokemons);
           const index = state.allTypes.findIndex((t) => t === type);
-          state.allTypes[index] = key;
+          state.allTypes[index] = name;
           return;
         }
         const index = state.allTypes.findIndex((t) => t === type);
@@ -421,12 +420,11 @@ export default {
     state.allColors = allColors;
     await Promise.all(
       allColors.map(async (color) => {
-        const pokemons = await getPokemonsByColorApi(color);
+        const { name, pokemons } = await getPokemonsByColorApi(color);
         if (pokemons.length) {
-          const key = await getPokemonColorTranslationApi(color);
-          state.pokemonsByColor.set(key, pokemons);
+          state.pokemonsByColor.set(name, pokemons);
           const index = state.allColors.findIndex((c) => c === color);
-          state.allColors[index] = key;
+          state.allColors[index] = name;
           return;
         }
         const index = state.allColors.findIndex((c) => c === color);
@@ -440,12 +438,11 @@ export default {
     state.allShapes = allShapes;
     await Promise.all(
       allShapes.map(async (shape) => {
-        const pokemons = await getPokemonsByShapeApi(shape);
+        const { name, pokemons } = await getPokemonsByShapeApi(shape);
         if (pokemons.length) {
-          const key = await getPokemonShapeTranslationApi(shape);
-          state.pokemonsByShape.set(key, pokemons);
+          state.pokemonsByShape.set(name, pokemons);
           const index = state.allShapes.findIndex((s) => s === shape);
-          state.allShapes[index] = key;
+          state.allShapes[index] = name;
           return;
         }
         const index = state.allShapes.findIndex((s) => s === shape);

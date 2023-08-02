@@ -14,7 +14,17 @@ export async function getAllTypes() {
 export async function getPokemonsByType(type) {
   try {
     const response = await pokemonApi.get(`type/${type}`);
-    return response.data.pokemon.map((p) => p.pokemon.name) ?? [];
+    return {
+      name:
+        response.data.names.filter(
+          (language) => language.language.name === getLanguage()
+        )[0]?.name ??
+        response.data.names.filter(
+          (language) =>
+            language.language.name === process.env.VUE_APP_FALLBACK_LOCALE
+        )[0].name,
+      pokemons: response.data.pokemon.map((p) => p.pokemon.name) ?? [],
+    };
   } catch (error) {
     logError(
       getPokemonsByType.name,
