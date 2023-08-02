@@ -56,19 +56,25 @@ jest.mock('@/api/evolutions', () => ({
 
 jest.mock('@/api/types', () => ({
   getAllTypes: jest.fn().mockResolvedValue(['electric', 'fighting']),
-  getPokemonsByType: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonsByType: jest
+    .fn()
+    .mockResolvedValue({ name: 'electric', pokemons: ['pikachu'] }),
   getPokemonTypeTranslation: jest.fn().mockResolvedValue('electric'),
 }));
 
 jest.mock('@/api/colors', () => ({
   getAllColors: jest.fn().mockResolvedValue(['yellow', 'blue']),
-  getPokemonsByColor: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonsByColor: jest
+    .fn()
+    .mockResolvedValue({ name: 'yellow', pokemons: ['pikachu'] }),
   getPokemonColorTranslation: jest.fn().mockResolvedValue('yellow'),
 }));
 
 jest.mock('@/api/shapes', () => ({
   getAllShapes: jest.fn().mockResolvedValue(['quadruped', 'humanoid']),
-  getPokemonsByShape: jest.fn().mockResolvedValue(['pikachu']),
+  getPokemonsByShape: jest
+    .fn()
+    .mockResolvedValue({ name: 'quadruped', pokemons: ['pikachu'] }),
   getPokemonShapeTranslation: jest.fn().mockResolvedValue('quadruped'),
 }));
 
