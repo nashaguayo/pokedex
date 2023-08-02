@@ -11,8 +11,25 @@
 </template>
 
 <script>
+import { isInstalled } from '@/lib/helpers';
+
 export default {
   name: 'DownloadView',
+  data() {
+    return {
+      interval: null,
+    };
+  },
+  created() {
+    this.interval = setInterval(() => {
+      if (isInstalled()) {
+        this.$router.push({ name: 'home' });
+      }
+    }, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
 };
 </script>
 
