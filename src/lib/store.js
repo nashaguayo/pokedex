@@ -36,6 +36,7 @@ import {
 
 const state = Vue.observable({
   storeHasLoaded: false,
+  storeIsLoading: false,
   allPokemons: [],
   pokemonVariants: new Map(),
   isLoadingAllPokemons: false,
@@ -76,7 +77,8 @@ export default {
   },
 
   async initializeStore() {
-    if (!state.storeHasLoaded) {
+    if (!state.storeHasLoaded && !state.storeIsLoading) {
+      state.storeIsLoading = true;
       await Promise.all([
         this.getAllPokemons(),
         this.getAllTypes(),
@@ -86,6 +88,7 @@ export default {
         this.getAllCharacteristicsDescriptions(),
       ]);
       state.storeHasLoaded = true;
+      state.storeIsLoading = false;
     }
   },
 
