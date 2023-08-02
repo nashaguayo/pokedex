@@ -58,7 +58,16 @@
           :onClickHandler="goToPokemonsPage"
           :big="true"
         >
-          {{ $t('pokemon.goBack') }}
+          {{ $t('pokemon.goToPokemonList') }}
+        </BaseButton>
+      </div>
+      <div class="go-back">
+        <BaseButton
+          class="go-back-button bottom"
+          :onClickHandler="goToSearchPage"
+          :big="true"
+        >
+          {{ $t('pokemon.goToSearch') }}
         </BaseButton>
       </div>
     </div>
@@ -238,7 +247,10 @@ export default {
   methods: {
     capitalizeWord,
     goToPokemonsPage() {
-      this.$router.back();
+      this.$router.push({ name: 'pokemons' });
+    },
+    goToSearchPage() {
+      this.$router.push({ name: 'search' });
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;
@@ -370,11 +382,15 @@ export default {
 
     .go-back-button {
       margin-top: 1rem;
-      margin-bottom: 6rem;
 
       @media (min-width: $min-width-fourth-break) {
         justify-self: center;
         width: calc(100% - 6rem);
+      }
+
+      &.bottom {
+        margin-top: 0rem;
+        margin-bottom: 6rem;
       }
     }
   }
