@@ -34,9 +34,11 @@ export default {
       return;
     }
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    window.addEventListener('appinstalled', this.appInstalled);
   },
-  destroyed() {
+  beforeDestroy() {
     window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    window.removeEventListener('appinstalled', this.appInstalled);
   },
   methods: {
     async install() {
@@ -45,14 +47,15 @@ export default {
       const { outcome } = await this.deferredInstallPrompt.userChoice;
       if (outcome === 'dismissed') {
         this.installing = false;
-      } else if (outcome === 'accepted') {
-        this.$router.push({ name: 'download' });
       }
     },
     beforeInstallPrompt(event) {
       event.preventDefault();
       this.deferredInstallPrompt = event;
       this.loading = false;
+    },
+    appInstalled() {
+      this.$router.push({ name: 'download' });
     },
   },
 };
