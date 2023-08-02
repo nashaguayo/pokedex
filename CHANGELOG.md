@@ -8,10 +8,12 @@
 
 - Created Download View
 - Created Launch App View
+- Go to search button in pokemon details
 
 ##### Modified
 
 - Install page now has a loader
+- Redirect in pokemon details
 
 ##### Fixed
 
