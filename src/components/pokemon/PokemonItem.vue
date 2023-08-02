@@ -58,7 +58,7 @@
           :onClickHandler="goToPokemonsPage"
           :big="true"
         >
-          {{ $t('pokemon.goBack') }}
+          {{ $t('pokemon.goToPokemonList') }}
         </BaseButton>
       </div>
     </div>
@@ -238,7 +238,7 @@ export default {
   methods: {
     capitalizeWord,
     goToPokemonsPage() {
-      this.$router.back();
+      this.$router.push({ name: 'pokemons' });
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;
