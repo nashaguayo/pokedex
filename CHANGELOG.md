@@ -14,6 +14,7 @@
 
 - Install page now has a loader
 - Redirect in pokemon details
+- Showing active variant in dropdown
 
 ##### Fixed
 
