@@ -27,20 +27,16 @@ import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
 import store from '@/lib/store';
 import { toggleDarkMode } from '@/lib/helpers';
-import { setIsInstalled } from './lib/localStorage';
 
 export default {
   name: 'App',
   components: { BaseHeader, BaseFooter },
   async created() {
     this.setTheme(this.isDarkModeEnabled);
-    await store.initializeStore();
-    window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.addEventListener('online', this.online);
     window.addEventListener('offline', this.offline);
   },
   beforeDestroy() {
-    window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.removeEventListener('online', this.online);
     window.removeEventListener('offline', this.offline);
   },
@@ -66,9 +62,6 @@ export default {
   methods: {
     setTheme(isDarkModeEnabled) {
       toggleDarkMode(isDarkModeEnabled);
-    },
-    beforeInstallPrompt() {
-      setIsInstalled(false);
     },
     online() {
       this.$router.push({ name: 'home' });
@@ -260,9 +253,12 @@ h2 {
 
 #app {
   height: 100vh;
-  background-image: url(@/assets/ui/wallpaper.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+
+  @media (min-width: $min-width-second-break) {
+    background-image: url(@/assets/images/ui/wallpaper.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 
   .base-page {
     display: flex;

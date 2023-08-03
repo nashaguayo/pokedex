@@ -2,7 +2,7 @@
   <div class="general-navigation-link">
     <router-link v-if="!text && !icon" class="home-image" :to="to">
       <img
-        src="@/assets/ui/pokeball.svg.png"
+        src="@/assets/images/ui/pokeball.svg.png"
         alt="home"
         class="url image"
         :class="{ 'shrink-animation': wasClicked }"

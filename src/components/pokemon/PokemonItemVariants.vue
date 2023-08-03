@@ -21,6 +21,7 @@
     <transition name="slide-up">
       <PokemonItemVariantsDropdown
         v-if="displayVariantDropdown"
+        :active="name"
         :variants="variantNames"
         @displayVariant="displayVariant"
         @close="closeVariantDropdown"

@@ -2,7 +2,31 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.0...develop) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.1...develop) (dd-mm-yyyy)
+
+---
+
+## [V1.0.1](https://github.com/nashaguayo/pokedex/compare/V1.0.0...V1.0.1) (02-08-2023)
+
+##### Added
+
+- Created Download View
+- Created Launch App View
+- Go to search button in pokemon details
+
+##### Modified
+
+- Install page now has a loader
+- Redirect in pokemon details
+- Showing active variant in dropdown
+- Replaced hyphens across app
+- Changing buttons color when filter is active in search
+
+##### Fixed
+
+- Pokemon details header animation
+- Pokemon details header throttle
+- Margin showing on pokemon details
 
 ---
 

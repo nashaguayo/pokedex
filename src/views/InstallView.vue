@@ -1,13 +1,13 @@
 <template>
   <div class="install-view">
-    <BaseLoader :cover="true" :loading="installing">
+    <BaseLoader :cover="true" :loading="installing || loading">
       <div class="content">
         <h1>{{ $t('install.title') }}</h1>
         <span>{{ $t('install.description') }}</span>
         <BaseButton :big="true" :variant="true" :onClickHandler="install">{{
           $t('install.button')
         }}</BaseButton>
-        <img src="@/assets/pokemons/silouette.png" alt="silouette" />
+        <img src="@/assets/images/pokemons/silouette.png" alt="silouette" />
       </div>
     </BaseLoader>
   </div>
@@ -16,7 +16,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import { setIsInstalled } from '@/lib/localStorage';
+import { getIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'InstallView',
@@ -25,13 +25,18 @@ export default {
     return {
       deferredInstallPrompt: null,
       installing: false,
+      loading: true,
     };
   },
   created() {
+    if (getIsInstalled()) {
+      this.$router.push({ name: 'launchApp' });
+      return;
+    }
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.addEventListener('appinstalled', this.appInstalled);
   },
-  destroyed() {
+  beforeDestroy() {
     window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.removeEventListener('appinstalled', this.appInstalled);
   },
@@ -47,10 +52,10 @@ export default {
     beforeInstallPrompt(event) {
       event.preventDefault();
       this.deferredInstallPrompt = event;
+      this.loading = false;
     },
     appInstalled() {
-      setIsInstalled(true);
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'download' });
     },
   },
 };

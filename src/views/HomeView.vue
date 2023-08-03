@@ -1,24 +1,25 @@
 <template>
-  <div class="home-view">
-    <ErrorBoundary
-      componentName="LogoAndBanner"
-      errorMessage="Logo and Banner unable to load"
-    >
-      <LogoAndBanner :subtitle="$t('home.welcomeMessage')" />
-    </ErrorBoundary>
-    <ErrorBoundary
-      componentName="RandomPokemon"
-      errorMessage="Unable to load random pokemon"
-    >
-      <RandomPokemon />
-    </ErrorBoundary>
-    <ErrorBoundary
-      componentName="GuessPokemon"
-      errorMessage="Unable to load mini-game"
-    >
-      <GuessPokemon />
-    </ErrorBoundary>
-  </div>
+  <BaseLoader :coverPage="true" :loading="!storeHasLoaded">
+    <div class="home-view">
+      <ErrorBoundary
+        componentName="LogoAndBanner"
+        errorMessage="Logo and Banner unable to load"
+      >
+        <LogoAndBanner :subtitle="$t('home.welcomeMessage')" />
+      </ErrorBoundary>
+      <ErrorBoundary
+        componentName="RandomPokemon"
+        errorMessage="Unable to load random pokemon"
+      >
+        <RandomPokemon />
+      </ErrorBoundary>
+      <ErrorBoundary
+        componentName="GuessPokemon"
+        errorMessage="Unable to load mini-game"
+      >
+        <GuessPokemon />
+      </ErrorBoundary></div
+  ></BaseLoader>
 </template>
 
 <script>
@@ -26,6 +27,8 @@ import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
 import LogoAndBanner from '@/components/home/LogoAndBanner.vue';
 import RandomPokemon from '@/components/home/RandomPokemon.vue';
 import GuessPokemon from '@/components/home/GuessPokemon.vue';
+import BaseLoader from '@/components/ui/BaseLoader.vue';
+import store from '@/lib/store';
 
 export default {
   name: 'HomeView',
@@ -35,6 +38,17 @@ export default {
     LogoAndBanner,
     RandomPokemon,
     GuessPokemon,
+    BaseLoader,
+  },
+  computed: {
+    storeHasLoaded() {
+      return store.state.storeHasLoaded;
+    },
+  },
+  async created() {
+    if (!this.storeHasLoaded) {
+      await store.initializeStore();
+    }
   },
 };
 </script>

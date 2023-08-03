@@ -3,13 +3,13 @@
     <img
       class="logo-image"
       alt="pokemon logo"
-      src="@/assets/home/pokedex-logo.png"
+      src="@/assets/images/home/pokedex-logo.png"
     />
     <h1 v-if="subtitle">{{ subtitle }}</h1>
     <img
       class="banner"
       alt="pokemons banner"
-      src="@/assets/home/pokemons.png"
+      src="@/assets/images/home/pokemons.png"
     />
     <span class="description">
       {{ $t('home.description') }}

@@ -67,9 +67,19 @@ const routes = [
     path: '/offline',
     name: 'offline',
     component: () => import('@/views/OfflineView.vue'),
+  },
+  {
+    path: '/download',
+    name: 'download',
+    component: () => import('@/views/DownloadView.vue'),
     meta: {
       transition: 'none',
     },
+  },
+  {
+    path: '/launch-app',
+    name: 'launchApp',
+    component: () => import('@/views/LaunchAppView.vue'),
   },
 ];
 
@@ -80,7 +90,13 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!isDesktop() && !isInstalled() && to.name !== 'install') {
+  if (
+    !isDesktop() &&
+    !isInstalled() &&
+    to.name !== 'install' &&
+    to.name !== 'download' &&
+    to.name !== 'launchApp'
+  ) {
     next({ name: 'install' });
     return;
   }
@@ -90,11 +106,23 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
+  if (
+    isDesktop() &&
+    (to.name === 'install' || to.name === 'download' || to.name === 'launchApp')
+  ) {
+    next({ name: 'home' });
+    return;
+  }
+
   if (to.name === 'pokemon') {
     to.meta.transition = 'slide-from-right';
   } else if (from.name === 'pokemon') {
     to.meta.transition = 'slide-from-left';
-  } else if (to.name !== 'install' && to.name !== 'offline') {
+  } else if (
+    to.name !== 'install' &&
+    to.name !== 'offline' &&
+    to.name !== 'download'
+  ) {
     to.meta.transition = 'slide';
   }
   next();

@@ -14,7 +14,17 @@ export async function getAllColors() {
 export async function getPokemonsByColor(color) {
   try {
     const response = await pokemonApi.get(`pokemon-color/${color}`);
-    return response.data.pokemon_species.map((p) => p.name) ?? [];
+    return {
+      name:
+        response.data.names.filter(
+          (language) => language.language.name === getLanguage()
+        )[0].name ??
+        response.data.names.filter(
+          (language) =>
+            language.language.name === process.env.VUE_APP_FALLBACK_LOCALE
+        )[0].name,
+      pokemons: response.data.pokemon_species.map((p) => p.name) ?? [],
+    };
   } catch (error) {
     logError(
       getPokemonsByColor.name,

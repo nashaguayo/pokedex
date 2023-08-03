@@ -1,123 +1,125 @@
 <template>
-  <div class="pokemon-search">
-    <div class="controls">
-      <BaseInput
-        name="search"
-        :placeholder="$t('search.placeholder')"
-        icon="fa-solid fa-magnifying-glass"
-        @inputValueChanged="setSearchTerm"
-        :model="searchTerm"
-        :reset="reset"
-        class="search-input"
-      />
-      <div class="buttons">
-        <BaseButton
-          class="button"
-          :onClickHandler="toggleDisplayTypes"
-          :variant="true"
-          :small="true"
-        >
-          {{ $t('search.displayTypes', { displayTypes }) }}
-        </BaseButton>
-        <BaseButton
-          class="button"
-          :onClickHandler="toggleDisplayColors"
-          :variant="true"
-          :small="true"
-        >
-          {{ $t('search.displayColors', { displayColors }) }}
-        </BaseButton>
-        <BaseButton
-          class="button"
-          :onClickHandler="toggleDisplayShapes"
-          :variant="true"
-          :small="true"
-        >
-          {{ $t('search.displayShapes', { displayShapes }) }}
-        </BaseButton>
-        <BaseButton
-          class="button"
-          :onClickHandler="toggleDisplayGenerations"
-          :variant="true"
-          :small="true"
-        >
-          {{ $t('search.displayGenerations', { displayGenerations }) }}
-        </BaseButton>
-        <BaseButton
-          class="button clear-search"
-          :onClickHandler="clearSearch"
-          :small="true"
-        >
-          {{ $t('search.clearSearch') }}
-        </BaseButton>
-      </div>
-    </div>
-    <transition name="slide-from-above" mode="out-in">
-      <component :is="component" />
-    </transition>
-    <transition name="slide-from-above" mode="out-in">
-      <span
-        class="no-results"
-        v-if="
-          (searchTerm.length >= 3 ||
-            (searchTerm.length < 3 &&
-              (filteringTypes.length ||
-                filteringColor.length ||
-                filteringShape.length ||
-                filteringGeneration.length))) &&
-          !searchResults.length
-        "
-      >
-        {{ $t('search.noResultsFound') }}
-      </span>
-    </transition>
-    <transition name="slide-from-above" appear>
-      <div
-        v-if="
-          !searchResults.length &&
-          searchTerm.length === 0 &&
-          filteringTypes.length === 0 &&
-          !filteringColor &&
-          !filteringShape &&
-          !filteringGeneration &&
-          recentSearches.length
-        "
-        class="recent-searches"
-      >
-        <span class="recent-searches-title">{{
-          $t('search.recentSearches')
-        }}</span>
-        <div v-for="name in recentSearches" :key="`recent-search-${name}`">
-          <PokemonSearchItem
-            :name="name"
-            :isDarkModeEnabled="isDarkModeEnabled"
-          />
-        </div>
-        <FontAwesomeIcon
-          icon="fa-regular fa-trash-can"
-          size="2x"
-          class="trash-can"
-          :color="isDarkModeEnabled ? 'white' : 'black'"
-          @click="clearRecentSearchesFromLS"
+  <BaseLoader :coverPage="true" :loading="!storeHasLoaded">
+    <div class="pokemon-search">
+      <div class="controls">
+        <BaseInput
+          name="search"
+          :placeholder="$t('search.placeholder')"
+          icon="fa-solid fa-magnifying-glass"
+          @inputValueChanged="setSearchTerm"
+          :model="searchTerm"
+          :reset="reset"
+          class="search-input"
         />
+        <div class="buttons">
+          <BaseButton
+            class="button"
+            :onClickHandler="toggleDisplayTypes"
+            :variant="!displayTypes"
+            :small="true"
+          >
+            {{ $t('search.displayTypes', { displayTypes }) }}
+          </BaseButton>
+          <BaseButton
+            class="button"
+            :onClickHandler="toggleDisplayColors"
+            :variant="!displayColors"
+            :small="true"
+          >
+            {{ $t('search.displayColors', { displayColors }) }}
+          </BaseButton>
+          <BaseButton
+            class="button"
+            :onClickHandler="toggleDisplayShapes"
+            :variant="!displayShapes"
+            :small="true"
+          >
+            {{ $t('search.displayShapes', { displayShapes }) }}
+          </BaseButton>
+          <BaseButton
+            class="button"
+            :onClickHandler="toggleDisplayGenerations"
+            :variant="!displayGenerations"
+            :small="true"
+          >
+            {{ $t('search.displayGenerations', { displayGenerations }) }}
+          </BaseButton>
+          <BaseButton
+            class="button clear-search"
+            :onClickHandler="clearSearch"
+            :small="true"
+          >
+            {{ $t('search.clearSearch') }}
+          </BaseButton>
+        </div>
       </div>
-    </transition>
-    <BaseLoader :loading="loading">
-      <transition-group class="results" name="slide-from-right">
-        <div v-for="name in searchResults" :key="name">
-          <PokemonSearchItem
-            :name="name"
-            :isDarkModeEnabled="isDarkModeEnabled"
+      <transition name="slide-from-above" mode="out-in">
+        <component :is="component" />
+      </transition>
+      <transition name="slide-from-above" mode="out-in">
+        <span
+          class="no-results"
+          v-if="
+            (searchTerm.length >= 3 ||
+              (searchTerm.length < 3 &&
+                (filteringTypes.length ||
+                  filteringColor.length ||
+                  filteringShape.length ||
+                  filteringGeneration.length))) &&
+            !searchResults.length
+          "
+        >
+          {{ $t('search.noResultsFound') }}
+        </span>
+      </transition>
+      <transition name="slide-from-above" appear>
+        <div
+          v-if="
+            !searchResults.length &&
+            searchTerm.length === 0 &&
+            filteringTypes.length === 0 &&
+            !filteringColor &&
+            !filteringShape &&
+            !filteringGeneration &&
+            recentSearches.length
+          "
+          class="recent-searches"
+        >
+          <span class="recent-searches-title">{{
+            $t('search.recentSearches')
+          }}</span>
+          <div v-for="name in recentSearches" :key="`recent-search-${name}`">
+            <PokemonSearchItem
+              :name="name"
+              :isDarkModeEnabled="isDarkModeEnabled"
+            />
+          </div>
+          <FontAwesomeIcon
+            icon="fa-regular fa-trash-can"
+            size="2x"
+            class="trash-can"
+            :color="isDarkModeEnabled ? 'white' : 'black'"
+            @click="clearRecentSearchesFromLS"
           />
         </div>
-      </transition-group>
-    </BaseLoader>
-    <div class="go-back">
-      <BaseButton :onClickHandler="goBack" :big="true">{{
-        $t('search.goBackButton')
-      }}</BaseButton>
+      </transition>
+      <BaseLoader :loading="loading">
+        <transition-group class="results" name="slide-from-right">
+          <div v-for="name in searchResults" :key="name">
+            <PokemonSearchItem
+              :name="name"
+              :isDarkModeEnabled="isDarkModeEnabled"
+            />
+          </div>
+        </transition-group>
+      </BaseLoader>
+      <div class="go-back">
+        <BaseButton :onClickHandler="goBack" :big="true">{{
+          $t('search.goBackButton')
+        }}</BaseButton>
+      </div>
     </div>
-  </div>
+  </BaseLoader>
 </template>
 
 <script>
@@ -155,6 +157,11 @@ export default {
       reset: false,
       recentSearches: getRecentSearches() ?? [],
     };
+  },
+  async created() {
+    if (!this.storeHasLoaded) {
+      await store.initializeStore();
+    }
   },
   beforeDestroy() {
     this.clearSearch();
@@ -203,6 +210,9 @@ export default {
     },
   },
   computed: {
+    storeHasLoaded() {
+      return store.state.storeHasLoaded;
+    },
     searchResults() {
       return store.state.search.results;
     },

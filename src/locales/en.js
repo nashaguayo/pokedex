@@ -30,7 +30,7 @@ export default {
         ctx.named('hasWon')
           ? `Getting new pokemon in ${ctx.named('timerCount')}...`
           : ctx.named('hasLost')
-          ? `Pokemon was ${capitalizeWord(ctx.named('name'))}`
+          ? `Pokemon was ${capitalizeWord(ctx.named('name').replace('-', ' '))}`
           : `You have <strong>${ctx.named('tries')} ${
               ctx.named('tries') === 1 ? 'TRY' : 'TRIES'
             }</strong> left`,
@@ -65,7 +65,8 @@ export default {
     },
     previous: 'Previous',
     next: 'Next',
-    goBack: 'Go back',
+    goToPokemonList: 'Go to Pokemon List',
+    goToSearch: 'Go to Search',
   },
 
   pokemons: {
@@ -103,5 +104,14 @@ export default {
   offline: {
     title: 'Offline',
     description: 'This app can only be accessed with internet connection',
+  },
+
+  download: {
+    title: 'Downloading',
+  },
+
+  launchApp: {
+    title: 'See in App',
+    button: 'Open',
   },
 };

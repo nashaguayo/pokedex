@@ -30,7 +30,9 @@ export default {
         ctx.named('hasWon')
           ? `Mostrando nuevo Pokemon en ${ctx.named('timerCount')}...`
           : ctx.named('hasLost')
-          ? `El Pokemon era ${capitalizeWord(ctx.named('name'))}`
+          ? `El Pokemon era ${capitalizeWord(
+              ctx.named('name').replace('-', ' ')
+            )}`
           : `Te queda${ctx.named('tries') === 1 ? '' : 'n'} <strong>${ctx.named(
               'tries'
             )} ${ctx.named('tries') === 1 ? 'INTENTO' : 'INTENTOS'}</strong>`,
@@ -65,7 +67,8 @@ export default {
     },
     previous: 'Anterior',
     next: 'Siguiente',
-    goBack: 'Volver',
+    goToPokemonList: 'Ir a la Lista de Pokemones',
+    goToSearch: 'Ir a la Busqueda',
   },
 
   pokemons: {
@@ -104,5 +107,14 @@ export default {
   offline: {
     title: 'Desconectado',
     description: 'Esta aplicación solo puede accederse con conexión a internet',
+  },
+
+  download: {
+    title: 'Bajando',
+  },
+
+  launchApp: {
+    title: 'Ver en la Aplicación',
+    button: 'Abrir',
   },
 };

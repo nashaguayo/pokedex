@@ -68,5 +68,9 @@ export function getIsInstalled() {
 }
 
 export function setIsInstalled(isInstalled) {
-  localStorage.setItem(IS_INSTALLED, isInstalled);
+  return localStorage.setItem(IS_INSTALLED, isInstalled);
+}
+
+export function removeIsInstalled() {
+  localStorage.removeItem(IS_INSTALLED);
 }

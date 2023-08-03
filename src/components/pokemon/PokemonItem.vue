@@ -58,7 +58,16 @@
           :onClickHandler="goToPokemonsPage"
           :big="true"
         >
-          {{ $t('pokemon.goBack') }}
+          {{ $t('pokemon.goToPokemonList') }}
+        </BaseButton>
+      </div>
+      <div class="go-back">
+        <BaseButton
+          class="go-back-button bottom"
+          :onClickHandler="goToSearchPage"
+          :big="true"
+        >
+          {{ $t('pokemon.goToSearch') }}
         </BaseButton>
       </div>
     </div>
@@ -83,7 +92,7 @@ import {
 } from '@/lib/helpers';
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
-import silouette from '@/assets/pokemons/silouette.png';
+import silouette from '@/assets/images/pokemons/silouette.png';
 
 export default {
   name: 'PokemonItem',
@@ -221,6 +230,11 @@ export default {
       return store.state.storeHasLoaded;
     },
   },
+  async created() {
+    if (!this.storeHasLoaded) {
+      await store.initializeStore();
+    }
+  },
   beforeDestroy() {
     if (window.innerWidth >= fourthBreak) {
       return;
@@ -233,7 +247,10 @@ export default {
   methods: {
     capitalizeWord,
     goToPokemonsPage() {
-      this.$router.back();
+      this.$router.push({ name: 'pokemons' });
+    },
+    goToSearchPage() {
+      this.$router.push({ name: 'search' });
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;
@@ -243,7 +260,7 @@ export default {
       if (this.loading || window.innerWidth >= fourthBreak) {
         return;
       }
-      this.throttledParallax = throttle(this.parallax, 10);
+      this.throttledParallax = throttle(this.parallax, 1);
       getPageBackgroundElement().addEventListener(
         'scroll',
         this.throttledParallax
@@ -263,7 +280,7 @@ export default {
     },
     navigateToPokemon(id) {
       this.$router.push({ name: 'pokemon', params: { id } });
-      scrollToTopOfBackgroundPage('smooth');
+      scrollToTopOfBackgroundPage();
     },
   },
 };
@@ -365,11 +382,15 @@ export default {
 
     .go-back-button {
       margin-top: 1rem;
-      margin-bottom: 6rem;
 
       @media (min-width: $min-width-fourth-break) {
         justify-self: center;
         width: calc(100% - 6rem);
+      }
+
+      &.bottom {
+        margin-top: 0rem;
+        margin-bottom: 6rem;
       }
     }
   }

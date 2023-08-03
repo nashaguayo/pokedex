@@ -53,5 +53,16 @@
     }
   ],
   "display": "standalone",
-  "background_color": "#ffffda"
+  "background_color": "#ffffda",
+  "capture_links": "existing-client-navigate",
+  "launch_handler": {
+    "route_to": "existing-client-navigate"
+  },
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://nashaguayo.github.io/pokedex/manifest.json"
+    }
+  ]
 }

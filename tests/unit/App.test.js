@@ -16,7 +16,6 @@ jest.mock('@/lib/store', () => ({
   state: {
     isDarkModeEnabled: false,
   },
-  initializeStore: jest.fn().mockResolvedValue(),
 }));
 
 describe('App', () => {
@@ -40,18 +39,6 @@ describe('App', () => {
 
   afterAll(() => {
     wrapper.destroy();
-  });
-
-  it('should call store methods on created hook', async () => {
-    const initializeStoreSpy = jest.spyOn(store, 'initializeStore');
-    wrapper = shallowMount(App, {
-      store,
-      mocks: {
-        $route,
-      },
-      stubs: ['router-view'],
-    });
-    expect(initializeStoreSpy).toHaveBeenCalled();
   });
 
   it('should set the theme based on isDarkModeEnabled', async () => {
