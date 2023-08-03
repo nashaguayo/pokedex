@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { setIsInstalled } from '@/lib/localStorage';
+import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'DownloadView',
@@ -21,13 +21,7 @@ export default {
     };
   },
   async created() {
-    const relatedApps = await navigator.getInstalledRelatedApps();
-    const pokedexApp = relatedApps.filter(
-      (app) => app.url === `${process.env.VUE_APP_BASE_URL}/manifest.json`
-    );
-
-    if (pokedexApp.length) {
-      setIsInstalled(true);
+    if (await isInstalled()) {
       this.$router.push({ name: 'launchApp' });
     }
 

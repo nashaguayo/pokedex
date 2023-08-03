@@ -12,7 +12,6 @@
 <script>
 import BaseLoader from '@/components/ui/BaseLoader.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
-import { removeIsInstalled } from '@/lib/localStorage';
 
 export default {
   name: 'LaunchAppView',
@@ -45,7 +44,6 @@ export default {
       window.open(process.env.VUE_APP_BASE_URL, '_blank');
     },
     beforeInstallPrompt(event) {
-      removeIsInstalled();
       event.preventDefault();
       this.deferredInstallPrompt = event;
     },

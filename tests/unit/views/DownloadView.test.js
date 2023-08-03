@@ -1,10 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
 import DownloadView from '@/views/DownloadView.vue';
 
+jest.mock('@/lib/helpers', () => ({
+  isInstalled: jest.fn(),
+}));
+
 describe('DownloadView', () => {
   it('renders the BasePage component with correct title and content', () => {
-    navigator.getInstalledRelatedApps = jest.fn().mockResolvedValue([]);
-
     const wrapper = shallowMount(DownloadView, {
       mocks: { $t: (key) => key },
       stubs: ['FontAwesomeIcon'],

@@ -9,6 +9,10 @@ jest.mock('@/lib/store', () => ({
   },
 }));
 
+jest.mock('@/lib/helpers', () => ({
+  isInstalled: jest.fn(),
+}));
+
 jest.mock('@/components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
   template: '<div class="mocked-base-button"></div>',

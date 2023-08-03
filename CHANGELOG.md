@@ -23,6 +23,7 @@
 - Changing buttons color when filter is active in search
 - Go back button in search now redirects to home
 - Changed reducer for a map
+- Using getInstalledRelatedApps to check whether app is installed or not
 
 ##### Fixed
 
