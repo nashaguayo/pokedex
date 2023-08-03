@@ -24,6 +24,7 @@
 - Go back button in search now redirects to home
 - Changed reducer for a map
 - Using getInstalledRelatedApps to check whether app is installed or not
+- Launch app redirects to install screen when app is not installed
 
 ##### Fixed
 

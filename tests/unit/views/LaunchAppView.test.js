@@ -5,6 +5,10 @@ jest.mock('@/lib/localStorage', () => ({
   removeIsInstalled: jest.fn(),
 }));
 
+jest.mock('@/lib/helpers', () => ({
+  isInstalled: jest.fn().mockResolvedValue(true),
+}));
+
 jest.mock('@/components/ui/BaseButton.vue', () => ({
   name: 'BaseButton',
   template: '<div class="mocked-base-button"></div>',
