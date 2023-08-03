@@ -10,9 +10,11 @@ describe('PokemonItemVariantsDropdown', () => {
   let wrapper;
 
   beforeEach(() => {
+    const active = 'Variant 1';
     const variants = ['Variant 1', 'Variant 2', 'Variant 3'];
     wrapper = mount(PokemonItemVariantsDropdown, {
       propsData: {
+        active,
         variants,
       },
       stubs: ['BaseButton'],
