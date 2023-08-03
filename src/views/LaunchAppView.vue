@@ -12,6 +12,7 @@
 <script>
 import BaseLoader from '@/components/ui/BaseLoader.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
+import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'LaunchAppView',
@@ -23,24 +24,12 @@ export default {
     };
   },
   created() {
-    window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
-  },
-  beforeDestroy() {
-    window.removeEventListener('beforeinstallprompt', this.beforeInstallPrompt);
+    if (!isInstalled()) {
+      this.$router.push({ name: 'install' });
+    }
   },
   methods: {
     async launchApp() {
-      if (this.deferredInstallPrompt) {
-        this.installing = true;
-        await this.deferredInstallPrompt.prompt();
-        const { outcome } = await this.deferredInstallPrompt.userChoice;
-        if (outcome === 'dismissed') {
-          this.installing = false;
-        } else if (outcome === 'accepted') {
-          this.$router.push({ name: 'download' });
-        }
-        return;
-      }
       window.open(process.env.VUE_APP_BASE_URL, '_blank');
     },
     beforeInstallPrompt(event) {
