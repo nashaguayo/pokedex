@@ -21,6 +21,7 @@
 - Showing active variant in dropdown
 - Replaced hyphens across app
 - Changing buttons color when filter is active in search
+- Go back button in search now redirects to home
 
 ##### Fixed
 
