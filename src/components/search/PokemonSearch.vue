@@ -237,7 +237,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.back();
+      this.$router.push({ name: 'home' });
     },
     setSearchTerm(searchTerm) {
       this.reset = false;
