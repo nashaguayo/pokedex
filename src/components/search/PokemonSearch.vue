@@ -15,7 +15,7 @@
           <BaseButton
             class="button"
             :onClickHandler="toggleDisplayTypes"
-            :variant="true"
+            :variant="!displayTypes"
             :small="true"
           >
             {{ $t('search.displayTypes', { displayTypes }) }}
@@ -23,7 +23,7 @@
           <BaseButton
             class="button"
             :onClickHandler="toggleDisplayColors"
-            :variant="true"
+            :variant="!displayColors"
             :small="true"
           >
             {{ $t('search.displayColors', { displayColors }) }}
@@ -31,7 +31,7 @@
           <BaseButton
             class="button"
             :onClickHandler="toggleDisplayShapes"
-            :variant="true"
+            :variant="!displayShapes"
             :small="true"
           >
             {{ $t('search.displayShapes', { displayShapes }) }}
@@ -39,7 +39,7 @@
           <BaseButton
             class="button"
             :onClickHandler="toggleDisplayGenerations"
-            :variant="true"
+            :variant="!displayGenerations"
             :small="true"
           >
             {{ $t('search.displayGenerations', { displayGenerations }) }}
