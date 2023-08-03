@@ -167,10 +167,7 @@ export default {
       return store.state.storeHasLoaded;
     },
     hasWon() {
-      return (
-        this.playersGuess.toLowerCase().replace('-', ' ') ===
-        this.name.replace('-', ' ')
-      );
+      return this.playersGuess.toLowerCase() === this.name;
     },
     hasLost() {
       return !this.hasWon && this.tries === 0;
