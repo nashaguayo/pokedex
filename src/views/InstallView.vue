@@ -16,7 +16,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import { getIsInstalled } from '@/lib/localStorage';
+import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'InstallView',
@@ -29,7 +29,7 @@ export default {
     };
   },
   created() {
-    if (getIsInstalled()) {
+    if (isInstalled()) {
       this.$router.push({ name: 'launchApp' });
       return;
     }
