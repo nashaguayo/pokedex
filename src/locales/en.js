@@ -30,7 +30,7 @@ export default {
         ctx.named('hasWon')
           ? `Getting new pokemon in ${ctx.named('timerCount')}...`
           : ctx.named('hasLost')
-          ? `Pokemon was ${capitalizeWord(ctx.named('name'))}`
+          ? `Pokemon was ${capitalizeWord(ctx.named('name').replace('-', ' '))}`
           : `You have <strong>${ctx.named('tries')} ${
               ctx.named('tries') === 1 ? 'TRY' : 'TRIES'
             }</strong> left`,

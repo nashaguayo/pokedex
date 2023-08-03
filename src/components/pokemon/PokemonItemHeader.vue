@@ -41,7 +41,7 @@
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
-    <h2 class="pokemon-name">{{ capitalizeWord(name) }}</h2>
+    <h2 class="pokemon-name">{{ capitalizeWord(name.replace('-', ' ')) }}</h2>
   </div>
 </template>
 
