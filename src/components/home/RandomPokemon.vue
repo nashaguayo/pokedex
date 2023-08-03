@@ -15,7 +15,9 @@
             <div class="pokemon-image">
               <img :src="pokemon.image" alt="random pokemon" />
             </div>
-            <span class="pokemon-name">{{ pokemon.name }}</span>
+            <span class="pokemon-name">{{
+              pokemon.name.replace('-', ' ')
+            }}</span>
           </router-link>
         </div>
       </transition-group>
