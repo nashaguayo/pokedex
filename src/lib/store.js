@@ -121,19 +121,18 @@ export default {
         name: pokemon.name,
       }));
 
-      const { variations, pokemons } = await allPokemonsWithHyphens.reduce(
-        async (accumulator, currentValue) => {
-          const accum = await accumulator;
-          if (!currentValue.name.includes('-')) {
-            accum.pokemons.push({ ...currentValue });
-          } else if (await this.pokemonIsVariant(currentValue.name)) {
-            accum.variations.push({ ...currentValue });
+      const pokemons = [];
+      const variations = [];
+      await Promise.all(
+        allPokemonsWithHyphens.map(async (pokemon) => {
+          if (!pokemon.name.includes('-')) {
+            pokemons.push(pokemon);
+          } else if (await this.pokemonIsVariant(pokemon.name)) {
+            variations.push(pokemon);
           } else {
-            accum.pokemons.push({ ...currentValue });
+            pokemons.push(pokemon);
           }
-          return accum;
-        },
-        { variations: [], pokemons: [] }
+        })
       );
 
       pokemons.forEach((pokemon) => {
