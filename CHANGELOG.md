@@ -25,6 +25,7 @@
 - Changed reducer for a map
 - Using getInstalledRelatedApps to check whether app is installed or not
 - Launch app redirects to install screen when app is not installed
+- Download screen doesn't reload
 
 ##### Fixed
 

@@ -21,13 +21,11 @@ export default {
     };
   },
   async created() {
-    if (await isInstalled()) {
-      this.$router.push({ name: 'launchApp' });
-    }
-
-    this.interval = setInterval(() => {
-      location.reload();
-    }, 1000);
+    this.interval = setInterval(async () => {
+      if (await isInstalled()) {
+        this.$router.push({ name: 'launchApp' });
+      }
+    }, 2500);
   },
   beforeDestroy() {
     clearInterval(this.interval);
