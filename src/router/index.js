@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
-import { isDesktop, isInstalled, isOnline } from '@/lib/helpers';
+import { isDesktop, isUsingApp, isOnline } from '@/lib/helpers';
 
 Vue.use(VueRouter);
 
@@ -92,7 +92,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (
     !isDesktop() &&
-    !isInstalled() &&
+    !isUsingApp() &&
     to.name !== 'install' &&
     to.name !== 'download' &&
     to.name !== 'launchApp'

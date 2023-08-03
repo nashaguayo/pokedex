@@ -19,7 +19,7 @@ export function toggleDarkMode(isDarkMode) {
   );
 }
 
-export function isInstalled() {
+export function isUsingApp() {
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone ||
