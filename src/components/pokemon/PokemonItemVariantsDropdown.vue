@@ -4,6 +4,7 @@
       v-for="variant in variants"
       :key="variant"
       @click="showVariant(variant)"
+      :class="{ active: variant === active }"
     >
       {{ variant.replace('-', ' ') }}
     </h2>
@@ -19,6 +20,10 @@ import BaseButton from '@/components/ui/BaseButton';
 export default {
   name: 'PokemonItemVariantsDropdown',
   props: {
+    active: {
+      type: String,
+      required: true,
+    },
     variants: {
       type: Array,
       required: true,
@@ -78,6 +83,10 @@ export default {
 
   h2:hover {
     background-color: var(--main-background-color);
+  }
+
+  .active {
+    background-color: var(--secondary-background-color);
   }
 
   .close {
