@@ -19,7 +19,7 @@ export function toggleDarkMode(isDarkMode) {
   );
 }
 
-export function isInstalled() {
+export function isUsingApp() {
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone ||
@@ -33,4 +33,12 @@ export function isDesktop() {
 
 export function isOnline() {
   return navigator.onLine;
+}
+
+export async function isInstalled() {
+  const relatedApps = await navigator.getInstalledRelatedApps();
+  const pokedexApp = relatedApps.filter(
+    (app) => app.url === `${process.env.VUE_APP_BASE_URL}/manifest.json`
+  );
+  return !!pokedexApp.length;
 }

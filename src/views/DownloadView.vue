@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { setIsInstalled } from '@/lib/localStorage';
+import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'DownloadView',
@@ -21,19 +21,11 @@ export default {
     };
   },
   async created() {
-    const relatedApps = await navigator.getInstalledRelatedApps();
-    const pokedexApp = relatedApps.filter(
-      (app) => app.url === `${process.env.VUE_APP_BASE_URL}/manifest.json`
-    );
-
-    if (pokedexApp.length) {
-      setIsInstalled(true);
-      this.$router.push({ name: 'launchApp' });
-    }
-
-    this.interval = setInterval(() => {
-      location.reload();
-    }, 1000);
+    this.interval = setInterval(async () => {
+      if (await isInstalled()) {
+        this.$router.push({ name: 'launchApp' });
+      }
+    }, 2500);
   },
   beforeDestroy() {
     clearInterval(this.interval);
