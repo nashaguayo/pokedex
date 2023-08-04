@@ -28,12 +28,11 @@ export default {
       loading: true,
     };
   },
-  created() {
+  async created() {
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.addEventListener('appinstalled', this.appInstalled);
-    if (isInstalled()) {
+    if (await isInstalled()) {
       this.$router.push({ name: 'launchApp' });
-      return;
     }
   },
   beforeDestroy() {
