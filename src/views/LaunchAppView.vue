@@ -23,8 +23,8 @@ export default {
       installing: false,
     };
   },
-  created() {
-    if (!isInstalled()) {
+  async created() {
+    if (!(await isInstalled())) {
       this.$router.push({ name: 'install' });
     }
   },
