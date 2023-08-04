@@ -21,16 +21,23 @@ export default {
     return {
       deferredInstallPrompt: null,
       installing: false,
+      url: process.env.VUE_APP_BASE_URL,
     };
   },
   async created() {
     if (!(await isInstalled())) {
       this.$router.push({ name: 'install' });
+      return;
+    }
+
+    if (this.$route?.query?.redirect) {
+      const route = this.$router.resolve({ path: this.$route.query.redirect });
+      this.url = new URL(route.href, window.location.origin).href;
     }
   },
   methods: {
     async launchApp() {
-      window.open(process.env.VUE_APP_BASE_URL, '_blank');
+      window.open(this.url, '_blank');
     },
     beforeInstallPrompt(event) {
       event.preventDefault();
