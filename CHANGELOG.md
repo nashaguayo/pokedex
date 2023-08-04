@@ -22,6 +22,10 @@
 - Launch app redirects to install screen when app is not installed
 - Download screen doesn't reload
 
+##### Fixed
+
+- Wrong redirect in install
+
 ---
 
 ## [V1.0.1](https://github.com/nashaguayo/pokedex/compare/V1.0.0...V1.0.1) (02-08-2023)
@@ -45,7 +49,6 @@
 - Pokemon details header animation
 - Pokemon details header throttle
 - Margin showing on pokemon details
-- Wrong redirect in install
 
 ---
 
