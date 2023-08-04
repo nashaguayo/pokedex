@@ -2,7 +2,25 @@
 
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.1...develop) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.2...develop) (dd-mm-yyyy)
+
+##### Added
+
+##### Fixed
+
+##### Modified
+
+---
+
+## [V1.0.2](https://github.com/nashaguayo/pokedex/compare/V1.0.1...V1.0.2) (03-08-2023)
+
+##### Modified
+
+- Go back button in search now redirects to home
+- Changed reducer for a map
+- Using getInstalledRelatedApps to check whether app is installed or not
+- Launch app redirects to install screen when app is not installed
+- Download screen doesn't reload
 
 ---
 
@@ -21,11 +39,6 @@
 - Showing active variant in dropdown
 - Replaced hyphens across app
 - Changing buttons color when filter is active in search
-- Go back button in search now redirects to home
-- Changed reducer for a map
-- Using getInstalledRelatedApps to check whether app is installed or not
-- Launch app redirects to install screen when app is not installed
-- Download screen doesn't reload
 
 ##### Fixed
 
