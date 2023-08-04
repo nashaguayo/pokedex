@@ -40,6 +40,5 @@ export async function isInstalled() {
   const pokedexApp = relatedApps.filter(
     (app) => app.url === `${process.env.VUE_APP_BASE_URL}/manifest.json`
   );
-  console.log(pokedexApp.length, !!pokedexApp.length);
   return !!pokedexApp.length;
 }
