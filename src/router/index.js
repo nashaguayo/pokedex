@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
     to.name !== 'download' &&
     to.name !== 'launchApp'
   ) {
-    next({ name: 'install' });
+    next({ name: 'install', query: { redirect: to.path } });
     return;
   }
 

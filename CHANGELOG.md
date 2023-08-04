@@ -6,11 +6,13 @@
 
 ##### Added
 
+##### Modified
+
+- See in app button now redirects to page user was originally seeing
+
 ##### Fixed
 
 - Launch app view redirect when app is not installed
-
-##### Modified
 
 ---
 
