@@ -7,7 +7,7 @@
       </div>
       <div v-else key="results" class="pokemons-container">
         <h1>{{ $t('pokemons.title') }}</h1>
-        <transition-group name="slide-up" appear class="pokemons">
+        <transition-group name="slide-up" class="pokemons">
           <PokemonListCard
             v-for="pokemon in pokemons"
             :key="pokemon.name"
