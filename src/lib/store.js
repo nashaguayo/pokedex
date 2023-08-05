@@ -48,10 +48,6 @@ const state = Vue.observable({
   },
   pokemon: new Map(),
   isDarkModeEnabled: isDarkModeEnabled(),
-  game: {
-    image: '',
-    name: '',
-  },
   search: {
     results: [],
     isSearchingPokemon: false,
@@ -388,11 +384,6 @@ export default {
 
   clearSearchResults() {
     state.search.results = [];
-  },
-
-  async getNewMysteryPokemon() {
-    const newMysteryPokemon = await this.getNewRandomPokemon();
-    state.game = newMysteryPokemon;
   },
 
   setNewMysteryPokemon(newMysteryPokemon) {
