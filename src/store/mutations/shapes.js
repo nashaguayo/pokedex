@@ -17,9 +17,9 @@ export async function getAll() {
   shapes.setAll(allShapes);
   await Promise.all(
     allShapes.map(async (shape) => {
-      const { pokemons } = await getPokemonsByShapeApi(shape);
+      const { name, pokemons } = await getPokemonsByShapeApi(shape);
       if (pokemons.length) {
-        shapes.setPokemons(shape, pokemons);
+        shapes.setPokemons(name, pokemons);
         return;
       }
       const index = shapes.getAll().findIndex((s) => s === shape);
