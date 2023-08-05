@@ -9,13 +9,14 @@
 <script>
 import PokemonSearchFilters from '@/components/search/PokemonSearchFilters';
 import store from '@/lib/store';
+import generations from '@/store/state/generations';
 
 export default {
   name: 'PokemonSearchGenerations',
   components: { PokemonSearchFilters },
   computed: {
     allGenerations() {
-      return store.state.allGenerations;
+      return generations.state.all;
     },
     filteringGeneration() {
       return store.state.search.generation;

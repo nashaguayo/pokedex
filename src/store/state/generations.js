@@ -27,6 +27,10 @@ export default {
     state.all.splice(index, 1);
   },
 
+  getPokemons() {
+    return state.pokemons;
+  },
+
   setPokemons(name, pokemons) {
     state.pokemons.set(name, pokemons);
   },

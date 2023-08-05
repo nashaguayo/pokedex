@@ -2,6 +2,8 @@ import {
   toggleFilter,
   clearFilters,
   getAll,
+  getPokemonsSize,
+  searchPokemonsByGeneration,
 } from '@/store/mutations/generations';
 import generations from '@/store/state/generations';
 import * as generationsApi from '@/api/generations';
@@ -10,6 +12,7 @@ jest.mock('@/store/state/generations', () => ({
   setFilter: jest.fn(),
   getFilter: jest.fn(),
   setAll: jest.fn(),
+  getPokemons: jest.fn(),
   setPokemons: jest.fn(),
   getAll: jest.fn(),
   removeGenerationAt: jest.fn(),
@@ -23,6 +26,7 @@ jest.mock('@/api/generations', () => ({
 const spySetFilter = jest.spyOn(generations, 'setFilter');
 const spyGetFilter = jest.spyOn(generations, 'getFilter');
 const spySetAll = jest.spyOn(generations, 'setAll');
+const spyGetPokemons = jest.spyOn(generations, 'getPokemons');
 const spySetPokemons = jest.spyOn(generations, 'setPokemons');
 const spyGetAll = jest.spyOn(generations, 'getAll');
 const spyRemoveGenerationAt = jest.spyOn(generations, 'removeGenerationAt');
@@ -106,5 +110,51 @@ describe('getAll', () => {
       generations.length
     );
     expect(spyRemoveGenerationAt).toHaveBeenCalledWith(1);
+  });
+});
+
+describe('getPokemonsSize', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should get all pokemons by generation size', () => {
+    const pokemonsByGeneration = new Map([
+      ['i', ['pikachu', 'squirtle'], ['ii', ['charmander', 'bulbasaur']]],
+    ]);
+    spyGetPokemons.mockReturnValue(pokemonsByGeneration);
+    const result = getPokemonsSize();
+    expect(result).toBe(pokemonsByGeneration.size);
+  });
+
+  it('should get all pokemons by generation size when its zero', () => {
+    const pokemonsByGeneration = new Map();
+    spyGetPokemons.mockReturnValue(pokemonsByGeneration);
+    const result = getPokemonsSize();
+    expect(result).toBe(pokemonsByGeneration.size);
+  });
+
+  it('should return the right pokemons for the right generation', () => {
+    const pokemonsByGeneration = new Map([
+      ['ii', ['pikachu', 'squirtle'], ['i', ['charmander', 'bulbasaur']]],
+    ]);
+    const filter = 'ii';
+    spyGetPokemons.mockReturnValue(pokemonsByGeneration);
+    spyGetFilter.mockReturnValue(filter);
+    const result = searchPokemonsByGeneration('pik');
+    expect(result).toStrictEqual(['pikachu']);
+  });
+
+  it('should return empty string when it cant find any pokemons', () => {
+    const pokemonsByGeneration = new Map([
+      ['ii', ['pikachu', 'squirtle'], ['i', ['charmander', 'bulbasaur']]],
+    ]);
+    const filter = 'ii';
+    spyGetPokemons.mockReturnValue(pokemonsByGeneration);
+    spyGetFilter.mockReturnValue(filter);
+    const result = searchPokemonsByGeneration('asd');
+    expect(result).toStrictEqual([]);
   });
 });

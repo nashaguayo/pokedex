@@ -25,7 +25,12 @@ import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsA
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
-import { clearFilters as clearFilters } from '@/store/mutations/generations';
+import {
+  clearFilters as clearFilters,
+  getPokemonsSize,
+  searchPokemonsByGeneration,
+} from '@/store/mutations/generations';
+import generations from '@/store/state/generations';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -269,7 +274,7 @@ export default {
       !state.pokemonsByType.size ||
       !state.pokemonsByColor.size ||
       !state.pokemonsByShape.size ||
-      !state.pokemonsByGeneration.size
+      !getPokemonsSize()
     ) {
       return;
     }
@@ -283,7 +288,7 @@ export default {
       this.searchPokemonsByColor(searchTermLowerCase);
     } else if (state.search.shape.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
-    } else if (generation.state.filter.length) {
+    } else if (generations.state.filter.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
     } else {
       this.searchPokemonJustByTerm(searchTermLowerCase);
@@ -345,9 +350,8 @@ export default {
   },
 
   searchPokemonsByGeneration(searchTermLowerCase) {
-    const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
-      .get(generation.state.filter)
-      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
+    const filteredPokemonNamesByGeneration =
+      searchPokemonsByGeneration(searchTermLowerCase);
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByGeneration;

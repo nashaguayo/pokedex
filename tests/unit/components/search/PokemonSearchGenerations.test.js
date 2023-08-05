@@ -9,10 +9,15 @@ jest.mock('@/components/search/PokemonSearchFilters.vue', () => ({
 jest.mock('@/lib/store', () => ({
   toggleGenerationFilter: jest.fn(),
   state: {
-    allGenerations: [],
     search: {
       generations: [],
     },
+  },
+}));
+
+jest.mock('@/store/state/generations', () => ({
+  state: {
+    all: [],
   },
 }));
 

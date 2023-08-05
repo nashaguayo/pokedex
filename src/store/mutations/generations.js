@@ -29,3 +29,14 @@ export async function getAll() {
     })
   );
 }
+
+export function getPokemonsSize() {
+  return generations.getPokemons().size;
+}
+
+export function searchPokemonsByGeneration(searchTermLowerCase) {
+  return generations
+    .getPokemons()
+    .get(generations.getFilter())
+    .filter((pokemon) => pokemon.includes(searchTermLowerCase));
+}
