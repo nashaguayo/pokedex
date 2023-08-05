@@ -29,6 +29,7 @@ import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsA
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
+import { clearFilters as clearGenerationFilters } from '@/store/mutations/generations';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -47,7 +48,6 @@ const state = Vue.observable({
     types: [],
     color: '',
     shape: '',
-    generation: '',
   },
   allTypes: [],
   pokemonsByType: new Map(),
@@ -55,8 +55,6 @@ const state = Vue.observable({
   pokemonsByColor: new Map(),
   allShapes: [],
   pokemonsByShape: new Map(),
-  allGenerations: [],
-  pokemonsByGeneration: new Map(),
   allCharacteristics: new Map(),
 });
 
@@ -289,7 +287,7 @@ export default {
       this.searchPokemonsByColor(searchTermLowerCase);
     } else if (state.search.shape.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
-    } else if (state.search.generation.length) {
+    } else if (generation.state.filter.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
     } else {
       this.searchPokemonJustByTerm(searchTermLowerCase);
@@ -352,7 +350,7 @@ export default {
 
   searchPokemonsByGeneration(searchTermLowerCase) {
     const filteredPokemonNamesByGeneration = state.pokemonsByGeneration
-      .get(state.search.generation)
+      .get(generation.state.filter)
       .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 
     state.search.isSearchingPokemon = false;
@@ -454,10 +452,6 @@ export default {
     state.search.shape = shape;
   },
 
-  toggleGenerationFilter(generation) {
-    state.search.generation = generation;
-  },
-
   async getAllCharacteristicsDescriptions() {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
@@ -466,7 +460,7 @@ export default {
     this.clearTypeFilters();
     this.clearColorFilters();
     this.clearShapeFilters();
-    this.clearGenerationFilters();
+    clearGenerationFilters();
   },
 
   clearTypeFilters() {
@@ -479,10 +473,6 @@ export default {
 
   clearShapeFilters() {
     state.search.shape = '';
-  },
-
-  clearGenerationFilters() {
-    state.search.generation = '';
   },
 
   clearPokemon() {
