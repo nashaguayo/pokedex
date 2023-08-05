@@ -45,13 +45,9 @@ jest.mock('@/lib/store', () => ({
   clearShapeFilters: jest.fn(),
   clearGenerationFilters: jest.fn(),
   state: {
-    storeHasLoaded: true,
     search: {
       results: ['Pikachu', 'Charizard'],
       isSearchingPokemon: false,
-      types: [],
-      color: '',
-      shape: '',
     },
   },
 }));
@@ -69,6 +65,10 @@ jest.mock('@/store/mutations/shapes', () => ({
 }));
 
 jest.mock('@/store/mutations/generations', () => ({
+  clearFilters: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/types', () => ({
   clearFilters: jest.fn(),
 }));
 
@@ -94,6 +94,12 @@ jest.mock('@/store/state/shapes', () => ({
 jest.mock('@/store/state/colors', () => ({
   state: {
     filter: '',
+  },
+}));
+
+jest.mock('@/store/state/types', () => ({
+  state: {
+    filters: [],
   },
 }));
 

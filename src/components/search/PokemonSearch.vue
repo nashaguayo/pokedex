@@ -137,10 +137,12 @@ import { initializeStore } from '@/store/mutations/other';
 import { clearFilters as clearGenerationFilters } from '@/store/mutations/generations';
 import { clearFilters as clearShapeFilters } from '@/store/mutations/shapes';
 import { clearFilters as clearColorFilters } from '@/store/mutations/colors';
+import { clearFilters as clearTypeFilters } from '@/store/mutations/types';
 import other from '@/store/state/other';
 import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
 import colors from '@/store/state/colors';
+import types from '@/store/state/types';
 
 export default {
   name: 'PokemonSearch',
@@ -225,7 +227,7 @@ export default {
       return store.state.search.results;
     },
     filteringTypes() {
-      return store.state.search.types;
+      return types.state.filters;
     },
     filteringColor() {
       return colors.state.filter;
@@ -271,7 +273,7 @@ export default {
       }
       this.component = 'PokemonSearchColors';
       this.displayColors = true;
-      store.clearTypeFilters();
+      clearTypeFilters();
       clearShapeFilters();
       clearGenerationFilters();
     },
@@ -283,7 +285,7 @@ export default {
       }
       this.component = 'PokemonSearchShapes';
       this.displayShapes = true;
-      store.clearTypeFilters();
+      clearTypeFilters();
       clearColorFilters();
       clearGenerationFilters();
     },
@@ -295,7 +297,7 @@ export default {
       }
       this.component = 'PokemonSearchGenerations';
       this.displayGenerations = true;
-      store.clearTypeFilters();
+      clearTypeFilters();
       clearColorFilters();
       clearShapeFilters();
     },
