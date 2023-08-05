@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 const state = Vue.observable({
   filter: '',
-  all: [], // allGenerations
+  all: [],
   pokemons: new Map(), //pokemonsByGeneration
 });
 
@@ -23,7 +23,11 @@ export default {
     state.all = all;
   },
 
-  setPokemons(pokemons) {
-    state.pokemons = pokemons;
+  removeGenerationAt(index) {
+    state.all.splice(index, 1);
+  },
+
+  setPokemons(name, pokemons) {
+    state.pokemons.set(name, pokemons);
   },
 };

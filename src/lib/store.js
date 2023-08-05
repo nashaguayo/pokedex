@@ -21,15 +21,11 @@ import {
   getPokemonsByShape as getPokemonsByShapeApi,
   getPokemonShapeTranslation as getPokemonShapeTranslationApi,
 } from '@/api/shapes';
-import {
-  getAllGenerations as getAllGenerationsApi,
-  getPokemonsByGeneration as getPokemonsByGenerationApi,
-} from '@/api/generations';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
-import { clearFilters as clearGenerationFilters } from '@/store/mutations/generations';
+import { clearFilters as clearFilters } from '@/store/mutations/generations';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -419,22 +415,6 @@ export default {
     );
   },
 
-  async getAllGenerations() {
-    const allGenerations = await getAllGenerationsApi();
-    state.allGenerations = allGenerations;
-    await Promise.all(
-      allGenerations.map(async (generation) => {
-        const pokemons = await getPokemonsByGenerationApi(generation);
-        if (pokemons.length) {
-          state.pokemonsByGeneration.set(generation, pokemons);
-          return;
-        }
-        const index = state.allGenerations.findIndex((g) => g === generation);
-        state.allGenerations.splice(index, 1);
-      })
-    );
-  },
-
   toggleTypeFilter(type) {
     if (state.search.types.includes(type)) {
       const index = state.search.types.findIndex((t) => type === t);
@@ -460,7 +440,7 @@ export default {
     this.clearTypeFilters();
     this.clearColorFilters();
     this.clearShapeFilters();
-    clearGenerationFilters();
+    clearFilters();
   },
 
   clearTypeFilters() {
