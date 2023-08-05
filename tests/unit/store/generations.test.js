@@ -15,7 +15,7 @@ jest.mock('@/store/state/generations', () => ({
   getPokemons: jest.fn(),
   setPokemons: jest.fn(),
   getAll: jest.fn(),
-  removeGenerationAt: jest.fn(),
+  remove: jest.fn(),
 }));
 
 jest.mock('@/api/generations', () => ({
@@ -29,7 +29,7 @@ const spySetAll = jest.spyOn(generations, 'setAll');
 const spyGetPokemons = jest.spyOn(generations, 'getPokemons');
 const spySetPokemons = jest.spyOn(generations, 'setPokemons');
 const spyGetAll = jest.spyOn(generations, 'getAll');
-const spyRemoveGenerationAt = jest.spyOn(generations, 'removeGenerationAt');
+const spyRemove = jest.spyOn(generations, 'remove');
 
 const spyGetAllGenerations = jest.spyOn(generationsApi, 'getAllGenerations');
 const spyGetPokemonsByGeneration = jest.spyOn(
@@ -109,7 +109,7 @@ describe('getAll', () => {
     expect(spyGetPokemonsByGeneration).toHaveBeenCalledTimes(
       generations.length
     );
-    expect(spyRemoveGenerationAt).toHaveBeenCalledWith(1);
+    expect(spyRemove).toHaveBeenCalledWith('ii');
   });
 });
 

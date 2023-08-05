@@ -27,7 +27,8 @@ export default {
     state.all = all;
   },
 
-  removeGenerationAt(index) {
+  remove(generation) {
+    const index = state.all.findIndex((g) => g === generation);
     state.all.splice(index, 1);
   },
 

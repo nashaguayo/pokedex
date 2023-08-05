@@ -24,8 +24,7 @@ export async function getAll() {
         generations.setPokemons(generation, pokemons);
         return;
       }
-      const index = generations.getAll().findIndex((g) => g === generation);
-      generations.removeGenerationAt(index);
+      generations.remove(generation);
     })
   );
 }
