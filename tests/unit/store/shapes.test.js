@@ -15,7 +15,8 @@ jest.mock('@/store/state/shapes', () => ({
   getPokemons: jest.fn(),
   setPokemons: jest.fn(),
   getAll: jest.fn(),
-  removeShapeAt: jest.fn(),
+  remove: jest.fn(),
+  replaceTranslation: jest.fn(),
 }));
 
 jest.mock('@/api/shapes', () => ({
@@ -29,7 +30,8 @@ const spySetAll = jest.spyOn(shapes, 'setAll');
 const spyGetPokemons = jest.spyOn(shapes, 'getPokemons');
 const spySetPokemons = jest.spyOn(shapes, 'setPokemons');
 const spyGetAll = jest.spyOn(shapes, 'getAll');
-const spyRemoveShapeAt = jest.spyOn(shapes, 'removeShapeAt');
+const spyRemove = jest.spyOn(shapes, 'remove');
+const spyReplaceTranslation = jest.spyOn(shapes, 'replaceTranslation');
 
 const spyGetAllShapes = jest.spyOn(shapesApi, 'getAllShapes');
 const spyGetPokemonsByShape = jest.spyOn(shapesApi, 'getPokemonsByShape');
@@ -84,27 +86,28 @@ describe('getAll', () => {
   });
 
   it('should get all pokemons per shape', async () => {
-    const shapes = ['i', 'ii', 'iii'];
+    const shapes = ['upright', 'humanoid', 'ball'];
     const pokemons1 = ['pikachu', 'charmander', 'squirtle'];
     const pokemons2 = [];
     const pokemons3 = ['bulbasaur', 'meteorite', 'pichu'];
     spyGetAllShapes.mockResolvedValue(shapes);
     spyGetAll.mockReturnValue(shapes);
     spyGetPokemonsByShape
-      .mockResolvedValueOnce(pokemons1)
-      .mockResolvedValueOnce(pokemons2)
-      .mockResolvedValueOnce(pokemons3);
+      .mockResolvedValueOnce({ name: 'upright', pokemons: pokemons1 })
+      .mockResolvedValueOnce({ name: 'humanoid', pokemons: pokemons2 })
+      .mockResolvedValueOnce({ name: 'ball', pokemons: pokemons3 });
     await getAll();
     expect(spyGetAllShapes).toHaveBeenCalled();
     expect(spySetAll).toHaveBeenCalled();
     expect(spySetPokemons).toHaveBeenCalledTimes(2);
+    expect(spyReplaceTranslation).toHaveBeenCalledTimes(2);
 
     expect(spySetPokemons.mock.calls[0][0]).toBe(shapes[0]);
     expect(spySetPokemons.mock.calls[0][1]).toBe(pokemons1);
     expect(spySetPokemons.mock.calls[1][0]).toBe(shapes[2]);
     expect(spySetPokemons.mock.calls[1][1]).toBe(pokemons3);
     expect(spyGetPokemonsByShape).toHaveBeenCalledTimes(shapes.length);
-    expect(spyRemoveShapeAt).toHaveBeenCalledWith(1);
+    expect(spyRemove).toHaveBeenCalledWith('humanoid');
   });
 });
 

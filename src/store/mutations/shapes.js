@@ -20,12 +20,10 @@ export async function getAll() {
       const { name, pokemons } = await getPokemonsByShapeApi(shape);
       if (pokemons.length) {
         shapes.setPokemons(name, pokemons);
-        const index = shapes.getAll().findIndex((s) => s === shape);
-        shapes.replaceTranslation(index, name);
+        shapes.replaceTranslation(shape, name);
         return;
       }
-      const index = shapes.getAll().findIndex((s) => s === shape);
-      shapes.removeShapeAt(index);
+      shapes.remove(shape);
     })
   );
 }
