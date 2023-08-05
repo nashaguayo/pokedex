@@ -27,8 +27,8 @@ export default {
     state.all = all;
   },
 
-  remove(generation) {
-    const index = state.all.findIndex((g) => g === generation);
+  remove(shape) {
+    const index = state.shapes.all.findIndex((s) => s === shape);
     state.all.splice(index, 1);
   },
 
@@ -38,5 +38,10 @@ export default {
 
   setPokemons(name, pokemons) {
     state.pokemons.set(name, pokemons);
+  },
+
+  replaceTranslation(shape, translation) {
+    const index = state.all.findIndex((s) => s === shape);
+    state.all[index] = translation;
   },
 };
