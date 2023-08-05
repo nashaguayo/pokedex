@@ -38,4 +38,8 @@ export default {
   setPokemons(name, pokemons) {
     state.pokemons.set(name, pokemons);
   },
+
+  replaceTranslation(index, translation) {
+    state.all[index] = translation;
+  },
 };
