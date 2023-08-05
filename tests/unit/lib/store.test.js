@@ -530,20 +530,6 @@ describe('store', () => {
     expect(store.state.search.results).toStrictEqual([]);
   });
 
-  it('gets new mystery pokemon correctly', async () => {
-    const spyGetNewRandomPokemon = jest
-      .spyOn(store, 'getNewRandomPokemon')
-      .mockResolvedValue({ name: 'pikachu', image: 'pikachu.png' });
-    expect(store.state.game).toStrictEqual({ image: '', name: '' });
-    await store.getNewMysteryPokemon();
-    expect(spyGetNewRandomPokemon).toHaveBeenCalled();
-    spyGetNewRandomPokemon.mockRestore();
-    expect(store.state.game).toStrictEqual({
-      name: 'pikachu',
-      image: 'pikachu.png',
-    });
-  });
-
   it('sets new mystery pokemon correctly', () => {
     const spySetNewMysteryPokemon = jest.spyOn(store, 'setNewMysteryPokemon');
     store.setNewMysteryPokemon({ name: '', image: '' });

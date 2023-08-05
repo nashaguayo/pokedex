@@ -6,21 +6,28 @@ jest.mock('@/components/ui/BaseInput', () => ({
   template: '<div class="mock-base-input"></div>',
 }));
 
+jest.mock('@/store/state/game', () => ({
+  state: {
+    name: 'pikachu',
+    image: 'pikachu.png',
+  },
+}));
+
+jest.mock('@/store/mutations/game', () => ({
+  getNewMysteryPokemon: jest.fn(),
+  setMysteryPokemonFromLS: jest.fn(),
+}));
+
 jest.mock('@/lib/store', () => ({
   state: {
     storeHasLoaded: true,
-    game: { name: 'pikachu', image: 'pikachu.png' },
   },
-  getNewMysteryPokemon: jest.fn(),
-  setNewMysteryPokemon: jest.fn(),
 }));
 
 jest.mock('@/lib/localStorage', () => ({
   getGuessesInARow: jest.fn(),
-  getMysteryPokemon: jest.fn(),
   getTriesLeft: jest.fn(),
   setGuessesInARow: jest.fn(),
-  setMysteryPokemon: jest.fn(),
   setTriesLeft: jest.fn(),
 }));
 
