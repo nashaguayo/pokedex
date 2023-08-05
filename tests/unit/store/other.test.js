@@ -5,6 +5,7 @@ import {
 import other from '@/store/state/other';
 import * as generations from '@/store/mutations/generations';
 import * as shapes from '@/store/mutations/shapes';
+import * as colors from '@/store/mutations/colors';
 import store from '@/lib/store';
 import * as localStorage from '@/lib/localStorage';
 
@@ -21,6 +22,10 @@ jest.mock('@/store/mutations/shapes', () => ({
 }));
 
 jest.mock('@/store/mutations/generations', () => ({
+  getAll: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/colors', () => ({
   getAll: jest.fn(),
 }));
 
@@ -42,12 +47,12 @@ const spyGetStoreIsLoading = jest.spyOn(other, 'getStoreIsLoading');
 const spySetStoreIsLoading = jest.spyOn(other, 'setStoreIsLoading');
 const spyToggleIsDarkModeEnabled = jest.spyOn(other, 'toggleIsDarkModeEnabled');
 
+const spyGetAllColors = jest.spyOn(colors, 'getAll');
 const spyGetAllShapes = jest.spyOn(shapes, 'getAll');
 const spyGetAllGenerations = jest.spyOn(generations, 'getAll');
 
 const spyGetAllPokemons = jest.spyOn(store, 'getAllPokemons');
 const spyGetAllTypes = jest.spyOn(store, 'getAllTypes');
-const spyGetAllColors = jest.spyOn(store, 'getAllColors');
 const spyGetAllCharacteristicsDescriptions = jest.spyOn(
   store,
   'getAllCharacteristicsDescriptions'

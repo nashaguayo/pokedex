@@ -120,7 +120,8 @@ describe('getPokemonsSize', () => {
 
   it('should get all pokemons by shape size', () => {
     const pokemonsByShape = new Map([
-      ['i', ['pikachu', 'squirtle'], ['ii', ['charmander', 'bulbasaur']]],
+      ['i', ['pikachu', 'squirtle']],
+      ['ii', ['charmander', 'bulbasaur']],
     ]);
     spyGetPokemons.mockReturnValue(pokemonsByShape);
     const result = getPokemonsSize();
@@ -136,7 +137,8 @@ describe('getPokemonsSize', () => {
 
   it('should return the right pokemons for the right shape', () => {
     const pokemonsByShape = new Map([
-      ['ii', ['pikachu', 'squirtle'], ['i', ['charmander', 'bulbasaur']]],
+      ['ii', ['pikachu', 'squirtle']],
+      ['i', ['charmander', 'bulbasaur']],
     ]);
     const filter = 'ii';
     spyGetPokemons.mockReturnValue(pokemonsByShape);
@@ -147,7 +149,8 @@ describe('getPokemonsSize', () => {
 
   it('should return empty string when it cant find any pokemons', () => {
     const pokemonsByShape = new Map([
-      ['ii', ['pikachu', 'squirtle'], ['i', ['charmander', 'bulbasaur']]],
+      ['ii', ['pikachu', 'squirtle']],
+      ['i', ['charmander', 'bulbasaur']],
     ]);
     const filter = 'ii';
     spyGetPokemons.mockReturnValue(pokemonsByShape);

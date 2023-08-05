@@ -60,6 +60,10 @@ jest.mock('@/store/mutations/other', () => ({
   initializeStore: jest.fn(),
 }));
 
+jest.mock('@/store/mutations/colors', () => ({
+  clearFilters: jest.fn(),
+}));
+
 jest.mock('@/store/mutations/shapes', () => ({
   clearFilters: jest.fn(),
 }));
@@ -82,6 +86,12 @@ jest.mock('@/store/state/generations', () => ({
 }));
 
 jest.mock('@/store/state/shapes', () => ({
+  state: {
+    filter: '',
+  },
+}));
+
+jest.mock('@/store/state/colors', () => ({
   state: {
     filter: '',
   },
