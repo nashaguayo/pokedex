@@ -73,6 +73,12 @@ jest.mock('@/store/state/generations', () => ({
   },
 }));
 
+jest.mock('@/store/state/shapes', () => ({
+  state: {
+    filter: '',
+  },
+}));
+
 describe('PokemonSearch', () => {
   let wrapper;
 

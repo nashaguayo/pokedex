@@ -136,6 +136,7 @@ import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
 import { initializeStore } from '@/store/mutations/other';
 import other from '@/store/state/other';
 import generations from '@/store/state/generations';
+import shapes from '@/store/state/shapes';
 
 export default {
   name: 'PokemonSearch',
@@ -226,7 +227,7 @@ export default {
       return store.state.search.color;
     },
     filteringShape() {
-      return store.state.search.shape;
+      return shapes.state.filter;
     },
     filteringGeneration() {
       return generations.state.filter;

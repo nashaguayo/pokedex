@@ -8,22 +8,23 @@
 
 <script>
 import PokemonSearchFilters from '@/components/search/PokemonSearchFilters';
-import store from '@/lib/store';
+import shapes from '@/store/state/shapes';
+import { toggleFilter } from '@/store/mutations/shapes';
 
 export default {
   name: 'PokemonSearchShapes',
   components: { PokemonSearchFilters },
   computed: {
     allShapes() {
-      return store.state.allShapes;
+      return shapes.state.all;
     },
     filteringShape() {
-      return store.state.search.shape;
+      return shapes.state.filter;
     },
   },
   methods: {
     toggleShapeFilter(shape) {
-      store.toggleShapeFilter(shape);
+      toggleFilter(shape);
     },
   },
 };
