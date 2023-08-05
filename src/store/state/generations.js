@@ -19,6 +19,10 @@ export default {
     state.filter = filter;
   },
 
+  getAll() {
+    return state.all;
+  },
+
   setAll(all) {
     state.all = all;
   },

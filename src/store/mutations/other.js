@@ -5,6 +5,7 @@ import {
   toggleDarkMode as toggleDarkModeInLS,
 } from '@/lib/localStorage';
 import { getAll as getAllGenerations } from '@/store/mutations/generations';
+import { getAll as getAllShapes } from '@/store/mutations/shapes';
 
 export async function initializeStore() {
   if (!other.getStoreHasLoaded() && !other.getStoreIsLoading()) {
@@ -16,7 +17,7 @@ export async function initializeStore() {
       store.getAllPokemons(),
       store.getAllTypes(),
       store.getAllColors(),
-      store.getAllShapes(),
+      getAllShapes(),
       getAllGenerations(),
       store.getAllCharacteristicsDescriptions(),
     ]);
