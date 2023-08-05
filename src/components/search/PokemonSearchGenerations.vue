@@ -8,7 +8,7 @@
 
 <script>
 import PokemonSearchFilters from '@/components/search/PokemonSearchFilters';
-import store from '@/lib/store';
+import { toggleFilter } from '@/store/mutations/generations';
 import generations from '@/store/state/generations';
 
 export default {
@@ -19,12 +19,12 @@ export default {
       return generations.state.all;
     },
     filteringGeneration() {
-      return store.state.search.generation;
+      return generations.state.filter;
     },
   },
   methods: {
     toggleGenerationFilter(generation) {
-      store.toggleGenerationFilter(generation);
+      toggleFilter(generation);
     },
   },
 };

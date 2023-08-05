@@ -6,19 +6,15 @@ jest.mock('@/components/search/PokemonSearchFilters.vue', () => ({
   template: '<div class="mocked-pokemon-search-filters"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
-  toggleGenerationFilter: jest.fn(),
-  state: {
-    search: {
-      generations: [],
-    },
-  },
-}));
-
 jest.mock('@/store/state/generations', () => ({
   state: {
     all: [],
+    filter: '',
   },
+}));
+
+jest.mock('@/store/mutations/generations', () => ({
+  toggleFilter: jest.fn(),
 }));
 
 describe('PokemonSearchGenerations', () => {

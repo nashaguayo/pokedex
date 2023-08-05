@@ -3,6 +3,7 @@ import {
   toggleDarkModeInStoreAndLocalStorage,
 } from '@/store/mutations/other';
 import other from '@/store/state/other';
+import * as generations from '@/store/mutations/generations';
 import store from '@/lib/store';
 import * as localStorage from '@/lib/localStorage';
 

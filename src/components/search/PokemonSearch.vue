@@ -135,6 +135,7 @@ import store from '@/lib/store';
 import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
 import { initializeStore } from '@/store/mutations/other';
 import other from '@/store/state/other';
+import generations from '@/store/state/generations';
 
 export default {
   name: 'PokemonSearch',
@@ -228,7 +229,7 @@ export default {
       return store.state.search.shape;
     },
     filteringGeneration() {
-      return store.state.search.generation;
+      return generations.state.filter;
     },
     loading() {
       return store.state.search.isSearchingPokemon;
