@@ -17,7 +17,7 @@ export async function getAll() {
   shapes.setAll(allShapes);
   await Promise.all(
     allShapes.map(async (shape) => {
-      const pokemons = await getPokemonsByShapeApi(shape);
+      const { pokemons } = await getPokemonsByShapeApi(shape);
       if (pokemons.length) {
         shapes.setPokemons(shape, pokemons);
         return;
