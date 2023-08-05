@@ -11,11 +11,7 @@ import {
   getAllTypes as getAllTypesApi,
   getPokemonsByType as getPokemonsByTypeApi,
 } from '@/api/types';
-import {
-  getAllColors as getAllColorsApi,
-  getPokemonsByColor as getPokemonsByColorApi,
-  getPokemonColorTranslation as getPokemonColorTranslationApi,
-} from '@/api/colors';
+import { getPokemonColorTranslation as getPokemonColorTranslationApi } from '@/api/colors';
 import { getPokemonShapeTranslation as getPokemonShapeTranslationApi } from '@/api/shapes';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
@@ -31,8 +27,14 @@ import {
   getPokemonsSize as getPokemonsSizeShape,
   searchPokemonsByShape,
 } from '@/store/mutations/shapes';
+import {
+  clearFilters as clearFilterColor,
+  getPokemonsSize as getPokemonsSizeColor,
+  searchPokemonsByColor,
+} from '@/store/mutations/colors';
 import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
+import colors from '@/store/state/colors';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -49,12 +51,9 @@ const state = Vue.observable({
     results: [],
     isSearchingPokemon: false,
     types: [],
-    color: '',
   },
   allTypes: [],
   pokemonsByType: new Map(),
-  allColors: [],
-  pokemonsByColor: new Map(),
   allCharacteristics: new Map(),
 });
 
@@ -271,7 +270,7 @@ export default {
       state.search.isSearchingPokemon ||
       !state.allPokemons.length ||
       !state.pokemonsByType.size ||
-      !state.pokemonsByColor.size ||
+      !getPokemonsSizeColor() ||
       !getPokemonsSizeShape() ||
       !getPokemonsSize()
     ) {
@@ -283,7 +282,7 @@ export default {
 
     if (state.search.types.length) {
       this.searchPokemonsByType(searchTermLowerCase);
-    } else if (state.search.color.length) {
+    } else if (colors.state.filter.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
     } else if (shapes.state.filter.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
@@ -331,9 +330,8 @@ export default {
   },
 
   searchPokemonsByColor(searchTermLowerCase) {
-    const filteredPokemonNamesByColor = state.pokemonsByColor
-      .get(state.search.color)
-      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
+    const filteredPokemonNamesByColor =
+      searchPokemonsByColor(searchTermLowerCase);
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByColor;
@@ -377,24 +375,6 @@ export default {
     );
   },
 
-  async getAllColors() {
-    const allColors = await getAllColorsApi();
-    state.allColors = allColors;
-    await Promise.all(
-      allColors.map(async (color) => {
-        const { name, pokemons } = await getPokemonsByColorApi(color);
-        if (pokemons.length) {
-          state.pokemonsByColor.set(name, pokemons);
-          const index = state.allColors.findIndex((c) => c === color);
-          state.allColors[index] = name;
-          return;
-        }
-        const index = state.allColors.findIndex((c) => c === color);
-        state.allColors.splice(index, 1);
-      })
-    );
-  },
-
   toggleTypeFilter(type) {
     if (state.search.types.includes(type)) {
       const index = state.search.types.findIndex((t) => type === t);
@@ -404,27 +384,19 @@ export default {
     state.search.types.push(type);
   },
 
-  toggleColorFilter(color) {
-    state.search.color = color;
-  },
-
   async getAllCharacteristicsDescriptions() {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
 
   clearFilters() {
     this.clearTypeFilters();
-    this.clearColorFilters();
+    clearFilterColor();
     clearFiltersShape();
     clearFiltersGenerations();
   },
 
   clearTypeFilters() {
     state.search.types = [];
-  },
-
-  clearColorFilters() {
-    state.search.color = '';
   },
 
   clearPokemon() {
