@@ -31,7 +31,7 @@ export default {
     return state.isDarkModeEnabled;
   },
 
-  setIsDarkModeEnabled(isDarkModeEnabled) {
-    state.isDarkModeEnabled = isDarkModeEnabled;
+  toggleIsDarkModeEnabled() {
+    state.isDarkModeEnabled = !state.isDarkModeEnabled;
   },
 };

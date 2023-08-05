@@ -29,7 +29,6 @@ import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsA
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
-import { toggleDarkMode as toggleDarkModeInLocalStorage } from '@/lib/localStorage';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -484,11 +483,6 @@ export default {
 
   clearGenerationFilters() {
     state.search.generation = '';
-  },
-
-  toggleDarkMode() {
-    state.isDarkModeEnabled = !state.isDarkModeEnabled;
-    toggleDarkModeInLocalStorage();
   },
 
   clearPokemon() {

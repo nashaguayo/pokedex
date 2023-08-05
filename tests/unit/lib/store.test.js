@@ -649,14 +649,6 @@ describe('store', () => {
     expect(store.state.search.generation).toBe('');
   });
 
-  it('toggles dark mode', () => {
-    expect(store.state.isDarkModeEnabled).toBeFalsy();
-    store.toggleDarkMode();
-    expect(store.state.isDarkModeEnabled).toBeTruthy();
-    store.toggleDarkMode();
-    expect(store.state.isDarkModeEnabled).toBeFalsy();
-  });
-
   it('clears pokemon', () => {
     expect(store.state.pokemon.size).toBe(1);
     store.clearPokemon();
