@@ -279,7 +279,7 @@ export default {
     state.search.isSearchingPokemon = true;
     const searchTermLowerCase = searchTerm.toLowerCase();
 
-    if (types.state.filter.length) {
+    if (types.state.filters.length) {
       this.searchPokemonsByTypes(searchTermLowerCase);
     } else if (colors.state.filter.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
@@ -301,9 +301,9 @@ export default {
     state.search.results = results.map((pokemon) => pokemon.name);
   },
 
-  searchPokemonsByType(searchTermLowerCase) {
+  searchPokemonsByTypes(searchTermLowerCase) {
     const results = searchPokemonsByTypes(searchTermLowerCase);
-    state.search.results = results.map((nameCount) => nameCount[0]);
+    state.search.results = results;
   },
 
   searchPokemonsByColor(searchTermLowerCase) {

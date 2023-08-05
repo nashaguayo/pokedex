@@ -46,7 +46,7 @@ export function searchPokemonsByTypes(searchTermLowerCase) {
     repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
   });
 
-  if (types.filters.length === 1) {
+  if (types.getFilters().length === 1) {
     return repeatedResults;
   }
 
@@ -56,7 +56,7 @@ export function searchPokemonsByTypes(searchTermLowerCase) {
   });
 
   const filteredResults = Object.entries(namesCount).filter(
-    (nameCount) => nameCount[1] === types.filter.length
+    (nameCount) => nameCount[1] === types.getFilters().length
   );
 
   return filteredResults.map((nameCount) => nameCount[0]);
