@@ -1,9 +1,9 @@
 import Vue from 'vue';
 
 const state = Vue.observable({
-  filter: '', // search.shape
-  all: [], // allShapes
-  pokemons: new Map(), // pokemonsByShape
+  filter: '',
+  all: [],
+  pokemons: new Map(),
 });
 
 export default {
