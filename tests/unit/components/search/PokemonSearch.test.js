@@ -52,7 +52,6 @@ jest.mock('@/lib/store', () => ({
       types: [],
       color: '',
       shape: '',
-      generation: '',
     },
   },
 }));
@@ -65,6 +64,12 @@ jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
     isDarkModeEnabled: false,
+  },
+}));
+
+jest.mock('@/store/state/generations', () => ({
+  state: {
+    filter: '',
   },
 }));
 

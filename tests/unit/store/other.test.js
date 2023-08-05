@@ -3,6 +3,7 @@ import {
   toggleDarkModeInStoreAndLocalStorage,
 } from '@/store/mutations/other';
 import other from '@/store/state/other';
+import * as generations from '@/store/mutations/generations';
 import store from '@/lib/store';
 import * as localStorage from '@/lib/localStorage';
 
@@ -14,12 +15,15 @@ jest.mock('@/store/state/other', () => ({
   toggleIsDarkModeEnabled: jest.fn(),
 }));
 
+jest.mock('@/store/mutations/generations', () => ({
+  getAll: jest.fn(),
+}));
+
 jest.mock('@/lib/store', () => ({
   getAllPokemons: jest.fn(),
   getAllTypes: jest.fn(),
   getAllColors: jest.fn(),
   getAllShapes: jest.fn(),
-  getAllGenerations: jest.fn(),
   getAllCharacteristicsDescriptions: jest.fn(),
 }));
 
@@ -34,11 +38,12 @@ const spyGetStoreIsLoading = jest.spyOn(other, 'getStoreIsLoading');
 const spySetStoreIsLoading = jest.spyOn(other, 'setStoreIsLoading');
 const spyToggleIsDarkModeEnabled = jest.spyOn(other, 'toggleIsDarkModeEnabled');
 
+const spyGetAllGenerations = jest.spyOn(generations, 'getAll');
+
 const spyGetAllPokemons = jest.spyOn(store, 'getAllPokemons');
 const spyGetAllTypes = jest.spyOn(store, 'getAllTypes');
 const spyGetAllColors = jest.spyOn(store, 'getAllColors');
 const spyGetAllShapes = jest.spyOn(store, 'getAllShapes');
-const spyGetAllGenerations = jest.spyOn(store, 'getAllGenerations');
 const spyGetAllCharacteristicsDescriptions = jest.spyOn(
   store,
   'getAllCharacteristicsDescriptions'
