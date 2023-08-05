@@ -37,7 +37,6 @@ jest.mock('@/components/search/PokemonSearchItem.vue', () => ({
 }));
 
 jest.mock('@/lib/store', () => ({
-  initializeStore: jest.fn(),
   searchPokemons: jest.fn(),
   clearSearchResults: jest.fn(),
   clearFilters: jest.fn(),
@@ -55,6 +54,16 @@ jest.mock('@/lib/store', () => ({
       shape: '',
       generation: '',
     },
+  },
+}));
+
+jest.mock('@/store/mutations/other', () => ({
+  initializeStore: jest.fn(),
+}));
+
+jest.mock('@/store/state/other', () => ({
+  state: {
+    storeHasLoaded: true,
     isDarkModeEnabled: false,
   },
 }));

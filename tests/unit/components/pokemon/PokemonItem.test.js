@@ -42,9 +42,14 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   template: '<div class="mocked-pokemon-item-description"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
+  },
+}));
+
+jest.mock('@/lib/store', () => ({
+  state: {
     allPokemons: [
       { id: 1, name: 'pikachu' },
       { id: 2, name: 'squirtle' },
@@ -124,6 +129,10 @@ jest.mock('@/lib/helpers', () => ({
   })),
   capitalizeWord: jest.fn(),
   scrollToTopOfBackgroundPage: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/other', () => ({
+  initializeStore: jest.fn(),
 }));
 
 describe('PokemonItem', () => {

@@ -12,7 +12,7 @@ export function capitalizeWord(word = '') {
   return `${firstLetter}${remainingLetters}`;
 }
 
-export function toggleDarkMode(isDarkMode) {
+export function toggleDarkModeInDOM(isDarkMode) {
   document.documentElement.setAttribute(
     'data-theme',
     isDarkMode ? 'dark' : 'light'

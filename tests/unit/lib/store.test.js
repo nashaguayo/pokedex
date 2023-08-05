@@ -114,33 +114,6 @@ describe('store', () => {
     jest.clearAllMocks();
   });
 
-  it('loads the store when initializeStore method is called', async () => {
-    const spyGetAllPokemons = jest.spyOn(store, 'getAllPokemons');
-    const spyGetAllTypes = jest.spyOn(store, 'getAllTypes');
-    const spyGetAllColors = jest.spyOn(store, 'getAllColors');
-    const spyGetAllShapes = jest.spyOn(store, 'getAllShapes');
-    const spyGetAllGenerations = jest.spyOn(store, 'getAllGenerations');
-    const spyGetAllCharacteristicsDescriptions = jest.spyOn(
-      store,
-      'getAllCharacteristicsDescriptions'
-    );
-    expect(store.state.storeHasLoaded).toBeFalsy();
-    await store.initializeStore();
-    expect(spyGetAllPokemons).toHaveBeenCalled();
-    expect(spyGetAllTypes).toHaveBeenCalled();
-    expect(spyGetAllColors).toHaveBeenCalled();
-    expect(spyGetAllShapes).toHaveBeenCalled();
-    expect(spyGetAllGenerations).toHaveBeenCalled();
-    expect(spyGetAllCharacteristicsDescriptions).toHaveBeenCalled();
-    expect(store.state.storeHasLoaded).toBeTruthy();
-    spyGetAllPokemons.mockRestore();
-    spyGetAllTypes.mockRestore();
-    spyGetAllColors.mockRestore();
-    spyGetAllShapes.mockRestore();
-    spyGetAllGenerations.mockRestore();
-    spyGetAllCharacteristicsDescriptions.mockRestore();
-  });
-
   it('gets pokemon list card data correctly', async () => {
     const pokemon = { name: 'pikachu' };
     const { id, name, image, types } = await store.getPokemonListCardData(
@@ -674,14 +647,6 @@ describe('store', () => {
     store.state.search.generation = 'i';
     store.clearGenerationFilters();
     expect(store.state.search.generation).toBe('');
-  });
-
-  it('toggles dark mode', () => {
-    expect(store.state.isDarkModeEnabled).toBeFalsy();
-    store.toggleDarkMode();
-    expect(store.state.isDarkModeEnabled).toBeTruthy();
-    store.toggleDarkMode();
-    expect(store.state.isDarkModeEnabled).toBeFalsy();
   });
 
   it('clears pokemon', () => {

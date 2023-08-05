@@ -16,6 +16,7 @@
 import { ENGLISH, SPANISH } from '@/constants/languages';
 import { setLanguage } from '@/lib/localStorage';
 import store from '@/lib/store';
+import { initializeStore } from '@/store/mutations/other';
 
 export default {
   name: 'LocaleChanger',
@@ -31,7 +32,7 @@ export default {
     async '$i18n.locale'(language) {
       setLanguage(language);
       store.clearPokemon();
-      store.initializeStore();
+      await initializeStore();
       await store.clearPokemonListAndRefresh();
     },
   },

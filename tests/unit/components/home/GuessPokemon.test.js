@@ -6,6 +6,21 @@ jest.mock('@/components/ui/BaseInput', () => ({
   template: '<div class="mock-base-input"></div>',
 }));
 
+jest.mock('@/components/ui/BaseLoader', () => ({
+  name: 'BaseLoader',
+  template: '<div class="mock-base-loader"></div>',
+}));
+
+jest.mock('@/components/ui/BaseButton', () => ({
+  name: 'BaseButton',
+  template: '<div class="mock-base-button"></div>',
+}));
+
+jest.mock('@/components/ui/BaseChevron', () => ({
+  name: 'BaseChevron',
+  template: '<div class="mock-base-chevron"></div>',
+}));
+
 jest.mock('@/store/state/game', () => ({
   state: {
     name: 'pikachu',
@@ -13,15 +28,15 @@ jest.mock('@/store/state/game', () => ({
   },
 }));
 
-jest.mock('@/store/mutations/game', () => ({
-  getNewMysteryPokemon: jest.fn(),
-  setMysteryPokemonFromLS: jest.fn(),
-}));
-
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
   },
+}));
+
+jest.mock('@/store/mutations/game', () => ({
+  getNewMysteryPokemon: jest.fn(),
+  setMysteryPokemonFromLS: jest.fn(),
 }));
 
 jest.mock('@/lib/localStorage', () => ({

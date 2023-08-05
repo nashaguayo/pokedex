@@ -29,14 +29,8 @@ import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsA
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
-import {
-  isDarkModeEnabled,
-  toggleDarkMode as toggleDarkModeInLocalStorage,
-} from '@/lib/localStorage';
 
 const state = Vue.observable({
-  storeHasLoaded: false,
-  storeIsLoading: false,
   allPokemons: [],
   pokemonVariants: new Map(),
   isLoadingAllPokemons: false,
@@ -47,7 +41,6 @@ const state = Vue.observable({
     nextUrl: '',
   },
   pokemon: new Map(),
-  isDarkModeEnabled: isDarkModeEnabled(),
   search: {
     results: [],
     isSearchingPokemon: false,
@@ -70,22 +63,6 @@ const state = Vue.observable({
 export default {
   get state() {
     return state;
-  },
-
-  async initializeStore() {
-    if (!state.storeHasLoaded && !state.storeIsLoading) {
-      state.storeIsLoading = true;
-      await Promise.all([
-        this.getAllPokemons(),
-        this.getAllTypes(),
-        this.getAllColors(),
-        this.getAllShapes(),
-        this.getAllGenerations(),
-        this.getAllCharacteristicsDescriptions(),
-      ]);
-      state.storeHasLoaded = true;
-      state.storeIsLoading = false;
-    }
   },
 
   async getPokemonListCardData(pokemon) {
@@ -506,11 +483,6 @@ export default {
 
   clearGenerationFilters() {
     state.search.generation = '';
-  },
-
-  toggleDarkMode() {
-    state.isDarkModeEnabled = !state.isDarkModeEnabled;
-    toggleDarkModeInLocalStorage();
   },
 
   clearPokemon() {

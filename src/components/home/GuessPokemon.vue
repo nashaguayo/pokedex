@@ -125,14 +125,14 @@ import {
   getNewMysteryPokemon,
   setMysteryPokemonFromLS,
 } from '@/store/mutations/game';
-import game from '@/store/state/game';
-import store from '@/lib/store';
 import {
   getGuessesInARow,
   getTriesLeft,
   setGuessesInARow,
   setTriesLeft,
 } from '@/lib/localStorage';
+import other from '@/store/state/other';
+import game from '@/store/state/game';
 
 export default {
   name: 'GuessPokemon',
@@ -167,7 +167,7 @@ export default {
       return game.state.name;
     },
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
     hasWon() {
       return this.playersGuess.toLowerCase() === this.name;

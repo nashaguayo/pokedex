@@ -41,19 +41,20 @@
 <script>
 import GeneralNavigationLink from '@/components/header/GeneralNavigationLink.vue';
 import LocaleChanger from '@/components/header/LocaleChanger.vue';
-import store from '@/lib/store';
+import other from '@/store/state/other';
+import { toggleDarkModeInStoreAndLocalStorage } from '@/store/mutations/other';
 
 export default {
   name: 'GeneralNavigation',
   components: { GeneralNavigationLink, LocaleChanger },
   computed: {
     isDarkModeEnabled() {
-      return store.state.isDarkModeEnabled;
+      return other.state.isDarkModeEnabled;
     },
   },
   methods: {
     toggleTheme() {
-      store.toggleDarkMode();
+      toggleDarkModeInStoreAndLocalStorage();
     },
   },
 };
