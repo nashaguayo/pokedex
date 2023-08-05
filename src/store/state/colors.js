@@ -27,8 +27,8 @@ export default {
     state.all = all;
   },
 
-  remove(shape) {
-    const index = state.all.findIndex((s) => s === shape);
+  remove(color) {
+    const index = state.all.findIndex((c) => c === color);
     state.all.splice(index, 1);
   },
 
@@ -40,8 +40,8 @@ export default {
     state.pokemons.set(name, pokemons);
   },
 
-  replaceTranslation(shape, translation) {
-    const index = state.all.findIndex((s) => s === shape);
+  replaceTranslation(color, translation) {
+    const index = state.all.findIndex((c) => c === color);
     state.all[index] = translation;
   },
 };

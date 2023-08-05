@@ -6,6 +6,7 @@ import {
 } from '@/lib/localStorage';
 import { getAll as getAllGenerations } from '@/store/mutations/generations';
 import { getAll as getAllShapes } from '@/store/mutations/shapes';
+import { getAll as getAllColors } from '@/store/mutations/colors';
 
 export async function initializeStore() {
   if (!other.getStoreHasLoaded() && !other.getStoreIsLoading()) {
@@ -16,7 +17,7 @@ export async function initializeStore() {
     await Promise.all([
       store.getAllPokemons(),
       store.getAllTypes(),
-      store.getAllColors(),
+      getAllColors(),
       getAllShapes(),
       getAllGenerations(),
       store.getAllCharacteristicsDescriptions(),
