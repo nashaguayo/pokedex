@@ -11,7 +11,6 @@ jest.mock('@/api/pokemon', () => ({
 
 jest.mock('@/lib/store', () => ({
   state: {
-    storeHasLoaded: true,
     randomPokemons: [
       { name: 'pikachu', image: 'pikachu.png' },
       { name: 'charizard', image: 'charizard.png' },
@@ -19,6 +18,12 @@ jest.mock('@/lib/store', () => ({
   },
   getRandomPokemons: jest.fn(),
   getNewRandomPokemon: jest.fn(),
+}));
+
+jest.mock('@/store/state/other', () => ({
+  state: {
+    storeHasLoaded: true,
+  },
 }));
 
 describe('RandomPokemon', () => {

@@ -7,8 +7,11 @@ jest.mock('@/lib/localStorage', () => ({
 
 jest.mock('@/lib/store', () => ({
   clearPokemon: jest.fn(),
-  initializeStore: jest.fn(),
   clearPokemonListAndRefresh: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/other', () => ({
+  initializeStore: jest.fn(),
 }));
 
 describe('LocaleChanger', () => {

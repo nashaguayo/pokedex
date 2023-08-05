@@ -1,8 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import BaseInput from '@/components/ui/BaseInput.vue';
 
-jest.mock('@/lib/store', () => ({
-  state: { isDarkModeEnabled: false },
+jest.mock('@/store/state/other', () => ({
+  state: {
+    isDarkModeEnabled: false,
+  },
 }));
 
 describe('BaseInput', () => {

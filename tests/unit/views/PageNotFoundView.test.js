@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import PageNotFoundView from '@/views/PageNotFoundView.vue';
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/other', () => ({
   state: {
     store: {
       isDarkmodeEnabled: false,

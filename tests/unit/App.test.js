@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import App from '@/App.vue';
-import store from '@/lib/store';
 
 jest.mock('@/components/ui/BaseHeader.vue', () => ({
   name: 'BaseHeader',
@@ -12,7 +11,7 @@ jest.mock('@/components/ui/BaseFooter.vue', () => ({
   template: '<div class="mocked-base-footer"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/other', () => ({
   state: {
     isDarkModeEnabled: false,
   },

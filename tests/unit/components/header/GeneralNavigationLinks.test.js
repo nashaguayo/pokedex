@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import GeneralNavigationLink from '@/components/header/GeneralNavigationLink'; // Replace with the actual path to your component
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/other', () => ({
   state: {
     isDarkModeEnabled: false,
   },
