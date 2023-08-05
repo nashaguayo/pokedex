@@ -134,6 +134,8 @@ import PokemonSearchItem from '@/components/search/PokemonSearchItem.vue';
 import store from '@/lib/store';
 import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
 import { initializeStore } from '@/store/mutations/other';
+import { clearFilters as clearGenerationFilters } from '@/store/mutations/generations';
+import { clearFilters as clearShapeFilters } from '@/store/mutations/shapes';
 import other from '@/store/state/other';
 import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
@@ -256,8 +258,8 @@ export default {
       this.component = 'PokemonSearchTypes';
       this.displayTypes = true;
       store.clearColorFilters();
-      store.clearShapeFilters();
-      store.clearGenerationFilters();
+      clearShapeFilters();
+      clearGenerationFilters();
     },
     toggleDisplayColors() {
       this.clearDisplayVariables();
@@ -268,8 +270,8 @@ export default {
       this.component = 'PokemonSearchColors';
       this.displayColors = true;
       store.clearTypeFilters();
-      store.clearShapeFilters();
-      store.clearGenerationFilters();
+      clearShapeFilters();
+      clearGenerationFilters();
     },
     toggleDisplayShapes() {
       this.clearDisplayVariables();
@@ -281,7 +283,7 @@ export default {
       this.displayShapes = true;
       store.clearTypeFilters();
       store.clearColorFilters();
-      store.clearGenerationFilters();
+      clearGenerationFilters();
     },
     toggleDisplayGenerations() {
       this.clearDisplayVariables();
@@ -293,7 +295,7 @@ export default {
       this.displayGenerations = true;
       store.clearTypeFilters();
       store.clearColorFilters();
-      store.clearShapeFilters();
+      clearShapeFilters();
     },
     clearSearch() {
       this.reset = true;

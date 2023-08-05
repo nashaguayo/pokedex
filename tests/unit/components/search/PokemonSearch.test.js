@@ -60,6 +60,14 @@ jest.mock('@/store/mutations/other', () => ({
   initializeStore: jest.fn(),
 }));
 
+jest.mock('@/store/mutations/shapes', () => ({
+  clearFilters: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/generations', () => ({
+  clearFilters: jest.fn(),
+}));
+
 jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
