@@ -93,6 +93,8 @@ import {
 import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/images/pokemons/silouette.png';
+import { initializeStore } from '@/store/mutations/other';
+import other from '@/store/state/other';
 
 export default {
   name: 'PokemonItem',
@@ -227,12 +229,12 @@ export default {
       );
     },
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
   },
   async created() {
     if (!this.storeHasLoaded) {
-      await store.initializeStore();
+      await initializeStore();
     }
   },
   beforeDestroy() {

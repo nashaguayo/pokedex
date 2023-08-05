@@ -36,6 +36,7 @@ import {
   fifthBreak,
   sixthBreak,
 } from '@/constants/resolutions';
+import other from '@/store/state/other';
 
 export default {
   name: 'RandomPokemon',
@@ -62,7 +63,7 @@ export default {
       return store.state.randomPokemons;
     },
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
   },
   watch: {

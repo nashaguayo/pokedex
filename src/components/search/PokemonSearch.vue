@@ -133,6 +133,8 @@ import PokemonSearchGenerations from '@/components/search/PokemonSearchGeneratio
 import PokemonSearchItem from '@/components/search/PokemonSearchItem.vue';
 import store from '@/lib/store';
 import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
+import { initializeStore } from '@/store/mutations/other';
+import other from '@/store/state/other';
 
 export default {
   name: 'PokemonSearch',
@@ -160,7 +162,7 @@ export default {
   },
   async created() {
     if (!this.storeHasLoaded) {
-      await store.initializeStore();
+      await initializeStore();
     }
   },
   beforeDestroy() {
@@ -211,7 +213,7 @@ export default {
   },
   computed: {
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
     searchResults() {
       return store.state.search.results;
@@ -232,7 +234,7 @@ export default {
       return store.state.search.isSearchingPokemon;
     },
     isDarkModeEnabled() {
-      return store.state.isDarkModeEnabled;
+      return other.state.isDarkModeEnabled;
     },
   },
   methods: {

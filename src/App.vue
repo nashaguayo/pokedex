@@ -25,7 +25,7 @@
 <script>
 import BaseHeader from '@/components/ui/BaseHeader.vue';
 import BaseFooter from '@/components/ui/BaseFooter.vue';
-import store from '@/lib/store';
+import other from '@/store/state/other';
 import { toggleDarkMode } from '@/lib/helpers';
 
 export default {
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     isDarkModeEnabled() {
-      return store.state.isDarkModeEnabled;
+      return other.state.isDarkModeEnabled;
     },
     displayHeader() {
       return this.$route.meta.header ?? false;

@@ -15,7 +15,7 @@
 
 <script>
 import silouette from '@/assets/images/pokemons/silouette.png';
-import store from '@/lib/store';
+import other from '@/store/state/other';
 
 export default {
   title: 'Page Not Found',
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     isDarkModeEnabled() {
-      return store.state.isDarkModeEnabled;
+      return other.state.isDarkModeEnabled;
     },
   },
 };
