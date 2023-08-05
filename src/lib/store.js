@@ -16,21 +16,23 @@ import {
   getPokemonsByColor as getPokemonsByColorApi,
   getPokemonColorTranslation as getPokemonColorTranslationApi,
 } from '@/api/colors';
-import {
-  getAllShapes as getAllShapesApi,
-  getPokemonsByShape as getPokemonsByShapeApi,
-  getPokemonShapeTranslation as getPokemonShapeTranslationApi,
-} from '@/api/shapes';
+import { getPokemonShapeTranslation as getPokemonShapeTranslationApi } from '@/api/shapes';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
 import {
-  clearFilters as clearFilters,
+  clearFilters as clearFiltersGenerations,
   getPokemonsSize,
   searchPokemonsByGeneration,
 } from '@/store/mutations/generations';
+import {
+  clearFilters as clearFiltersShape,
+  getPokemonsSize as getPokemonsSizeShape,
+  searchPokemonsByShape,
+} from '@/store/mutations/shapes';
 import generations from '@/store/state/generations';
+import shapes from '@/store/state/shapes';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -48,14 +50,11 @@ const state = Vue.observable({
     isSearchingPokemon: false,
     types: [],
     color: '',
-    shape: '',
   },
   allTypes: [],
   pokemonsByType: new Map(),
   allColors: [],
   pokemonsByColor: new Map(),
-  allShapes: [],
-  pokemonsByShape: new Map(),
   allCharacteristics: new Map(),
 });
 
@@ -273,7 +272,7 @@ export default {
       !state.allPokemons.length ||
       !state.pokemonsByType.size ||
       !state.pokemonsByColor.size ||
-      !state.pokemonsByShape.size ||
+      !getPokemonsSizeShape() ||
       !getPokemonsSize()
     ) {
       return;
@@ -286,7 +285,7 @@ export default {
       this.searchPokemonsByType(searchTermLowerCase);
     } else if (state.search.color.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
-    } else if (state.search.shape.length) {
+    } else if (shapes.state.filter.length) {
       this.searchPokemonsByShape(searchTermLowerCase);
     } else if (generations.state.filter.length) {
       this.searchPokemonsByGeneration(searchTermLowerCase);
@@ -341,9 +340,8 @@ export default {
   },
 
   searchPokemonsByShape(searchTermLowerCase) {
-    const filteredPokemonNamesByShape = state.pokemonsByShape
-      .get(state.search.shape)
-      .filter((pokemon) => pokemon.includes(searchTermLowerCase));
+    const filteredPokemonNamesByShape =
+      searchPokemonsByShape(searchTermLowerCase);
 
     state.search.isSearchingPokemon = false;
     state.search.results = filteredPokemonNamesByShape;
@@ -359,10 +357,6 @@ export default {
 
   clearSearchResults() {
     state.search.results = [];
-  },
-
-  setNewMysteryPokemon(newMysteryPokemon) {
-    state.game = newMysteryPokemon;
   },
 
   async getAllTypes() {
@@ -401,24 +395,6 @@ export default {
     );
   },
 
-  async getAllShapes() {
-    const allShapes = await getAllShapesApi();
-    state.allShapes = allShapes;
-    await Promise.all(
-      allShapes.map(async (shape) => {
-        const { name, pokemons } = await getPokemonsByShapeApi(shape);
-        if (pokemons.length) {
-          state.pokemonsByShape.set(name, pokemons);
-          const index = state.allShapes.findIndex((s) => s === shape);
-          state.allShapes[index] = name;
-          return;
-        }
-        const index = state.allShapes.findIndex((s) => s === shape);
-        state.allShapes.splice(index, 1);
-      })
-    );
-  },
-
   toggleTypeFilter(type) {
     if (state.search.types.includes(type)) {
       const index = state.search.types.findIndex((t) => type === t);
@@ -432,10 +408,6 @@ export default {
     state.search.color = color;
   },
 
-  toggleShapeFilter(shape) {
-    state.search.shape = shape;
-  },
-
   async getAllCharacteristicsDescriptions() {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
@@ -443,8 +415,8 @@ export default {
   clearFilters() {
     this.clearTypeFilters();
     this.clearColorFilters();
-    this.clearShapeFilters();
-    clearFilters();
+    clearFiltersShape();
+    clearFiltersGenerations();
   },
 
   clearTypeFilters() {
@@ -453,10 +425,6 @@ export default {
 
   clearColorFilters() {
     state.search.color = '';
-  },
-
-  clearShapeFilters() {
-    state.search.shape = '';
   },
 
   clearPokemon() {

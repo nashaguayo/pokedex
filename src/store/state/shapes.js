@@ -1,9 +1,9 @@
 import Vue from 'vue';
 
 const state = Vue.observable({
-  filter: '',
-  all: [],
-  pokemons: new Map(),
+  filter: '', // search.shape
+  all: [], // allShapes
+  pokemons: new Map(), // pokemonsByShape
 });
 
 export default {
@@ -23,7 +23,7 @@ export default {
     state.all = all;
   },
 
-  removeGenerationAt(index) {
+  removeShapeAt(index) {
     state.all.splice(index, 1);
   },
 
