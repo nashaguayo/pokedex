@@ -8,6 +8,9 @@ import {
 export async function initializeStore() {
   if (!other.getStoreHasLoaded() && !other.getStoreIsLoading()) {
     other.setStoreIsLoading(true);
+    if (isDarkModeEnabledInLS()) {
+      other.toggleIsDarkModeEnabled();
+    }
     await Promise.all([
       store.getAllPokemons(),
       store.getAllTypes(),
@@ -16,9 +19,6 @@ export async function initializeStore() {
       store.getAllGenerations(),
       store.getAllCharacteristicsDescriptions(),
     ]);
-    if (isDarkModeEnabledInLS()) {
-      other.toggleIsDarkModeEnabled();
-    }
     other.setStoreIsLoading(false);
     other.setStoreHasLoaded(true);
   }
