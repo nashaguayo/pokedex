@@ -4,6 +4,7 @@ import {
   isDarkModeEnabled as isDarkModeEnabledInLS,
   toggleDarkMode as toggleDarkModeInLS,
 } from '@/lib/localStorage';
+import { getAll as getAllGenerations } from '@/store/mutations/generations';
 
 export async function initializeStore() {
   if (!other.getStoreHasLoaded() && !other.getStoreIsLoading()) {
@@ -16,7 +17,7 @@ export async function initializeStore() {
       store.getAllTypes(),
       store.getAllColors(),
       store.getAllShapes(),
-      store.getAllGenerations(),
+      getAllGenerations(),
       store.getAllCharacteristicsDescriptions(),
     ]);
     other.setStoreIsLoading(false);
