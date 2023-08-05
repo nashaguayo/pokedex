@@ -16,7 +16,7 @@ export function clearFilters() {
   types.clearFilters();
 }
 
-export async function getAllTypes() {
+export async function getAll() {
   const allTypes = await getAllTypesApi();
   types.setAll(allTypes);
   await Promise.all(
@@ -27,7 +27,7 @@ export async function getAllTypes() {
         types.replaceTranslation(type, name);
         return;
       }
-      types.removeType(type);
+      types.remove(type);
     })
   );
 }
