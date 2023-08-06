@@ -28,7 +28,7 @@ import search from '@/store/state/search';
 export async function searchPokemons(searchTerm) {
   if (
     search.getIsSearching() ||
-    !state.allPokemons.length ||
+    !store.getAllPokemonsReplace().length ||
     !getPokemonsSizeTypes() ||
     !getPokemonsSizeColor() ||
     !getPokemonsSizeShape() ||
