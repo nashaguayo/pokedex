@@ -18,8 +18,8 @@ import {
   clearFilters as clearFiltersType,
   getAmountOfFilters as getAmountOfFiltersTypes,
 } from '@/store/mutations/types';
-import store from '@/lib/store';
 import search from '@/store/state/search';
+import { getAllPokemons } from '@/store/mutations/pokemons';
 
 export function searchPokemons(searchTerm) {
   if (search.getIsSearching()) {
@@ -38,9 +38,9 @@ export function searchPokemons(searchTerm) {
   } else if (thereIsAGenerationFilterActive()) {
     search.setResults(searchPokemonsByGeneration(searchTermLowerCase));
   } else {
-    const results = store
-      .getAllPokemonsReplace()
-      .filter((pokemon) => pokemon.name.includes(searchTermLowerCase));
+    const results = getAllPokemons().filter((pokemon) =>
+      pokemon.name.includes(searchTermLowerCase)
+    );
     search.setResults(results.map((pokemon) => pokemon.name));
   }
 

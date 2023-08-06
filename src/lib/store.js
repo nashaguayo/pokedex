@@ -2,13 +2,10 @@ import Vue from 'vue';
 import {
   getPokemon as getPokemonApi,
   getPokemons as getPokemonsApi,
-  getAllPokemons as getAllPokemonsApi,
   getDataForPokemon as getDataForPokemonApi,
 } from '@/api/pokemon';
-import { setVariant } from '@/store/mutations/variations';
 
 const state = Vue.observable({
-  allPokemons: [],
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
   scroll: {
@@ -37,51 +34,6 @@ export default {
     state.scroll.nextUrl = response.next;
   },
 
-  async getAllPokemons() {
-    if (!state.allPokemons.length && !state.isLoadingAllPokemons) {
-      state.isLoadingAllPokemons = true;
-      const allPokemons = (await getAllPokemonsApi()).results;
-      const allPokemonsWithHyphens = allPokemons.map((pokemon) => ({
-        id: Number(
-          pokemon.url
-            .replace(process.env.VUE_APP_POKEAPI_URL, '')
-            .replace('pokemon/', '')
-            .replace('/', '')
-        ),
-        name: pokemon.name,
-      }));
-
-      const pokemons = [];
-      const variations = [];
-      await Promise.all(
-        allPokemonsWithHyphens.map(async (pokemon) => {
-          if (!pokemon.name.includes('-')) {
-            pokemons.push(pokemon);
-          } else if (await this.pokemonIsVariant(pokemon.name)) {
-            variations.push(pokemon);
-          } else {
-            pokemons.push(pokemon);
-          }
-        })
-      );
-
-      pokemons.forEach((pokemon) => {
-        const variantsForPokemon = variations.filter((v) =>
-          v.name.includes(pokemon.name)
-        );
-        if (variantsForPokemon.length) {
-          setVariant(
-            pokemon.name,
-            variantsForPokemon.map((p) => p.name)
-          );
-        }
-      });
-
-      state.allPokemons = pokemons;
-      state.isLoadingAllPokemons = false;
-    }
-  },
-
   async getMorePokemons(limit) {
     if (state.isLoadingMorePokemons) {
       return;
@@ -103,10 +55,6 @@ export default {
 
   async pokemonIsVariant(name) {
     return name.includes('-') && !!(await getPokemonApi(name.split('-')[0]));
-  },
-
-  getAllPokemonsReplace() {
-    return state.allPokemons;
   },
 
   clearPokemon() {
