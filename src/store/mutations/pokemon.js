@@ -45,7 +45,9 @@ export async function getPokemon(pokemonId) {
   });
   const variants = [];
   await Promise.all(
-    getPokemonVariants(pokemonId)?.map(async (pokemon) => {
+    (
+      await getPokemonVariants(pokemonId)
+    )?.map(async (pokemon) => {
       const { name, sprites } = await getPokemonApi(pokemon);
       if (sprites.front_default) {
         variants.push({
