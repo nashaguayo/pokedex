@@ -61,3 +61,7 @@ export function searchPokemonsByTypes(searchTermLowerCase) {
 
   return filteredResults.map((nameCount) => nameCount[0]);
 }
+
+export function getAmountOfFilters() {
+  return types.getFilters().length;
+}

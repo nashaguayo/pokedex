@@ -4,6 +4,7 @@ import {
   getAll,
   getPokemonsSize,
   searchPokemonsByColor,
+  thereIsAFilterActive,
 } from '@/store/mutations/colors';
 import colors from '@/store/state/colors';
 import * as colorsApi from '@/api/colors';
@@ -160,5 +161,20 @@ describe('getPokemonsSize', () => {
     spyGetFilter.mockReturnValue(filter);
     const result = searchPokemonsByColor('asd');
     expect(result).toStrictEqual([]);
+  });
+});
+
+describe('thereIsAFilterActive', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should tell you if there is an active color filter', () => {
+    spyGetFilter.mockReturnValueOnce('').mockReturnValueOnce('yellow');
+    expect(thereIsAFilterActive()).toBeFalsy();
+    expect(thereIsAFilterActive()).toBeTruthy();
+    expect(spyGetFilter).toHaveBeenCalledTimes(2);
   });
 });

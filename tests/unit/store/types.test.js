@@ -1,6 +1,7 @@
 import {
   clearFilters,
   getAll,
+  getAmountOfFilters,
   getPokemonsSize,
   searchPokemonsByTypes,
   toggleFilter,
@@ -180,5 +181,22 @@ describe('searchPokemonsByTypes', () => {
     expect(spyGetFilters).toHaveBeenCalledTimes(2);
     expect(spyGetPokemons).toHaveBeenCalledTimes(1);
     expect(results).toStrictEqual(['pikachu']);
+  });
+});
+
+describe('getAmountOfFilters', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should return the correct amount of filters', () => {
+    spyGetFilters
+      .mockReturnValueOnce([])
+      .mockReturnValueOnce(['grass', 'normal', 'poison']);
+    expect(getAmountOfFilters()).toBe(0);
+    expect(getAmountOfFilters()).toBe(3);
+    expect(spyGetFilters).toHaveBeenCalledTimes(2);
   });
 });

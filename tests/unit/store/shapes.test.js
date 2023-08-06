@@ -4,6 +4,7 @@ import {
   getAll,
   getPokemonsSize,
   searchPokemonsByShape,
+  thereIsAFilterActive,
 } from '@/store/mutations/shapes';
 import shapes from '@/store/state/shapes';
 import * as shapesApi from '@/api/shapes';
@@ -44,8 +45,8 @@ describe('toggleFilter', () => {
   });
 
   it('should toggle the shape filter in the store', async () => {
-    const shape = 'ii';
-    spyGetFilter.mockReturnValueOnce('i');
+    const shape = 'humanoid';
+    spyGetFilter.mockReturnValueOnce('ball');
     expect(spyGetFilter).not.toHaveBeenCalled();
     expect(spySetFilter).not.toHaveBeenCalled();
     toggleFilter(shape);
@@ -54,7 +55,7 @@ describe('toggleFilter', () => {
   });
 
   it('should remove filter when toggle is already active', async () => {
-    const shape = 'i';
+    const shape = 'ball';
     spyGetFilter.mockReturnValueOnce(shape);
     expect(spyGetFilter).not.toHaveBeenCalled();
     expect(spySetFilter).not.toHaveBeenCalled();
@@ -120,8 +121,8 @@ describe('getPokemonsSize', () => {
 
   it('should get all pokemons by shape size', () => {
     const pokemonsByShape = new Map([
-      ['i', ['pikachu', 'squirtle']],
-      ['ii', ['charmander', 'bulbasaur']],
+      ['humanoid', ['pikachu', 'squirtle']],
+      ['ball', ['charmander', 'bulbasaur']],
     ]);
     spyGetPokemons.mockReturnValue(pokemonsByShape);
     const result = getPokemonsSize();
@@ -137,10 +138,10 @@ describe('getPokemonsSize', () => {
 
   it('should return the right pokemons for the right shape', () => {
     const pokemonsByShape = new Map([
-      ['ii', ['pikachu', 'squirtle']],
-      ['i', ['charmander', 'bulbasaur']],
+      ['ball', ['pikachu', 'squirtle']],
+      ['humanoid', ['charmander', 'bulbasaur']],
     ]);
-    const filter = 'ii';
+    const filter = 'ball';
     spyGetPokemons.mockReturnValue(pokemonsByShape);
     spyGetFilter.mockReturnValue(filter);
     const result = searchPokemonsByShape('pik');
@@ -149,13 +150,28 @@ describe('getPokemonsSize', () => {
 
   it('should return empty string when it cant find any pokemons', () => {
     const pokemonsByShape = new Map([
-      ['ii', ['pikachu', 'squirtle']],
-      ['i', ['charmander', 'bulbasaur']],
+      ['humanoid', ['pikachu', 'squirtle']],
+      ['ball', ['charmander', 'bulbasaur']],
     ]);
-    const filter = 'ii';
+    const filter = 'humanoid';
     spyGetPokemons.mockReturnValue(pokemonsByShape);
     spyGetFilter.mockReturnValue(filter);
     const result = searchPokemonsByShape('asd');
     expect(result).toStrictEqual([]);
+  });
+});
+
+describe('thereIsAFilterActive', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should tell you if there is an active shape filter', () => {
+    spyGetFilter.mockReturnValueOnce('').mockReturnValueOnce('humanoid');
+    expect(thereIsAFilterActive()).toBeFalsy();
+    expect(thereIsAFilterActive()).toBeTruthy();
+    expect(spyGetFilter).toHaveBeenCalledTimes(2);
   });
 });

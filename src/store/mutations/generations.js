@@ -39,3 +39,7 @@ export function searchPokemonsByGeneration(searchTermLowerCase) {
     .get(generations.getFilter())
     .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 }
+
+export function thereIsAFilterActive() {
+  return generations.getFilter() !== '';
+}
