@@ -2,13 +2,13 @@ import { getAll } from '@/store/mutations/pokemons';
 import * as pokemonApi from '@/api/pokemon';
 import * as variations from '@/store/mutations/variations';
 import pokemonsStore from '@/store/state/pokemons';
-import store from '@/lib/store';
 
 jest.mock('@/api/pokemon', () => ({
   getAllPokemons: jest.fn(),
 }));
 
 jest.mock('@/store/mutations/variations', () => ({
+  pokemonIsVariant: jest.fn(),
   setVariant: jest.fn(),
 }));
 
@@ -16,14 +16,10 @@ jest.mock('@/store/state/pokemons', () => ({
   setAll: jest.fn(),
 }));
 
-jest.mock('@/lib/store', () => ({
-  pokemonIsVariant: jest.fn(),
-}));
-
 const spyGetAllPokemonsApi = jest.spyOn(pokemonApi, 'getAllPokemons');
 const spySetVariant = jest.spyOn(variations, 'setVariant');
+const spyPokemonIsVariant = jest.spyOn(variations, 'pokemonIsVariant');
 const spySetAll = jest.spyOn(pokemonsStore, 'setAll');
-const spyPokemonIsVariant = jest.spyOn(store, 'pokemonIsVariant');
 
 describe('getAll', () => {
   beforeEach(() => {
