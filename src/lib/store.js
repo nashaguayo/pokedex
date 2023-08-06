@@ -57,10 +57,6 @@ export default {
     return name.includes('-') && !!(await getPokemonApi(name.split('-')[0]));
   },
 
-  getAllPokemonsReplace() {
-    return state.allPokemons;
-  },
-
   clearPokemon() {
     state.pokemon = new Map();
   },

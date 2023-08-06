@@ -43,3 +43,7 @@ export async function getAll() {
 
   pokemonsStore.setAll(pokemons);
 }
+
+export function getAllPokemons() {
+  return pokemonsStore.getAll();
+}

@@ -1,6 +1,6 @@
 import random from '@/store/state/random';
-import store from '@/lib/store';
 import { getDataForPokemon as getDataForPokemonApi } from '@/api/pokemon';
+import { getAllPokemons } from '@/store/mutations/pokemons';
 
 export async function getRandomPokemons(amountOfRandomPokemons) {
   random.clearPokemons();
@@ -14,7 +14,7 @@ export async function getRandomPokemons(amountOfRandomPokemons) {
 export async function getNewRandomPokemon(addToRandomPokemon = false) {
   let newRandomPokemon = {};
   do {
-    const allPokemons = store.getAllPokemonsReplace();
+    const allPokemons = getAllPokemons();
     const index = Math.floor(Math.random() * allPokemons.length);
     const name = allPokemons[index].name;
     const { image } = await getDataForPokemonApi(name);

@@ -7,7 +7,7 @@ import * as generations from '@/store/mutations/generations';
 import * as shapes from '@/store/mutations/shapes';
 import * as colors from '@/store/mutations/colors';
 import * as types from '@/store/mutations/types';
-import store from '@/lib/store';
+import * as pokemons from '@/store/mutations/pokemons';
 import search from '@/store/state/search';
 
 jest.mock('@/store/state/search', () => ({
@@ -40,8 +40,8 @@ jest.mock('@/store/mutations/generations', () => ({
   clearFilters: jest.fn(),
 }));
 
-jest.mock('@/lib/store', () => ({
-  getAllPokemonsReplace: jest.fn(),
+jest.mock('@/store/mutations/pokemons', () => ({
+  getAllPokemons: jest.fn(),
 }));
 
 const spyGetIsSearching = jest.spyOn(search, 'getIsSearching');
@@ -70,7 +70,7 @@ const spySearchPokemonsByGeneration = jest.spyOn(
 );
 const spyClearFiltersGeneration = jest.spyOn(generations, 'clearFilters');
 
-const spyGetAllPokemonsReplace = jest.spyOn(store, 'getAllPokemonsReplace');
+const spyGetAllPokemons = jest.spyOn(pokemons, 'getAllPokemons');
 
 describe('searchPokemons', () => {
   afterEach(() => {
@@ -88,7 +88,7 @@ describe('searchPokemons', () => {
 
   it('should search pokemons just by term', () => {
     spyGetIsSearching.mockReturnValue(false);
-    spyGetAllPokemonsReplace.mockReturnValue([
+    spyGetAllPokemons.mockReturnValue([
       { name: 'pikachu' },
       { name: 'charmander' },
       { name: 'squirtle' },
