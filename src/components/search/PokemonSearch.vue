@@ -131,14 +131,17 @@ import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
 import PokemonSearchItem from '@/components/search/PokemonSearchItem.vue';
-import store from '@/lib/store';
 import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
 import { initializeStore } from '@/store/mutations/other';
 import { clearFilters as clearGenerationFilters } from '@/store/mutations/generations';
 import { clearFilters as clearShapeFilters } from '@/store/mutations/shapes';
 import { clearFilters as clearColorFilters } from '@/store/mutations/colors';
 import { clearFilters as clearTypeFilters } from '@/store/mutations/types';
-import { searchPokemons } from '@/store/mutations/search';
+import {
+  searchPokemons,
+  clearFilters,
+  clearSearchResults,
+} from '@/store/mutations/search';
 import other from '@/store/state/other';
 import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
@@ -187,35 +190,35 @@ export default {
         !this.filteringShape.length &&
         !this.filteringGeneration.length
       ) {
-        store.clearSearchResults();
+        clearSearchResults();
         return;
       }
       searchPokemons(searchTerm);
     },
     async filteringTypes(filteringTypes) {
       if (!filteringTypes.length && !this.searchTerm) {
-        store.clearSearchResults();
+        clearSearchResults();
         return;
       }
       searchPokemons(this.searchTerm);
     },
     async filteringColor(filteringColor) {
       if (!filteringColor.length && !this.searchTerm) {
-        store.clearSearchResults();
+        clearSearchResults();
         return;
       }
       searchPokemons(this.searchTerm);
     },
     async filteringShape(filteringShape) {
       if (!filteringShape.length && !this.searchTerm) {
-        store.clearSearchResults();
+        clearSearchResults();
         return;
       }
       searchPokemons(this.searchTerm);
     },
     async filteringGeneration(filteringGeneration) {
       if (!filteringGeneration.length && !this.searchTerm) {
-        store.clearSearchResults();
+        clearSearchResults();
         return;
       }
       searchPokemons(this.searchTerm);
@@ -305,8 +308,8 @@ export default {
     },
     clearSearch() {
       this.reset = true;
-      store.clearSearchResults();
-      store.clearFilters();
+      clearSearchResults();
+      clearFilters();
       this.component = null;
       this.clearDisplayVariables();
     },

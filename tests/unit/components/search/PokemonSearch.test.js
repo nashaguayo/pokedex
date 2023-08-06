@@ -36,15 +36,6 @@ jest.mock('@/components/search/PokemonSearchItem.vue', () => ({
   template: '<div class="mocked-pokemon-search-item"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
-  clearSearchResults: jest.fn(),
-  clearFilters: jest.fn(),
-  clearTypeFilters: jest.fn(),
-  clearColorFilters: jest.fn(),
-  clearShapeFilters: jest.fn(),
-  clearGenerationFilters: jest.fn(),
-}));
-
 jest.mock('@/store/mutations/other', () => ({
   initializeStore: jest.fn(),
 }));
@@ -67,6 +58,8 @@ jest.mock('@/store/mutations/types', () => ({
 
 jest.mock('@/store/mutations/search', () => ({
   searchPokemons: jest.fn(),
+  clearSearchResults: jest.fn(),
+  clearFilters: jest.fn(),
 }));
 
 jest.mock('@/store/state/other', () => ({
