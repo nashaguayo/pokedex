@@ -43,7 +43,6 @@ const state = Vue.observable({
   pokemonVariants: new Map(),
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
-  randomPokemons: [],
   scroll: {
     pokemons: [],
     nextUrl: '',
@@ -227,41 +226,8 @@ export default {
     });
   },
 
-  async getRandomPokemons(amountOfRandomPokemons) {
-    state.randomPokemons = [];
-    await Promise.all(
-      [...Array(amountOfRandomPokemons)].map(async () => {
-        state.randomPokemons.push(await this.getNewRandomPokemon());
-      })
-    );
-  },
-
-  async getNewRandomPokemon(addToRandomPokemon = false) {
-    let newRandomPokemon = {};
-    do {
-      const index = Math.floor(Math.random() * state.allPokemons.length);
-      const name = state.allPokemons[index].name;
-      const { image } = await getDataForPokemonApi(name);
-      newRandomPokemon = { name, image };
-    } while (
-      this.pokemonIsAlreadyInRandomPokemons(newRandomPokemon.name) ||
-      !newRandomPokemon.image
-    );
-
-    if (addToRandomPokemon) {
-      state.randomPokemons.pop();
-      state.randomPokemons.unshift(newRandomPokemon);
-      return;
-    }
-
-    return newRandomPokemon;
-  },
-
-  pokemonIsAlreadyInRandomPokemons(pokemonName) {
-    const repeatedPokemon = state.randomPokemons.filter(
-      (randomPokemon) => randomPokemon.name === pokemonName
-    );
-    return !!repeatedPokemon.length;
+  getAllPokemonsReplace() {
+    return state.allPokemons;
   },
 
   async searchPokemons(searchTerm) {

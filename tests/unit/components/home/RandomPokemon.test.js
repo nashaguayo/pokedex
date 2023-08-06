@@ -10,12 +10,20 @@ jest.mock('@/api/pokemon', () => ({
 }));
 
 jest.mock('@/lib/store', () => ({
+  getRandomPokemons: jest.fn(),
+  getNewRandomPokemon: jest.fn(),
+}));
+
+jest.mock('@/store/state/random', () => ({
   state: {
-    randomPokemons: [
+    pokemons: [
       { name: 'pikachu', image: 'pikachu.png' },
       { name: 'charizard', image: 'charizard.png' },
     ],
   },
+}));
+
+jest.mock('@/store/mutations/random', () => ({
   getRandomPokemons: jest.fn(),
   getNewRandomPokemon: jest.fn(),
 }));
