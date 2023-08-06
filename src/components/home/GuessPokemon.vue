@@ -71,36 +71,9 @@
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
         <span>{{ $t('home.guessPokemon.guessesInARow') }}</span
         ><br />
-        <div class="stars">
-          <transition-group name="zoom-in" appear>
-            <FontAwesomeIcon
-              v-for="guess in goldStars"
-              :key="`guess-${guess}`"
-              icon="fa-solid fa-star"
-              class="gold-star"
-            />
-          </transition-group>
-        </div>
-        <div class="stars">
-          <transition-group name="zoom-in" appear>
-            <FontAwesomeIcon
-              v-for="guess in silverStars"
-              :key="`guess-${guess}`"
-              icon="fa-solid fa-star"
-              class="silver-star"
-            />
-          </transition-group>
-        </div>
-        <div class="stars">
-          <transition-group name="zoom-in" appear>
-            <FontAwesomeIcon
-              v-for="guess in bronzeStars"
-              :key="`guess-${guess}`"
-              icon="fa-solid fa-star"
-              class="bronze-star"
-            />
-          </transition-group>
-        </div>
+        <MetalStars :amountOfStars="goldStars" metal="gold" />
+        <MetalStars :amountOfStars="silverStars" metal="silver" />
+        <MetalStars :amountOfStars="bronzeStars" metal="bronze" />
       </div>
     </transition>
     <BaseButton
@@ -121,6 +94,7 @@ import BaseLoader from '@/components/ui/BaseLoader';
 import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseChevron from '@/components/ui/BaseChevron';
+import MetalStars from '@/components/home/MetalStars';
 import {
   getNewMysteryPokemon,
   setMysteryPokemonFromLS,
@@ -141,6 +115,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseChevron,
+    MetalStars,
   },
   data() {
     return {
@@ -371,19 +346,6 @@ export default {
     align-items: center;
     width: 100%;
     margin-bottom: 1rem;
-
-    .gold-star {
-      color: #edb200;
-      margin: 0 0.1rem;
-    }
-    .silver-star {
-      color: #b5b4b0;
-      margin: 0 0.1rem;
-    }
-    .bronze-star {
-      color: #73440f;
-      margin: 0 0.1rem;
-    }
   }
 
   .retrieve-new-pokemon {
@@ -399,16 +361,5 @@ export default {
 .flip-enter,
 .flip-leave-to {
   transform: scaleY(0);
-}
-
-.zoom-in-enter-active,
-.zoom-in-leave-active,
-.zoom-in-move {
-  transition: transform 0.3s;
-}
-
-.zoom-in-enter,
-.zoom-in-leave-to {
-  transform: scale(0);
 }
 </style>
