@@ -48,14 +48,9 @@ jest.mock('@/store/state/other', () => ({
   },
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/pokemon', () => ({
   state: {
-    allPokemons: [
-      { id: 1, name: 'pikachu' },
-      { id: 2, name: 'squirtle' },
-      { id: 3, name: 'charmander' },
-    ],
-    pokemon: new Map([
+    visited: new Map([
       [
         1,
         {
@@ -118,7 +113,20 @@ jest.mock('@/lib/store', () => ({
       ],
     ]),
   },
+}));
+
+jest.mock('@/store/mutations/pokemon', () => ({
   getPokemon: jest.fn(),
+}));
+
+jest.mock('@/lib/store', () => ({
+  state: {
+    allPokemons: [
+      { id: 1, name: 'pikachu' },
+      { id: 2, name: 'squirtle' },
+      { id: 3, name: 'charmander' },
+    ],
+  },
 }));
 
 jest.mock('@/lib/helpers', () => ({
