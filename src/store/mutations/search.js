@@ -21,7 +21,7 @@ import {
 import store from '@/lib/store';
 import search from '@/store/state/search';
 
-export async function searchPokemons(searchTerm) {
+export function searchPokemons(searchTerm) {
   if (search.getIsSearching()) {
     return;
   }

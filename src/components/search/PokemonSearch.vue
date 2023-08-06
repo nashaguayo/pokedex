@@ -138,6 +138,7 @@ import { clearFilters as clearGenerationFilters } from '@/store/mutations/genera
 import { clearFilters as clearShapeFilters } from '@/store/mutations/shapes';
 import { clearFilters as clearColorFilters } from '@/store/mutations/colors';
 import { clearFilters as clearTypeFilters } from '@/store/mutations/types';
+import { searchPokemons } from '@/store/mutations/search';
 import other from '@/store/state/other';
 import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
@@ -189,35 +190,35 @@ export default {
         store.clearSearchResults();
         return;
       }
-      await store.searchPokemons(searchTerm);
+      searchPokemons(searchTerm);
     },
     async filteringTypes(filteringTypes) {
       if (!filteringTypes.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
-      await store.searchPokemons(this.searchTerm);
+      searchPokemons(this.searchTerm);
     },
     async filteringColor(filteringColor) {
       if (!filteringColor.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
-      await store.searchPokemons(this.searchTerm);
+      searchPokemons(this.searchTerm);
     },
     async filteringShape(filteringShape) {
       if (!filteringShape.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
-      await store.searchPokemons(this.searchTerm);
+      searchPokemons(this.searchTerm);
     },
     async filteringGeneration(filteringGeneration) {
       if (!filteringGeneration.length && !this.searchTerm) {
         store.clearSearchResults();
         return;
       }
-      await store.searchPokemons(this.searchTerm);
+      searchPokemons(this.searchTerm);
     },
   },
   computed: {
