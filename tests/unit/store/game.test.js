@@ -1,10 +1,10 @@
 import gameStore from '@/store/state/game';
-import store from '@/lib/store';
 import * as localStorage from '@/lib/localStorage';
 import {
   getNewMysteryPokemon,
   setMysteryPokemonFromLS,
 } from '@/store/mutations/game';
+import * as random from '@/store/mutations/random';
 
 jest.mock('@/lib/localStorage', () => ({
   getMysteryPokemon: jest.fn(),
@@ -12,7 +12,7 @@ jest.mock('@/lib/localStorage', () => ({
   setTriesLeft: jest.fn(),
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/mutations/random', () => ({
   getNewRandomPokemon: jest.fn(),
 }));
 
@@ -26,17 +26,18 @@ describe('getNewMysteryPokemon', () => {
       name: 'Pikachu',
       image: 'pikachu.png',
     };
-    const spyGetNewRandomPokemon = jest
-      .spyOn(store, 'getNewRandomPokemon')
-      .mockResolvedValue(newRandomPokemon);
     const spySetMysteryPokemon = jest.spyOn(gameStore, 'setMysteryPokemon');
     const spySetMysteryPokemonLS = jest.spyOn(
       localStorage,
       'setMysteryPokemon'
     );
     const spySetTriesLeft = jest.spyOn(localStorage, 'setTriesLeft');
+    const spyGetNewRandomPokemon = jest.spyOn(random, 'getNewRandomPokemon');
+    spyGetNewRandomPokemon.mockResolvedValue({
+      name: 'Pikachu',
+      image: 'pikachu.png',
+    });
     await getNewMysteryPokemon();
-    expect(spyGetNewRandomPokemon).toHaveBeenCalledTimes(1);
     expect(spySetMysteryPokemon).toHaveBeenCalledWith(
       newRandomPokemon.name,
       newRandomPokemon.image

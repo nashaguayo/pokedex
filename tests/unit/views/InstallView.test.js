@@ -1,11 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 import InstallView from '@/views/InstallView.vue';
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/other', () => ({
   state: {
-    store: {
-      isDarkmodeEnabled: false,
-    },
+    isDarkmodeEnabled: false,
   },
 }));
 

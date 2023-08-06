@@ -6,15 +6,6 @@ jest.mock('@/components/search/PokemonSearchFilters.vue', () => ({
   template: '<div class="mocked-pokemon-search-filters"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
-  state: {
-    allColors: [],
-    search: {
-      colors: [],
-    },
-  },
-}));
-
 jest.mock('@/store/mutations/colors', () => ({
   toggleFilter: jest.fn(),
 }));
