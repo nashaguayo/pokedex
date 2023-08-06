@@ -38,3 +38,7 @@ export function searchPokemonsByShape(searchTermLowerCase) {
     .get(shapes.getFilter())
     .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 }
+
+export function thereIsAFilterActive() {
+  return shapes.getFilter() !== '';
+}

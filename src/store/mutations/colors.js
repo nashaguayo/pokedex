@@ -38,3 +38,7 @@ export function searchPokemonsByColor(searchTermLowerCase) {
     .get(colors.getFilter())
     .filter((pokemon) => pokemon.includes(searchTermLowerCase));
 }
+
+export function thereIsAFilterActive() {
+  return colors.getFilter() !== '';
+}

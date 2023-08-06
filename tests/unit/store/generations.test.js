@@ -4,6 +4,7 @@ import {
   getAll,
   getPokemonsSize,
   searchPokemonsByGeneration,
+  thereIsAFilterActive,
 } from '@/store/mutations/generations';
 import generations from '@/store/state/generations';
 import * as generationsApi from '@/api/generations';
@@ -156,5 +157,20 @@ describe('getPokemonsSize', () => {
     spyGetFilter.mockReturnValue(filter);
     const result = searchPokemonsByGeneration('asd');
     expect(result).toStrictEqual([]);
+  });
+});
+
+describe('thereIsAFilterActive', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should tell you if there is an active generation filter', () => {
+    spyGetFilter.mockReturnValueOnce('').mockReturnValueOnce('i');
+    expect(thereIsAFilterActive()).toBeFalsy();
+    expect(thereIsAFilterActive()).toBeTruthy();
+    expect(spyGetFilter).toHaveBeenCalledTimes(2);
   });
 });
