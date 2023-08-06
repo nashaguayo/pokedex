@@ -21,6 +21,11 @@ jest.mock('@/components/ui/BaseChevron', () => ({
   template: '<div class="mock-base-chevron"></div>',
 }));
 
+jest.mock('@/components/home/MetalStars', () => ({
+  name: 'MetalStars',
+  template: '<div class="mock-metal-stars"></div>',
+}));
+
 jest.mock('@/store/state/game', () => ({
   state: {
     name: 'pikachu',
