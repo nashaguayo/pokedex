@@ -9,10 +9,10 @@ import {
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
 import { getPokemonColorTranslation as getPokemonColorTranslationApi } from '@/api/colors';
 import { getPokemonShapeTranslation as getPokemonShapeTranslationApi } from '@/api/shapes';
-import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
 import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from '@/api/habitat';
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
+import { getAllCharacteristics } from '@/store/mutations/characteristics';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -24,7 +24,6 @@ const state = Vue.observable({
     nextUrl: '',
   },
   pokemon: new Map(),
-  allCharacteristics: new Map(),
 });
 
 export default {
@@ -142,7 +141,7 @@ export default {
       })
     );
     let characteristic = '';
-    (state.allCharacteristics.get(highestStatName) ?? []).map((c) => {
+    (getAllCharacteristics().get(highestStatName) ?? []).map((c) => {
       if (c.possibleValues.includes(Math.floor(highestStatValue / 5))) {
         characteristic = c.description;
       }
@@ -200,10 +199,6 @@ export default {
 
   getAllPokemonsReplace() {
     return state.allPokemons;
-  },
-
-  async getAllCharacteristicsDescriptions() {
-    state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
 
   clearPokemon() {

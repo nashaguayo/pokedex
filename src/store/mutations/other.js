@@ -8,6 +8,7 @@ import { getAll as getAllGenerations } from '@/store/mutations/generations';
 import { getAll as getAllShapes } from '@/store/mutations/shapes';
 import { getAll as getAllColors } from '@/store/mutations/colors';
 import { getAll as getAllTypes } from '@/store/mutations/types';
+import { getAll as getAllCharacteristicsDescriptions } from '@/store/mutations/characteristics';
 
 export async function initializeStore() {
   if (!other.getStoreHasLoaded() && !other.getStoreIsLoading()) {
@@ -21,7 +22,7 @@ export async function initializeStore() {
       getAllColors(),
       getAllShapes(),
       getAllGenerations(),
-      store.getAllCharacteristicsDescriptions(),
+      getAllCharacteristicsDescriptions(),
     ]);
     other.setStoreIsLoading(false);
     other.setStoreHasLoaded(true);
