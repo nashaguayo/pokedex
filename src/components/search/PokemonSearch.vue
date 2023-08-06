@@ -240,7 +240,7 @@ export default {
       return generations.state.filter;
     },
     loading() {
-      return store.state.search.isSearchingPokemon;
+      return search.state.isSearching;
     },
     isDarkModeEnabled() {
       return other.state.isDarkModeEnabled;

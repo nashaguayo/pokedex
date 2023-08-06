@@ -1,8 +1,8 @@
 import Vue from 'vue';
 
 const state = Vue.observable({
-  results: [], // search.results
-  isSearching: false, // search.isSearchingPokemon
+  results: [],
+  isSearching: false,
 });
 
 export default {
