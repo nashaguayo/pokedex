@@ -13,7 +13,7 @@ import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from 
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
 import { getAllCharacteristics } from '@/store/mutations/characteristics';
-import { setVariant } from '@/store/mutations/variations';
+import { getPokemonVariants, setVariant } from '@/store/mutations/variations';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -148,7 +148,7 @@ export default {
     });
     const variants = [];
     await Promise.all(
-      variants.getPokemonVariants(pokemonId)?.map(async (pokemon) => {
+      getPokemonVariants(pokemonId)?.map(async (pokemon) => {
         const { name, sprites } = await getPokemonApi(pokemon);
         if (sprites.front_default) {
           variants.push({
