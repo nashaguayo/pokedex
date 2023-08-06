@@ -93,9 +93,9 @@ describe('getAll', () => {
     spyGetAllShapes.mockResolvedValue(shapes);
     spyGetAll.mockReturnValue(shapes);
     spyGetPokemonsByShape
-      .mockResolvedValueOnce({ name: 'upright', pokemons: pokemons1 })
-      .mockResolvedValueOnce({ name: 'humanoid', pokemons: pokemons2 })
-      .mockResolvedValueOnce({ name: 'ball', pokemons: pokemons3 });
+      .mockResolvedValueOnce({ name: shapes[0], pokemons: pokemons1 })
+      .mockResolvedValueOnce({ name: shapes[1], pokemons: pokemons2 })
+      .mockResolvedValueOnce({ name: shapes[2], pokemons: pokemons3 });
     await getAll();
     expect(spyGetAllShapes).toHaveBeenCalled();
     expect(spySetAll).toHaveBeenCalled();

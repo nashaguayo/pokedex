@@ -7,10 +7,6 @@ import {
   getSpeciesData as getSpeciesDataApi,
 } from '@/api/pokemon';
 import { getPokemonEvolutions as getPokemonEvolutionsApi } from '@/api/evolutions';
-import {
-  getAllTypes as getAllTypesApi,
-  getPokemonsByType as getPokemonsByTypeApi,
-} from '@/api/types';
 import { getPokemonColorTranslation as getPokemonColorTranslationApi } from '@/api/colors';
 import { getPokemonShapeTranslation as getPokemonShapeTranslationApi } from '@/api/shapes';
 import { getAllCharacteristicsDescriptions as getAllCharacteristicsDescriptionsApi } from '@/api/characteristics';
@@ -35,6 +31,12 @@ import {
 import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
 import colors from '@/store/state/colors';
+import types from '@/store/state/types';
+import {
+  searchPokemonsByTypes,
+  getPokemonsSize as getPokemonsSizeTypes,
+  clearFilters as clearTypeFilters,
+} from '@/store/mutations/types';
 
 const state = Vue.observable({
   allPokemons: [],
@@ -50,10 +52,7 @@ const state = Vue.observable({
   search: {
     results: [],
     isSearchingPokemon: false,
-    types: [],
   },
-  allTypes: [],
-  pokemonsByType: new Map(),
   allCharacteristics: new Map(),
 });
 
@@ -269,7 +268,7 @@ export default {
     if (
       state.search.isSearchingPokemon ||
       !state.allPokemons.length ||
-      !state.pokemonsByType.size ||
+      !getPokemonsSizeTypes() ||
       !getPokemonsSizeColor() ||
       !getPokemonsSizeShape() ||
       !getPokemonsSize()
@@ -280,8 +279,8 @@ export default {
     state.search.isSearchingPokemon = true;
     const searchTermLowerCase = searchTerm.toLowerCase();
 
-    if (state.search.types.length) {
-      this.searchPokemonsByType(searchTermLowerCase);
+    if (types.state.filters.length) {
+      this.searchPokemonsByTypes(searchTermLowerCase);
     } else if (colors.state.filter.length) {
       this.searchPokemonsByColor(searchTermLowerCase);
     } else if (shapes.state.filter.length) {
@@ -302,31 +301,9 @@ export default {
     state.search.results = results.map((pokemon) => pokemon.name);
   },
 
-  searchPokemonsByType(searchTermLowerCase) {
-    let repeatedResults = [];
-    state.search.types.forEach((type) => {
-      const filteredPokemonNamesByType = state.pokemonsByType
-        .get(type)
-        .filter((pokemon) => pokemon.includes(searchTermLowerCase));
-      repeatedResults = [...repeatedResults, ...filteredPokemonNamesByType];
-    });
-
-    if (state.search.types.length === 1) {
-      state.search.isSearchingPokemon = false;
-      state.search.results = repeatedResults;
-      return;
-    }
-
-    const namesCount = {};
-    repeatedResults.forEach(function (name) {
-      namesCount[name] = (namesCount[name] ?? 0) + 1;
-    });
-
-    const results = Object.entries(namesCount).filter(
-      (nameCount) => nameCount[1] === state.search.types.length
-    );
-
-    state.search.results = results.map((nameCount) => nameCount[0]);
+  searchPokemonsByTypes(searchTermLowerCase) {
+    const results = searchPokemonsByTypes(searchTermLowerCase);
+    state.search.results = results;
   },
 
   searchPokemonsByColor(searchTermLowerCase) {
@@ -357,46 +334,15 @@ export default {
     state.search.results = [];
   },
 
-  async getAllTypes() {
-    const allTypes = await getAllTypesApi();
-    state.allTypes = allTypes;
-    await Promise.all(
-      allTypes.map(async (type) => {
-        const { name, pokemons } = await getPokemonsByTypeApi(type);
-        if (pokemons.length) {
-          state.pokemonsByType.set(name, pokemons);
-          const index = state.allTypes.findIndex((t) => t === type);
-          state.allTypes[index] = name;
-          return;
-        }
-        const index = state.allTypes.findIndex((t) => t === type);
-        state.allTypes.splice(index, 1);
-      })
-    );
-  },
-
-  toggleTypeFilter(type) {
-    if (state.search.types.includes(type)) {
-      const index = state.search.types.findIndex((t) => type === t);
-      state.search.types.splice(index, 1);
-      return;
-    }
-    state.search.types.push(type);
-  },
-
   async getAllCharacteristicsDescriptions() {
     state.allCharacteristics = await getAllCharacteristicsDescriptionsApi();
   },
 
   clearFilters() {
-    this.clearTypeFilters();
+    clearTypeFilters();
     clearFilterColor();
     clearFiltersShape();
     clearFiltersGenerations();
-  },
-
-  clearTypeFilters() {
-    state.search.types = [];
   },
 
   clearPokemon() {
