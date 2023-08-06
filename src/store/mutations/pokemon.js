@@ -95,3 +95,7 @@ export async function getPokemon(pokemonId) {
     variants,
   });
 }
+
+export function clearPokemon() {
+  pokemonStore.setVisited(new Map());
+}
