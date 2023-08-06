@@ -1,11 +1,10 @@
 import {
   getDataForPokemon as getDataForPokemonApi,
   getPokemons as getPokemonsApi,
-  getDataForPokemon as getDataForPokemonApi,
 } from '@/api/pokemon';
 import scroll from '@/store/state/scroll';
 
-async function getPokemonListCardData(pokemon) {
+export async function getPokemonListCardData(pokemon) {
   const name = pokemon.name;
   const { id, image, types } = await getDataForPokemonApi(name);
   return { id, name, image, types };
@@ -14,7 +13,7 @@ async function getPokemonListCardData(pokemon) {
 export async function getPokemons(url, limit) {
   const response = await getPokemonsApi(url, limit);
   const results = await Promise.all(
-    response.results.map((pokemon) => getPokemonListCardData(pokemon))
+    await response.results.map((pokemon) => getPokemonListCardData(pokemon))
   );
   scroll.setPokemons(results);
   scroll.setNextUrl(response.next);
@@ -27,11 +26,10 @@ export async function getMorePokemons(limit) {
 
   scroll.setIsLoading(true);
   const response = await getPokemonsApi(scroll.getNextUrl(), limit);
-  if (!response) {
-    return;
-  }
   const results = await Promise.all(
-    response.results.map((pokemon) => this.getPokemonListCardData(pokemon))
+    response.results.map(
+      async (pokemon) => await getPokemonListCardData(pokemon)
+    )
   );
 
   scroll.setPokemons([...scroll.getPokemons(), ...results]);
