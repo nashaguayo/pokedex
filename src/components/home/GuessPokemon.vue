@@ -71,9 +71,17 @@
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
         <span>{{ $t('home.guessPokemon.guessesInARow') }}</span
         ><br />
-        <MetalStars :amountOfStars="goldStars" metal="gold" />
-        <MetalStars :amountOfStars="silverStars" metal="silver" />
-        <MetalStars :amountOfStars="bronzeStars" metal="bronze" />
+        <MetalStars v-if="goldStars" :amountOfStars="goldStars" metal="gold" />
+        <MetalStars
+          v-if="silverStars"
+          :amountOfStars="silverStars"
+          metal="silver"
+        />
+        <MetalStars
+          v-if="bronzeStars"
+          :amountOfStars="bronzeStars"
+          metal="bronze"
+        />
       </div>
     </transition>
     <BaseButton
