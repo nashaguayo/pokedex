@@ -15,8 +15,9 @@
 <script>
 import { ENGLISH, SPANISH } from '@/constants/languages';
 import { setLanguage } from '@/lib/localStorage';
-import store from '@/lib/store';
 import { initializeStore } from '@/store/mutations/other';
+import { clearPokemon } from '@/store/mutations/pokemon';
+import { clearPokemonListAndRefresh } from '@/store/mutations/scroll';
 
 export default {
   name: 'LocaleChanger',
@@ -31,9 +32,9 @@ export default {
   watch: {
     async '$i18n.locale'(language) {
       setLanguage(language);
-      store.clearPokemon();
+      clearPokemon();
       await initializeStore();
-      await store.clearPokemonListAndRefresh();
+      await clearPokemonListAndRefresh();
     },
   },
 };

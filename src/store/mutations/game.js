@@ -1,13 +1,13 @@
 import gameStore from '@/store/state/game';
-import store from '@/lib/store';
 import {
   getMysteryPokemon,
   setMysteryPokemon,
   setTriesLeft,
 } from '@/lib/localStorage';
+import { getNewRandomPokemon } from './random';
 
 export async function getNewMysteryPokemon() {
-  const newMysteryPokemon = await store.getNewRandomPokemon();
+  const newMysteryPokemon = await getNewRandomPokemon();
   gameStore.setMysteryPokemon(newMysteryPokemon.name, newMysteryPokemon.image);
   setMysteryPokemon(newMysteryPokemon);
   setTriesLeft(3);

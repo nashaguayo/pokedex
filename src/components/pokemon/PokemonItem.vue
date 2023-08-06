@@ -90,13 +90,13 @@ import {
   capitalizeWord,
   scrollToTopOfBackgroundPage,
 } from '@/lib/helpers';
-import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/images/pokemons/silouette.png';
 import { initializeStore } from '@/store/mutations/other';
 import other from '@/store/state/other';
 import { getPokemon } from '@/store/mutations/pokemon';
 import pokemon from '@/store/state/pokemon';
+import pokemons from '@/store/state/pokemons';
 
 export default {
   name: 'PokemonItem',
@@ -142,7 +142,7 @@ export default {
       return this.allPokemons[this.allPokemons.length - 1]?.id ?? 0;
     },
     allPokemons() {
-      return store.state.allPokemons;
+      return pokemons.state.all;
     },
     id() {
       return pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.id ?? 0;
