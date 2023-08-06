@@ -143,6 +143,7 @@ import generations from '@/store/state/generations';
 import shapes from '@/store/state/shapes';
 import colors from '@/store/state/colors';
 import types from '@/store/state/types';
+import search from '@/store/state/search';
 
 export default {
   name: 'PokemonSearch',
@@ -224,7 +225,7 @@ export default {
       return other.state.storeHasLoaded;
     },
     searchResults() {
-      return store.state.search.results;
+      return search.state.results;
     },
     filteringTypes() {
       return types.state.filters;

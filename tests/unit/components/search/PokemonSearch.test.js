@@ -46,7 +46,6 @@ jest.mock('@/lib/store', () => ({
   clearGenerationFilters: jest.fn(),
   state: {
     search: {
-      results: ['Pikachu', 'Charizard'],
       isSearchingPokemon: false,
     },
   },
@@ -100,6 +99,12 @@ jest.mock('@/store/state/colors', () => ({
 jest.mock('@/store/state/types', () => ({
   state: {
     filters: [],
+  },
+}));
+
+jest.mock('@/store/state/search', () => ({
+  state: {
+    results: ['Pikachu', 'Charizard'],
   },
 }));
 
