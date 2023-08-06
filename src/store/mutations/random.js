@@ -6,8 +6,7 @@ export async function getRandomPokemons(amountOfRandomPokemons) {
   random.clearPokemons();
   await Promise.all(
     [...Array(amountOfRandomPokemons)].map(async () => {
-      const pokemon = await getNewRandomPokemon();
-      random.add(pokemon);
+      random.add(await getNewRandomPokemon());
     })
   );
 }
