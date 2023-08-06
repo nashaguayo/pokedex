@@ -2,6 +2,7 @@ import {
   clearFilters,
   getAll,
   getPokemonsSize,
+  searchPokemonsByTypes,
   toggleFilter,
 } from '@/store/mutations/types';
 import types from '@/store/state/types';
@@ -131,5 +132,53 @@ describe('getPokemonsSize', () => {
     spyGetPokemons.mockReturnValue(['pikachu', 'charmander', 'squirtle']);
     getPokemonsSize();
     expect(spyGetPokemons).toHaveBeenCalled();
+  });
+});
+
+describe('searchPokemonsByTypes', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should search for several filters when more than one is activated', () => {
+    const types = ['grass', 'normal', 'poison'];
+    const filters = ['grass', 'poison'];
+    const pokemons1 = ['pikachu', 'charmander', 'bulbasaur'];
+    const pokemons2 = [];
+    const pokemons3 = ['charizard', 'bulbasaur', 'squirtle'];
+    spyGetFilters.mockReturnValue(filters);
+    spyGetPokemons.mockReturnValue(
+      new Map([
+        [types[0], pokemons1],
+        [types[1], pokemons2],
+        [types[2], pokemons3],
+      ])
+    );
+    const results = searchPokemonsByTypes('bul');
+    expect(spyGetFilters).toHaveBeenCalledTimes(3);
+    expect(spyGetPokemons).toHaveBeenCalledTimes(2);
+    expect(results).toStrictEqual(['bulbasaur']);
+  });
+
+  it('should search for several filters when more than one is activated', () => {
+    const types = ['grass', 'normal', 'poison'];
+    const filters = ['grass'];
+    const pokemons1 = ['pikachu', 'charmander', 'bulbasaur'];
+    const pokemons2 = [];
+    const pokemons3 = ['charizard', 'jigglypuff', 'squirtle'];
+    spyGetFilters.mockReturnValue(filters);
+    spyGetPokemons.mockReturnValue(
+      new Map([
+        [types[0], pokemons1],
+        [types[1], pokemons2],
+        [types[2], pokemons3],
+      ])
+    );
+    const results = searchPokemonsByTypes('pik');
+    expect(spyGetFilters).toHaveBeenCalledTimes(2);
+    expect(spyGetPokemons).toHaveBeenCalledTimes(1);
+    expect(results).toStrictEqual(['pikachu']);
   });
 });
