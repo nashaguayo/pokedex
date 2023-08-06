@@ -31,8 +31,9 @@ import {
   getPageBackgroundElement,
   scrollToTopOfBackgroundPage,
 } from '@/lib/helpers';
-import store from '@/lib/store';
 import { fourthBreak, thirdBreak } from '@/constants/resolutions';
+import scroll from '@/store/state/scroll';
+import { getMorePokemons, getPokemons } from '@/store/mutations/scroll';
 
 export default {
   name: 'PokemonList',
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     pokemons() {
-      return store.state.scroll.pokemons;
+      return scroll.state.pokemons;
     },
   },
   async created() {
@@ -78,13 +79,13 @@ export default {
   },
   methods: {
     async getPokemons() {
-      await store.getPokemons(null, this.amountOfPokemonsToLoadPerPage);
+      await getPokemons(null, this.amountOfPokemonsToLoadPerPage);
       this.loading = false;
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight + 100 >= scrollHeight) {
         this.loading = true;
-        await store.getMorePokemons(this.amountOfPokemonsToLoadPerPage);
+        await getMorePokemons(this.amountOfPokemonsToLoadPerPage);
         this.loading = false;
       }
     },

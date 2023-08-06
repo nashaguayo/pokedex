@@ -1,9 +1,9 @@
 import Vue from 'vue';
 
 const state = Vue.observable({
-  pokemons: [], // scroll.pokemons
-  nextUrl: '', // scroll.nextUrl
-  isLoading: false, // isLoadingMorePOkemons
+  pokemons: [],
+  nextUrl: '',
+  isLoading: false,
 });
 
 export default {
