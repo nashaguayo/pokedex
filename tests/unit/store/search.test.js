@@ -1,4 +1,8 @@
-import { searchPokemons } from '@/store/mutations/search';
+import {
+  clearFilters,
+  clearSearchResults,
+  searchPokemons,
+} from '@/store/mutations/search';
 import * as generations from '@/store/mutations/generations';
 import * as shapes from '@/store/mutations/shapes';
 import * as colors from '@/store/mutations/colors';
@@ -15,21 +19,25 @@ jest.mock('@/store/state/search', () => ({
 jest.mock('@/store/mutations/types', () => ({
   getAmountOfFilters: jest.fn(),
   searchPokemonsByTypes: jest.fn(),
+  clearFilters: jest.fn(),
 }));
 
 jest.mock('@/store/mutations/colors', () => ({
   thereIsAFilterActive: jest.fn(),
   searchPokemonsByColor: jest.fn(),
+  clearFilters: jest.fn(),
 }));
 
 jest.mock('@/store/mutations/shapes', () => ({
   thereIsAFilterActive: jest.fn(),
   searchPokemonsByShape: jest.fn(),
+  clearFilters: jest.fn(),
 }));
 
 jest.mock('@/store/mutations/generations', () => ({
   thereIsAFilterActive: jest.fn(),
   searchPokemonsByGeneration: jest.fn(),
+  clearFilters: jest.fn(),
 }));
 
 jest.mock('@/lib/store', () => ({
@@ -42,10 +50,16 @@ const spySetResults = jest.spyOn(search, 'setResults');
 
 const spyGetAmountOfFiltersTypes = jest.spyOn(types, 'getAmountOfFilters');
 const spySearchPokemonsByTypes = jest.spyOn(types, 'searchPokemonsByTypes');
+const spyClearFiltersType = jest.spyOn(types, 'clearFilters');
+
 const spyThereIsAColorFilterActive = jest.spyOn(colors, 'thereIsAFilterActive');
 const spySearchPokemonsByColor = jest.spyOn(colors, 'searchPokemonsByColor');
+const spyClearFiltersColor = jest.spyOn(colors, 'clearFilters');
+
 const spyThereIsAShapeFilterActive = jest.spyOn(shapes, 'thereIsAFilterActive');
 const spySearchPokemonsByShape = jest.spyOn(shapes, 'searchPokemonsByShape');
+const spyClearFiltersShape = jest.spyOn(shapes, 'clearFilters');
+
 const spyThereIsAGenerationFilterActive = jest.spyOn(
   generations,
   'thereIsAFilterActive'
@@ -54,6 +68,7 @@ const spySearchPokemonsByGeneration = jest.spyOn(
   generations,
   'searchPokemonsByGeneration'
 );
+const spyClearFiltersGeneration = jest.spyOn(generations, 'clearFilters');
 
 const spyGetAllPokemonsReplace = jest.spyOn(store, 'getAllPokemonsReplace');
 
@@ -168,5 +183,53 @@ describe('searchPokemons', () => {
     expect(spyThereIsAGenerationFilterActive).toHaveBeenCalled();
     expect(spySearchPokemonsByGeneration).toHaveBeenCalled();
     expect(spySetResults).toHaveBeenCalledWith(['pikachu']);
+  });
+});
+
+describe('clearSearchResults', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should clear search results in store', () => {
+    expect(spySetResults).not.toHaveBeenCalled();
+    clearSearchResults();
+    expect(spySetResults).toHaveBeenCalledWith([]);
+  });
+});
+
+describe('clearSearchResults', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should clear search results in store', () => {
+    expect(spySetResults).not.toHaveBeenCalled();
+    clearSearchResults();
+    expect(spySetResults).toHaveBeenCalledWith([]);
+  });
+});
+
+describe('clearFilters', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should clear filters', () => {
+    expect(spyClearFiltersColor).not.toHaveBeenCalled();
+    expect(spyClearFiltersShape).not.toHaveBeenCalled();
+    expect(spyClearFiltersGeneration).not.toHaveBeenCalled();
+    expect(spyClearFiltersType).not.toHaveBeenCalled();
+    clearFilters();
+    expect(spyClearFiltersColor).toHaveBeenCalled();
+    expect(spyClearFiltersShape).toHaveBeenCalled();
+    expect(spyClearFiltersGeneration).toHaveBeenCalled();
+    expect(spyClearFiltersType).toHaveBeenCalled();
   });
 });

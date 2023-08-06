@@ -15,7 +15,7 @@ import {
 } from '@/store/mutations/colors';
 import {
   searchPokemonsByTypes,
-  clearFilters as clearTypeFilters,
+  clearFilters as clearFiltersType,
   getAmountOfFilters as getAmountOfFiltersTypes,
 } from '@/store/mutations/types';
 import store from '@/lib/store';
@@ -52,7 +52,7 @@ export function clearSearchResults() {
 }
 
 export function clearFilters() {
-  clearTypeFilters();
+  clearFiltersType();
   clearFilterColor();
   clearFiltersShape();
   clearFiltersGenerations();
