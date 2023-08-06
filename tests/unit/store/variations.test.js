@@ -1,4 +1,9 @@
-import { getPokemonVariants, setVariant } from '@/store/mutations/variations';
+import {
+  getPokemonVariants,
+  pokemonIsVariant,
+  setVariant,
+} from '@/store/mutations/variations';
+import * as pokemonApi from '@/api/pokemon';
 import variations from '@/store/state/variations';
 
 jest.mock('@/store/state/variations', () => ({
@@ -6,8 +11,14 @@ jest.mock('@/store/state/variations', () => ({
   getAll: jest.fn(),
 }));
 
+jest.mock('@/api/pokemon', () => ({
+  getPokemon: jest.fn(),
+}));
+
 const spySetVariant = jest.spyOn(variations, 'setVariant');
 const spyGetAll = jest.spyOn(variations, 'getAll');
+
+const spyGetPokemonApi = jest.spyOn(pokemonApi, 'getPokemon');
 
 describe('setVariant', () => {
   beforeEach(() => {
@@ -38,5 +49,19 @@ describe('getPokemonVariants', () => {
     spyGetAll.mockReturnValue(variantsMap);
     expect(getPokemonVariants(name)).toBe(variantsMap.get(name));
     expect(spyGetAll).toHaveBeenCalled();
+  });
+});
+
+describe('pokemonIsVariant', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should decide if a pokemon is variant correctly', async () => {
+    spyGetPokemonApi.mockResolvedValue(true);
+    expect(await pokemonIsVariant('pikachu-rockstar')).toBeTruthy();
+    expect(await pokemonIsVariant('pikachu')).toBeFalsy();
   });
 });

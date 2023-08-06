@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { getPokemon as getPokemonApi } from '@/api/pokemon';
 
 const state = Vue.observable({
   isLoadingAllPokemons: false,
@@ -8,10 +7,6 @@ const state = Vue.observable({
 export default {
   get state() {
     return state;
-  },
-
-  async pokemonIsVariant(name) {
-    return name.includes('-') && !!(await getPokemonApi(name.split('-')[0]));
   },
 
   clearPokemon() {
