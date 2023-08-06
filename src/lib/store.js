@@ -13,10 +13,10 @@ import { getPokemonHabitatTranslation as getPokemonHabitatTranslationApi } from 
 import { getPokemonStatTranslation as getPokemonStatTranslationApi } from '@/api/stats';
 import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api/types';
 import { getAllCharacteristics } from '@/store/mutations/characteristics';
+import { getPokemonVariants, setVariant } from '@/store/mutations/variations';
 
 const state = Vue.observable({
   allPokemons: [],
-  pokemonVariants: new Map(),
   isLoadingAllPokemons: false,
   isLoadingMorePokemons: false,
   scroll: {
@@ -79,7 +79,7 @@ export default {
           v.name.includes(pokemon.name)
         );
         if (variantsForPokemon.length) {
-          state.pokemonVariants.set(
+          setVariant(
             pokemon.name,
             variantsForPokemon.map((p) => p.name)
           );
@@ -148,7 +148,7 @@ export default {
     });
     const variants = [];
     await Promise.all(
-      state.pokemonVariants.get(pokemonId)?.map(async (pokemon) => {
+      getPokemonVariants(pokemonId)?.map(async (pokemon) => {
         const { name, sprites } = await getPokemonApi(pokemon);
         if (sprites.front_default) {
           variants.push({
