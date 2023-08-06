@@ -1,4 +1,9 @@
-import { clearFilters, getAll, toggleFilter } from '@/store/mutations/types';
+import {
+  clearFilters,
+  getAll,
+  getPokemonsSize,
+  toggleFilter,
+} from '@/store/mutations/types';
 import types from '@/store/state/types';
 import * as typesApi from '@/api/types';
 
@@ -11,6 +16,7 @@ jest.mock('@/store/state/types', () => ({
   setPokemonsByType: jest.fn(),
   replaceTranslation: jest.fn(),
   remove: jest.fn(),
+  getPokemons: jest.fn(),
 }));
 
 jest.mock('@/api/types', () => ({
@@ -26,6 +32,7 @@ const spySetAll = jest.spyOn(types, 'setAll');
 const spySetPokemonsByType = jest.spyOn(types, 'setPokemonsByType');
 const spyReplaceTranslation = jest.spyOn(types, 'replaceTranslation');
 const spyRemove = jest.spyOn(types, 'remove');
+const spyGetPokemons = jest.spyOn(types, 'getPokemons');
 
 const spyGetAllTypes = jest.spyOn(typesApi, 'getAllTypes');
 const spyGetPokemonsByType = jest.spyOn(typesApi, 'getPokemonsByType');
@@ -109,5 +116,20 @@ describe('getAll', () => {
     expect(spyReplaceTranslation.mock.calls[1][0]).toBe(types[2]);
     expect(spyReplaceTranslation.mock.calls[1][1]).toBe(types[2]);
     expect(spyRemove).toHaveBeenCalledWith(types[1]);
+  });
+});
+
+describe('getPokemonsSize', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it('should return the amount of pokemons per type', () => {
+    expect(spyGetPokemons).not.toHaveBeenCalled();
+    spyGetPokemons.mockReturnValue(['pikachu', 'charmander', 'squirtle']);
+    getPokemonsSize();
+    expect(spyGetPokemons).toHaveBeenCalled();
   });
 });
