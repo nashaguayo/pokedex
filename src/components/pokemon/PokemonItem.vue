@@ -95,6 +95,8 @@ import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/images/pokemons/silouette.png';
 import { initializeStore } from '@/store/mutations/other';
 import other from '@/store/state/other';
+import { getPokemon } from '@/store/mutations/pokemon';
+import pokemon from '@/store/state/pokemon';
 
 export default {
   name: 'PokemonItem',
@@ -124,8 +126,8 @@ export default {
       immediate: true,
       async handler(storeHasLoaded) {
         if (storeHasLoaded) {
-          if (!store.state.pokemon.has(this.urlId)) {
-            await store.getPokemon(this.urlId);
+          if (!pokemon.state.visited.has(this.urlId)) {
+            await getPokemon(this.urlId);
           }
           this.loading = false;
         }
@@ -143,89 +145,91 @@ export default {
       return store.state.allPokemons;
     },
     id() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
+      return pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.id ?? 0;
     },
     name() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name ?? '???'
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.name ?? '???'
       );
     },
     image() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+      return pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.image;
     },
     smallImage() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.smallImage ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.smallImage ??
         silouette
       );
     },
     stats() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats ?? []
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.stats ?? []
       );
     },
     types() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types ?? []
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.types ?? []
       );
     },
     evolutions() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions ?? []
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.evolutions ??
+        []
       );
     },
     flavorTexts() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
         []
       );
     },
     characteristic() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)
           ?.characteristic ?? ''
       );
     },
     weight() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.weight ?? 0
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.weight ?? 0
       );
     },
     height() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.height ?? 0
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.height ?? 0
       );
     },
     color() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.color ?? ''
       );
     },
     shape() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.shape ?? ''
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.shape ?? ''
       );
     },
     generation() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.generation ??
+        ''
       );
     },
     habitatTranslated() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.habitat
           ?.translated ?? ''
       );
     },
     habitatName() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat?.name ??
-        ''
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.habitat
+          ?.name ?? ''
       );
     },
     variants() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.variants ?? []
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.variants ?? []
       );
     },
     storeHasLoaded() {
