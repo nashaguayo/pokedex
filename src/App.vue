@@ -74,8 +74,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/css/themes.scss';
-
 @font-face {
   font-family: 'Pokemon Solid';
   src: local('Pokemon Solid'),
@@ -99,75 +97,91 @@ export default {
 }
 
 html[data-theme='light'] {
-  --main-title-border-color: #{$light-main-title-border-color};
-  --main-title-color: #{$light-main-title-color};
-  --secondary-title-border-color: #{$light-secondary-title-border-color};
-  --secondary-title-color: #{$light-secondary-title-color};
-  --variant-title-border-color: #{$light-variant-title-border-color};
-  --variant-title-color: #{$light-variant-title-color};
+  --main-title-border-color: #292a83;
+  --main-title-color: #ffdf1b;
+  --secondary-title-border-color: black;
+  --secondary-title-color: white;
+  --variant-title-border-color: white;
+  --variant-title-color: transparent;
 
-  --main-background-color: #{$light-main-background-color};
-  --secondary-background-color: #{$light-secondary-background-color};
-  --variant-background-color: #{$light-variant-background-color};
+  --main-background-color: rgb(255, 255, 218);
+  --secondary-background-color: #af0c00;
+  --variant-background-color: black;
 
-  --main-shadow-color: #{$light-main-shadow-color};
-  --secondary-shadow-color: #{$light-secondary-shadow-color};
+  --main-shadow-color: rgba(0, 0, 0, 0.6);
+  --secondary-shadow-color: rgba(0, 0, 0, 0.3);
 
-  --main-text-color: #{$light-main-text-color};
-  --secondary-text-color: #{$light-secondary-text-color};
-  --variant-text-color: #{$light-variant-text-color};
+  --main-text-color: black;
+  --secondary-text-color: #f4e9e9;
+  --variant-text-color: white;
 
-  --main-border-color: #{$light-main-border-color};
-  --secondary-border-color: #{$light-secondary-border-color};
+  --main-border-color: black;
+  --secondary-border-color: #f4e9e9;
 
-  --main-box-shadow: #{$light-main-box-shadow};
+  --main-box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
 
-  --cards-background-color: #{$light-cards-background-color};
-  --screen-background-gradient: #{$light-screen-background-gradient};
+  --cards-background-color: rgb(255, 217, 0);
+  --screen-background-gradient: linear-gradient(
+    0deg,
+    rgb(136, 136, 136) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
 
-  --disabled-button-background-color: #{$light-disabled-button-background-color};
-  --disabled-button-color: #{$light-disabled-button-color};
+  --disabled-button-background-color: #cccccc;
+  --disabled-button-color: #666666;
 
-  --popup-background-color: #{$light-popup-background-gradient};
+  --popup-background-color: linear-gradient(
+    180deg,
+    transparent,
+    $light-cards-background-color
+  );
 
-  --losing-color: #{$light-losing-color};
-  --winning-color: #{$light-winning-color};
+  --losing-color: green;
+  --winning-color: red;
 }
 
 html[data-theme='dark'] {
-  --main-title-border-color: #{$dark-main-title-border-color};
-  --main-title-color: #{$dark-main-title-color};
-  --secondary-title-border-color: #{$dark-secondary-title-border-color};
-  --secondary-title-color: #{$dark-secondary-title-color};
-  --variant-title-border-color: #{$dark-variant-title-border-color};
-  --variant-title-color: #{$dark-variant-title-color};
+  --main-title-border-color: #ffdf1b;
+  --main-title-color: #292a83;
+  --secondary-title-border-color: black;
+  --secondary-title-color: white;
+  --variant-title-border-color: white;
+  --variant-title-color: transparent;
 
-  --main-background-color: #{$dark-main-background-color};
-  --secondary-background-color: #{$dark-secondary-background-color};
-  --variant-background-color: #{$dark-variant-background-color};
+  --main-background-color: #1d1f21;
+  --secondary-background-color: #260a0a;
+  --variant-background-color: rgb(0, 0, 0);
 
-  --main-shadow-color: #{$dark-main-shadow-color};
-  --secondary-shadow-color: #{$dark-secondary-shadow-color};
+  --main-shadow-color: rgba(39, 39, 39, 0.6);
+  --secondary-shadow-color: rgba(0, 0, 0, 0.3);
 
-  --main-text-color: #{$dark-main-text-color};
-  --secondary-text-color: #{$dark-secondary-text-color};
-  --variant-text-color: #{$dark-variant-text-color};
+  --main-text-color: white;
+  --secondary-text-color: white;
+  --variant-text-color: white;
 
-  --main-border-color: #{$dark-main-border-color};
-  --secondary-border-color: #{$dark-secondary-border-color};
+  --main-border-color: rgb(255, 255, 255);
+  --secondary-border-color: white;
 
-  --main-box-shadow: #{$dark-main-box-shadow};
+  --main-box-shadow: 0 0 0.2rem 0.2rem $dark-secondary-shadow-color;
 
-  --cards-background-color: #{$dark-cards-background-color};
-  --screen-background-gradient: #{$dark-screen-background-gradient};
+  --cards-background-color: rgb(53, 52, 0);
+  --screen-background-gradient: linear-gradient(
+    0deg,
+    rgb(44, 44, 44) 0%,
+    rgb(0, 0, 0) 100%
+  );
 
-  --disabled-button-background-color: #{$dark-disabled-button-background-color};
-  --disabled-button-color: #{$dark-disabled-button-color};
+  --disabled-button-background-color: #535353;
+  --disabled-button-color: #cccccc;
 
-  --popup-background-color: #{$dark-popup-background-gradient};
+  --popup-background-color: linear-gradient(
+    180deg,
+    transparent,
+    $dark-secondary-background-color
+  );
 
-  --losing-color: #{$dark-losing-color};
-  --winning-color: #{$dark-winning-color};
+  --losing-color: green;
+  --winning-color: red;
 }
 
 body {

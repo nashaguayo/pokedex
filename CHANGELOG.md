@@ -10,6 +10,7 @@
 
 - See in app button now redirects to page user was originally seeing
 - Transition in pokemon list
+- Got rid of sass variables for colors
 - Refactored complete store
 
 ##### Fixed
