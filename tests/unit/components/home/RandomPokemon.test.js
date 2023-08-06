@@ -9,7 +9,7 @@ jest.mock('@/api/pokemon', () => ({
     ]),
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/mutations/random', () => ({
   getRandomPokemons: jest.fn(),
   getNewRandomPokemon: jest.fn(),
 }));

@@ -13,7 +13,7 @@
 
 <script>
 import { setRecentSearch } from '@/lib/localStorage';
-import store from '@/lib/store';
+import { pokemonIsVariant } from '@/store/mutations/variations';
 
 export default {
   name: 'PokemonSearchItem',
@@ -30,7 +30,7 @@ export default {
   methods: {
     async goToPokemonPage() {
       setRecentSearch(this.name);
-      if (await store.pokemonIsVariant(this.name)) {
+      if (await pokemonIsVariant(this.name)) {
         this.$router.push({
           name: 'pokemon',
           params: { id: this.name.split('-')[0] },

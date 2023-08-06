@@ -8,7 +8,7 @@ import * as typesApi from '@/api/types';
 import * as characteristics from '@/store/mutations/characteristics';
 import * as variations from '@/store/mutations/variations';
 import pokemonStore from '@/store/state/pokemon';
-import { getPokemon } from '@/store/mutations/pokemon';
+import { clearPokemon, getPokemon } from '@/store/mutations/pokemon';
 
 jest.mock('@/api/pokemon', () => ({
   getPokemon: jest.fn(),
@@ -215,5 +215,18 @@ describe('getPokemon', () => {
       ],
       weight: 67,
     });
+  });
+});
+
+describe('clearPokemon', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should clear visited pokemons in store', () => {
+    clearPokemon();
+    expect(spySetVisited).toHaveBeenCalledWith(new Map());
   });
 });

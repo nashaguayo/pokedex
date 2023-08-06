@@ -1,7 +1,6 @@
 import { getAllPokemons as getAllPokemonsApi } from '@/api/pokemon';
-import { setVariant } from '@/store/mutations/variations';
+import { pokemonIsVariant, setVariant } from '@/store/mutations/variations';
 import pokemonsStore from '@/store/state/pokemons';
-import store from '@/lib/store';
 
 export async function getAll() {
   const allPokemons = (await getAllPokemonsApi()).results;
@@ -21,7 +20,7 @@ export async function getAll() {
     allPokemonsWithHyphens.map(async (pokemon) => {
       if (!pokemon.name.includes('-')) {
         pokemons.push(pokemon);
-      } else if (await store.pokemonIsVariant(pokemon.name)) {
+      } else if (await pokemonIsVariant(pokemon.name)) {
         variations.push(pokemon);
       } else {
         pokemons.push(pokemon);

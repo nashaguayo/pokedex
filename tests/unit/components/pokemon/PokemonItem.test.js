@@ -119,9 +119,9 @@ jest.mock('@/store/mutations/pokemon', () => ({
   getPokemon: jest.fn(),
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/state/pokemons', () => ({
   state: {
-    allPokemons: [
+    all: [
       { id: 1, name: 'pikachu' },
       { id: 2, name: 'squirtle' },
       { id: 3, name: 'charmander' },
