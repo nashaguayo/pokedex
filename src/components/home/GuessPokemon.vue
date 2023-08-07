@@ -140,6 +140,8 @@ export default {
       platinumStars: 0,
       focus: false,
       isFirstTime: true,
+      timerEnabledTimeout: null,
+      timerCountTimeout: null,
     };
   },
   computed: {
@@ -188,22 +190,24 @@ export default {
     },
     timerEnabled(enabled) {
       if (enabled) {
-        setTimeout(() => {
+        this.timerEnabledTimeout = setTimeout(() => {
           this.timerCount--;
         }, 1000);
       } else {
         this.timerCount = 5;
+        clearTimeout(this.timerEnabledTimeout);
       }
     },
     timerCount(count) {
       if (count > 0 && this.timerEnabled) {
-        setTimeout(() => {
+        this.timerCountTimeout = setTimeout(() => {
           this.timerCount--;
         }, 1000);
         return;
       } else if (count === 0) {
         this.timerEnabled = false;
         this.getNewMysteryPokemon();
+        clearTimeout(this.timerCountTimeout);
       }
     },
     guessesInARow: {
