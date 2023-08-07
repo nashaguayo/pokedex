@@ -57,34 +57,12 @@
         <component :is="component" />
       </transition>
       <transition name="slide-from-above" mode="out-in">
-        <span
-          class="no-results"
-          v-if="
-            (searchTerm.length >= 3 ||
-              (searchTerm.length < 3 &&
-                (filteringTypes.length ||
-                  filteringColor.length ||
-                  filteringShape.length ||
-                  filteringGeneration.length))) &&
-            !searchResults.length
-          "
-        >
+        <span class="no-results" v-if="noResultsWereFound">
           {{ $t('search.noResultsFound') }}
         </span>
       </transition>
       <transition name="slide-from-above" appear>
-        <div
-          v-if="
-            !searchResults.length &&
-            searchTerm.length === 0 &&
-            filteringTypes.length === 0 &&
-            !filteringColor &&
-            !filteringShape &&
-            !filteringGeneration &&
-            recentSearches.length
-          "
-          class="recent-searches"
-        >
+        <div v-if="shouldDisplayRecentSearches" class="recent-searches">
           <span class="recent-searches-title">{{
             $t('search.recentSearches')
           }}</span>
@@ -183,13 +161,7 @@ export default {
   },
   watch: {
     async searchTerm(searchTerm) {
-      if (
-        searchTerm.length < 3 &&
-        !this.filteringTypes.length &&
-        !this.filteringColor.length &&
-        !this.filteringShape.length &&
-        !this.filteringGeneration.length
-      ) {
+      if (this.shouldClearSearchResults) {
         clearSearchResults();
         return;
       }
@@ -225,6 +197,37 @@ export default {
     },
   },
   computed: {
+    noResultsWereFound() {
+      return (
+        (this.searchTerm.length >= 3 ||
+          (this.searchTerm.length < 3 &&
+            (this.filteringTypes.length ||
+              this.filteringColor.length ||
+              this.filteringShape.length ||
+              this.filteringGeneration.length))) &&
+        !this.searchResults.length
+      );
+    },
+    shouldDisplayRecentSearches() {
+      return (
+        !this.searchResults.length &&
+        this.searchTerm.length === 0 &&
+        this.filteringTypes.length === 0 &&
+        !this.filteringColor &&
+        !this.filteringShape &&
+        !this.filteringGeneration &&
+        this.recentSearches.length
+      );
+    },
+    shouldClearSearchResults() {
+      return (
+        this.searchTerm.length < 3 &&
+        !this.filteringTypes.length &&
+        !this.filteringColor.length &&
+        !this.filteringShape.length &&
+        !this.filteringGeneration.length
+      );
+    },
     storeHasLoaded() {
       return other.state.storeHasLoaded;
     },
