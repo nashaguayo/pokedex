@@ -503,7 +503,7 @@ export default {
 .slide-from-right-move,
 .slide-from-right-enter-active,
 .slide-from-right-leave-active {
-  transition: all 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .slide-from-right-enter-active {
