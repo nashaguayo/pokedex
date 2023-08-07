@@ -19,9 +19,9 @@
       v-if="!image"
       class="translucent-circle"
       :style="{
-        height: `${locationHeight / 2}px`,
-        width: `${locationHeight / 2}px`,
-        top: `${locationHeight / 2 - locationHeight / 4}px`,
+        height: `${locationHeight / 4}px`,
+        width: `${locationHeight / 4}px`,
+        top: `${locationHeight / 10}px`,
       }"
     ></div>
     <img
@@ -37,7 +37,7 @@
       class="small-pokemon-image"
       :src="smallImage"
       alt="pokemon"
-      :height="locationHeight"
+      :height="locationHeight / 3"
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
