@@ -13,6 +13,7 @@
 - Got rid of sass variables for colors
 - Refactored complete store
 - Refactored computed properties in templates
+- Got rid of transition alls
 
 ##### Fixed
 
