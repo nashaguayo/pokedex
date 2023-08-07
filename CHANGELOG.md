@@ -19,6 +19,7 @@
 ##### Fixed
 
 - Launch app view redirect when app is not installed
+- Small images stretching
 
 ---
 
