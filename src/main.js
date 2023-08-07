@@ -19,6 +19,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 
 import VueObserveVisibility from 'vue-observe-visibility';
 
@@ -38,6 +40,8 @@ library.add(faMagnifyingGlass);
 library.add(faStar);
 library.add(faBookOpen);
 library.add(faTrashCan);
+library.add(faStarRegular);
+library.add(faStarSolid);
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 

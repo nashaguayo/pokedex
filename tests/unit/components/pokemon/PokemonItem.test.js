@@ -152,6 +152,7 @@ describe('PokemonItem', () => {
       propsData: {
         loading: false,
       },
+      stubs: ['FontAwesomeIcon'],
       mocks: {
         $route: {
           name: 'pokemon',
@@ -212,6 +213,7 @@ describe('PokemonItem', () => {
       propsData: {
         loading: false,
       },
+      stubs: ['FontAwesomeIcon'],
       mocks: {
         $route: {
           name: 'pokemon',
@@ -238,6 +240,7 @@ describe('PokemonItem', () => {
       propsData: {
         loading: false,
       },
+      stubs: ['FontAwesomeIcon'],
       mocks: {
         $route: {
           name: 'pokemon',

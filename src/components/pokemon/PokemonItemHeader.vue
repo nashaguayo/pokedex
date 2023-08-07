@@ -41,7 +41,22 @@
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
-    <h2 class="pokemon-name">{{ capitalizeWord(name.replace('-', ' ')) }}</h2>
+
+    <h2 class="pokemon-name">
+      {{ capitalizeWord(name.replace('-', ' ')) }}
+      <FontAwesomeIcon
+        v-if="isFavorited"
+        color="white"
+        class="icon"
+        icon="fa-solid fa-star"
+      />
+      <FontAwesomeIcon
+        v-else
+        color="white"
+        class="icon"
+        icon="fa-regular fa-star"
+      />
+    </h2>
   </div>
 </template>
 
@@ -58,6 +73,7 @@ export default {
       locationWidth: 0,
       location: '',
       pokemonHabitatsBackground,
+      isFavorited: false,
     };
   },
   props: {
@@ -217,6 +233,10 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       display: none;
+    }
+
+    .icon {
+      cursor: pointer;
     }
   }
 }
