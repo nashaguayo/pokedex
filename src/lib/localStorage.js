@@ -4,6 +4,7 @@ const TRIES_LEFT = 'triesLeft';
 const MYSTERY_POKEMON = 'mysteryPokemon';
 const RECENT_SEARCHES = 'recentSearches';
 const LANGUAGE = 'language';
+const FAVORITE_POKEMONS = 'favoritePokemons';
 
 export function isDarkModeEnabled() {
   return localStorage.getItem(DARKMODE_ENABLED) === 'true';
@@ -60,4 +61,12 @@ export function getLanguage() {
 
 export function setLanguage(language) {
   localStorage.setItem(LANGUAGE, language);
+}
+
+export function getFavoritePokemons() {
+  return JSON.parse(localStorage.getItem(FAVORITE_POKEMONS)) ?? [];
+}
+
+export function setFavoritePokemons(favoritePokemons) {
+  localStorage.setItem(FAVORITE_POKEMONS, JSON.stringify(favoritePokemons));
 }

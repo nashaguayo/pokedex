@@ -49,12 +49,14 @@
         color="white"
         class="icon"
         icon="fa-solid fa-star"
+        @click="removePokemonAsFavorite"
       />
       <FontAwesomeIcon
         v-else
         color="white"
         class="icon"
         icon="fa-regular fa-star"
+        @click="savePokemonAsFavorite"
       />
     </h2>
   </div>
@@ -64,6 +66,11 @@
 import debounce from 'lodash/debounce';
 import { capitalizeWord } from '@/lib/helpers';
 import { pokemonHabitatsBackground } from '@/constants/pokemonHabitatsBackground';
+import {
+  isPokemonFavorited,
+  removePokemonFromFavorites,
+  savePokemonAsFavorite,
+} from '@/store/mutations/pokemon';
 
 export default {
   name: 'PokemonItemHeader',
@@ -96,6 +103,11 @@ export default {
       required: true,
     },
   },
+  created() {
+    if (isPokemonFavorited(this.name)) {
+      this.isFavorited = true;
+    }
+  },
   mounted() {
     this.debouncedSetLocationHeight = debounce(this.setLocationHeight, 50);
     window.addEventListener('resize', this.debouncedSetLocationHeight);
@@ -108,6 +120,14 @@ export default {
     setLocationHeight() {
       this.locationHeight = this.$refs.pokemonItemHeader.offsetWidth;
       this.locationWidth = this.$refs.pokemonItemHeader.offsetWidth;
+    },
+    savePokemonAsFavorite() {
+      savePokemonAsFavorite(this.name);
+      this.isFavorited = true;
+    },
+    removePokemonAsFavorite() {
+      removePokemonFromFavorites(this.name);
+      this.isFavorited = false;
     },
   },
 };

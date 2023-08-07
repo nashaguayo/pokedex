@@ -8,7 +8,14 @@ import * as typesApi from '@/api/types';
 import * as characteristics from '@/store/mutations/characteristics';
 import * as variations from '@/store/mutations/variations';
 import pokemonStore from '@/store/state/pokemon';
-import { clearPokemon, getPokemon } from '@/store/mutations/pokemon';
+import * as localStorage from '@/lib/localStorage';
+import {
+  clearPokemon,
+  getPokemon,
+  isPokemonFavorited,
+  removePokemonFromFavorites,
+  savePokemonAsFavorite,
+} from '@/store/mutations/pokemon';
 
 jest.mock('@/api/pokemon', () => ({
   getPokemon: jest.fn(),
@@ -50,10 +57,17 @@ jest.mock('@/store/mutations/variations', () => ({
 jest.mock('@/store/state/pokemon', () => ({
   hasVisitedPokemon: jest.fn(),
   setVisited: jest.fn(),
+  getVisited: jest.fn(),
+}));
+
+jest.mock('@/lib/localStorage', () => ({
+  getFavoritePokemons: jest.fn(),
+  setFavoritePokemons: jest.fn(),
 }));
 
 const spyHasVisitedPokemon = jest.spyOn(pokemonStore, 'hasVisitedPokemon');
 const spySetVisited = jest.spyOn(pokemonStore, 'setVisited');
+const spyGetVisited = jest.spyOn(pokemonStore, 'getVisited');
 
 const spyGetPokemonApi = jest.spyOn(pokemonApi, 'getPokemon');
 const spyGetSpeciesDataApi = jest.spyOn(pokemonApi, 'getSpeciesData');
@@ -94,6 +108,9 @@ const spyGetAllCharacteristics = jest.spyOn(
 );
 
 const spyGetPokemonVariants = jest.spyOn(variations, 'getPokemonVariants');
+
+const spyGetFavoritePokemons = jest.spyOn(localStorage, 'getFavoritePokemons');
+const spySetFavoritePokemons = jest.spyOn(localStorage, 'setFavoritePokemons');
 
 describe('getPokemon', () => {
   beforeEach(() => {
@@ -228,5 +245,66 @@ describe('clearPokemon', () => {
   it('should clear visited pokemons in store', () => {
     clearPokemon();
     expect(spySetVisited).toHaveBeenCalledWith(new Map());
+  });
+});
+
+describe('savePokemonAsFavorite', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should save pokemon in local storage', () => {
+    const pokemonId = 'pikachu';
+    spyGetVisited.mockReturnValue(
+      new Map([[pokemonId, { dataForPokemon: {} }]])
+    );
+    spyGetFavoritePokemons.mockReturnValue([]);
+    savePokemonAsFavorite(pokemonId);
+    expect(spyGetVisited).toHaveBeenCalled();
+    expect(spySetFavoritePokemons).toHaveBeenCalledWith([
+      {
+        dataForPokemon: {},
+      },
+    ]);
+  });
+});
+
+describe('isPokemonFavorited', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should return correct favorite values', () => {
+    spyGetFavoritePokemons.mockReturnValue([
+      { name: 'pikachu' },
+      { name: 'bulbasaur' },
+    ]);
+    expect(isPokemonFavorited('pikachu')).toBeTruthy();
+    expect(isPokemonFavorited('charmander')).toBeFalsy();
+    expect(spyGetFavoritePokemons).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('removePokemonFromFavorites', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should return correct favorite values', () => {
+    spyGetFavoritePokemons.mockReturnValue([
+      { name: 'pikachu' },
+      { name: 'bulbasaur' },
+    ]);
+    removePokemonFromFavorites('pikachu');
+    expect(spyGetFavoritePokemons).toHaveBeenCalled();
+    expect(spySetFavoritePokemons).toHaveBeenCalledWith([
+      { name: 'bulbasaur' },
+    ]);
   });
 });
