@@ -1,8 +1,10 @@
 <template>
   <div class="favorites-content-item" @click="$emit('goToPage', name)">
-    <span class="id">#{{ id }}</span>
-    <div class="image" :style="{ backgroundImage: `url(${image})` }"></div>
-    <div class="background" />
+    <span class="id" v-if="!small">#{{ id }}</span>
+    <div class="image-container">
+      <div class="image" :style="{ backgroundImage: `url(${image})` }"></div>
+      <div class="background" />
+    </div>
     <span class="name">{{ name }}</span>
   </div>
 </template>
@@ -23,18 +25,20 @@ export default {
       type: String,
       required: true,
     },
+    small: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .favorites-content-item {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: var(--favorite-cards-background-gradient);
-  margin-bottom: 1rem;
   border: 0.2rem solid var(--main-border-color);
   border-radius: 1rem;
   padding: 1rem;
@@ -47,24 +51,29 @@ export default {
     font-size: 2rem;
   }
 
-  .image {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 7rem;
-    height: 9rem;
-    z-index: 10;
-  }
+  .image-container {
+    position: relative;
+    .image {
+      position: inherit;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 7rem;
+      height: 7rem;
+      z-index: 10;
+      padding: 1rem 0;
+    }
 
-  .background {
-    z-index: 5;
-    position: absolute;
-    background-color: var(--main-background-color);
-    width: 7rem;
-    height: 7rem;
-    margin-top: 2.5rem;
-    border-radius: 1rem;
-    border: 0.2rem solid var(--main-border-color);
+    .background {
+      position: absolute;
+      z-index: 5;
+      background-color: var(--main-background-color);
+      width: 7rem;
+      height: 7rem;
+      border-radius: 1rem;
+      border: 0.2rem solid var(--main-border-color);
+      transform: translateY(calc(-100% - 1rem));
+    }
   }
 
   .name {
