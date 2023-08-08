@@ -124,3 +124,7 @@ export function removePokemonFromFavorites(pokemonId) {
   favoritePokemons.splice(index, 1);
   setFavoritePokemons(favoritePokemons);
 }
+
+export function getAllFavoritePokemons() {
+  return getFavoritePokemons();
+}

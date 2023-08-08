@@ -11,6 +11,7 @@ import pokemonStore from '@/store/state/pokemon';
 import * as localStorage from '@/lib/localStorage';
 import {
   clearPokemon,
+  getAllFavoritePokemons,
   getPokemon,
   isPokemonFavorited,
   removePokemonFromFavorites,
@@ -306,5 +307,21 @@ describe('removePokemonFromFavorites', () => {
     expect(spySetFavoritePokemons).toHaveBeenCalledWith([
       { name: 'bulbasaur' },
     ]);
+  });
+});
+
+describe('getAllFavoritePokemons', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should return correct favorite values', () => {
+    const pokemons = [{ name: 'pikachu' }, { name: 'bulbasaur' }];
+    spyGetFavoritePokemons.mockReturnValue(pokemons);
+    const result = getAllFavoritePokemons();
+    expect(spyGetFavoritePokemons).toHaveBeenCalled();
+    expect(result).toStrictEqual(pokemons);
   });
 });
