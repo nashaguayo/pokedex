@@ -1,8 +1,12 @@
 <template functional>
   <div class="favorites-content-item">
-    <span>{{ props.id }}</span>
-    <span>{{ props.name }}</span>
-    <span v-for="t in props.types" :key="t.name">{{ t.name }}</span>
+    <span class="id">#{{ props.id }}</span>
+    <div
+      class="image"
+      :style="{ backgroundImage: `url(${props.image})` }"
+    ></div>
+    <div class="background" />
+    <span class="name">{{ props.name }}</span>
   </div>
 </template>
 
@@ -18,11 +22,7 @@ export default {
       type: String,
       required: true,
     },
-    types: {
-      type: Array,
-      required: true,
-    },
-    smallImage: {
+    image: {
       type: String,
       required: true,
     },
@@ -32,5 +32,45 @@ export default {
 
 <style lang="scss" scoped>
 .favorites-content-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--favorite-cards-background-gradient);
+  margin-bottom: 1rem;
+  border: 0.2rem solid var(--main-border-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: var(--main-box-shadow);
+  width: 8rem;
+
+  .id {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 7rem;
+    height: 9rem;
+    z-index: 10;
+  }
+
+  .background {
+    z-index: 5;
+    position: absolute;
+    background-color: var(--main-background-color);
+    width: 7rem;
+    height: 7rem;
+    margin-top: 2.5rem;
+    border-radius: 1rem;
+    border: 0.2rem solid var(--main-border-color);
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
 }
 </style>

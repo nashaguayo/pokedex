@@ -138,6 +138,13 @@ html[data-theme='light'] {
 
   --losing-color: green;
   --winning-color: red;
+
+  --favorite-cards-background-gradient: linear-gradient(
+    36deg,
+    rgb(255, 217, 0) 60%,
+    white 80%,
+    rgb(255, 217, 0) 100%
+  );
 }
 
 html[data-theme='dark'] {
@@ -182,6 +189,13 @@ html[data-theme='dark'] {
 
   --losing-color: green;
   --winning-color: red;
+
+  --favorite-cards-background-gradient: linear-gradient(
+    36deg,
+    rgb(255, 217, 0) 60%,
+    white 80%,
+    rgb(255, 217, 0) 100%
+  );
 }
 
 body {

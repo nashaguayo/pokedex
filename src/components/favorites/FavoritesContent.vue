@@ -1,14 +1,15 @@
 <template>
   <div class="favorites-content">
     <h1>Favorites</h1>
-    <FavoritesContentItem
-      v-for="pokemon in favoritePokemons"
-      :key="pokemon.id"
-      :id="pokemon.id"
-      :name="pokemon.name"
-      :types="pokemon.types"
-      :smallImage="pokemon.smallImage"
-    />
+    <div class="favorites">
+      <FavoritesContentItem
+        v-for="pokemon in favoritePokemons"
+        :key="pokemon.id"
+        :id="pokemon.id"
+        :name="pokemon.name"
+        :image="pokemon.smallImage"
+      />
+    </div>
   </div>
 </template>
 
@@ -32,4 +33,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.favorites-content {
+  h1 {
+    -webkit-text-stroke-color: var(--main-border-color);
+  }
+
+  .favorites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+</style>
