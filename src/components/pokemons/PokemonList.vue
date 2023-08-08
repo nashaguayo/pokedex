@@ -1,5 +1,6 @@
 <template>
   <div class="pokemon-list">
+    <FavoritesCarousel />
     <transition name="slide-up" appear mode="out-in">
       <div v-if="!pokemons.length && !loading" key="no-results">
         <h2>Something went wrong!</h2>
@@ -34,12 +35,14 @@ import {
 import { fourthBreak, thirdBreak } from '@/constants/resolutions';
 import scroll from '@/store/state/scroll';
 import { getMorePokemons, getPokemons } from '@/store/mutations/scroll';
+import FavoritesCarousel from '../favorites/FavoritesCarousel.vue';
 
 export default {
   name: 'PokemonList',
   components: {
     BaseLoader,
     PokemonListCard,
+    FavoritesCarousel,
   },
   data() {
     return {

@@ -51,6 +51,8 @@ export default {
 
 <style lang="scss" scoped>
 .favorites-content {
+  padding: 0 1rem;
+
   h1 {
     -webkit-text-stroke-color: var(--main-border-color);
   }

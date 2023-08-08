@@ -26,6 +26,11 @@ jest.mock('@/lib/helpers', () => ({
   }),
 }));
 
+jest.mock('@/components/favorites/FavoritesCarousel.vue', () => ({
+  name: 'FavoritesCarousel',
+  template: '<div class="mocked-favorites-carousel"></div>',
+}));
+
 jest.mock('@/components/pokemons/PokemonListCard.vue', () => ({
   name: 'PokemonListCard',
   template: '<div class="mocked-pokemon-list-card"></div>',
