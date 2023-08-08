@@ -8,6 +8,7 @@
         :id="pokemon.id"
         :name="pokemon.name"
         :image="pokemon.smallImage"
+        @goToPage="goToPokemonDetailsPage"
       />
     </div>
   </div>
@@ -16,6 +17,7 @@
 <script>
 import { getAllFavoritePokemons } from '@/store/mutations/pokemon';
 import FavoritesContentItem from './FavoritesContentItem.vue';
+import { pokemonIsVariant } from '@/store/mutations/variations';
 
 export default {
   name: 'FavoritesContent',
@@ -29,6 +31,20 @@ export default {
   },
   created() {
     this.favoritePokemons = getAllFavoritePokemons();
+  },
+  methods: {
+    async goToPokemonDetailsPage(name) {
+      const pokemonName = name.split('-')[0];
+      if (await pokemonIsVariant(name)) {
+        this.$router.push({
+          name: 'pokemon',
+          params: { id: pokemonName },
+          query: { variantName: name.replace(`${pokemonName}-`, '') },
+        });
+        return;
+      }
+      this.$router.push({ name: 'pokemon', params: { id: name } });
+    },
   },
 };
 </script>

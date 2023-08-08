@@ -117,6 +117,7 @@ jest.mock('@/store/state/pokemon', () => ({
 
 jest.mock('@/store/mutations/pokemon', () => ({
   getPokemon: jest.fn(),
+  getFavoritedPokemon: jest.fn(),
 }));
 
 jest.mock('@/store/state/pokemons', () => ({

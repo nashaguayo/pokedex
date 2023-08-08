@@ -128,3 +128,11 @@ export function removePokemonFromFavorites(pokemonId) {
 export function getAllFavoritePokemons() {
   return getFavoritePokemons();
 }
+
+export function getFavoritedPokemon(pokemonId) {
+  const favoritePokemons = getFavoritePokemons();
+  const index = favoritePokemons.findIndex(
+    (pokemon) => pokemon.name === pokemonId
+  );
+  return index < 0 ? null : favoritePokemons[index];
+}

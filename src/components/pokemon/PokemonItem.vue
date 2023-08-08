@@ -94,7 +94,7 @@ import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/images/pokemons/silouette.png';
 import { initializeStore } from '@/store/mutations/other';
 import other from '@/store/state/other';
-import { getPokemon } from '@/store/mutations/pokemon';
+import { getFavoritedPokemon, getPokemon } from '@/store/mutations/pokemon';
 import pokemon from '@/store/state/pokemon';
 import pokemons from '@/store/state/pokemons';
 
@@ -116,6 +116,7 @@ export default {
       topPosition: 0,
       throttledParallax: null,
       loading: true,
+      pokemon: null,
     };
   },
   watch: {
@@ -145,91 +146,124 @@ export default {
       return pokemons.state.all;
     },
     id() {
-      return pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.id ?? 0;
+      return (
+        this.pokemon?.id ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.id ??
+        0
+      );
     },
     name() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.name ?? '???'
+        this.pokemon?.name ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.name ??
+        '???'
       );
     },
     image() {
-      return pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.image;
+      return (
+        this.pokemon?.image ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.image
+      );
     },
     smallImage() {
       return (
+        this.pokemon?.smallImage ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.smallImage ??
         silouette
       );
     },
     stats() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.stats ?? []
+        this.pokemon?.stats ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.stats ??
+        []
       );
     },
     types() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.types ?? []
+        this.pokemon?.types ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.types ??
+        []
       );
     },
     evolutions() {
       return (
+        this.pokemon?.evolutions ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.evolutions ??
         []
       );
     },
     flavorTexts() {
       return (
+        this.pokemon?.flavorTexts ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
         []
       );
     },
     characteristic() {
       return (
+        this.pokemon?.characteristic ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)
-          ?.characteristic ?? ''
+          ?.characteristic ??
+        ''
       );
     },
     weight() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.weight ?? 0
+        this.pokemon?.weight ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.weight ??
+        0
       );
     },
     height() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.height ?? 0
+        this.pokemon?.height ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.height ??
+        0
       );
     },
     color() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.color ?? ''
+        this.pokemon?.color ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.color ??
+        ''
       );
     },
     shape() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.shape ?? ''
+        this.pokemon?.shape ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.shape ??
+        ''
       );
     },
     generation() {
       return (
+        this.pokemon?.generation ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.generation ??
         ''
       );
     },
     habitatTranslated() {
       return (
+        this.pokemon?.translated ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.habitat
-          ?.translated ?? ''
+          ?.translated ??
+        ''
       );
     },
     habitatName() {
       return (
+        this.pokemon?.habitat.name ??
         pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.habitat
-          ?.name ?? ''
+          ?.name ??
+        ''
       );
     },
     variants() {
       return (
-        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.variants ?? []
+        this.pokemon?.variants ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.variants ??
+        []
       );
     },
     storeHasLoaded() {
@@ -237,7 +271,10 @@ export default {
     },
   },
   async created() {
-    if (!this.storeHasLoaded) {
+    this.pokemon = getFavoritedPokemon(this.urlId);
+    if (this.pokemon) {
+      this.loading = false;
+    } else if (!this.storeHasLoaded) {
       await initializeStore();
     }
   },

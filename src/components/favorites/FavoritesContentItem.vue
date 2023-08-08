@@ -1,12 +1,9 @@
-<template functional>
-  <div class="favorites-content-item">
-    <span class="id">#{{ props.id }}</span>
-    <div
-      class="image"
-      :style="{ backgroundImage: `url(${props.image})` }"
-    ></div>
+<template>
+  <div class="favorites-content-item" @click="$emit('goToPage', name)">
+    <span class="id">#{{ id }}</span>
+    <div class="image" :style="{ backgroundImage: `url(${image})` }"></div>
     <div class="background" />
-    <span class="name">{{ props.name }}</span>
+    <span class="name">{{ name }}</span>
   </div>
 </template>
 
@@ -43,6 +40,7 @@ export default {
   padding: 1rem;
   box-shadow: var(--main-box-shadow);
   width: 8rem;
+  cursor: pointer;
 
   .id {
     text-align: center;

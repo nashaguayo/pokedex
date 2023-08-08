@@ -5,6 +5,10 @@ jest.mock('@/store/mutations/pokemon', () => ({
   getAllFavoritePokemons: jest.fn(),
 }));
 
+jest.mock('@/store/mutations/variations', () => ({
+  pokemonIsVariant: jest.fn(),
+}));
+
 describe('FavoritesContent', () => {
   it('renders favorites correctly', () => {
     const wrapper = mount(FavoritesContent, {
