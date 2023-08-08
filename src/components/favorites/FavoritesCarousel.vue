@@ -1,5 +1,5 @@
 <template>
-  <div class="favorites-car">
+  <div class="favorites-carousel">
     <h1>Favorites</h1>
   </div>
 </template>
