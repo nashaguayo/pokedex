@@ -29,7 +29,7 @@
           :variant="true"
         />
         <BaseButton :onClickHandler="goToMyFavorites" :big="true">
-          See all in My Favorites
+          All Favorites
         </BaseButton>
         <BaseChevron
           direction="right"
@@ -124,30 +124,24 @@ export default {
     position: relative;
     background-color: var(--variant-background-color);
     border: 0.2rem solid var(--secondary-border-color);
-    border-radius: 1rem;
     box-shadow: var(--main-box-shadow);
-    padding: 2rem;
-    margin: 2rem;
+    padding: 2rem 0;
+    margin: 2rem 0;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+
+    @media (min-width: $min-width-second-break) {
+      border-radius: 1rem;
+      margin: 2rem;
+    }
 
     .favorites {
       display: flex;
       gap: 1rem;
       margin-bottom: 1rem;
+      padding: 0 2rem;
       overflow-x: scroll;
-
-      .left-overlay {
-        width: 10rem;
-        height: 10rem;
-      }
-
-      .right-overlay {
-        width: 10rem;
-        height: 10rem;
-        background-color: red;
-      }
     }
 
     .favorites::-webkit-scrollbar {
@@ -159,7 +153,6 @@ export default {
       grid-template-columns: repeat(2, 1fr);
       width: 100%;
       position: absolute;
-      margin-left: -2rem;
       z-index: 50;
 
       .left-overlay {
@@ -172,7 +165,6 @@ export default {
         justify-self: flex-end;
         width: 10rem;
         height: 13rem;
-        background-color: green;
         background: linear-gradient(270deg, black 20%, transparent);
       }
     }
@@ -181,6 +173,11 @@ export default {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
+      padding: 0 1rem;
+
+      @media (min-width: $min-width-first-break) {
+        padding: 0 2rem;
+      }
     }
   }
 }
