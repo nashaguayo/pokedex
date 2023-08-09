@@ -36,6 +36,11 @@ jest.mock('@/components/ui/BaseLoader.vue', () => ({
   template: '<div class="mocked-base-loader"></div>',
 }));
 
+jest.mock('@/components/favorites/FavoritesCarousel.vue', () => ({
+  name: 'FavoritesCarousel',
+  template: '<div class="mocked-favorites-carousel"></div>',
+}));
+
 jest.mock('@/store/state/pokemons', () => ({
   state: { pokemons: [{ name: 'pikachu' }] },
 }));
