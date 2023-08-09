@@ -12,7 +12,7 @@
           @goToPage="goToPage"
         />
       </div>
-      <BaseButton :onClickHandler="goToMyFavorites">
+      <BaseButton :onClickHandler="goToMyFavorites" :big="true">
         See all in My Favorites
       </BaseButton>
     </div>
@@ -49,6 +49,8 @@ export default {
 <style lang="scss" scoped>
 .favorites-carousel {
   margin-bottom: 2rem;
+  max-width: 100%;
+  overflow: hidden;
 
   .carousel {
     background-color: var(--variant-background-color);
@@ -59,13 +61,17 @@ export default {
     margin: 2rem;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 
     .favorites {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
+      gap: 1rem;
       margin-bottom: 1rem;
+      overflow-x: scroll;
+    }
+
+    .favorites::-webkit-scrollbar {
+      display: none;
     }
   }
 }
