@@ -67,7 +67,8 @@ export default {
       this.$router.push({ name: 'home' });
     },
     offline() {
-      this.$router.push({ name: 'offline' });
+      if (this.$router.history.current.name !== 'favorites')
+        this.$router.push({ name: 'offline' });
     },
   },
 };
