@@ -16,6 +16,7 @@ import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'LaunchAppView',
+  title: 'Launch',
   components: { BaseLoader, BaseButton },
   data() {
     return {

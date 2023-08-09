@@ -20,6 +20,7 @@ import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'InstallView',
+  title: 'Install',
   components: { BaseButton, BaseLoader },
   data() {
     return {

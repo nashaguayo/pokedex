@@ -6,6 +6,9 @@
 
 ##### Added
 
+- Favorite pokemons and offline use
+- Missing titles to pages
+
 ##### Modified
 
 - See in app button now redirects to page user was originally seeing
