@@ -110,7 +110,12 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  if (!isOnline() && to.name !== 'offline' && to.name !== 'favorites') {
+  if (
+    !isOnline() &&
+    to.name !== 'offline' &&
+    to.name !== 'favorites' &&
+    to.name !== 'pokemon'
+  ) {
     next({ name: 'offline' });
     return;
   }
