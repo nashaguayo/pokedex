@@ -24,6 +24,11 @@
         @goToPage="goToPokemonDetailsPage"
       />
     </transition-group>
+    <div class="go-back" v-if="isOnline()">
+      <BaseButton class="go-back-button" :onClickHandler="goToHome" :big="true">
+        Go Back
+      </BaseButton>
+    </div>
   </div>
 </template>
 
@@ -32,7 +37,9 @@ import { getAllFavoritePokemons } from '@/store/mutations/pokemon';
 import FavoritesContentItem from '@/components/favorites/FavoritesContentItem.vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseChevron from '@/components/ui/BaseChevron.vue';
+import BaseButton from '@/components/ui/BaseButton.vue';
 import { pokemonIsVariant } from '@/store/mutations/variations';
+import { isOnline } from '@/lib/helpers';
 
 export default {
   name: 'FavoritesContent',
@@ -40,6 +47,7 @@ export default {
     FavoritesContentItem,
     BaseInput,
     BaseChevron,
+    BaseButton,
   },
   data() {
     return {
@@ -65,6 +73,10 @@ export default {
     },
   },
   methods: {
+    isOnline,
+    goToHome() {
+      this.$router.push({ name: 'home' });
+    },
     async goToPokemonDetailsPage(name) {
       const pokemonName = name.split('-')[0];
       if (await pokemonIsVariant(name)) {
@@ -114,7 +126,7 @@ export default {
     align-items: center;
     height: 3rem;
     padding-top: 2rem;
-    margin: 2rem 0;
+    margin-top: 2rem;
     border-top: 0.2rem solid var(--main-border-color);
 
     .search-input {
@@ -129,6 +141,12 @@ export default {
     justify-content: center;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .go-back {
+    margin-bottom: 3rem;
     width: 100%;
   }
 }
