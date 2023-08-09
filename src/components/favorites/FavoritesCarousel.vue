@@ -91,14 +91,11 @@ export default {
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
     },
     handleScrollEnd() {
-      if (
-        document.querySelector('.favorites').scrollLeft >
-        this.$refs.favorites.offsetWidth
-      ) {
+      if (this.$refs.favorites.scrollLeft > this.$refs.favorites.offsetWidth) {
         this.scrollX = this.$refs.favorites.offsetWidth;
         this.disableRightButton = true;
       } else {
-        this.scrollX = document.querySelector('.favorites').scrollLeft;
+        this.scrollX = this.$refs.favorites.scrollLeft;
         this.disableRightButton = false;
       }
     },
