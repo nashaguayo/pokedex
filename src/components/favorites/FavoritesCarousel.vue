@@ -96,7 +96,6 @@ export default {
         left: this.scrollX,
         behavior: 'smooth',
       });
-      this.disableRightButton = false;
     },
     handleScrollEnd() {
       this.scrollX = this.$refs.favorites.scrollLeft;
@@ -105,6 +104,8 @@ export default {
         this.$refs.favorites.scrollWidth
       ) {
         this.disableRightButton = true;
+      } else {
+        this.disableRightButton = false;
       }
     },
     isOverflowingX(element) {
