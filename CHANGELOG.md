@@ -6,6 +6,8 @@
 
 ##### Added
 
+- Favorite pokemons and offline use
+
 ##### Modified
 
 - See in app button now redirects to page user was originally seeing
