@@ -73,6 +73,10 @@ export default {
 
   &.disabled {
     background-color: var(--main-background-color);
+
+    &.variant {
+      background-color: var(--main-background-color);
+    }
   }
 
   &.small {

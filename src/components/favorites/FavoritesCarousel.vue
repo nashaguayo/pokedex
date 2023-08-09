@@ -16,6 +16,7 @@
         <BaseChevron
           direction="left"
           :onClickHandler="scrollToLeft"
+          :disabled="scrollX === 0"
           :variant="true"
         />
         <BaseButton :onClickHandler="goToMyFavorites" :big="true">
@@ -25,6 +26,7 @@
           direction="right"
           :onClickHandler="scrollToRight"
           :variant="true"
+          :disable="disableRightButton"
         />
       </div>
     </div>
@@ -44,10 +46,27 @@ export default {
     return {
       favoritePokemons: [],
       scrollX: 0,
+      disableRightButton: false,
     };
   },
   created() {
     this.favoritePokemons = getAllFavoritePokemons();
+  },
+  mounted() {
+    document
+      .querySelector('.favorites')
+      .addEventListener('scroll', this.handleScroll);
+    document
+      .querySelector('.favorites')
+      .addEventListener('scrollend', this.handleScrollEnd);
+  },
+  beforeDestroy() {
+    document
+      .querySelector('.favorites')
+      .removeEventListener('scroll', this.handleScroll);
+    document
+      .querySelector('.favorites')
+      .removeEventListener('scrollend', this.handleScrollEnd);
   },
   methods: {
     goToPage(name) {
@@ -56,17 +75,35 @@ export default {
     goToMyFavorites() {
       this.$router.push({ name: 'favorites' });
     },
-    scrollToRight() {
+    async scrollToRight() {
       this.scrollX += 500;
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
+      await this.$nextTick();
     },
     scrollToLeft() {
       this.scrollX -= 500;
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
+      console.log(document.querySelector('.favorites').scrollLeft);
+      this.disableRightButton = false;
+    },
+    handleScroll() {
+      // console.log(
+      //   'aaaa',
+      //   event,
+      //   document.querySelector('.favorites').scrollLeft
+      // );
+      if (this.scrollX === document.querySelector('.favorites').scrollLeft) {
+        console.log('trueeee');
+        this.disableRightButton = true;
+      }
+    },
+    handleScrollEnd() {
+      console.log(document.querySelector('.favorites').scrollLeft);
+      this.scrollX = document.querySelector('.favorites').scrollLeft;
     },
   },
 };
