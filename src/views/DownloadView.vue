@@ -15,6 +15,7 @@ import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'DownloadView',
+  title: 'Downloading Pokedex',
   data() {
     return {
       interval: null,

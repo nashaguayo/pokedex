@@ -11,6 +11,7 @@ import FavoritesCarousel from '@/components/favorites/FavoritesCarousel.vue';
 
 export default {
   name: 'OfflineView',
+  title: 'Favorites',
   components: {
     FavoritesCarousel,
   },

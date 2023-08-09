@@ -7,6 +7,7 @@
 ##### Added
 
 - Favorite pokemons and offline use
+- Missing titles to pages
 
 ##### Modified
 
