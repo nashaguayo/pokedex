@@ -41,14 +41,48 @@
       @load="setLocationHeight"
     />
     <div class="pokemon-backdrop-filter"></div>
-    <h2 class="pokemon-name">{{ capitalizeWord(name.replace('-', ' ')) }}</h2>
+
+    <h2 class="pokemon-name">
+      {{ capitalizeWord(name.replace('-', ' ')) }}
+      <FontAwesomeIcon
+        v-if="isFavorited"
+        color="white"
+        class="icon"
+        icon="fa-solid fa-star"
+        @click="removePokemonAsFavorite"
+      />
+      <FontAwesomeIcon
+        v-else
+        color="white"
+        class="icon"
+        icon="fa-regular fa-star"
+        @click="savePokemonAsFavorite"
+      />
+    </h2>
+
+    <div class="favorites-big-screen">
+      <BaseButton v-if="isFavorited" :onClickHandler="removePokemonAsFavorite">
+        Unfave
+        <FontAwesomeIcon color="white" class="icon" icon="fa-solid fa-star" />
+      </BaseButton>
+      <BaseButton v-else :onClickHandler="savePokemonAsFavorite">
+        Fave
+        <FontAwesomeIcon color="white" class="icon" icon="fa-regular fa-star" />
+      </BaseButton>
+    </div>
   </div>
 </template>
 
 <script>
 import debounce from 'lodash/debounce';
+import BaseButton from '@/components/ui/BaseButton';
 import { capitalizeWord } from '@/lib/helpers';
 import { pokemonHabitatsBackground } from '@/constants/pokemonHabitatsBackground';
+import {
+  isPokemonFavorited,
+  removePokemonFromFavorites,
+  savePokemonAsFavorite,
+} from '@/store/mutations/pokemon';
 
 export default {
   name: 'PokemonItemHeader',
@@ -58,7 +92,11 @@ export default {
       locationWidth: 0,
       location: '',
       pokemonHabitatsBackground,
+      isFavorited: false,
     };
+  },
+  components: {
+    BaseButton,
   },
   props: {
     image: {
@@ -80,6 +118,11 @@ export default {
       required: true,
     },
   },
+  created() {
+    if (isPokemonFavorited(this.name)) {
+      this.isFavorited = true;
+    }
+  },
   mounted() {
     this.debouncedSetLocationHeight = debounce(this.setLocationHeight, 50);
     window.addEventListener('resize', this.debouncedSetLocationHeight);
@@ -92,6 +135,14 @@ export default {
     setLocationHeight() {
       this.locationHeight = this.$refs.pokemonItemHeader.offsetWidth;
       this.locationWidth = this.$refs.pokemonItemHeader.offsetWidth;
+    },
+    savePokemonAsFavorite() {
+      savePokemonAsFavorite(this.name);
+      this.isFavorited = true;
+    },
+    removePokemonAsFavorite() {
+      removePokemonFromFavorites(this.name);
+      this.isFavorited = false;
     },
   },
 };
@@ -164,6 +215,7 @@ export default {
 
     @media (min-width: $min-width-first-break) {
       width: 25rem;
+      gap: 1rem;
     }
 
     @media (min-width: $min-width-second-break) {
@@ -217,6 +269,21 @@ export default {
 
     @media (min-width: $min-width-fourth-break) {
       display: none;
+    }
+
+    .icon {
+      cursor: pointer;
+    }
+  }
+
+  .favorites-big-screen {
+    display: none;
+
+    @media (min-width: $min-width-fourth-break) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
     }
   }
 }

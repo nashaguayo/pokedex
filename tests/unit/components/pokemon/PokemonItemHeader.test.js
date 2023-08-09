@@ -1,6 +1,12 @@
 import { mount } from '@vue/test-utils';
 import PokemonItemHeader from '@/components/pokemon/PokemonItemHeader.vue';
 
+jest.mock('@/store/mutations/pokemon', () => ({
+  isPokemonFavorited: jest.fn(),
+  removePokemonFromFavorites: jest.fn(),
+  savePokemonAsFavorite: jest.fn(),
+}));
+
 describe('PokemonItemHeader', () => {
   let wrapper;
   let header;
@@ -15,6 +21,7 @@ describe('PokemonItemHeader', () => {
         habitat: 'rare',
       },
       attachTo: document.body,
+      stubs: ['FontAwesomeIcon'],
     });
 
     header = wrapper.find('.pokemon-item-header');
@@ -58,6 +65,7 @@ describe('PokemonItemHeader', () => {
         habitat: 'rare',
       },
       attachTo: document.body,
+      stubs: ['FontAwesomeIcon'],
     });
     expect(wrapper.find('.pokemon-image').exists()).toBeFalsy();
     expect(wrapper.find('.small-pokemon-image').exists()).toBeTruthy();

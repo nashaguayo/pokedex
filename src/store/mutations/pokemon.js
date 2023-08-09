@@ -11,6 +11,7 @@ import { getPokemonTypeTranslation as getPokemonTypeTranslationApi } from '@/api
 import { getAllCharacteristics } from '@/store/mutations/characteristics';
 import { getPokemonVariants } from '@/store/mutations/variations';
 import pokemonStore from '@/store/state/pokemon';
+import { getFavoritePokemons, setFavoritePokemons } from '@/lib/localStorage';
 
 export async function getPokemon(pokemonId) {
   if (pokemonStore.hasVisitedPokemon(pokemonId)) {
@@ -98,4 +99,40 @@ export async function getPokemon(pokemonId) {
 
 export function clearPokemon() {
   pokemonStore.setVisited(new Map());
+}
+
+export function savePokemonAsFavorite(pokemonId) {
+  const favoritePokemons = getFavoritePokemons();
+  const pokemon = pokemonStore.getVisited().get(pokemonId);
+  favoritePokemons.push(pokemon);
+  setFavoritePokemons(favoritePokemons);
+}
+
+export function isPokemonFavorited(pokemonId) {
+  const favoritePokemons = getFavoritePokemons();
+  const filteredPokemons = favoritePokemons.filter(
+    (pokemon) => pokemon.name === pokemonId
+  );
+  return !!filteredPokemons.length;
+}
+
+export function removePokemonFromFavorites(pokemonId) {
+  const favoritePokemons = getFavoritePokemons();
+  const index = favoritePokemons.findIndex(
+    (pokemon) => pokemon.name === pokemonId
+  );
+  favoritePokemons.splice(index, 1);
+  setFavoritePokemons(favoritePokemons);
+}
+
+export function getAllFavoritePokemons() {
+  return getFavoritePokemons();
+}
+
+export function getFavoritedPokemon(pokemonId) {
+  const favoritePokemons = getFavoritePokemons();
+  const index = favoritePokemons.findIndex(
+    (pokemon) => pokemon.name === pokemonId
+  );
+  return index < 0 ? null : favoritePokemons[index];
 }

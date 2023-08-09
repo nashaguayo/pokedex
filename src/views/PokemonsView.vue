@@ -1,6 +1,12 @@
 <template>
   <div class="pokemons-view">
     <ErrorBoundary
+      componentName="FavoritesCarousel"
+      errorMessage="Unable to load favorites"
+    >
+      <FavoritesCarousel />
+    </ErrorBoundary>
+    <ErrorBoundary
       componentName="PokemonList"
       errorMessage="Unable to load Pokemon list"
     >
@@ -12,11 +18,16 @@
 <script>
 import ErrorBoundary from '@/components/ui/ErrorBoundary.vue';
 import PokemonList from '@/components/pokemons/PokemonList.vue';
+import FavoritesCarousel from '@/components/favorites/FavoritesCarousel.vue';
 
 export default {
   name: 'PokemonsView',
   title: 'Pokemons',
-  components: { PokemonList, ErrorBoundary },
+  components: {
+    FavoritesCarousel,
+    PokemonList,
+    ErrorBoundary,
+  },
 };
 </script>
 

@@ -81,6 +81,15 @@ const routes = [
     name: 'launchApp',
     component: () => import('@/views/LaunchAppView.vue'),
   },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: () => import('@/views/FavoritesView.vue'),
+    meta: {
+      header: false,
+      footer: false,
+    },
+  },
 ];
 
 const router = new VueRouter({
@@ -101,7 +110,12 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  if (!isOnline() && to.name !== 'offline') {
+  if (
+    !isOnline() &&
+    to.name !== 'offline' &&
+    to.name !== 'favorites' &&
+    to.name !== 'pokemon'
+  ) {
     next({ name: 'offline' });
     return;
   }

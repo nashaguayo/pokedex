@@ -64,10 +64,14 @@ export default {
       toggleDarkModeInDOM(isDarkModeEnabled);
     },
     online() {
-      this.$router.push({ name: 'home' });
+      if (this.$router.history.current.name !== 'favorites') {
+        this.$router.push({ name: 'home' });
+      }
     },
     offline() {
-      this.$router.push({ name: 'offline' });
+      if (this.$router.history.current.name !== 'favorites') {
+        this.$router.push({ name: 'offline' });
+      }
     },
   },
 };
@@ -138,6 +142,17 @@ html[data-theme='light'] {
 
   --losing-color: green;
   --winning-color: red;
+
+  --favorite-cards-background-gradient: linear-gradient(
+    36deg,
+    rgb(255, 217, 0) 60%,
+    white 80%,
+    rgb(255, 217, 0) 100%
+  );
+  --favorite-cards-screen-background-gradient: radial-gradient(
+    white,
+    rgba(0, 0, 0, 0.8)
+  );
 }
 
 html[data-theme='dark'] {
@@ -182,6 +197,17 @@ html[data-theme='dark'] {
 
   --losing-color: green;
   --winning-color: red;
+
+  --favorite-cards-background-gradient: linear-gradient(
+    36deg,
+    rgb(255, 217, 0) 60%,
+    white 80%,
+    rgb(255, 217, 0) 100%
+  );
+  --favorite-cards-screen-background-gradient: radial-gradient(
+    white,
+    rgba(0, 0, 0, 0.8)
+  );
 }
 
 body {
