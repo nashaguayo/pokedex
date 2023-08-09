@@ -2,7 +2,7 @@
   <div class="favorites-carousel">
     <h1>Favorites</h1>
     <div class="carousel">
-      <div class="favorites">
+      <div class="favorites" ref="favorites">
         <FavoritesContentItem
           v-for="pokemon in favoritePokemons"
           :key="`favorite-${pokemon.name}`"
@@ -26,7 +26,7 @@
           direction="right"
           :onClickHandler="scrollToRight"
           :variant="true"
-          :disable="disableRightButton"
+          :disabled="disableRightButton"
         />
       </div>
     </div>
@@ -55,15 +55,9 @@ export default {
   mounted() {
     document
       .querySelector('.favorites')
-      .addEventListener('scroll', this.handleScroll);
-    document
-      .querySelector('.favorites')
       .addEventListener('scrollend', this.handleScrollEnd);
   },
   beforeDestroy() {
-    document
-      .querySelector('.favorites')
-      .removeEventListener('scroll', this.handleScroll);
     document
       .querySelector('.favorites')
       .removeEventListener('scrollend', this.handleScrollEnd);
@@ -80,30 +74,24 @@ export default {
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
-      await this.$nextTick();
     },
     scrollToLeft() {
       this.scrollX -= 500;
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
-      console.log(document.querySelector('.favorites').scrollLeft);
-      this.disableRightButton = false;
-    },
-    handleScroll() {
-      // console.log(
-      //   'aaaa',
-      //   event,
-      //   document.querySelector('.favorites').scrollLeft
-      // );
-      if (this.scrollX === document.querySelector('.favorites').scrollLeft) {
-        console.log('trueeee');
-        this.disableRightButton = true;
-      }
     },
     handleScrollEnd() {
-      console.log(document.querySelector('.favorites').scrollLeft);
-      this.scrollX = document.querySelector('.favorites').scrollLeft;
+      if (
+        document.querySelector('.favorites').scrollLeft >
+        this.$refs.favorites.offsetWidth
+      ) {
+        this.scrollX = this.$refs.favorites.offsetWidth;
+        this.disableRightButton = true;
+      } else {
+        this.scrollX = document.querySelector('.favorites').scrollLeft;
+        this.disableRightButton = false;
+      }
     },
   },
 };
