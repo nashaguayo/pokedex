@@ -64,11 +64,14 @@ export default {
       toggleDarkModeInDOM(isDarkModeEnabled);
     },
     online() {
-      this.$router.push({ name: 'home' });
+      if (this.$router.history.current.name !== 'favorites') {
+        this.$router.push({ name: 'home' });
+      }
     },
     offline() {
-      if (this.$router.history.current.name !== 'favorites')
+      if (this.$router.history.current.name !== 'favorites') {
         this.$router.push({ name: 'offline' });
+      }
     },
   },
 };
