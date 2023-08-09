@@ -2,27 +2,31 @@
   <div class="favorites-carousel">
     <h1>Favorites</h1>
     <div class="carousel">
-      <FavoritesContentItem
-        v-for="pokemon in favoritePokemons"
-        :key="`favorite-${pokemon.name}`"
-        :name="pokemon.name"
-        :image="pokemon.smallImage"
-        :small="true"
-        @goToPage="goToPage"
-      />
+      <div class="favorites">
+        <FavoritesContentItem
+          v-for="pokemon in favoritePokemons"
+          :key="`favorite-${pokemon.name}`"
+          :name="pokemon.name"
+          :image="pokemon.smallImage"
+          :small="true"
+          @goToPage="goToPage"
+        />
+      </div>
+      <BaseButton :onClickHandler="goToMyFavorites">
+        See all in My Favorites
+      </BaseButton>
     </div>
   </div>
 </template>
 
 <script>
 import FavoritesContentItem from '@/components/favorites/FavoritesContentItem.vue';
+import BaseButton from '@/components/ui/BaseButton.vue';
 import { getAllFavoritePokemons } from '@/store/mutations/pokemon';
 
 export default {
   name: 'FavoritesCarousel',
-  components: {
-    FavoritesContentItem,
-  },
+  components: { BaseButton, FavoritesContentItem },
   data() {
     return {
       favoritePokemons: [],
@@ -35,6 +39,9 @@ export default {
     goToPage(name) {
       this.$router.push({ name: 'pokemon', params: { id: name } });
     },
+    goToMyFavorites() {
+      this.$router.push({ name: 'favorites' });
+    },
   },
 };
 </script>
@@ -42,17 +49,24 @@ export default {
 <style lang="scss" scoped>
 .favorites-carousel {
   margin-bottom: 2rem;
+
   .carousel {
     background-color: var(--variant-background-color);
     border: 0.2rem solid var(--secondary-border-color);
-    box-shadow: var(--main-box-shadow);
     border-radius: 1rem;
-    padding: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    box-shadow: var(--main-box-shadow);
+    padding: 2rem;
     margin: 2rem;
-    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+
+    .favorites {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
   }
 }
 </style>
