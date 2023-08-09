@@ -65,6 +65,9 @@ export default {
     document
       .querySelector('.favorites')
       .addEventListener('scrollend', this.handleScrollEnd);
+    if (!this.isOverflowingX(this.$refs.favorites)) {
+      this.disableRightButton = true;
+    }
   },
   beforeDestroy() {
     document
@@ -96,6 +99,12 @@ export default {
         this.scrollX = this.$refs.favorites.scrollLeft;
         this.disableRightButton = true;
       }
+    },
+    isOverflowingX(element) {
+      return (
+        element.scrollWidth !=
+        Math.max(element.offsetWidth, element.clientWidth)
+      );
     },
   },
 };
