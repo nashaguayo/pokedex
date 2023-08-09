@@ -48,7 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 .favorites-carousel {
-  margin-bottom: 2rem;
   max-width: 100%;
   overflow: hidden;
 
@@ -57,7 +56,7 @@ export default {
     border: 0.2rem solid var(--secondary-border-color);
     border-radius: 1rem;
     box-shadow: var(--main-box-shadow);
-    padding: 2rem;
+    padding: 2rem 5rem;
     margin: 2rem;
     display: flex;
     flex-direction: column;
