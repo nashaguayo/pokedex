@@ -121,5 +121,6 @@ export default {
 
   favorites: {
     title: 'Favoritos',
+    placeholder: 'Busca entre tus Favoritos',
   },
 };

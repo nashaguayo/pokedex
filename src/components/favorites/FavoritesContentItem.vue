@@ -43,7 +43,7 @@ export default {
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: var(--main-box-shadow);
-  min-width: 8rem;
+  width: 8rem;
   cursor: pointer;
 
   .id {

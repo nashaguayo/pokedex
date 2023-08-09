@@ -118,5 +118,6 @@ export default {
 
   favorites: {
     title: 'Favorites',
+    placeholder: 'Search in your Favorites',
   },
 };

@@ -14,3 +14,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.favorites-view {
+  width: 100%;
+}
+</style>
