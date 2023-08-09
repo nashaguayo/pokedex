@@ -67,6 +67,7 @@ export default {
     next: 'Next',
     goToPokemonList: 'Go to Pokemon List',
     goToSearch: 'Go to Search',
+    goToFavorites: 'Go to Favorites',
   },
 
   pokemons: {
@@ -113,5 +114,9 @@ export default {
   launchApp: {
     title: 'See in App',
     button: 'Open',
+  },
+
+  favorites: {
+    title: 'Favorites',
   },
 };

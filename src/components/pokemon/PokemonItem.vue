@@ -36,40 +36,53 @@
         :variants="variants"
       />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
-      <div class="navigation">
-        <BaseButton
-          :onClickHandler="goToPreviousPokemon"
-          :disabled="id === 1"
-          :variant="true"
-        >
-          {{ $t('pokemon.previous') }}
-        </BaseButton>
-        <BaseButton
-          :onClickHandler="goToNextPokemon"
-          :disabled="id === lastPokemonId"
-          :variant="true"
-        >
-          {{ $t('pokemon.next') }}
-        </BaseButton>
-      </div>
-      <div class="go-back">
-        <BaseButton
-          class="go-back-button"
-          :onClickHandler="goToPokemonsPage"
-          :big="true"
-        >
-          {{ $t('pokemon.goToPokemonList') }}
-        </BaseButton>
-      </div>
-      <div class="go-back">
-        <BaseButton
-          class="go-back-button bottom"
-          :onClickHandler="goToSearchPage"
-          :big="true"
-        >
-          {{ $t('pokemon.goToSearch') }}
-        </BaseButton>
-      </div>
+      <template v-if="isOnline()">
+        <div class="navigation">
+          <BaseButton
+            :onClickHandler="goToPreviousPokemon"
+            :disabled="id === 1"
+            :variant="true"
+          >
+            {{ $t('pokemon.previous') }}
+          </BaseButton>
+          <BaseButton
+            :onClickHandler="goToNextPokemon"
+            :disabled="id === lastPokemonId"
+            :variant="true"
+          >
+            {{ $t('pokemon.next') }}
+          </BaseButton>
+        </div>
+        <div class="go-back">
+          <BaseButton
+            class="go-back-button"
+            :onClickHandler="goToPokemonsPage"
+            :big="true"
+          >
+            {{ $t('pokemon.goToPokemonList') }}
+          </BaseButton>
+        </div>
+        <div class="go-back">
+          <BaseButton
+            class="go-back-button bottom"
+            :onClickHandler="goToSearchPage"
+            :big="true"
+          >
+            {{ $t('pokemon.goToSearch') }}
+          </BaseButton>
+        </div>
+      </template>
+      <template v-else>
+        <div class="go-back favorites">
+          <BaseButton
+            class="go-back-button bottom"
+            :onClickHandler="goToFavorites"
+            :big="true"
+          >
+            {{ $t('pokemon.goToFavorites') }}
+          </BaseButton>
+        </div>
+      </template>
     </div>
   </BaseLoader>
 </template>
@@ -89,6 +102,7 @@ import {
   getPageBackgroundElement,
   capitalizeWord,
   scrollToTopOfBackgroundPage,
+  isOnline,
 } from '@/lib/helpers';
 import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/images/pokemons/silouette.png';
@@ -288,12 +302,16 @@ export default {
     );
   },
   methods: {
+    isOnline,
     capitalizeWord,
     goToPokemonsPage() {
       this.$router.push({ name: 'pokemons' });
     },
     goToSearchPage() {
       this.$router.push({ name: 'search' });
+    },
+    goToFavorites() {
+      this.$router.push({ name: 'favorites' });
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;
@@ -421,6 +439,10 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
+    }
+
+    &.favorites {
+      margin-top: 2rem;
     }
 
     .go-back-button {

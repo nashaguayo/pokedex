@@ -1,6 +1,6 @@
 <template>
   <div class="favorites-content">
-    <h1>Favorites</h1>
+    <h1>{{ $t('favorites.title') }}</h1>
     <div class="favorites">
       <FavoritesContentItem
         v-for="pokemon in favoritePokemons"
