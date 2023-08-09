@@ -42,6 +42,11 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   template: '<div class="mocked-pokemon-item-description"></div>',
 }));
 
+jest.mock('@/components/ui/BaseButton.vue', () => ({
+  name: 'BaseButton',
+  template: '<div class="mocked-base-button"></div>',
+}));
+
 jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
@@ -138,6 +143,7 @@ jest.mock('@/lib/helpers', () => ({
   })),
   capitalizeWord: jest.fn(),
   scrollToTopOfBackgroundPage: jest.fn(),
+  isOnline: jest.fn().mockReturnValue(true),
 }));
 
 jest.mock('@/store/mutations/other', () => ({

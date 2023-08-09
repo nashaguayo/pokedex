@@ -5,6 +5,11 @@ jest.mock('@/store/mutations/pokemon', () => ({
   getAllFavoritePokemons: jest.fn(),
 }));
 
+jest.mock('@/components/ui/BaseInput.vue', () => ({
+  name: 'BaseInput',
+  template: '<div class="mocked-base-input"></div>',
+}));
+
 jest.mock('@/store/mutations/variations', () => ({
   pokemonIsVariant: jest.fn(),
 }));
@@ -12,8 +17,11 @@ jest.mock('@/store/mutations/variations', () => ({
 describe('FavoritesContent', () => {
   it('renders favorites correctly', () => {
     const wrapper = mount(FavoritesContent, {
-      stubs: ['FavoritesContestItem'],
+      stubs: ['FavoritesContestItem', 'BaseInput'],
+      mocks: {
+        $t: (key) => key,
+      },
     });
-    expect(wrapper.find('h1').text()).toBe('Favorites');
+    expect(wrapper.find('h1').text()).toBe('favorites.title');
   });
 });
