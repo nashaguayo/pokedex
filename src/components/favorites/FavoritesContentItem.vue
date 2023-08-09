@@ -1,6 +1,6 @@
 <template>
   <div class="favorites-content-item" @click="$emit('goToPage', name)">
-    <span class="id" v-if="!small">#{{ id }}</span>
+    <span class="id" v-if="id">#{{ id }}</span>
     <div class="image-container">
       <div class="image" :style="{ backgroundImage: `url(${image})` }"></div>
       <div class="background" />
@@ -15,7 +15,7 @@ export default {
   props: {
     id: {
       type: Number,
-      required: true,
+      required: false,
     },
     name: {
       type: String,
