@@ -95,9 +95,14 @@ export default {
       this.disableRightButton = false;
     },
     handleScrollEnd() {
-      if (this.$refs.favorites.scrollLeft !== this.scrollX) {
+      if (
+        this.$refs.favorites.scrollLeft !== this.scrollX &&
+        this.scrollX > 0
+      ) {
         this.scrollX = this.$refs.favorites.scrollLeft;
         this.disableRightButton = true;
+      } else if (this.scrollX < 0) {
+        this.scrollX = 0;
       }
     },
     isOverflowingX(element) {
