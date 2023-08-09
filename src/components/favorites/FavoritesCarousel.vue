@@ -14,8 +14,12 @@
         />
       </div>
       <div class="overlay">
-        <div class="left-overlay" v-if="scrollX !== 0" />
-        <div class="right-overlay" v-if="!disableRightButton" />
+        <transition name="fade-in" appear>
+          <div class="left-overlay" v-if="scrollX !== 0" />
+        </transition>
+        <transition name="fade-in" appear>
+          <div class="right-overlay" v-if="!disableRightButton" />
+        </transition>
       </div>
       <div class="navigation">
         <BaseChevron
@@ -143,19 +147,20 @@ export default {
 
     .overlay {
       display: grid;
+      grid-template-columns: repeat(2, 1fr);
       width: 100%;
       position: absolute;
       margin-left: -2rem;
       z-index: 50;
 
       .left-overlay {
-        justify-self: start;
         width: 10rem;
         height: 13rem;
         background: linear-gradient(90deg, black 20%, transparent);
       }
       .right-overlay {
-        justify-self: end;
+        grid-column-start: 2;
+        justify-self: flex-end;
         width: 10rem;
         height: 13rem;
         background-color: green;
@@ -169,5 +174,15 @@ export default {
       gap: 1rem;
     }
   }
+}
+
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-in-enter,
+.fade-in-leave-to {
+  opacity: 0;
 }
 </style>
