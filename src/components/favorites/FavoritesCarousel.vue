@@ -13,11 +13,19 @@
         />
       </div>
       <div class="navigation">
-        <BaseChevron direction="left" :variant="true" />
+        <BaseChevron
+          direction="left"
+          :onClickHandler="scrollToLeft"
+          :variant="true"
+        />
         <BaseButton :onClickHandler="goToMyFavorites" :big="true">
           See all in My Favorites
         </BaseButton>
-        <BaseChevron direction="right" :variant="true" />
+        <BaseChevron
+          direction="right"
+          :onClickHandler="scrollToRight"
+          :variant="true"
+        />
       </div>
     </div>
   </div>
@@ -35,6 +43,7 @@ export default {
   data() {
     return {
       favoritePokemons: [],
+      scrollX: 0,
     };
   },
   created() {
@@ -46,6 +55,18 @@ export default {
     },
     goToMyFavorites() {
       this.$router.push({ name: 'favorites' });
+    },
+    scrollToRight() {
+      this.scrollX += 500;
+      document
+        .querySelector('.favorites')
+        .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
+    },
+    scrollToLeft() {
+      this.scrollX -= 500;
+      document
+        .querySelector('.favorites')
+        .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
     },
   },
 };
