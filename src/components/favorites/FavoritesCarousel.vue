@@ -2,6 +2,7 @@
   <div class="favorites-carousel">
     <h1>Favorites</h1>
     <div class="carousel">
+      <div class="carousel-container"></div>
       <div class="favorites" ref="favorites">
         <FavoritesContentItem
           v-for="pokemon in favoritePokemons"
@@ -11,6 +12,10 @@
           :small="true"
           @goToPage="goToPage"
         />
+      </div>
+      <div class="overlay">
+        <div class="left-overlay" v-if="scrollX !== 0" />
+        <div class="right-overlay" v-if="!disableRightButton" />
       </div>
       <div class="navigation">
         <BaseChevron
@@ -103,6 +108,7 @@ export default {
   overflow: hidden;
 
   .carousel {
+    position: relative;
     background-color: var(--variant-background-color);
     border: 0.2rem solid var(--secondary-border-color);
     border-radius: 1rem;
@@ -118,10 +124,43 @@ export default {
       gap: 1rem;
       margin-bottom: 1rem;
       overflow-x: scroll;
+
+      .left-overlay {
+        width: 10rem;
+        height: 10rem;
+      }
+
+      .right-overlay {
+        width: 10rem;
+        height: 10rem;
+        background-color: red;
+      }
     }
 
     .favorites::-webkit-scrollbar {
       display: none;
+    }
+
+    .overlay {
+      display: grid;
+      width: 100%;
+      position: absolute;
+      margin-left: -2rem;
+      z-index: 50;
+
+      .left-overlay {
+        justify-self: start;
+        width: 10rem;
+        height: 13rem;
+        background: linear-gradient(90deg, black 20%, transparent);
+      }
+      .right-overlay {
+        justify-self: end;
+        width: 10rem;
+        height: 13rem;
+        background-color: green;
+        background: linear-gradient(270deg, black 20%, transparent);
+      }
     }
 
     .navigation {
