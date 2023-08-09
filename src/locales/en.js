@@ -119,5 +119,7 @@ export default {
   favorites: {
     title: 'Favorites',
     placeholder: 'Search in your Favorites',
+    noFavoritesMessage:
+      'Add favorites by clicking the star in pokemon details and access their info offline!',
   },
 };

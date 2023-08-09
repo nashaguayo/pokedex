@@ -2,41 +2,45 @@
   <div class="favorites-carousel">
     <h1>Favorites</h1>
     <div class="carousel">
-      <div class="carousel-container"></div>
-      <div class="favorites" ref="favorites">
-        <FavoritesContentItem
-          v-for="pokemon in favoritePokemons"
-          :key="`favorite-${pokemon.name}`"
-          :name="pokemon.name"
-          :image="pokemon.smallImage"
-          :small="true"
-          @goToPage="goToPage"
-        />
-      </div>
-      <div class="overlay">
-        <transition name="fade-in" appear>
-          <div class="left-overlay" v-if="scrollX !== 0" />
-        </transition>
-        <transition name="fade-in" appear>
-          <div class="right-overlay" v-if="!disableRightButton" />
-        </transition>
-      </div>
-      <div class="navigation">
-        <BaseChevron
-          direction="left"
-          :onClickHandler="scrollToLeft"
-          :disabled="scrollX === 0"
-          :variant="true"
-        />
-        <BaseButton :onClickHandler="goToMyFavorites" :big="true">
-          All Favorites
-        </BaseButton>
-        <BaseChevron
-          direction="right"
-          :onClickHandler="scrollToRight"
-          :variant="true"
-          :disabled="disableRightButton"
-        />
+      <template v-if="favoritePokemons.length">
+        <div class="favorites" ref="favorites">
+          <FavoritesContentItem
+            v-for="pokemon in favoritePokemons"
+            :key="`favorite-${pokemon.name}`"
+            :name="pokemon.name"
+            :image="pokemon.smallImage"
+            :small="true"
+            @goToPage="goToPage"
+          />
+        </div>
+        <div class="overlay">
+          <transition name="fade-in" appear>
+            <div class="left-overlay" v-if="scrollX !== 0" />
+          </transition>
+          <transition name="fade-in" appear>
+            <div class="right-overlay" v-if="!disableRightButton" />
+          </transition>
+        </div>
+        <div class="navigation">
+          <BaseChevron
+            direction="left"
+            :onClickHandler="scrollToLeft"
+            :disabled="scrollX === 0"
+            :variant="true"
+          />
+          <BaseButton :onClickHandler="goToMyFavorites" :big="true">
+            All Favorites
+          </BaseButton>
+          <BaseChevron
+            direction="right"
+            :onClickHandler="scrollToRight"
+            :variant="true"
+            :disabled="disableRightButton"
+          />
+        </div>
+      </template>
+      <div v-else class="no-favorites-message">
+        <span>{{ $t('favorites.noFavoritesMessage') }}</span>
       </div>
     </div>
   </div>
@@ -62,17 +66,21 @@ export default {
     this.favoritePokemons = getAllFavoritePokemons();
   },
   mounted() {
-    document
-      .querySelector('.favorites')
-      .addEventListener('scrollend', this.handleScrollEnd);
+    if (document.querySelector('.favorites')) {
+      document
+        .querySelector('.favorites')
+        .addEventListener('scrollend', this.handleScrollEnd);
+    }
     if (!this.isOverflowingX(this.$refs.favorites)) {
       this.disableRightButton = true;
     }
   },
   beforeDestroy() {
-    document
-      .querySelector('.favorites')
-      .removeEventListener('scrollend', this.handleScrollEnd);
+    if (document.querySelector('.favorites')) {
+      document
+        .querySelector('.favorites')
+        .removeEventListener('scrollend', this.handleScrollEnd);
+    }
   },
   methods: {
     goToPage(name) {
@@ -109,6 +117,9 @@ export default {
       }
     },
     isOverflowingX(element) {
+      if (!element) {
+        return false;
+      }
       return (
         element.scrollWidth !=
         Math.max(element.offsetWidth, element.clientWidth)
@@ -120,7 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 .favorites-carousel {
-  max-width: 100%;
+  width: 100%;
   overflow: hidden;
 
   .carousel {
@@ -181,6 +192,18 @@ export default {
 
       @media (min-width: $min-width-first-break) {
         padding: 0 2rem;
+      }
+    }
+
+    .no-favorites-message {
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        color: var(--secondary-text-color);
+        text-align: center;
       }
     }
   }

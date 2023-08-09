@@ -122,5 +122,7 @@ export default {
   favorites: {
     title: 'Favoritos',
     placeholder: 'Busca entre tus Favoritos',
+    noFavoritesMessage:
+      'Agrega favoritos clickeando la estrella en los detalles de pokemon, y accede a su informacion incluso offline!',
   },
 };
