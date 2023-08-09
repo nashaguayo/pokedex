@@ -67,12 +67,12 @@ export default {
     .background {
       position: absolute;
       z-index: 5;
-      background-color: var(--main-background-color);
+      background: var(--favorite-cards-screen-background-gradient);
       width: 7rem;
       height: 7rem;
       border-radius: 1rem;
-      border: 0.2rem solid var(--main-border-color);
       transform: translateY(calc(-100% - 1rem));
+      box-shadow: var(--main-box-shadow);
     }
   }
 
