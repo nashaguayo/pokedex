@@ -89,14 +89,12 @@ export default {
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
+      this.disableRightButton = false;
     },
     handleScrollEnd() {
-      if (this.$refs.favorites.scrollLeft > this.$refs.favorites.offsetWidth) {
-        this.scrollX = this.$refs.favorites.offsetWidth;
-        this.disableRightButton = true;
-      } else {
+      if (this.$refs.favorites.scrollLeft !== this.scrollX) {
         this.scrollX = this.$refs.favorites.scrollLeft;
-        this.disableRightButton = false;
+        this.disableRightButton = true;
       }
     },
   },
