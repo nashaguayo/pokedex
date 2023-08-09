@@ -83,26 +83,28 @@ export default {
     },
     async scrollToRight() {
       this.scrollX += this.$refs.favorites.offsetWidth - 100;
-      document
-        .querySelector('.favorites')
-        .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
+      document.querySelector('.favorites').scroll({
+        top: 0,
+        left: this.scrollX,
+        behavior: 'smooth',
+      });
     },
     scrollToLeft() {
       this.scrollX -= this.$refs.favorites.offsetWidth - 100;
-      document
-        .querySelector('.favorites')
-        .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
+      document.querySelector('.favorites').scroll({
+        top: 0,
+        left: this.scrollX,
+        behavior: 'smooth',
+      });
       this.disableRightButton = false;
     },
     handleScrollEnd() {
+      this.scrollX = this.$refs.favorites.scrollLeft;
       if (
-        this.$refs.favorites.scrollLeft !== this.scrollX &&
-        this.scrollX > 0
+        this.$refs.favorites.scrollLeft + this.$refs.favorites.offsetWidth >=
+        this.$refs.favorites.scrollWidth
       ) {
-        this.scrollX = this.$refs.favorites.scrollLeft;
         this.disableRightButton = true;
-      } else if (this.scrollX < 0) {
-        this.scrollX = 0;
       }
     },
     isOverflowingX(element) {
