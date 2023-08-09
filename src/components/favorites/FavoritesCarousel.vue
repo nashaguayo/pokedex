@@ -12,9 +12,13 @@
           @goToPage="goToPage"
         />
       </div>
-      <BaseButton :onClickHandler="goToMyFavorites" :big="true">
-        See all in My Favorites
-      </BaseButton>
+      <div class="navigation">
+        <BaseChevron direction="left" :variant="true" />
+        <BaseButton :onClickHandler="goToMyFavorites" :big="true">
+          See all in My Favorites
+        </BaseButton>
+        <BaseChevron direction="right" :variant="true" />
+      </div>
     </div>
   </div>
 </template>
@@ -22,11 +26,12 @@
 <script>
 import FavoritesContentItem from '@/components/favorites/FavoritesContentItem.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
+import BaseChevron from '@/components/ui/BaseChevron.vue';
 import { getAllFavoritePokemons } from '@/store/mutations/pokemon';
 
 export default {
   name: 'FavoritesCarousel',
-  components: { BaseButton, FavoritesContentItem },
+  components: { BaseButton, BaseChevron, FavoritesContentItem },
   data() {
     return {
       favoritePokemons: [],
@@ -56,7 +61,7 @@ export default {
     border: 0.2rem solid var(--secondary-border-color);
     border-radius: 1rem;
     box-shadow: var(--main-box-shadow);
-    padding: 2rem 5rem;
+    padding: 2rem;
     margin: 2rem;
     display: flex;
     flex-direction: column;
@@ -71,6 +76,12 @@ export default {
 
     .favorites::-webkit-scrollbar {
       display: none;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
     }
   }
 }

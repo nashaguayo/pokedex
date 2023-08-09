@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{ 'bounce-animation': wasClicked, disabled, small }"
+    :class="{ 'bounce-animation': wasClicked, disabled, small, variant }"
     class="base-chevron"
     @click="handleAndAnimate"
     @animationend="wasClicked = false"
@@ -35,6 +35,10 @@ export default {
       default: false,
     },
     small: {
+      type: Boolean,
+      default: false,
+    },
+    variant: {
       type: Boolean,
       default: false,
     },
@@ -74,6 +78,11 @@ export default {
   &.small {
     min-width: 1.2rem;
     min-height: 1.2rem;
+  }
+
+  &.variant {
+    background-color: var(--secondary-background-color);
+    border: 0.2rem solid var(--secondary-border-color);
   }
 }
 
