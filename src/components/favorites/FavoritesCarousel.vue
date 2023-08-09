@@ -82,13 +82,13 @@ export default {
       this.$router.push({ name: 'favorites' });
     },
     async scrollToRight() {
-      this.scrollX += 500;
+      this.scrollX += this.$refs.favorites.offsetWidth - 100;
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
     },
     scrollToLeft() {
-      this.scrollX -= 500;
+      this.scrollX -= this.$refs.favorites.offsetWidth - 100;
       document
         .querySelector('.favorites')
         .scroll({ top: 0, left: this.scrollX, behavior: 'smooth' });
@@ -154,6 +154,7 @@ export default {
       width: 100%;
       position: absolute;
       z-index: 50;
+      pointer-events: none;
 
       .left-overlay {
         width: 10rem;
