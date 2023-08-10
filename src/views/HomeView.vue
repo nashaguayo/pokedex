@@ -28,7 +28,8 @@ import LogoAndBanner from '@/components/home/LogoAndBanner.vue';
 import RandomPokemon from '@/components/home/RandomPokemon.vue';
 import GuessPokemon from '@/components/home/GuessPokemon.vue';
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import store from '@/lib/store';
+import { initializeStore } from '@/store/mutations/other';
+import other from '@/store/state/other';
 
 export default {
   name: 'HomeView',
@@ -42,12 +43,12 @@ export default {
   },
   computed: {
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
   },
   async created() {
     if (!this.storeHasLoaded) {
-      await store.initializeStore();
+      await initializeStore();
     }
   },
 };

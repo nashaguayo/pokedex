@@ -70,7 +70,7 @@ export default {
   .filter {
     border-radius: 1rem;
     padding: 0.3rem;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
     cursor: pointer;
     font-size: 0.8rem;
 

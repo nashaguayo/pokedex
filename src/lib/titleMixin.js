@@ -9,7 +9,7 @@ export default {
   created() {
     const title = getTitle(this);
     if (title) {
-      document.title = `Pokedex - ${title}`;
+      document.title = `Pokedex — ${title}`;
     }
   },
 };

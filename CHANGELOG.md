@@ -1,14 +1,36 @@
 # Pokedex Release Notes
 
----
-
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.2...develop) (dd-mm-yyyy)
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.1.0...develop) (dd-mm-yyyy)
 
 ##### Added
 
+##### Modified
+
 ##### Fixed
 
+---
+
+## [V1.1.0](https://github.com/nashaguayo/pokedex/compare/V1.0.2...V1.1.0) (09-08-2023)
+
+##### Added
+
+- Favorite pokemons and offline use
+- Missing titles to pages
+
 ##### Modified
+
+- See in app button now redirects to page user was originally seeing
+- Transition in pokemon list
+- Got rid of sass variables for colors
+- Refactored complete store
+- Refactored computed properties in templates
+- Got rid of transition alls
+- Clearing setTimeout
+
+##### Fixed
+
+- Launch app view redirect when app is not installed
+- Small images stretching
 
 ---
 

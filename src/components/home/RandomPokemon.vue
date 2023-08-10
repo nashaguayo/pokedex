@@ -27,7 +27,6 @@
 
 <script>
 import BaseLoader from '@/components/ui/BaseLoader.vue';
-import store from '@/lib/store';
 import {
   firstBreak,
   secondBreak,
@@ -36,6 +35,12 @@ import {
   fifthBreak,
   sixthBreak,
 } from '@/constants/resolutions';
+import {
+  getNewRandomPokemon,
+  getRandomPokemons,
+} from '@/store/mutations/random';
+import other from '@/store/state/other';
+import random from '@/store/state/random';
 
 export default {
   name: 'RandomPokemon',
@@ -59,10 +64,10 @@ export default {
   },
   computed: {
     randomPokemons() {
-      return store.state.randomPokemons;
+      return random.state.pokemons;
     },
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
   },
   watch: {
@@ -85,7 +90,7 @@ export default {
             amountOfRandomPokemons = 2;
           }
 
-          await store.getRandomPokemons(amountOfRandomPokemons);
+          await getRandomPokemons(amountOfRandomPokemons);
           this.loading = false;
         }
       },
@@ -93,7 +98,7 @@ export default {
   },
   methods: {
     async getNewRandomPokemon() {
-      await store.getNewRandomPokemon(true);
+      await getNewRandomPokemon(true);
     },
   },
 };
@@ -161,7 +166,7 @@ export default {
 .slide-to-left-move,
 .slide-to-left-enter-active,
 .slide-to-left-leave-active {
-  transition: all 0.5s;
+  transition: transform 0.5s, opacity 0.5s;
 }
 
 .slide-to-left-leave-active {

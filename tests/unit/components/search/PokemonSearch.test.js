@@ -36,26 +36,67 @@ jest.mock('@/components/search/PokemonSearchItem.vue', () => ({
   template: '<div class="mocked-pokemon-search-item"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/mutations/other', () => ({
   initializeStore: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/colors', () => ({
+  clearFilters: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/shapes', () => ({
+  clearFilters: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/generations', () => ({
+  clearFilters: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/types', () => ({
+  clearFilters: jest.fn(),
+}));
+
+jest.mock('@/store/mutations/search', () => ({
   searchPokemons: jest.fn(),
   clearSearchResults: jest.fn(),
   clearFilters: jest.fn(),
-  clearTypeFilters: jest.fn(),
-  clearColorFilters: jest.fn(),
-  clearShapeFilters: jest.fn(),
-  clearGenerationFilters: jest.fn(),
+}));
+
+jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
-    search: {
-      results: ['Pikachu', 'Charizard'],
-      isSearchingPokemon: false,
-      types: [],
-      color: '',
-      shape: '',
-      generation: '',
-    },
     isDarkModeEnabled: false,
+  },
+}));
+
+jest.mock('@/store/state/generations', () => ({
+  state: {
+    filter: '',
+  },
+}));
+
+jest.mock('@/store/state/shapes', () => ({
+  state: {
+    filter: '',
+  },
+}));
+
+jest.mock('@/store/state/colors', () => ({
+  state: {
+    filter: '',
+  },
+}));
+
+jest.mock('@/store/state/types', () => ({
+  state: {
+    filters: [],
+  },
+}));
+
+jest.mock('@/store/state/search', () => ({
+  state: {
+    results: ['Pikachu', 'Charizard'],
+    isSearching: false,
   },
 }));
 

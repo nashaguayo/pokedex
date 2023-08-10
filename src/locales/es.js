@@ -69,6 +69,7 @@ export default {
     next: 'Siguiente',
     goToPokemonList: 'Ir a la Lista de Pokemones',
     goToSearch: 'Ir a la Busqueda',
+    goToFavorites: 'Ir a Favoritos',
   },
 
   pokemons: {
@@ -116,5 +117,12 @@ export default {
   launchApp: {
     title: 'Ver en la Aplicación',
     button: 'Abrir',
+  },
+
+  favorites: {
+    title: 'Favoritos',
+    placeholder: 'Busca entre tus Favoritos',
+    noFavoritesMessage:
+      'Agrega favoritos clickeando la estrella en los detalles de pokemon, y accede a su informacion incluso offline!',
   },
 };

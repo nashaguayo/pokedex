@@ -8,22 +8,23 @@
 
 <script>
 import PokemonSearchFilters from '@/components/search/PokemonSearchFilters';
-import store from '@/lib/store';
+import colors from '@/store/state/colors';
+import { toggleFilter } from '@/store/mutations/colors';
 
 export default {
   name: 'PokemonSearchColors',
   components: { PokemonSearchFilters },
   computed: {
     allColors() {
-      return store.state.allColors;
+      return colors.state.all;
     },
     filteringColor() {
-      return store.state.search.color;
+      return colors.state.filter;
     },
   },
   methods: {
     toggleColorFilter(color) {
-      store.toggleColorFilter(color);
+      toggleFilter(color);
     },
   },
 };

@@ -6,6 +6,11 @@ jest.mock('@/components/pokemons/PokemonList.vue', () => ({
   template: '<div class="mocked-pokemon-list"></div>',
 }));
 
+jest.mock('@/components/favorites/FavoritesCarousel.vue', () => ({
+  name: 'FavoritesCarousel',
+  template: '<div class="mocked-favorites-carousel"></div>',
+}));
+
 describe('PokemonsView', () => {
   let wrapper;
 
@@ -20,5 +25,6 @@ describe('PokemonsView', () => {
   it('renders PokemonsView with PokemonList component', () => {
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('pokemonlist-stub').exists()).toBe(true);
+    expect(wrapper.find('favoritescarousel-stub').exists()).toBe(true);
   });
 });

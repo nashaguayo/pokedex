@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import store from '@/lib/store';
+import other from '@/store/state/other';
 
 export default {
   name: 'BaseInput',
@@ -102,7 +102,7 @@ export default {
       },
     },
     isDarkModeEnabled() {
-      return store.state.isDarkModeEnabled;
+      return other.state.isDarkModeEnabled;
     },
   },
 };

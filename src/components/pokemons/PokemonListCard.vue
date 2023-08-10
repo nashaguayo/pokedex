@@ -26,7 +26,7 @@
 <script>
 import silouette from '@/assets/images/pokemons/silouette.png';
 import { pokemonColorTypes } from '@/constants/pokemonTypesColor';
-import store from '@/lib/store';
+import { pokemonIsVariant } from '@/store/mutations/variations';
 
 export default {
   name: 'PokemonListCard',
@@ -58,7 +58,7 @@ export default {
     async showPokemonInfo() {
       this.wasClicked = true;
       const pokemonName = this.name.split('-')[0];
-      if (await store.pokemonIsVariant(this.name)) {
+      if (await pokemonIsVariant(this.name)) {
         this.$router.push({
           name: 'pokemon',
           params: { id: pokemonName },

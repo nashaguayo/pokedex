@@ -20,6 +20,7 @@ import { isInstalled } from '@/lib/helpers';
 
 export default {
   name: 'InstallView',
+  title: 'Install',
   components: { BaseButton, BaseLoader },
   data() {
     return {
@@ -32,7 +33,11 @@ export default {
     window.addEventListener('beforeinstallprompt', this.beforeInstallPrompt);
     window.addEventListener('appinstalled', this.appInstalled);
     if (await isInstalled()) {
-      this.$router.push({ name: 'launchApp' });
+      const route = { name: 'launchApp' };
+      if (this.$route?.query?.redirect) {
+        route.query = this.$route.query;
+      }
+      this.$router.push(route);
     }
   },
   beforeDestroy() {

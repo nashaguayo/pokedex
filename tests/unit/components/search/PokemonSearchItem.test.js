@@ -5,7 +5,7 @@ jest.mock('@/lib/localStorage', () => ({
   setRecentSearch: jest.fn(),
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/mutations/variations', () => ({
   pokemonIsVariant: jest.fn().mockResolvedValue(true),
 }));
 

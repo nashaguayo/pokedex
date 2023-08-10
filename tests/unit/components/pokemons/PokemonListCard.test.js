@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonListCard from '@/components/pokemons/PokemonListCard';
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/store/mutations/variations', () => ({
   pokemonIsVariant: jest.fn().mockResolvedValue(true),
 }));
 

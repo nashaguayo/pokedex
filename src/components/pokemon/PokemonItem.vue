@@ -36,40 +36,53 @@
         :variants="variants"
       />
       <PokemonItemDescription :flavorTexts="flavorTexts" />
-      <div class="navigation">
-        <BaseButton
-          :onClickHandler="goToPreviousPokemon"
-          :disabled="id === 1"
-          :variant="true"
-        >
-          {{ $t('pokemon.previous') }}
-        </BaseButton>
-        <BaseButton
-          :onClickHandler="goToNextPokemon"
-          :disabled="id === lastPokemonId"
-          :variant="true"
-        >
-          {{ $t('pokemon.next') }}
-        </BaseButton>
-      </div>
-      <div class="go-back">
-        <BaseButton
-          class="go-back-button"
-          :onClickHandler="goToPokemonsPage"
-          :big="true"
-        >
-          {{ $t('pokemon.goToPokemonList') }}
-        </BaseButton>
-      </div>
-      <div class="go-back">
-        <BaseButton
-          class="go-back-button bottom"
-          :onClickHandler="goToSearchPage"
-          :big="true"
-        >
-          {{ $t('pokemon.goToSearch') }}
-        </BaseButton>
-      </div>
+      <template v-if="isOnline()">
+        <div class="navigation">
+          <BaseButton
+            :onClickHandler="goToPreviousPokemon"
+            :disabled="id === 1"
+            :variant="true"
+          >
+            {{ $t('pokemon.previous') }}
+          </BaseButton>
+          <BaseButton
+            :onClickHandler="goToNextPokemon"
+            :disabled="id === lastPokemonId"
+            :variant="true"
+          >
+            {{ $t('pokemon.next') }}
+          </BaseButton>
+        </div>
+        <div class="go-back">
+          <BaseButton
+            class="go-back-button"
+            :onClickHandler="goToPokemonsPage"
+            :big="true"
+          >
+            {{ $t('pokemon.goToPokemonList') }}
+          </BaseButton>
+        </div>
+        <div class="go-back">
+          <BaseButton
+            class="go-back-button bottom"
+            :onClickHandler="goToSearchPage"
+            :big="true"
+          >
+            {{ $t('pokemon.goToSearch') }}
+          </BaseButton>
+        </div>
+      </template>
+      <template v-else>
+        <div class="go-back favorites">
+          <BaseButton
+            class="go-back-button bottom"
+            :onClickHandler="goToFavorites"
+            :big="true"
+          >
+            {{ $t('pokemon.goToFavorites') }}
+          </BaseButton>
+        </div>
+      </template>
     </div>
   </BaseLoader>
 </template>
@@ -89,10 +102,15 @@ import {
   getPageBackgroundElement,
   capitalizeWord,
   scrollToTopOfBackgroundPage,
+  isOnline,
 } from '@/lib/helpers';
-import store from '@/lib/store';
 import { fourthBreak } from '@/constants/resolutions';
 import silouette from '@/assets/images/pokemons/silouette.png';
+import { initializeStore } from '@/store/mutations/other';
+import other from '@/store/state/other';
+import { getFavoritedPokemon, getPokemon } from '@/store/mutations/pokemon';
+import pokemon from '@/store/state/pokemon';
+import pokemons from '@/store/state/pokemons';
 
 export default {
   name: 'PokemonItem',
@@ -112,6 +130,7 @@ export default {
       topPosition: 0,
       throttledParallax: null,
       loading: true,
+      pokemon: null,
     };
   },
   watch: {
@@ -122,8 +141,8 @@ export default {
       immediate: true,
       async handler(storeHasLoaded) {
         if (storeHasLoaded) {
-          if (!store.state.pokemon.has(this.urlId)) {
-            await store.getPokemon(this.urlId);
+          if (!pokemon.state.visited.has(this.urlId)) {
+            await getPokemon(this.urlId);
           }
           this.loading = false;
         }
@@ -138,101 +157,139 @@ export default {
       return this.allPokemons[this.allPokemons.length - 1]?.id ?? 0;
     },
     allPokemons() {
-      return store.state.allPokemons;
+      return pokemons.state.all;
     },
     id() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.id ?? 0;
+      return (
+        this.pokemon?.id ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.id ??
+        0
+      );
     },
     name() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.name ?? '???'
+        this.pokemon?.name ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.name ??
+        '???'
       );
     },
     image() {
-      return store.state.pokemon.get(this.loading ? 0 : this.urlId)?.image;
+      return (
+        this.pokemon?.image ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.image
+      );
     },
     smallImage() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.smallImage ??
+        this.pokemon?.smallImage ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.smallImage ??
         silouette
       );
     },
     stats() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.stats ?? []
+        this.pokemon?.stats ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.stats ??
+        []
       );
     },
     types() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.types ?? []
+        this.pokemon?.types ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.types ??
+        []
       );
     },
     evolutions() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.evolutions ?? []
+        this.pokemon?.evolutions ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.evolutions ??
+        []
       );
     },
     flavorTexts() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
+        this.pokemon?.flavorTexts ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.flavorTexts ??
         []
       );
     },
     characteristic() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)
-          ?.characteristic ?? ''
+        this.pokemon?.characteristic ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)
+          ?.characteristic ??
+        ''
       );
     },
     weight() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.weight ?? 0
+        this.pokemon?.weight ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.weight ??
+        0
       );
     },
     height() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.height ?? 0
+        this.pokemon?.height ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.height ??
+        0
       );
     },
     color() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.color ?? ''
+        this.pokemon?.color ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.color ??
+        ''
       );
     },
     shape() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.shape ?? ''
+        this.pokemon?.shape ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.shape ??
+        ''
       );
     },
     generation() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.generation ?? ''
+        this.pokemon?.generation ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.generation ??
+        ''
       );
     },
     habitatTranslated() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat
-          ?.translated ?? ''
+        this.pokemon?.translated ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.habitat
+          ?.translated ??
+        ''
       );
     },
     habitatName() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.habitat?.name ??
+        this.pokemon?.habitat.name ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.habitat
+          ?.name ??
         ''
       );
     },
     variants() {
       return (
-        store.state.pokemon.get(this.loading ? 0 : this.urlId)?.variants ?? []
+        this.pokemon?.variants ??
+        pokemon.state.visited.get(this.loading ? 0 : this.urlId)?.variants ??
+        []
       );
     },
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
   },
   async created() {
-    if (!this.storeHasLoaded) {
-      await store.initializeStore();
+    this.pokemon = getFavoritedPokemon(this.urlId);
+    if (this.pokemon) {
+      this.loading = false;
+    } else if (!this.storeHasLoaded) {
+      await initializeStore();
     }
   },
   beforeDestroy() {
@@ -245,12 +302,16 @@ export default {
     );
   },
   methods: {
+    isOnline,
     capitalizeWord,
     goToPokemonsPage() {
       this.$router.push({ name: 'pokemons' });
     },
     goToSearchPage() {
       this.$router.push({ name: 'search' });
+    },
+    goToFavorites() {
+      this.$router.push({ name: 'favorites' });
     },
     parallax() {
       const yPosition = getPageBackgroundElement().scrollTop / 2;
@@ -378,6 +439,10 @@ export default {
     @media (min-width: $min-width-fourth-break) {
       grid-column-start: 1;
       grid-column-end: 3;
+    }
+
+    &.favorites {
+      margin-top: 2rem;
     }
 
     .go-back-button {

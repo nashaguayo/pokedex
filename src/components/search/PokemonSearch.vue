@@ -57,34 +57,12 @@
         <component :is="component" />
       </transition>
       <transition name="slide-from-above" mode="out-in">
-        <span
-          class="no-results"
-          v-if="
-            (searchTerm.length >= 3 ||
-              (searchTerm.length < 3 &&
-                (filteringTypes.length ||
-                  filteringColor.length ||
-                  filteringShape.length ||
-                  filteringGeneration.length))) &&
-            !searchResults.length
-          "
-        >
+        <span class="no-results" v-if="noResultsWereFound">
           {{ $t('search.noResultsFound') }}
         </span>
       </transition>
       <transition name="slide-from-above" appear>
-        <div
-          v-if="
-            !searchResults.length &&
-            searchTerm.length === 0 &&
-            filteringTypes.length === 0 &&
-            !filteringColor &&
-            !filteringShape &&
-            !filteringGeneration &&
-            recentSearches.length
-          "
-          class="recent-searches"
-        >
+        <div v-if="shouldDisplayRecentSearches" class="recent-searches">
           <span class="recent-searches-title">{{
             $t('search.recentSearches')
           }}</span>
@@ -131,8 +109,23 @@ import PokemonSearchColors from '@/components/search/PokemonSearchColors.vue';
 import PokemonSearchShapes from '@/components/search/PokemonSearchShapes.vue';
 import PokemonSearchGenerations from '@/components/search/PokemonSearchGenerations.vue';
 import PokemonSearchItem from '@/components/search/PokemonSearchItem.vue';
-import store from '@/lib/store';
 import { getRecentSearches, clearRecentSearches } from '@/lib/localStorage';
+import { initializeStore } from '@/store/mutations/other';
+import { clearFilters as clearGenerationFilters } from '@/store/mutations/generations';
+import { clearFilters as clearShapeFilters } from '@/store/mutations/shapes';
+import { clearFilters as clearColorFilters } from '@/store/mutations/colors';
+import { clearFilters as clearTypeFilters } from '@/store/mutations/types';
+import {
+  searchPokemons,
+  clearFilters,
+  clearSearchResults,
+} from '@/store/mutations/search';
+import other from '@/store/state/other';
+import generations from '@/store/state/generations';
+import shapes from '@/store/state/shapes';
+import colors from '@/store/state/colors';
+import types from '@/store/state/types';
+import search from '@/store/state/search';
 
 export default {
   name: 'PokemonSearch',
@@ -160,7 +153,7 @@ export default {
   },
   async created() {
     if (!this.storeHasLoaded) {
-      await store.initializeStore();
+      await initializeStore();
     }
   },
   beforeDestroy() {
@@ -168,71 +161,96 @@ export default {
   },
   watch: {
     async searchTerm(searchTerm) {
-      if (
-        searchTerm.length < 3 &&
+      if (this.shouldClearSearchResults) {
+        clearSearchResults();
+        return;
+      }
+      searchPokemons(searchTerm);
+    },
+    async filteringTypes(filteringTypes) {
+      if (!filteringTypes.length && !this.searchTerm) {
+        clearSearchResults();
+        return;
+      }
+      searchPokemons(this.searchTerm);
+    },
+    async filteringColor(filteringColor) {
+      if (!filteringColor.length && !this.searchTerm) {
+        clearSearchResults();
+        return;
+      }
+      searchPokemons(this.searchTerm);
+    },
+    async filteringShape(filteringShape) {
+      if (!filteringShape.length && !this.searchTerm) {
+        clearSearchResults();
+        return;
+      }
+      searchPokemons(this.searchTerm);
+    },
+    async filteringGeneration(filteringGeneration) {
+      if (!filteringGeneration.length && !this.searchTerm) {
+        clearSearchResults();
+        return;
+      }
+      searchPokemons(this.searchTerm);
+    },
+  },
+  computed: {
+    noResultsWereFound() {
+      return (
+        (this.searchTerm.length >= 3 ||
+          (this.searchTerm.length < 3 &&
+            (this.filteringTypes.length ||
+              this.filteringColor.length ||
+              this.filteringShape.length ||
+              this.filteringGeneration.length))) &&
+        !this.searchResults.length
+      );
+    },
+    shouldDisplayRecentSearches() {
+      return (
+        !this.searchResults.length &&
+        this.searchTerm.length === 0 &&
+        this.filteringTypes.length === 0 &&
+        !this.filteringColor &&
+        !this.filteringShape &&
+        !this.filteringGeneration &&
+        this.recentSearches.length
+      );
+    },
+    shouldClearSearchResults() {
+      return (
+        this.searchTerm.length < 3 &&
         !this.filteringTypes.length &&
         !this.filteringColor.length &&
         !this.filteringShape.length &&
         !this.filteringGeneration.length
-      ) {
-        store.clearSearchResults();
-        return;
-      }
-      await store.searchPokemons(searchTerm);
+      );
     },
-    async filteringTypes(filteringTypes) {
-      if (!filteringTypes.length && !this.searchTerm) {
-        store.clearSearchResults();
-        return;
-      }
-      await store.searchPokemons(this.searchTerm);
-    },
-    async filteringColor(filteringColor) {
-      if (!filteringColor.length && !this.searchTerm) {
-        store.clearSearchResults();
-        return;
-      }
-      await store.searchPokemons(this.searchTerm);
-    },
-    async filteringShape(filteringShape) {
-      if (!filteringShape.length && !this.searchTerm) {
-        store.clearSearchResults();
-        return;
-      }
-      await store.searchPokemons(this.searchTerm);
-    },
-    async filteringGeneration(filteringGeneration) {
-      if (!filteringGeneration.length && !this.searchTerm) {
-        store.clearSearchResults();
-        return;
-      }
-      await store.searchPokemons(this.searchTerm);
-    },
-  },
-  computed: {
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
     searchResults() {
-      return store.state.search.results;
+      return search.state.results;
     },
     filteringTypes() {
-      return store.state.search.types;
+      return types.state.filters;
     },
     filteringColor() {
-      return store.state.search.color;
+      return colors.state.filter;
     },
     filteringShape() {
-      return store.state.search.shape;
+      return shapes.state.filter;
     },
     filteringGeneration() {
-      return store.state.search.generation;
+      return generations.state.filter;
     },
     loading() {
-      return store.state.search.isSearchingPokemon;
+      return search.state.isSearching;
     },
     isDarkModeEnabled() {
-      return store.state.isDarkModeEnabled;
+      return other.state.isDarkModeEnabled;
     },
   },
   methods: {
@@ -251,9 +269,9 @@ export default {
       }
       this.component = 'PokemonSearchTypes';
       this.displayTypes = true;
-      store.clearColorFilters();
-      store.clearShapeFilters();
-      store.clearGenerationFilters();
+      clearColorFilters();
+      clearShapeFilters();
+      clearGenerationFilters();
     },
     toggleDisplayColors() {
       this.clearDisplayVariables();
@@ -263,9 +281,9 @@ export default {
       }
       this.component = 'PokemonSearchColors';
       this.displayColors = true;
-      store.clearTypeFilters();
-      store.clearShapeFilters();
-      store.clearGenerationFilters();
+      clearTypeFilters();
+      clearShapeFilters();
+      clearGenerationFilters();
     },
     toggleDisplayShapes() {
       this.clearDisplayVariables();
@@ -275,9 +293,9 @@ export default {
       }
       this.component = 'PokemonSearchShapes';
       this.displayShapes = true;
-      store.clearTypeFilters();
-      store.clearColorFilters();
-      store.clearGenerationFilters();
+      clearTypeFilters();
+      clearColorFilters();
+      clearGenerationFilters();
     },
     toggleDisplayGenerations() {
       this.clearDisplayVariables();
@@ -287,14 +305,14 @@ export default {
       }
       this.component = 'PokemonSearchGenerations';
       this.displayGenerations = true;
-      store.clearTypeFilters();
-      store.clearColorFilters();
-      store.clearShapeFilters();
+      clearTypeFilters();
+      clearColorFilters();
+      clearShapeFilters();
     },
     clearSearch() {
       this.reset = true;
-      store.clearSearchResults();
-      store.clearFilters();
+      clearSearchResults();
+      clearFilters();
       this.component = null;
       this.clearDisplayVariables();
     },
@@ -485,7 +503,7 @@ export default {
 .slide-from-right-move,
 .slide-from-right-enter-active,
 .slide-from-right-leave-active {
-  transition: all 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .slide-from-right-enter-active {

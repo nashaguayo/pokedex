@@ -105,7 +105,7 @@ export default {
 
 .slide-in-and-out-enter-active,
 .slide-in-and-out-leave-active {
-  transition: all 0.5s;
+  transition: opacity 0.5s, transform 0.5s;
 }
 
 .slide-in-and-out-leave-from,

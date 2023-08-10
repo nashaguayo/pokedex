@@ -42,15 +42,20 @@ jest.mock('@/components/pokemon/PokemonItemDescription.vue', () => ({
   template: '<div class="mocked-pokemon-item-description"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/components/ui/BaseButton.vue', () => ({
+  name: 'BaseButton',
+  template: '<div class="mocked-base-button"></div>',
+}));
+
+jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
-    allPokemons: [
-      { id: 1, name: 'pikachu' },
-      { id: 2, name: 'squirtle' },
-      { id: 3, name: 'charmander' },
-    ],
-    pokemon: new Map([
+  },
+}));
+
+jest.mock('@/store/state/pokemon', () => ({
+  state: {
+    visited: new Map([
       [
         1,
         {
@@ -113,7 +118,21 @@ jest.mock('@/lib/store', () => ({
       ],
     ]),
   },
+}));
+
+jest.mock('@/store/mutations/pokemon', () => ({
   getPokemon: jest.fn(),
+  getFavoritedPokemon: jest.fn(),
+}));
+
+jest.mock('@/store/state/pokemons', () => ({
+  state: {
+    all: [
+      { id: 1, name: 'pikachu' },
+      { id: 2, name: 'squirtle' },
+      { id: 3, name: 'charmander' },
+    ],
+  },
 }));
 
 jest.mock('@/lib/helpers', () => ({
@@ -124,6 +143,11 @@ jest.mock('@/lib/helpers', () => ({
   })),
   capitalizeWord: jest.fn(),
   scrollToTopOfBackgroundPage: jest.fn(),
+  isOnline: jest.fn().mockReturnValue(true),
+}));
+
+jest.mock('@/store/mutations/other', () => ({
+  initializeStore: jest.fn(),
 }));
 
 describe('PokemonItem', () => {
@@ -135,6 +159,7 @@ describe('PokemonItem', () => {
       propsData: {
         loading: false,
       },
+      stubs: ['FontAwesomeIcon'],
       mocks: {
         $route: {
           name: 'pokemon',
@@ -195,6 +220,7 @@ describe('PokemonItem', () => {
       propsData: {
         loading: false,
       },
+      stubs: ['FontAwesomeIcon'],
       mocks: {
         $route: {
           name: 'pokemon',
@@ -221,6 +247,7 @@ describe('PokemonItem', () => {
       propsData: {
         loading: false,
       },
+      stubs: ['FontAwesomeIcon'],
       mocks: {
         $route: {
           name: 'pokemon',

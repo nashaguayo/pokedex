@@ -71,36 +71,17 @@
       <div v-if="guessesInARow > 0" class="guesses-in-a-row">
         <span>{{ $t('home.guessPokemon.guessesInARow') }}</span
         ><br />
-        <div class="stars">
-          <transition-group name="zoom-in" appear>
-            <FontAwesomeIcon
-              v-for="guess in goldStars"
-              :key="`guess-${guess}`"
-              icon="fa-solid fa-star"
-              class="gold-star"
-            />
-          </transition-group>
-        </div>
-        <div class="stars">
-          <transition-group name="zoom-in" appear>
-            <FontAwesomeIcon
-              v-for="guess in silverStars"
-              :key="`guess-${guess}`"
-              icon="fa-solid fa-star"
-              class="silver-star"
-            />
-          </transition-group>
-        </div>
-        <div class="stars">
-          <transition-group name="zoom-in" appear>
-            <FontAwesomeIcon
-              v-for="guess in bronzeStars"
-              :key="`guess-${guess}`"
-              icon="fa-solid fa-star"
-              class="bronze-star"
-            />
-          </transition-group>
-        </div>
+        <MetalStars v-if="goldStars" :amountOfStars="goldStars" metal="gold" />
+        <MetalStars
+          v-if="silverStars"
+          :amountOfStars="silverStars"
+          metal="silver"
+        />
+        <MetalStars
+          v-if="bronzeStars"
+          :amountOfStars="bronzeStars"
+          metal="bronze"
+        />
       </div>
     </transition>
     <BaseButton
@@ -121,15 +102,19 @@ import BaseLoader from '@/components/ui/BaseLoader';
 import BaseInput from '@/components/ui/BaseInput';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseChevron from '@/components/ui/BaseChevron';
-import store from '@/lib/store';
+import MetalStars from '@/components/home/MetalStars';
+import {
+  getNewMysteryPokemon,
+  setMysteryPokemonFromLS,
+} from '@/store/mutations/game';
 import {
   getGuessesInARow,
-  getMysteryPokemon,
   getTriesLeft,
   setGuessesInARow,
-  setMysteryPokemon,
   setTriesLeft,
 } from '@/lib/localStorage';
+import other from '@/store/state/other';
+import game from '@/store/state/game';
 
 export default {
   name: 'GuessPokemon',
@@ -138,6 +123,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseChevron,
+    MetalStars,
   },
   data() {
     return {
@@ -154,17 +140,19 @@ export default {
       platinumStars: 0,
       focus: false,
       isFirstTime: true,
+      timerEnabledTimeout: null,
+      timerCountTimeout: null,
     };
   },
   computed: {
     image() {
-      return store.state.game.image;
+      return game.state.image;
     },
     name() {
-      return store.state.game.name;
+      return game.state.name;
     },
     storeHasLoaded() {
-      return store.state.storeHasLoaded;
+      return other.state.storeHasLoaded;
     },
     hasWon() {
       return this.playersGuess.toLowerCase() === this.name;
@@ -178,12 +166,10 @@ export default {
       immediate: true,
       async handler(storeHasLoaded) {
         if (storeHasLoaded && !this.image && !this.name) {
-          const mysteryPokemon = getMysteryPokemon();
-          if (mysteryPokemon) {
-            store.setNewMysteryPokemon(mysteryPokemon);
-            return;
+          const successful = setMysteryPokemonFromLS();
+          if (!successful) {
+            await this.getNewMysteryPokemon();
           }
-          await this.getNewMysteryPokemon();
         }
       },
     },
@@ -204,22 +190,24 @@ export default {
     },
     timerEnabled(enabled) {
       if (enabled) {
-        setTimeout(() => {
+        this.timerEnabledTimeout = setTimeout(() => {
           this.timerCount--;
         }, 1000);
       } else {
         this.timerCount = 5;
+        clearTimeout(this.timerEnabledTimeout);
       }
     },
     timerCount(count) {
       if (count > 0 && this.timerEnabled) {
-        setTimeout(() => {
+        this.timerCountTimeout = setTimeout(() => {
           this.timerCount--;
         }, 1000);
         return;
       } else if (count === 0) {
         this.timerEnabled = false;
         this.getNewMysteryPokemon();
+        clearTimeout(this.timerCountTimeout);
       }
     },
     guessesInARow: {
@@ -248,12 +236,10 @@ export default {
   methods: {
     async getNewMysteryPokemon() {
       this.loading = true;
-      await store.getNewMysteryPokemon();
+      await getNewMysteryPokemon();
       this.reset = true;
       this.tries = 3;
       this.loading = false;
-      setTriesLeft(this.tries);
-      setMysteryPokemon({ name: this.name, image: this.image });
 
       console.log(`You want to cheat? Mystery pokemon is: ${this.name}`);
 
@@ -372,19 +358,6 @@ export default {
     align-items: center;
     width: 100%;
     margin-bottom: 1rem;
-
-    .gold-star {
-      color: #edb200;
-      margin: 0 0.1rem;
-    }
-    .silver-star {
-      color: #b5b4b0;
-      margin: 0 0.1rem;
-    }
-    .bronze-star {
-      color: #73440f;
-      margin: 0 0.1rem;
-    }
   }
 
   .retrieve-new-pokemon {
@@ -400,16 +373,5 @@ export default {
 .flip-enter,
 .flip-leave-to {
   transform: scaleY(0);
-}
-
-.zoom-in-enter-active,
-.zoom-in-leave-active,
-.zoom-in-move {
-  transition: transform 0.3s;
-}
-
-.zoom-in-enter,
-.zoom-in-leave-to {
-  transform: scale(0);
 }
 </style>

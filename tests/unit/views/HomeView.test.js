@@ -16,11 +16,19 @@ jest.mock('@/components/home/RandomPokemon.vue', () => ({
   template: '<div class="mocked-random-pokemon"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
+jest.mock('@/components/ui/BaseLoader.vue', () => ({
+  name: 'BaseLoader',
+  template: '<div class="mocked-base-loader"></div>',
+}));
+
+jest.mock('@/store/state/other', () => ({
   state: {
     storeHasLoaded: true,
   },
-  initializeStore: jest.fn().mockResolvedValue(),
+}));
+
+jest.mock('@/store/mutations/other', () => ({
+  initializeStore: jest.fn(),
 }));
 
 describe('HomeView', () => {
@@ -29,5 +37,6 @@ describe('HomeView', () => {
     expect(wrapper.find('logoandbanner-stub').exists()).toBe(true);
     expect(wrapper.find('guesspokemon-stub').exists()).toBe(true);
     expect(wrapper.find('randompokemon-stub').exists()).toBe(true);
+    expect(wrapper.find('baseloader-stub').exists()).toBe(true);
   });
 });

@@ -7,7 +7,7 @@
       </div>
       <div v-else key="results" class="pokemons-container">
         <h1>{{ $t('pokemons.title') }}</h1>
-        <transition-group name="slide-up" appear class="pokemons">
+        <transition-group name="slide-up" class="pokemons">
           <PokemonListCard
             v-for="pokemon in pokemons"
             :key="pokemon.name"
@@ -31,8 +31,9 @@ import {
   getPageBackgroundElement,
   scrollToTopOfBackgroundPage,
 } from '@/lib/helpers';
-import store from '@/lib/store';
 import { fourthBreak, thirdBreak } from '@/constants/resolutions';
+import scroll from '@/store/state/scroll';
+import { getMorePokemons, getPokemons } from '@/store/mutations/scroll';
 
 export default {
   name: 'PokemonList',
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     pokemons() {
-      return store.state.scroll.pokemons;
+      return scroll.state.pokemons;
     },
   },
   async created() {
@@ -78,13 +79,13 @@ export default {
   },
   methods: {
     async getPokemons() {
-      await store.getPokemons(null, this.amountOfPokemonsToLoadPerPage);
+      await getPokemons(null, this.amountOfPokemonsToLoadPerPage);
       this.loading = false;
     },
     async handleScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight + 100 >= scrollHeight) {
         this.loading = true;
-        await store.getMorePokemons(this.amountOfPokemonsToLoadPerPage);
+        await getMorePokemons(this.amountOfPokemonsToLoadPerPage);
         this.loading = false;
       }
     },
@@ -138,7 +139,7 @@ export default {
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .slide-up-enter,

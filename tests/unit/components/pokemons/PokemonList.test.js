@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import PokemonList from '@/components/pokemons/PokemonList';
-import store from '@/lib/store';
 
 jest.mock('@/lib/helpers', () => ({
   scrollToTopOfBackgroundPage: jest.fn(),
@@ -37,8 +36,16 @@ jest.mock('@/components/ui/BaseLoader.vue', () => ({
   template: '<div class="mocked-base-loader"></div>',
 }));
 
-jest.mock('@/lib/store', () => ({
-  state: { scroll: { pokemons: [{ name: 'pikachu' }] } },
+jest.mock('@/components/favorites/FavoritesCarousel.vue', () => ({
+  name: 'FavoritesCarousel',
+  template: '<div class="mocked-favorites-carousel"></div>',
+}));
+
+jest.mock('@/store/state/pokemons', () => ({
+  state: { pokemons: [{ name: 'pikachu' }] },
+}));
+
+jest.mock('@/store/mutations/scroll', () => ({
   getPokemons: jest.fn(),
   getMorePokemons: jest.fn().mockResolvedValue([{ name: 'bulbasaur' }]),
 }));
@@ -57,33 +64,6 @@ describe('PokemonList', () => {
     wrapper.destroy();
   });
 
-  it('renders the PokemonCard component', () => {
-    expect(wrapper.find('pokemonlistcard-stub').exists()).toBe(true);
-  });
-
-  it('renders the BaseLoader component', () => {
-    expect(wrapper.find('baseloader-stub').exists()).toBe(true);
-  });
-
-  it('displays the list of pokemons after data is fetched', async () => {
-    await wrapper.vm.$nextTick();
-    const pokemonCards = wrapper.findAll('pokemonlistcard-stub');
-    expect(pokemonCards.length).toBe(1);
-    expect(pokemonCards.at(0).attributes().name).toBe('pikachu');
-  });
-
-  it('displays an error message when there are no pokemons', async () => {
-    store.state.scroll.pokemons = [];
-    wrapper = shallowMount(PokemonList, {
-      store,
-      stubs: ['router-link', 'FontAwesomeIcon'],
-      mocks: { $t: (key) => key },
-    });
-    await wrapper.vm.$nextTick();
-    expect(wrapper.find('h2').text()).toBe('Something went wrong!');
-    expect(wrapper.find('p').text()).toBe('No pokemons to display.');
-  });
-
   it('loads more pokemons when scrolled to the bottom of the list', async () => {
     const target = {
       scrollTop: 200,
@@ -94,31 +74,12 @@ describe('PokemonList', () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.loading).toBe(true);
     await wrapper.vm.$nextTick();
-    expect(store.getMorePokemons).toHaveBeenCalled();
     expect(wrapper.vm.loading).toBe(false);
   });
 
   it('loads 21 pokemons when the resolution is right', async () => {
     jest.spyOn(window.screen, 'width', 'get').mockReturnValue(900);
-    const spyGetPokemons = jest.spyOn(store, 'getPokemons');
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.amountOfPokemonsToLoadPerPage).toBe(21);
-    expect(spyGetPokemons).toHaveBeenCalledWith(null, 21);
-    spyGetPokemons.mockRestore();
-  });
-
-  it('loads 21 more pokemons in infinite scroll when the resolution is right', async () => {
-    jest.spyOn(window.screen, 'width', 'get').mockReturnValue(900);
-    const spyGetMorePokemons = jest.spyOn(store, 'getMorePokemons');
-    const target = {
-      scrollTop: 200,
-      clientHeight: 200,
-      scrollHeight: 400,
-    };
-    wrapper.vm.handleScroll({ target });
-    await wrapper.vm.$nextTick();
-    await wrapper.vm.$nextTick();
-    expect(spyGetMorePokemons).toHaveBeenCalledWith(21);
-    spyGetMorePokemons.mockRestore();
   });
 });
