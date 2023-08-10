@@ -1,8 +1,16 @@
 # Pokedex Release Notes
 
+## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.1.0...develop) (dd-mm-yyyy)
+
+##### Added
+
+##### Modified
+
+##### Fixed
+
 ---
 
-## [Unreleased](https://github.com/nashaguayo/pokedex/compare/V1.0.2...develop) (dd-mm-yyyy)
+## [V1.1.0](https://github.com/nashaguayo/pokedex/compare/V1.0.2...V1.1.0) (09-08-2023)
 
 ##### Added
 
